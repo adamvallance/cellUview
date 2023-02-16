@@ -16,17 +16,17 @@
 
 namespace std {
 
-class camera {
+class Camera {
 public:
-	camera();
-	virtual ~camera();
+	Camera();
+	virtual ~Camera();
 
     void start_stream();
     void stop_stream();
 
 private:
 	raspicam::RaspiCam camera_;
-    void callbackTBD(); //needs worked out
+    void display_frame_callback(); //needs worked out
 
 };
 

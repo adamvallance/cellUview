@@ -17,14 +17,14 @@ namespace std {
 
 //camera class constructor
 //input: none; output: none
-camera::camera(){
+Camera::Camera(){
     //define variables, objects
     raspicam::RaspiCam camera_;
 
 }
 
 
-void camera::start_stream(){
+void Camera::start_stream(){
     //Open camera
     if (!camera_.open()){
         cerr << "Error opening camera" << endl;
@@ -34,14 +34,18 @@ void camera::start_stream(){
     
 }
 
-void camera::stop_stream(){
+void Camera::stop_stream(){
     camera_.stopCapture();
 
 }
 
-void camera::callbackTBD(){
-    //dostuff
+void Camera::display_frame_callback(){
+
+    Camera* camera = static_cast<Camera*>(user_data);
+    Mat frame(Size(640, 480), CV_8UC3, data);
+    imshow("Camera Stream", frame);
 }
+
 
 
 camera::~camera() {
