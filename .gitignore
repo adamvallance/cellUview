@@ -2,7 +2,8 @@
 opencv_build/
 
 #swap files from text editors
-.swp 
+*.swp 
+
 
 #CMake things
 CMakeCache.txt
