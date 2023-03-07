@@ -1,4 +1,8 @@
+#build folder for openCV
 opencv_build/
+
+#swap files from text editors
+.swp 
 
 #CMake things
 CMakeCache.txt
