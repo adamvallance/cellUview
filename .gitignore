@@ -1,0 +1,8 @@
+opencv_build/
+
+#CMake things
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+
