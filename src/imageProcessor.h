@@ -16,10 +16,10 @@ public:
     struct frame{ 
         cv::Mat image;
         //add metadata in here eg contrast = 0.4 so that settings are saved in the image itself. 
+        std::string note;
     };
 
     virtual void newFrame(frame newFrame) = 0; 
-
 
     void registerCallback(imageProcessor* cb){
         frameCb = cb;

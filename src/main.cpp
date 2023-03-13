@@ -10,6 +10,7 @@
 #include "stdlib.h"
 #include "gui.h"
 #include "OpenFlexureWelcome.h"
+#include "processingTemplate.h"
 
 using namespace cv;
 using namespace std;
@@ -24,9 +25,11 @@ int main(int argc, char* argv[]){
     //creating camera and gui instances
     Camera camera;
     Gui gui(&window, &ui);
+    Template example;
     
     //register callback
-    camera.registerCallback(&gui);
+    camera.registerCallback(&example);
+    example.registerCallback(&gui);
 
     //start camera
     camera.start();
