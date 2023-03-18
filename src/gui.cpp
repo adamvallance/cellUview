@@ -4,7 +4,7 @@ Gui::Gui(QMainWindow* win, Ui_GUI* ui_win) {
     widget = win;
     ui = ui_win;
     ui->setupUi(widget);
-    ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png")));
+    //ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
 }
 void Gui::newFrame(frame newFrame) {
