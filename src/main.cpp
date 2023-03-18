@@ -14,6 +14,8 @@
 
 using namespace cv;
 using namespace std;
+//#define USE_TEMPLATE; uncomment this to add the example manipulation in the chain
+
 
 int main(int argc, char* argv[]){
     OpenFlexureWelcome::welcomeMessage();
@@ -25,11 +27,15 @@ int main(int argc, char* argv[]){
     //creating camera and gui instances
     Camera camera;
     Gui gui(&window, &ui);
-    Template example;
     
+#ifdef USE_TEMPLATE
+    Template example;
     //register callback
     camera.registerCallback(&example);
     example.registerCallback(&gui);
+#else 
+    camera.registerCallback(&gui);
+#endif
 
     //start camera
     camera.start();
