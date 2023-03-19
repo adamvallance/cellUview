@@ -6,7 +6,7 @@ opencv_build/
 opencv_src
 src/OpenFlexure_autogen/
 src/moc_gui.cpp
-
+src/OpenFlexure_automoc.dir/
 *.a
 *_automoc.cpp
 *.save
