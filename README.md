@@ -16,12 +16,14 @@ bin/OpenFlexure
 ```
 
 ```build.sh``` has options:
+```
 Syntax: build.sh [-h|r|i|c]"
    options:"
    -h     Print this Help."
    -r     Build and run."
    -i     Build and install executeable onto path /usr/bin. Requires sudo."
    -c     Clear CMake Cache and build."
+```
 
 Example: If you want to build and run straight away enter:
 ```
@@ -38,6 +40,18 @@ OpenFlexure
 
 ### Note
 Make sure you have opencv_build and opencv_src inside the main directory. install instructions or script to come. 
+
+## Google Test
+It is necessary to also install Google Test, as unit tests are run when building.
+To install, run the following commands:
+```
+sudo apt-get install libgtest-dev
+cd /usr/src/gtest
+sudo cmake CMakeLists.txt
+sudo make
+sudo cp *.a /usr/lib
+```
+These commands to be added to setup script.
 
 ## GUI build
 To update the GUI, copy ONLY the gui.ui file generated in QTCreator into  main directory.
