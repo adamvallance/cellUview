@@ -29,5 +29,9 @@ CMakeScripts
 Makefile
 cmake_install.cmake
 
-
+CTestTestfile.cmake
+src/camera_autogen/
+test/CTestTestfile.cmake
+test/main
+Testing/
 
