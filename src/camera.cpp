@@ -37,5 +37,9 @@ void Camera::newFrame(frame newFrame){
     return;
 }
 
+bool Camera::getIsOn(){
+    return isOn;    //method to check status of camera
+}
+
 
 
