@@ -1,7 +1,7 @@
 //Author Adam Vallance
 //This is a template file to be replaced with various image processing. Must be added into the chain in main.cpp and have its callback registered.
 
-//REMEBER to add the cpp to src/CMakeLists.txt
+//REMEMBER to add the cpp to src/CMakeLists.txt
 
 #ifndef OPENFLEXURE_TEMPLATE_H
 #define OPENFLEXURE_TEMPLATE_H

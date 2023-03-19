@@ -11,10 +11,10 @@
 #include "gui.h"
 #include "OpenFlexureWelcome.h"
 #include "processingTemplate.h"
-
+#include "edgeDetection.h"
 using namespace cv;
 using namespace std;
-//#define USE_TEMPLATE; uncomment this to add the example manipulation in the chain
+#define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
 
 
 int main(int argc, char* argv[]){
@@ -30,8 +30,11 @@ int main(int argc, char* argv[]){
     
 #ifdef USE_TEMPLATE
     Template example;
-    //register callback
-    camera.registerCallback(&example);
+    edgeDetection edge;
+    //register callbacks
+    
+    camera.registerCallback(&edge);
+    edge.registerCallback(&example);
     example.registerCallback(&gui);
 #else 
     camera.registerCallback(&gui);
