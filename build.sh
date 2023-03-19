@@ -30,7 +30,11 @@ doCmake(){
         fi
         make
         if [ $? -ne 0 ]; then
-            return
+            exit
+        fi
+        ./test/main
+        if [ $? -ne 0 ]; then
+            echo "Error. Tests failed."
             exit
         fi
         echo "OpenFlexure build succesful"
