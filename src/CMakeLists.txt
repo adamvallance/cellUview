@@ -16,3 +16,8 @@ find_package(Threads REQUIRED)
 #compile and link OpenFlexure executable
 add_executable(OpenFlexure main.cpp camera.cpp gui.cpp processingTemplate.cpp edgeDetection.cpp)
 target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads)
+
+
+#create library for testing
+add_library(camera camera.cpp camera.h)
+target_link_libraries(camera ${OpenCV_LIBS} Threads::Threads)
