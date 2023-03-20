@@ -15,14 +15,15 @@ TEST(edgeDetectTest, checkOutputNote){
     imageProcessor::frame expected; //expected output frame
     // cv::Mat cap;      
     // expected.image = cap;
-    expected.note = "Frame processed through edge detection"; //note from running through edge detection
+    expected.note = "Frame processed through edge detection"; //note from running through edge detection, must match edgeDetection.cpp
     // expected.note = "This is a dummy note"; //debug, using this note will cause a fail
     
     imageProcessor::frame f;
-    cv::Mat capture;        // using a capture that is empty for now
-    capture.create(5, 5, 1);
+    cv::Mat capture;  
+    capture.create(5, 5, 1);    //random matrix to process, output not used in test
     f.image = capture;
     f.note = "";
+    // POSSIBLE IMPROVEMENT: expand frame struct to include dedicated testnote aside from note?
 
     edge.registerCallback(&endtest);
     edge.newFrame(f);
