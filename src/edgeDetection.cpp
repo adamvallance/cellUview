@@ -37,6 +37,7 @@ void edgeDetection::enhanceEdge(frame inputFrame) {
     // Convert output cv::Mat to frame
     frame outputFrame;
     outputFrame.image = output_mat.clone();
+    outputFrame.note = "Frame processed through edge detection";  //processing note
 
     // Output the frame through the callback onto the next instance in the dataflow
     frameCb->newFrame(outputFrame);
