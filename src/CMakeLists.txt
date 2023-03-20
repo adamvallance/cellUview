@@ -18,6 +18,10 @@ add_executable(OpenFlexure main.cpp camera.cpp gui.cpp processingTemplate.cpp ed
 target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads)
 
 
-#create library for testing
+#create libraries for testing
+
 add_library(camera camera.cpp camera.h)
 target_link_libraries(camera ${OpenCV_LIBS} Threads::Threads)
+
+add_library(edgeDetection edgeDetection.cpp edgeDetection.h)
+target_link_libraries(edgeDetection ${OpenCV_LIBS} Threads::Threads)
