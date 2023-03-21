@@ -30,8 +30,7 @@ Makefile
 cmake_install.cmake
 
 CTestTestfile.cmake
-src/camera_autogen/
-src/edgeDetection_autogen/
+src/*_autogen/
 test/CTestTestfile.cmake
 test/main
 Testing/
