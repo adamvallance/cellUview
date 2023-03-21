@@ -37,7 +37,6 @@ void edgeDetection::enhanceEdge(frame inputFrame) {
     // Convert output cv::Mat to frame
     frame outputFrame;
     outputFrame.image = output_mat.clone();
-    outputFrame.note = "Frame processed through edge detection";  //processing note, if updated must update test
     outputFrame.edgeThreshold = 0.9;    //metadata for test
     //TODO: when sliding threshold added this should match threshold variable
 
