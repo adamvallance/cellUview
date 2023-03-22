@@ -1,5 +1,12 @@
 #include "gallery.h"
 
+//TODO 
+//error checking if no pathname 
+
+//FUTURE todo:
+//configureable dir name and filename 
+//metadata saved? inside jpg or alongside companion file to be viewed in OpenFlexure gallery?
+
 Gallery::Gallery(){
 
 //---- find or create gallery directory----
@@ -75,3 +82,12 @@ void Gallery::captureFrame(imageProcessor::frame capFrame){
 
         captureImgCounter++;
 } 
+
+void Gallery::updateImgName(std::string newName){
+    if (newName.find("/") != std::string::npos) {
+        std::cout << "Error. Contains illegal / char" << std::endl;
+        //UPDATE TEXTBOX HERE TODO
+    }else{//update name
+        imgName=newName;
+    }
+}
