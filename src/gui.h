@@ -27,13 +27,17 @@ private:
     void captureNextFrame();
     void captureFrame(frame);
     cv::Mat img;
-    DIR *dir;
 
-    
+
+    //Gallery attributes
+    DIR *dir;
+    struct dirent *ent;
     std::string pathname = "";
     std::string imgName = "capture";
     int captureImgCounter = 0;
     std::string captureFname;
+    int index;
+    int lastHighestIndex;
+    std::string existingCaptureFname; 
 };
-
 #endif // OPENFLEXURE_GUI_H

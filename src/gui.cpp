@@ -1,7 +1,6 @@
 #include "gui.h"
 
 //TODO cleanup
-//check if dir already exists
 //get highest number already there so no overwrite
 //error checking if no pathname 
 
@@ -15,7 +14,7 @@ Gui::Gui(QMainWindow* win, Ui_GUI* ui_win) {
     ui->setupUi(widget);
     //ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
-    //make connections 
+    //------------make connections-------------
     //push button (to be renamed @Jake) connects to gallery capture
     QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
@@ -32,17 +31,46 @@ Gui::Gui(QMainWindow* win, Ui_GUI* ui_win) {
             std::cout << "Gallery directory not found/created";
             //ADD. disable button if failed
             pathname = ""; 
+            return;
         }
         else{//if gallery succesfully made
             std::cout << "Gallery directory created at " + pathname << std::endl;
         }
     }else{//if gallery already exists
         std::cout << "Gallery directory found at " + pathname << std::endl;
+        closedir(dir);
     }
 
+    //(re)open already existing/newly created directory 
+    //to find if files with current name already exist
+    //to avoid overwriting the files
+    if ((dir = opendir(pathname.c_str())) != NULL) {
+        /* print all the files and directories within directory */
+        while ((ent = readdir(dir)) != NULL) {
+
+            //build filename to check if there
+            //build output name string
+            //captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
+            
+            //get name of file
+            existingCaptureFname = ent->d_name;
+            if (existingCaptureFname.substr(0, imgName.length()) == imgName){
+                //get number of file
+                index = std::stoi(existingCaptureFname.substr(imgName.length(), 1));
+                //if index is higher than last highest found
+                if (index > lastHighestIndex){
+                    captureImgCounter = index + 1;
+                    lastHighestIndex = index;
+                }
+            } 
+        }
+    closedir(dir);
+    
+    //debug
+    std::cout << std::to_string(captureImgCounter) + " ALREADY FOUND" << std::endl;
+    }  
 }
 void Gui::newFrame(frame newFrame) {
-
 
     //if capturing, capture before conversion to rgb
     if (doCapture){
@@ -83,14 +111,13 @@ void Gui::captureFrame(frame capFrame){
         //add ability to set custom string before number
 
         //build output name string
-        captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";;
-        // captureFname += std::to_string(captureImgCounter);
-        // captureFname += ".jpg";
-
+        captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
 
         //save image
         img = capFrame.image;
         cv::imwrite(captureFname, img); 
+
+        //reset doCapture flag so that next frame is not captured
         doCapture = false;
         captureImgCounter++;
 } 
