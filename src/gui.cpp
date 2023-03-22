@@ -1,11 +1,5 @@
 #include "gui.h"
 
-//TODO 
-//error checking if no pathname 
-
-//FUTURE todo:
-//configureable dir name and filename 
-//metadata saved? inside jpg or alongside companion file to be viewed in OpenFlexure gallery?
 
 Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn) {
     widget = win;
@@ -30,7 +24,6 @@ void Gui::newFrame(frame newFrame) {
         doCapture = false; //reset flag
     }
 
-    //maybe add some sort of protectiSon here
     img = newFrame.image; 
     
     //maybe try replacing img with newFrame.img to avoid unnecessary copying.
