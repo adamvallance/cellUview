@@ -103,18 +103,22 @@ void Gui::initialiseGallery(){
     //to find if files with current name already exist
     //to avoid overwriting the files
     if ((dir = opendir(pathname.c_str())) != NULL) {
-        /* print all the files and directories within directory */
+        
+        //iterate over all entries in the gallery directory
         while ((ent = readdir(dir)) != NULL) {
 
-            //build filename to check if there
-            //build output name string
-            //captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
-            
             //get name of file
             existingCaptureFname = ent->d_name;
+
+            //if file matches the set filename template
             if (existingCaptureFname.substr(0, imgName.length()) == imgName){
-                //get number of file
-                index = std::stoi(existingCaptureFname.substr(imgName.length(), 1));
+   
+                //get number of digits of file index in filename
+                indexLen = existingCaptureFname.length() - imgName.length() - 4; //4 for .jpg chars
+
+                //get file index
+                index = std::stoi(existingCaptureFname.substr(imgName.length(), indexLen));
+                 
                 //if index is higher than last highest found
                 if (index > lastHighestIndex){
                     captureImgCounter = index + 1;
@@ -125,7 +129,7 @@ void Gui::initialiseGallery(){
     closedir(dir);
     
     //debug
-    std::cout << std::to_string(captureImgCounter) + " ALREADY FOUND" << std::endl;
+    //std::cout << std::to_string(captureImgCounter) + " ALREADY FOUND" << std::endl;
     }  
 
 }

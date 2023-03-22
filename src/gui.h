@@ -38,7 +38,8 @@ private:
     int captureImgCounter = 0;
     std::string captureFname;
     int index;
-    int lastHighestIndex;
+    int lastHighestIndex = -1;
+    int indexLen = 1;
     std::string existingCaptureFname; 
 };
 #endif // OPENFLEXURE_GUI_H
