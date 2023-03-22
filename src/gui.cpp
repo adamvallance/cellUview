@@ -18,58 +18,11 @@ Gui::Gui(QMainWindow* win, Ui_GUI* ui_win) {
     //push button (to be renamed @Jake) connects to gallery capture
     QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
-    //---- find or create gallery directory----
-    pathname = getenv("HOME");
-    pathname += + "/OpenFlexureGallery/"; 
-    
-    //if it doesn't exist
-    if ((dir = opendir(pathname.c_str())) == NULL){
-        //try to make the directory
-        if (mkdir(pathname.c_str(), S_IRWXU) == -1){
-            //if failed:
-            std::cerr << "Error :  " << std::strerror(errno) << std::endl;
-            std::cout << "Gallery directory not found/created";
-            //ADD. disable button if failed
-            pathname = ""; 
-            return;
-        }
-        else{//if gallery succesfully made
-            std::cout << "Gallery directory created at " + pathname << std::endl;
-        }
-    }else{//if gallery already exists
-        std::cout << "Gallery directory found at " + pathname << std::endl;
-        closedir(dir);
-    }
-
-    //(re)open already existing/newly created directory 
-    //to find if files with current name already exist
-    //to avoid overwriting the files
-    if ((dir = opendir(pathname.c_str())) != NULL) {
-        /* print all the files and directories within directory */
-        while ((ent = readdir(dir)) != NULL) {
-
-            //build filename to check if there
-            //build output name string
-            //captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
-            
-            //get name of file
-            existingCaptureFname = ent->d_name;
-            if (existingCaptureFname.substr(0, imgName.length()) == imgName){
-                //get number of file
-                index = std::stoi(existingCaptureFname.substr(imgName.length(), 1));
-                //if index is higher than last highest found
-                if (index > lastHighestIndex){
-                    captureImgCounter = index + 1;
-                    lastHighestIndex = index;
-                }
-            } 
-        }
-    closedir(dir);
-    
-    //debug
-    std::cout << std::to_string(captureImgCounter) + " ALREADY FOUND" << std::endl;
-    }  
+    initialiseGallery();
 }
+
+
+
 void Gui::newFrame(frame newFrame) {
 
     //if capturing, capture before conversion to rgb
@@ -121,3 +74,58 @@ void Gui::captureFrame(frame capFrame){
         doCapture = false;
         captureImgCounter++;
 } 
+
+void Gui::initialiseGallery(){
+    //---- find or create gallery directory----
+    pathname = getenv("HOME");
+    pathname += + "/OpenFlexureGallery/"; 
+    
+    //if it doesn't exist
+    if ((dir = opendir(pathname.c_str())) == NULL){
+        //try to make the directory
+        if (mkdir(pathname.c_str(), S_IRWXU) == -1){
+            //if failed:
+            std::cerr << "Error :  " << std::strerror(errno) << std::endl;
+            std::cout << "Gallery directory not found/created";
+            //ADD. disable button if failed
+            pathname = ""; 
+            return;
+        }
+        else{//if gallery succesfully made
+            std::cout << "Gallery directory created at " + pathname << std::endl;
+        }
+    }else{//if gallery already exists
+        std::cout << "Gallery directory found at " + pathname << std::endl;
+        closedir(dir);
+    }
+
+    //(re)open already existing/newly created directory 
+    //to find if files with current name already exist
+    //to avoid overwriting the files
+    if ((dir = opendir(pathname.c_str())) != NULL) {
+        /* print all the files and directories within directory */
+        while ((ent = readdir(dir)) != NULL) {
+
+            //build filename to check if there
+            //build output name string
+            //captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
+            
+            //get name of file
+            existingCaptureFname = ent->d_name;
+            if (existingCaptureFname.substr(0, imgName.length()) == imgName){
+                //get number of file
+                index = std::stoi(existingCaptureFname.substr(imgName.length(), 1));
+                //if index is higher than last highest found
+                if (index > lastHighestIndex){
+                    captureImgCounter = index + 1;
+                    lastHighestIndex = index;
+                }
+            } 
+        }
+    closedir(dir);
+    
+    //debug
+    std::cout << std::to_string(captureImgCounter) + " ALREADY FOUND" << std::endl;
+    }  
+
+}
