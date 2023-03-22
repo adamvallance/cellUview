@@ -19,6 +19,10 @@ public:
         std::string note;
         //edge detection threshold metadata
         float edgeThreshold;
+
+        //ideas:
+        //low res version for gallery view?
+        //original un-enhanced version. 
     };
 
     virtual void newFrame(frame newFrame) = 0; 
