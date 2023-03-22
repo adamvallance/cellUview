@@ -1,6 +1,13 @@
 #include "gui.h"
 
+//TODO cleanup
+//check if dir already exists
+//get highest number already there so no overwrite
+//error checking if no pathname 
 
+//FUTURE todo:
+//configureable dir name and filename 
+//metadata saved? inside jpg or alongside companion file to be viewed in OpenFlexure gallery?
 
 Gui::Gui(QMainWindow* win, Ui_GUI* ui_win) {
     widget = win;
@@ -12,20 +19,27 @@ Gui::Gui(QMainWindow* win, Ui_GUI* ui_win) {
     //push button (to be renamed @Jake) connects to gallery capture
     QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
-
+    //---- find or create gallery directory----
     pathname = getenv("HOME");
     pathname += + "/OpenFlexureGallery/"; 
-    if (mkdir(pathname.c_str(), S_IRWXU) == -1){
-    //if (mkdir("testMKDIR", S_IRWXU) == -1){
-        std::cerr << "Error :  " << std::strerror(errno) << std::endl;
-        std::cout << "Gallery directory not found/created";
-        //disable button if failed
+    
+    //if it doesn't exist
+    if ((dir = opendir(pathname.c_str())) == NULL){
+        //try to make the directory
+        if (mkdir(pathname.c_str(), S_IRWXU) == -1){
+            //if failed:
+            std::cerr << "Error :  " << std::strerror(errno) << std::endl;
+            std::cout << "Gallery directory not found/created";
+            //ADD. disable button if failed
+            pathname = ""; 
+        }
+        else{//if gallery succesfully made
+            std::cout << "Gallery directory created at " + pathname << std::endl;
+        }
+    }else{//if gallery already exists
+        std::cout << "Gallery directory found at " + pathname << std::endl;
     }
-    else{
-        std::cout << "Gallery directory found at " + pathname;
-    }
-    //std::string home_dir = getenv("HOME");
-    //std::cout << home_dir <<std::endl;
+
 }
 void Gui::newFrame(frame newFrame) {
 
@@ -69,14 +83,14 @@ void Gui::captureFrame(frame capFrame){
         //add ability to set custom string before number
 
         //build output name string
-        captureFname = pathname + "testCapture_";
-        captureFname += std::to_string(captureImgCounter);
-        captureFname += ".jpg";
+        captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";;
+        // captureFname += std::to_string(captureImgCounter);
+        // captureFname += ".jpg";
 
 
         //save image
         img = capFrame.image;
-        cv::imwrite(captureFname, img); //watch out for bgr vs rgb CHECK THIS
+        cv::imwrite(captureFname, img); 
         doCapture = false;
         captureImgCounter++;
-}
+} 

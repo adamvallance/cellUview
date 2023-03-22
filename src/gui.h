@@ -10,6 +10,7 @@
 #include "imageProcessor.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <dirent.h>
 
 class Gui : public QWidget, public imageProcessor{ 
     Q_OBJECT
@@ -26,10 +27,11 @@ private:
     void captureNextFrame();
     void captureFrame(frame);
     cv::Mat img;
+    DIR *dir;
 
     
     std::string pathname = "";
-    //std::string pathname = "testMKDIR/";
+    std::string imgName = "capture";
     int captureImgCounter = 0;
     std::string captureFname;
 };
