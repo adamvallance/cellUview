@@ -15,7 +15,8 @@ class Gallery{
     public:
         Gallery();
         void captureFrame(imageProcessor::frame);
-        void updateImgName(std::string); 
+        void updateImgName(std::string);
+        void updateIndex();
 
     private:
         DIR *dir;

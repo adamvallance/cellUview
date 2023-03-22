@@ -5,7 +5,7 @@
 
 //FUTURE todo:
 //configureable dir name and filename 
-//metadata saved? inside jpg or alongside companion file to be viewed in OpenFlexure gallery?
+//metadata saved? inside jpg or alongside comp7anion file to be viewed in OpenFlexure gallery?
 
 Gallery::Gallery(){
 
@@ -32,7 +32,40 @@ Gallery::Gallery(){
         closedir(dir);
     }
 
-    //(re)open already existing/newly created directory 
+    //updates index to find highest existing file with matching name to avoid overwriting
+    updateIndex();
+    
+}
+
+//add some error handling
+void Gallery::captureFrame(imageProcessor::frame capFrame){
+        if (pathname == ""){
+            return;
+        }
+        //add ability to set custom string before number
+
+        //build output name string
+        captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
+
+        //save image
+        img = capFrame.image;
+        cv::imwrite(captureFname, img); 
+
+        captureImgCounter++;
+} 
+
+void Gallery::updateImgName(std::string newName){
+    if (newName.find("/") != std::string::npos) {
+        std::cout << "Error. Contains illegal / char" << std::endl;
+        //UPDATE TEXTBOX HERE TODO
+    }else{//update name
+        imgName=newName;
+        updateIndex();
+    }
+}
+
+void Gallery::updateIndex(){
+//(re)open already existing/newly created directory 
     //to find if files with current name already exist
     //to avoid overwriting the files
     if ((dir = opendir(pathname.c_str())) != NULL) {
@@ -64,30 +97,5 @@ Gallery::Gallery(){
     //debug
     //std::cout << std::to_string(captureImgCounter) + " ALREADY FOUND" << std::endl;
     }  
-}
 
-//add some error handling
-void Gallery::captureFrame(imageProcessor::frame capFrame){
-        if (pathname == ""){
-            return;
-        }
-        //add ability to set custom string before number
-
-        //build output name string
-        captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
-
-        //save image
-        img = capFrame.image;
-        cv::imwrite(captureFname, img); 
-
-        captureImgCounter++;
-} 
-
-void Gallery::updateImgName(std::string newName){
-    if (newName.find("/") != std::string::npos) {
-        std::cout << "Error. Contains illegal / char" << std::endl;
-        //UPDATE TEXTBOX HERE TODO
-    }else{//update name
-        imgName=newName;
-    }
 }
