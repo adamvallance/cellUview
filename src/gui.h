@@ -27,8 +27,9 @@ private:
     void captureFrame(frame);
     cv::Mat img;
 
-    //std::string pathname = "~/OpenFlexureGallery"; //set this to "" later to require a definition somewhere 
-    std::string pathname = "testMKDIR/";
+    
+    std::string pathname = "";
+    //std::string pathname = "testMKDIR/";
     int captureImgCounter = 0;
     std::string captureFname;
 };

@@ -13,14 +13,19 @@ Gui::Gui(QMainWindow* win, Ui_GUI* ui_win) {
     QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
 
+    pathname = getenv("HOME");
+    pathname += + "/OpenFlexureGallery/"; 
     if (mkdir(pathname.c_str(), S_IRWXU) == -1){
     //if (mkdir("testMKDIR", S_IRWXU) == -1){
         std::cerr << "Error :  " << std::strerror(errno) << std::endl;
         std::cout << "Gallery directory not found/created";
+        //disable button if failed
     }
     else{
         std::cout << "Gallery directory found at " + pathname;
     }
+    //std::string home_dir = getenv("HOME");
+    //std::cout << home_dir <<std::endl;
 }
 void Gui::newFrame(frame newFrame) {
 
