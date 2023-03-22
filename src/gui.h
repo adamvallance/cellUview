@@ -26,6 +26,7 @@ private:
     bool doCapture;
     void captureNextFrame();
     void captureFrame(frame);
+    void initialiseGallery();
     cv::Mat img;
 
 
