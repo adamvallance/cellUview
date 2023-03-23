@@ -1,3 +1,13 @@
+#SETUP script. Author Adam Vallance. This script installs prerequisite packages. Builds and installs cmake 
+#if the version is insufficient, and then builds opencv (image processing) and also builds and installs exiv2 (for image metadata handling) and 
+
+#installs prerequisite packages
+getPrerequisites(){
+    sudo apt update
+    sudo apt upgrade
+    pkgs=(gcc cmake build-essential libtool autoconf unzip wget qtbase5-dev qtdeclarative5-dev  libgtest-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools)
+    sudo apt-get -y --ignore-missing install "${pkgs[@]}"
+}
 
 
 #if cmake version less than 3.11 then build from source
@@ -53,7 +63,10 @@ installExiv(){
     ctest --verbose
     cmake --install .
 }
+ 
 
+
+#main, calls functions already defined
 getPrerequisites
 checkCMAKE
 installExiv
