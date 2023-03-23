@@ -21,11 +21,13 @@ then
         return
     fi
 fi
+echo "cmake version valid"
 
 }
 
 #builds cmake 3.11 from source and installs
 buildCMAKE3_11(){
+echo "building and installing cmake 3.11"
 #save current working directory to return upon completion   
 cwd=$(pwd)
 
@@ -36,7 +38,7 @@ cd cmake-3.11.0/
 ./bootstrap
 make -j$(nproc)
 sudo make install
-#remove temp folder?
+rm -rf temp
 echo "note that new cmake version will not be recognised until new vscode terminal is started"
 cd $cwd
 
