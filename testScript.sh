@@ -6,28 +6,27 @@ cmakeVerOutput=$(cmake --version)
 cmakeVer=$(echo $cmakeVerOutput | cut -d' ' -f 3)
 cmakeMajor=$(echo $cmakeVer | cut -d'.' -f 1)
 cmakeMinor=$(echo $cmakeVer | cut -d'.' -f 2) 
-echo $cmakeMajor
-echo $cmakeMinor
 if [ $cmakeMajor -lt 3 ]
 then
-    buildCMAKE3_11
+
+    installCMAKE3_11
     return
 fi
 if [ $cmakeMajor -eq 3 ]
 then
     if [ $cmakeMinor -lt 11 ]
     then
-        buildCMAKE3_11
+        installCMAKE3_11
         return
     fi
 fi
-echo "cmake version valid"
+echo "CMake $cmakeVer is valid"
 
 }
 
 #builds cmake 3.11 from source and installs
-buildCMAKE3_11(){
-echo "building and installing cmake 3.11"
+installCMAKE3_11(){
+echo "Current CMake Version not sufficient. Building and installing cmake 3.11"
 #save current working directory to return upon completion   
 cwd=$(pwd)
 
@@ -44,4 +43,17 @@ cd $cwd
 
 }
 
+installExiv(){
+    mkdir temp && cd temp
+    git clone https://github.com/Exiv2/exiv2
+    cd exiv2
+    mkdir build && cd build
+    cmake -DCMAKE_BUILD_TYPE_Release ..
+    cmake --build .
+    ctest --verbose
+    cmake --install .
+}
+
+getPrerequisites
 checkCMAKE
+installExiv
