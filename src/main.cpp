@@ -34,8 +34,8 @@ int main(int argc, char* argv[]){
     //register callbacks
     
     camera.registerCallback(&edge);
-    edge.registerCallback(&example);
-    example.registerCallback(&gui);
+    //edge.registerCallback(&example);
+    edge.registerCallback(&gui);
 #else 
     camera.registerCallback(&gui);
 #endif

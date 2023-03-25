@@ -1,7 +1,7 @@
 #ifndef OPENFLEXURE_GUI_H
 #define OPENFLEXURE_GUI_H
 #include <QMainWindow> 
-#include <QCoreApplication>
+
 #include "QT/qtWindow.h" //compiled header file from qtcreator
 #include "stdlib.h"
 #include <opencv2/core.hpp>
