@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
     Gui gui(&window, &ui);
     
 #ifdef USE_TEMPLATE
-    Template example;
+    //Template example;
     edgeDetection edge;
     //register callbacks
     

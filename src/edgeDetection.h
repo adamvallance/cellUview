@@ -11,7 +11,8 @@
 #include "imageProcessor.h"
 
 
-class edgeDetection: public imageProcessor{
+class edgeDetection: public QWidget, public imageProcessor{
+    Q_OBJECT
 public:
     edgeDetection() = default;
     int threshold= 0;
