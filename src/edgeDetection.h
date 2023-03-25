@@ -11,8 +11,8 @@
 #include "imageProcessor.h"
 
 
-class edgeDetection:  public imageProcessor{
-    
+class edgeDetection:   public imageProcessor{
+   
 public:
     edgeDetection() = default;
     int threshold= 0;
