@@ -16,6 +16,7 @@ public:
     void start(int deviceID = 0, int apiID=0);
     void stop();
     void newFrame(frame newFrame);
+    bool getIsOn();
     
 private:
     void postFrame();

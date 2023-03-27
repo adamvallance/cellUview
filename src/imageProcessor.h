@@ -17,6 +17,12 @@ public:
         cv::Mat image;
         //add metadata in here eg contrast = 0.4 so that settings are saved in the image itself. 
         std::string note;
+        //edge detection threshold metadata
+        float edgeThreshold;
+
+        //ideas:
+        //low res version for gallery view?
+        //original un-enhanced version. 
     };
 
     virtual void newFrame(frame newFrame) = 0; 
