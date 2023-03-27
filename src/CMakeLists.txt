@@ -13,10 +13,16 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 
+#adding exif library
+#find_library(EXIF_LIB exifLibrary)
+add_library(exifLibrary SHARED IMPORTED)
+set_target_properties(exifLibrary PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/cpp_exiftool/src/exifLibrary.a)
+
+
 #compile and link OpenFlexure executable
 add_executable(OpenFlexure main.cpp camera.cpp gui.cpp processingTemplate.cpp edgeDetection.cpp gallery.cpp)
-target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads)
-
+#target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads exifLibrary)
+target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads exifLibrary)
 
 #create libraries for testing
 

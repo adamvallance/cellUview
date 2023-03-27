@@ -9,6 +9,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include "cpp_exiftool/src/ExifTool.h"
+
 
 class Gallery{
 
@@ -19,6 +21,9 @@ class Gallery{
         void updateIndex();
 
     private:
+        void writeMetadata(imageProcessor::frame, std::string);
+
+
         DIR *dir;
         struct dirent *ent;
         std::string pathname = "";
@@ -31,6 +36,8 @@ class Gallery{
         std::string existingCaptureFname; 
 
         cv::Mat img;
+
+        ExifTool *et = new ExifTool();
 
 };
 #endif //OPENFLEXURE_GALLERY_H

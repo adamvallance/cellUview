@@ -52,7 +52,18 @@ void Gallery::captureFrame(imageProcessor::frame capFrame){
         cv::imwrite(captureFname, img); 
 
         captureImgCounter++;
+
+        writeMetadata(capFrame, captureFname);
+
 } 
+
+void Gallery::writeMetadata(imageProcessor::frame savedFrame, std::string captureFname){
+    et->SetNewValue("COM", "test1234");
+    et->WriteInfo(captureFname.c_str());
+    int result = et->Complete();
+    if (result<=0) std::cerr << "Error writing metadata" << std::endl;
+}
+
 
 void Gallery::updateImgName(std::string newName){
     if (newName.find("/") != std::string::npos) {
