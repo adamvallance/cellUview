@@ -26,12 +26,13 @@ int main(int argc, char* argv[]){
     
     //creating camera and gui instances
     Camera camera;
-    Gui gui(&window, &ui);
+
     
 #ifdef USE_TEMPLATE
     //Template example;
     edgeDetection edge;
     //register callbacks
+    Gui gui(&window, &ui, &edge);
     
     camera.registerCallback(&edge);
     //edge.registerCallback(&example);

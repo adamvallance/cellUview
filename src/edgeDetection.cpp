@@ -45,5 +45,5 @@ void edgeDetection::enhanceEdge(frame inputFrame, int theshold) {
 }
 
 void edgeDetection::updateThreshold(int value){
-    threshold=value;
+    threshold=255-2.55*value;
 }

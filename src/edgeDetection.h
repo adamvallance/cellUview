@@ -15,7 +15,7 @@ class edgeDetection:   public imageProcessor{
    
 public:
     edgeDetection() = default;
-    int threshold= 0;
+    int threshold= 255;
     void newFrame(frame newFrame);
     void updateThreshold(int value);
 
