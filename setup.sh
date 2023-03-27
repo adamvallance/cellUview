@@ -58,9 +58,8 @@ fi
 
 
 #main, calls functions already defined
-#getPrerequisites
-#checkCMAKE
-#installExif
+getPrerequisites
+installExif
 installOpenCV2 
 
 
