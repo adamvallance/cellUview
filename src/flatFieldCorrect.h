@@ -1,6 +1,6 @@
 
-#ifndef OPENFLEXURE_FLAT_FIELD_CORRECTION_H
-#define OPENFLEXURE_FLAT_FIELD_CORRECTION_H
+#ifndef OPENFLEXURE_FLAT_FIELD_CORRECT_H
+#define OPENFLEXURE_FLAT_FIELD_CORRECT_H
 
 
 #include <opencv2/core.hpp>
@@ -11,13 +11,13 @@
 #include "imageProcessor.h"
 
 
-class flatField: public imageProcessor{
+class flatFieldCorrect: public imageProcessor{
 public:
     flatFieldCorrect() = default;
     void newFrame(frame newFrame);
 
 private:
     //add any other methods here
-    void flatFieldCorrect(frame); //Flat Field Correction
+    void flatField(frame); //Flat Field Correction
 };
-#endif // OPENFLEXURE_FLAT_FIELD_CORRECTION_H
+#endif // OPENFLEXURE_FLAT_FIELD_CORRECT_H

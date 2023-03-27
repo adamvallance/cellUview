@@ -17,7 +17,7 @@ class OpenFlexureWelcome {
 		   "| |   | | (     | (     | | \\   | (     | |     | (      / ( ) \\| |   | | (\\ (  | (     | |   \n"
 		   "| (___) | )     | (____/| )  \\  | )     | (____/| (____/( /   \\ | (___) | ) \\ \\_| (____/| |   \n"
 		   "(_______|/      (_______|/    )_|/      (_______(_______|/     \\(_______|/   \\__(_______(_)   \n"
-                   "Welcome to OpenFlexure, how many swimmers do you think you have?\n");
+                   "Welcome to OpenFlexure+, have fun\n");
         }//note that the \ have been replaced with \\ to escape them. To regenerate go to https://patorjk.com/software/taag/#p=display&h=3&v=2&f=Epic&t=OpenFlexure%2B
 };
 
