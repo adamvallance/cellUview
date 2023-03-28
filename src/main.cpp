@@ -14,6 +14,7 @@
 #include "edgeDetection.h"
 #include "gallery.h"
 #include "erosion.h"
+#include "dilation.h"
 
 #define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
 
@@ -34,12 +35,14 @@ int main(int argc, char* argv[]){
     Template example;
     edgeDetection edge;
     erosion erode;
+    dilation dilate;
     //register callbacks
     
-    camera.registerCallback(&erode);
-    erode.registerCallback(&edge);
+    camera.registerCallback(&dilate);
+    //erode.registerCallback(&dilate);
+    dilate.registerCallback(&gui);
     //example.registerCallback(&gui);
-    edge.registerCallback(&gui);
+    //edge.registerCallback(&gui);
 #else 
     camera.registerCallback(&gui);
 #endif
