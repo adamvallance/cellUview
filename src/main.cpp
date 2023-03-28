@@ -13,7 +13,7 @@
 #include "processingTemplate.h"
 #include "edgeDetection.h"
 #include "gallery.h"
-
+#include "erosion.h"
 
 #define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
 
@@ -33,11 +33,13 @@ int main(int argc, char* argv[]){
 #ifdef USE_TEMPLATE
     Template example;
     edgeDetection edge;
+    erosion erode;
     //register callbacks
     
-    camera.registerCallback(&edge);
-    edge.registerCallback(&example);
-    example.registerCallback(&gui);
+    camera.registerCallback(&erode);
+    erode.registerCallback(&edge);
+    //example.registerCallback(&gui);
+    edge.registerCallback(&gui);
 #else 
     camera.registerCallback(&gui);
 #endif
