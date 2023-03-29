@@ -13,9 +13,9 @@ void dilation::newFrame(frame newFrame) {
     dilate(newFrame); 
 }
 
-void dilation::dilate(frame inputFrame) {
+void dilation::dilate(frame f) {
     // Convert input frame to cv::Mat
-    cv::Mat input_mat(inputFrame.image.rows, inputFrame.image.cols, CV_8UC3, inputFrame.image.data);
+    cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
 
     // Create output cv::Mat
     cv::Mat output_mat(input_mat.size(), CV_8UC3);
@@ -25,11 +25,8 @@ void dilation::dilate(frame inputFrame) {
     cv::dilate(input_mat, output_mat, kernel); // Perform dilation operation
 
     // Convert output cv::Mat to frame
-    frame outputFrame;
-    outputFrame.image = output_mat.clone();
-    outputFrame.edgeThreshold = 0.9;    //example threshold for test
-    //TODO: when sliding threshold added this should match threshold variable
+    f.image = output_mat;
 
     // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->newFrame(outputFrame);
+    frameCb->newFrame(f);
 }
