@@ -6,8 +6,11 @@
 #include <opencv2/imgproc.hpp>
 
 // Receives new frames through a callback.
-void dilation::newFrame(frame newFrame) {
-    // Do stuff here
+void dilation::receiveFrame(frame newFrame) {
+    if (!enabled){
+        frameCb->receiveFrame(newFrame);
+        return;
+    }
 
     // Pass frame into the dilation function
     dilate(newFrame); 
@@ -28,5 +31,5 @@ void dilation::dilate(frame f) {
     f.image = output_mat;
 
     // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->newFrame(f);
+    frameCb->receiveFrame(f);
 }

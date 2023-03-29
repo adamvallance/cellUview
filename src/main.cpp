@@ -16,7 +16,6 @@
 #include "erosion.h"
 #include "dilation.h"
 
-#define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
 
 
 int main(int argc, char* argv[]){
@@ -31,21 +30,20 @@ int main(int argc, char* argv[]){
     Gallery gallery;
     Gui gui(&window, &ui, &gallery);
     
-#ifdef USE_TEMPLATE
-    Template example;
     edgeDetection edge;
+    edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
+
+    //Keep image enhancement classes in the callback chain
+    //but call instance.toggleEnable to bypass
+
     //register callbacks
-    
-    camera.registerCallback(&dilate);
-    //erode.registerCallback(&dilate);
-    dilate.registerCallback(&gui);
-    //example.registerCallback(&gui);
-    //edge.registerCallback(&gui);
-#else 
-    camera.registerCallback(&gui);
-#endif
+    camera.registerCallback(&erode);
+    erode.registerCallback(&dilate);
+    dilate.registerCallback(&edge);
+    edge.registerCallback(&gui);
+
 
     //start camera
     camera.start();

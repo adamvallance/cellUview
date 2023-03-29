@@ -2,7 +2,7 @@ bin/
 .settings/
 OpenFlexure.code-workspace
 build/
-cpp_exiftool
+src/cpp_exiftool
 opencv/
 src/OpenFlexure_autogen/
 src/moc_gui.cpp

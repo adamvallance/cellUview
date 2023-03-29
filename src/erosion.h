@@ -14,7 +14,7 @@
 class erosion: public imageProcessor{
 public:
     erosion() = default;
-    void newFrame(frame newFrame);
+    void receiveFrame(frame newFrame);
 
 private:
     //add any other methods here
