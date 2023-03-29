@@ -31,6 +31,11 @@ public:
         frameCb = cb;
     }
 
+    bool toggleEnable(){
+        enabled = !enabled;
+        return enabled;
+    }
+
     bool enabled = true;
 
 protected:
