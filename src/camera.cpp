@@ -17,8 +17,8 @@ void Camera::postFrame(){
     }
     frame f; 
     f.image = capture;
-    //outputs f to the newFrame method of the next object in the dataflow through a callback
-    frameCb -> newFrame(f);
+    //outputs f to the receiveFrame method of the next object in the dataflow through a callback
+    frameCb -> receiveFrame(f);
 
 }
 
@@ -33,7 +33,7 @@ void Camera::stop(){
     cameraThread.join();
 }
 
-void Camera::newFrame(frame newFrame){
+void Camera::receiveFrame(frame newFrame){
     return;
 }
 

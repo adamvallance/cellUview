@@ -15,7 +15,7 @@ public:
     Camera() = default;
     void start(int deviceID = 0, int apiID=0);
     void stop();
-    void newFrame(frame newFrame);
+    void receiveFrame(frame newFrame);
     bool getIsOn();
     
 private:

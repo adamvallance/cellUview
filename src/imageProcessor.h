@@ -25,11 +25,13 @@ public:
         //original un-enhanced version. 
     };
 
-    virtual void newFrame(frame newFrame) = 0; 
+    virtual void receiveFrame(frame newFrame) = 0; 
 
     void registerCallback(imageProcessor* cb){
         frameCb = cb;
     }
+
+    bool enabled = true;
 
 protected:
     imageProcessor* frameCb = nullptr;

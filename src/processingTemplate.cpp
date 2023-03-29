@@ -7,7 +7,11 @@ using namespace cv;
 //*************REMEMBER to add the cpp to src/CMakeLists.txt****************************
 
 //recieves in new frames through a callback. A frame here is our own structure, currently holds a matrix (the picture) and a note (a string).
-void Template::newFrame(frame newFrame) {
+void Template::receiveFrame(frame newFrame) {
+    if (!enabled){
+        frameCb->receiveFrame(newFrame);
+        return;
+    }
     // do stuff here
 
     //if you need/want to, pass the frame into an additional function like this:
@@ -39,6 +43,6 @@ void Template::newFrame(frame newFrame) {
     outputFrame.note = "Example manipulation. Top half has contrast and brightness messed with.";
 
     //output the frame through the callback onto the next instance in the dataflow
-    frameCb -> newFrame(outputFrame);
+    frameCb -> receiveFrame(outputFrame);
 
 } 

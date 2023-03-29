@@ -13,7 +13,7 @@
 
 class EndTester : public imageProcessor{
     public:
-        void newFrame(frame newFrame){
+        void receiveFrame(frame newFrame){
             currentFrame = newFrame;
         }
         frame currentFrame;

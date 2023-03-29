@@ -18,7 +18,7 @@
 class Template: public imageProcessor{
 public:
     Template() = default;
-    void newFrame(frame newFrame);
+    void receiveFrame(frame newFrame);
 
 private:
     //add any other methods here

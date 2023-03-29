@@ -22,7 +22,7 @@ TEST(edgeDetectTest, checkThresholdMetadata){
     f.image = capture;
 
     edge.registerCallback(&endtest);
-    edge.newFrame(f);
+    edge.receiveFrame(f);
 
     EXPECT_EQ(endtest.currentFrame.edgeThreshold, expected.edgeThreshold);
 }

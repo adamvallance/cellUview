@@ -16,7 +16,7 @@ Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn) {
 
 
 
-void Gui::newFrame(frame newFrame) {
+void Gui::receiveFrame(frame newFrame) {
 
     //if capturing, capture before conversion to rgb
     if (doCapture){

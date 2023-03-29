@@ -8,7 +8,11 @@
 
 
 //Receives in new frames through a callback.
-void edgeDetection::newFrame(frame newFrame) {
+void edgeDetection::receiveFrame(frame newFrame) {
+    if (!enabled){
+        frameCb->receiveFrame(newFrame);
+        return;
+    }
     // do stuff here
 
     // passing frame into the edge detection function
@@ -41,6 +45,6 @@ void edgeDetection::enhanceEdge(frame inputFrame) {
     //TODO: when sliding threshold added this should match threshold variable
 
     // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->newFrame(outputFrame);
+    frameCb->receiveFrame(outputFrame);
 }
 

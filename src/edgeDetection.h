@@ -14,7 +14,7 @@
 class edgeDetection: public imageProcessor{
 public:
     edgeDetection() = default;
-    void newFrame(frame newFrame);
+    void receiveFrame(frame newFrame);
 
 private:
     //add any other methods here
