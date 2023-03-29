@@ -3,8 +3,15 @@ This project provides real-time image processing capabilities for the Raspberry 
 
 <img src="https://openflexure.org/assets/ofm-photos/v7_side_view_crop.jpg" width="200" />
 
-
 # dev instructions
+To get OpenFlexure+, go to a terminal and type
+```
+git clone https://github.com/adamvallance/openflexure-microscopy-enhancement.git
+cd openflexure-microscopy-enhancement
+sudo bash setup.sh
+```
+
+
 ## build openflexureplus
 to build, go to main directory and in a terminal type 
 ```
