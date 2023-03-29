@@ -62,8 +62,8 @@ void Gallery::captureFrame(imageProcessor::frame capFrame){
 
 } 
 
-void Gallery::writeMetadata(imageProcessor::frame savedFrame, std::string captureFname){
-    et->SetNewValue("XMP:Description", "AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+void Gallery::writeMetadata(imageProcessor::frame f, std::string captureFname){
+    et->SetNewValue("XMP:Description", f.encodeMetadata());
     et->WriteInfo(captureFname.c_str());
     int result = et->Complete();
     if (result<=0) std::cerr << "Error writing metadata" << std::endl;
@@ -72,10 +72,6 @@ void Gallery::writeMetadata(imageProcessor::frame savedFrame, std::string captur
 std::string Gallery::getMetadata(){
     //Come back to here to pass in fname 
     //for now just read back image capture from this run
-
-    //debug
-    std::cout << captureFname << std::endl;
-    //captureFname = "/home/adamvallance/OpenFlexureGallery/capture3.jpg";
 
     if (captureFname == ""){
         return "";

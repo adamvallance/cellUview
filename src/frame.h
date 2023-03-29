@@ -22,10 +22,10 @@ class frame{
         params = std::map<std::string, std::string>;
 
 
-        const validParams = std::map<std::string, std::string> = {
-            {"note", "str"},
-            {"edgeEnhancement", "TH_flt"},
-            {"myIntParam", "TH_int"}
+        const validParams = std::vector<std::string> = {
+            "note",
+            "edgeThreshold"
+            //ADD MORE PARAMETERS HERE
         };
 
 
