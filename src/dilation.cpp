@@ -8,6 +8,7 @@
 // Receives new frames through a callback.
 void dilation::receiveFrame(frame newFrame) {
     if (!enabled){
+        newFrame.setParameter("dilation", "OFF");
         frameCb->receiveFrame(newFrame);
         return;
     }
@@ -31,5 +32,6 @@ void dilation::dilate(frame f) {
     f.image = output_mat;
 
     // Output the frame through the callback onto the next instance in the dataflow
+    f.setParameter("dilation", "ON");
     frameCb->receiveFrame(f);
 }

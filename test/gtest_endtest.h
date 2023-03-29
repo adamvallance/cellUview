@@ -10,13 +10,20 @@
 #include <thread>
 
 #include "imageProcessor.h"
+#include "frame.h"
 
 class EndTester : public imageProcessor{
     public:
-        void receiveFrame(frame newFrame){
-            currentFrame = newFrame;
-        }
         frame currentFrame;
+        void receiveFrame(frame newFrame){
+            std::cout<<"inside cb";
+            std::cout<<newFrame.getParam("edgeThreshold")<<std::endl;
+            //frame currentFrame(newFrame); //copy 
+            currentFrame.copyFrom(&newFrame);
+            std::cout<<currentFrame.getParam("edgeThreshold")<<std::endl;
+            //currentFrame = newFrame;
+        }
+
 };
 
 

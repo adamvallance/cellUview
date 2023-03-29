@@ -10,6 +10,7 @@
 //Receives in new frames through a callback.
 void edgeDetection::receiveFrame(frame newFrame) {
     if (!enabled){
+        newFrame.setParameter("edgeThreshold", "OFF");
         frameCb->receiveFrame(newFrame);
         return;
     }

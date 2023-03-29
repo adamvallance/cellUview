@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <thread>
 #include "imageProcessor.h"
+#include "frame.h"
 
 
 class dilation: public imageProcessor{

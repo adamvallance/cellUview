@@ -8,6 +8,7 @@
 // Receives new frames through a callback.
 void erosion::receiveFrame(frame newFrame) {
     if (!enabled){
+        newFrame.setParameter("erosion", "OFF");
         frameCb->receiveFrame(newFrame);
         return;
     }
@@ -30,6 +31,7 @@ void erosion::erode(frame f) {
     // Overwrite frame image
     f.image = output_mat;
 
+    f.setParameter("erosion", "ON");
     // Output the frame through the callback onto the next instance in the dataflow
     frameCb->receiveFrame(f);
 }

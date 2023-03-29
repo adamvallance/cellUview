@@ -28,19 +28,19 @@ int main(int argc, char* argv[]){
     Gallery gallery;
     Gui gui(&window, &ui, &gallery);
     
-    // edgeDetection edge;
-    // edge.toggleEnable(); //changes default enable to disabled
-    // erosion erode;
-    // dilation dilate;
+    edgeDetection edge;
+    //edge.toggleEnable(); //changes default enable to disabled
+    erosion erode;
+    dilation dilate;
 
     //Keep image enhancement classes in the callback chain
     //but call instance.toggleEnable to bypass
 
     //register callbacks
-    camera.registerCallback(&gui);
-    // erode.registerCallback(&dilate);
-    // dilate.registerCallback(&edge);
-    // edge.registerCallback(&gui);
+    camera.registerCallback(&erode);
+    erode.registerCallback(&dilate);
+    dilate.registerCallback(&edge);
+    edge.registerCallback(&gui);
 
 
     //start camera

@@ -39,7 +39,9 @@ class frame{
 
         const std::vector<std::string> validParams= {
             "note",
-            "edgeThreshold"
+            "edgeThreshold",
+            "erosion",
+            "dilation"
             //ADD MORE PARAMETERS HERE
         };
 

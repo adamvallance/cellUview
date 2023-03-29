@@ -10,7 +10,7 @@ void frame::setParameter(std::string param, std::string val){
     if (std::count(validParams.begin(), validParams.end(), param)){
         params[param] = val;
     }else{
-        std::cerr<< "invalid metadata paremter" <<std::endl;
+        std::cerr<< "invalid metadata paremter :" + param <<std::endl;
     }
     
     //if param in valid params
