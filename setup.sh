@@ -22,15 +22,18 @@ installExif(){
     sudo make install
     cd ..
     rm -rf Image-ExifTool-12.58
+    cd src
     wget http://exiftool.org/cpp_exiftool/cpp_exiftool.tar.gz || exit 1
     tar -xf cpp_exiftool.tar.gz
     rm -rf cpp_exiftool.tar.gz
     cd cpp_exiftool
     make
-    sudo make install
-    cd .. 
+    cp inc/* src/
+    cd src
+    sudo ar -rc exifLibrary.a *.o
+    cd ../.. 
 
-
+    #note that exiftool library is built inside src/cpp rather than a /inc folder for cmake simplicity
 }
 
 
@@ -60,7 +63,7 @@ fi
 #main, calls functions already defined
 getPrerequisites
 installExif
-installOpenCV2 
+#installOpenCV2 
 
 
 

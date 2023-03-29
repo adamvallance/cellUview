@@ -58,7 +58,7 @@ void Gallery::captureFrame(imageProcessor::frame capFrame){
 } 
 
 void Gallery::writeMetadata(imageProcessor::frame savedFrame, std::string captureFname){
-    et->SetNewValue("COM", "test1234");
+    et->SetNewValue("XMP:Description", "AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     et->WriteInfo(captureFname.c_str());
     int result = et->Complete();
     if (result<=0) std::cerr << "Error writing metadata" << std::endl;
