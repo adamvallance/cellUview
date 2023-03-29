@@ -39,21 +39,26 @@ Gallery::Gallery(){
 
 //add some error handling
 void Gallery::captureFrame(imageProcessor::frame capFrame){
-        if (pathname == ""){
-            return;
-        }
-        //add ability to set custom string before number
+    if (pathname == ""){
+        return;
+    }
+    //add ability to set custom string before number
 
-        //build output name string
-        captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
+    //build output name string
+    captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
 
-        //save image
-        img = capFrame.image;
-        cv::imwrite(captureFname, img); 
+    //save image
+    img = capFrame.image;
+    cv::imwrite(captureFname, img); 
 
-        captureImgCounter++;
+    captureImgCounter++;
+    
 
-        writeMetadata(capFrame, captureFname);
+    writeMetadata(capFrame, captureFname);
+    
+
+    //debug
+    std::cout << getMetadata() << std::endl;    
 
 } 
 
@@ -62,6 +67,37 @@ void Gallery::writeMetadata(imageProcessor::frame savedFrame, std::string captur
     et->WriteInfo(captureFname.c_str());
     int result = et->Complete();
     if (result<=0) std::cerr << "Error writing metadata" << std::endl;
+}
+
+std::string Gallery::getMetadata(){
+    //Come back to here to pass in fname 
+    //for now just read back image capture from this run
+
+    //debug
+    std::cout << captureFname << std::endl;
+    //captureFname = "/home/adamvallance/OpenFlexureGallery/capture3.jpg";
+
+    if (captureFname == ""){
+        return "";
+    }
+    TagInfo *info = et->ImageInfo(captureFname.c_str());//replace captureFname with filename as appropriate
+    if (info){
+        for (TagInfo *i=info; i; i=i->next){
+            tagName = i->name;
+            if (tagName == "Description"){
+                receivedMetadata = i->value;
+
+                //debug
+                std::cout<< receivedMetadata << std::endl;
+            }
+        }
+        delete info;
+    }else if (et->LastComplete()<=0){
+        std::cerr << "Metadata read error" << std::endl;
+    }else{
+        std::cout << "No metadata to read" << std::endl;
+    }
+    return "";
 }
 
 

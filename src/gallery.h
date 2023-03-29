@@ -19,6 +19,7 @@ class Gallery{
         void captureFrame(imageProcessor::frame);
         void updateImgName(std::string);
         void updateIndex();
+        std::string getMetadata();
 
     private:
         void writeMetadata(imageProcessor::frame, std::string);
@@ -29,13 +30,16 @@ class Gallery{
         std::string pathname = "";
         std::string imgName = "capture";
         int captureImgCounter = 0;
-        std::string captureFname;
+        std::string captureFname = "";
         int index;
         int lastHighestIndex = -1;
         int indexLen = 1;
         std::string existingCaptureFname; 
 
         cv::Mat img;
+
+        std::string tagName;
+        std::string receivedMetadata;
 
         ExifTool *et = new ExifTool();
 

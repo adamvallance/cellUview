@@ -16,8 +16,6 @@
 #include "erosion.h"
 #include "dilation.h"
 
-
-
 int main(int argc, char* argv[]){
     OpenFlexureWelcome::welcomeMessage();
     
