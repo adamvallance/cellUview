@@ -15,8 +15,8 @@ class frame{
         frame() = default;
         frame(cv::Mat matIn): image(matIn){}
 
-        //custom copy constructor, provide
-        //a pointer to existing frame
+        //custom copy constructor replacement to allow test to pass,
+        // provide a pointer to existing frame
         //and copy from there into a constructed second frame
         void copyFrom(frame* copyFrom){
             this->image = copyFrom->image;
@@ -31,7 +31,7 @@ class frame{
 
         std::string getParam(std::string);
 
-        //frame(frame const & ) = default; //default copy constructor
+        frame(frame const & ) = default; //default copy constructor
 
     
     private:

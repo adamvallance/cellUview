@@ -17,7 +17,7 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
-    Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn);
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, std::vector <imageProcessor *>*);
     void SetVisible(bool visible);
 
 private:

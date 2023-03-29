@@ -26,16 +26,20 @@ int main(int argc, char* argv[]){
     //creating camera and gallery and gui instances
     Camera camera;
     Gallery gallery;
-    Gui gui(&window, &ui, &gallery);
     
     edgeDetection edge;
     //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
 
+    std::vector <imageProcessor *> blocks={&erode, &dilate, &edge};
+
+    Gui gui(&window, &ui, &gallery, &blocks);
+
+
+
     //Keep image enhancement classes in the callback chain
     //but call instance.toggleEnable to bypass
-
     //register callbacks
     camera.registerCallback(&erode);
     erode.registerCallback(&dilate);
