@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
 
     std::vector <imageProcessor *> blocks={&erode, &dilate, &edge};
 
-    Gui gui(&window, &ui, &gallery, &blocks);
+    Gui gui(&window, &ui, &gallery, blocks);
 
 
 
