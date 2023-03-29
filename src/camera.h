@@ -9,6 +9,8 @@
 #include <thread>
 #include "imageProcessor.h"
 
+#include "frame.h"
+
 
 class Camera: public imageProcessor{
 public:

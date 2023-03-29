@@ -9,6 +9,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include "imageProcessor.h"
 #include "gallery.h"
+#include "frame.h"
 
 
 class Gui : public QWidget, public imageProcessor{ 

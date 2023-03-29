@@ -11,18 +11,19 @@
 #include <dirent.h>
 #include "cpp_exiftool/src/ExifTool.h"
 
+#include "frame.h"
 
 class Gallery{
 
     public:
         Gallery();
-        void captureFrame(imageProcessor::frame);
+        void captureFrame(frame);
         void updateImgName(std::string);
         void updateIndex();
         std::string getMetadata();
 
     private:
-        void writeMetadata(imageProcessor::frame, std::string);
+        void writeMetadata(frame, std::string);
 
 
         DIR *dir;
@@ -40,6 +41,7 @@ class Gallery{
 
         std::string tagName;
         std::string receivedMetadata;
+        std::string MetadataToWrite;
 
         ExifTool *et = new ExifTool();
 

@@ -43,7 +43,7 @@ void Template::exampleManipulation(frame f)
     // see https://docs.opencv.org/3.4/d3/dc1/tutorial_basic_linear_transform.html
 
     f.image = imgOut;
-    f.note = "Example manipulation.";
+    f.setParameter("note", "example manipulation");
     // output the frame through the callback onto the next instance in the dataflow
     frameCb->receiveFrame(f);
 }

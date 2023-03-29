@@ -1,5 +1,6 @@
 set(CMAKE_AUTOMOC ON)
 
+
 #opencv
 set(OpenCV_DIR "../opencv_build")
 find_package(OpenCV REQUIRED)
@@ -20,14 +21,15 @@ set_target_properties(exifLibrary PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_S
 
 
 #compile and link OpenFlexure executable
-add_executable(OpenFlexure main.cpp camera.cpp gui.cpp processingTemplate.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp)
+add_executable(OpenFlexure main.cpp camera.cpp gui.cpp processingTemplate.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp frame.cpp)
+set_property(TARGET OpenFlexure PROPERTY CXX_STANDARD 17)
 target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads exifLibrary)
 
 
 #create libraries for testing
 
-add_library(camera camera.cpp camera.h)
+add_library(camera camera.cpp camera.h frame.cpp)
 target_link_libraries(camera ${OpenCV_LIBS} Threads::Threads)
 
-add_library(edgeDetection edgeDetection.cpp edgeDetection.h)
+add_library(edgeDetection edgeDetection.cpp edgeDetection.h frame.cpp)
 target_link_libraries(edgeDetection ${OpenCV_LIBS} Threads::Threads)

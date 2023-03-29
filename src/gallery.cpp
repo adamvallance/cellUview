@@ -38,7 +38,7 @@ Gallery::Gallery(){
 }
 
 //add some error handling
-void Gallery::captureFrame(imageProcessor::frame capFrame){
+void Gallery::captureFrame(frame capFrame){
     if (pathname == ""){
         return;
     }
@@ -62,8 +62,9 @@ void Gallery::captureFrame(imageProcessor::frame capFrame){
 
 } 
 
-void Gallery::writeMetadata(imageProcessor::frame f, std::string captureFname){
-    et->SetNewValue("XMP:Description", f.encodeMetadata());
+void Gallery::writeMetadata(frame f, std::string captureFname){
+    MetadataToWrite = f.encodeMetadata();
+    et->SetNewValue("XMP:Description", MetadataToWrite.c_str());
     et->WriteInfo(captureFname.c_str());
     int result = et->Complete();
     if (result<=0) std::cerr << "Error writing metadata" << std::endl;

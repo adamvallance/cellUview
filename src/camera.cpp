@@ -15,6 +15,9 @@ void Camera::postFrame(){
         this-> stop(); // stop processing. To avoid endless loop
         return;
     } 
+    
+    //Create frame instance
+    frame f;
     f.image = capture;
     //outputs f to the receiveFrame method of the next object in the dataflow through a callback
     frameCb -> receiveFrame(f);

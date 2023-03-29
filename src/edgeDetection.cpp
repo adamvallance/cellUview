@@ -40,10 +40,12 @@ void edgeDetection::enhanceEdge(frame f) {
 
     // Add output matrix to frame
     f.image = output_mat;
-    f.edgeThreshold=0.9;
+
+    f.setParameter("edgeThreshold", std::to_string(0.9));
     //TODO: when sliding threshold added this should match threshold variable
 
     // Output the frame through the callback onto the next instance in the dataflow
     frameCb->receiveFrame(f);
+
 }
 
