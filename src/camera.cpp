@@ -14,8 +14,7 @@ void Camera::postFrame(){
         std::cerr << "OpenFlexure Error! blank frame grabbed\nPlease check your PiCamera microscope module is connected.<n";
         this-> stop(); // stop processing. To avoid endless loop
         return;
-    }
-    frame f; 
+    } 
     f.image = capture;
     //outputs f to the receiveFrame method of the next object in the dataflow through a callback
     frameCb -> receiveFrame(f);

@@ -19,6 +19,7 @@ public:
     bool getIsOn();
     
 private:
+    frame f;
     void postFrame();
     void threadLoop();
     cv::VideoCapture videoCapture;
