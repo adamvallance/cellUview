@@ -12,13 +12,14 @@
 #include "frame.h"
 
 
-class Camera: public imageProcessor{
+class Camera{//}: public imageProcessor{
 public:
     Camera() = default;
     void start(int deviceID = 0, int apiID=0);
     void stop();
-    void receiveFrame(frame newFrame);
+    //void receiveFrame(frame newFrame);
     bool getIsOn();
+    void registerCallback(imageProcessor*);
     
 private:
     frame f;
@@ -27,5 +28,8 @@ private:
     cv::VideoCapture videoCapture;
     std::thread cameraThread;
     bool isOn = false;
+    imageProcessor* frameCb = nullptr;
+
 };
+
 #endif // OPENFLEXURE_CAMERA_H

@@ -25,10 +25,13 @@ private:
     Ui_GUI *ui;
     bool doCapture =false;
     void captureNextFrame();
+    void restoreSettings(std::string = "");
 
     cv::Mat img;
     Gallery* gallery;
     std::vector<imageProcessor*> blocks;
+
+    std::string metadataStr;
 
 
 };

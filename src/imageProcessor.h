@@ -28,6 +28,8 @@ public:
 
     virtual void receiveFrame(frame newFrame) = 0; 
 
+    //virtual void updateSettings(std::string) = 0;
+
     void registerCallback(imageProcessor* cb){
         frameCb = cb;
     }

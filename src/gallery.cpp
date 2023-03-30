@@ -56,9 +56,9 @@ void Gallery::captureFrame(frame capFrame){
 
     writeMetadata(capFrame, captureFname);
     
-
+    std::cout<<"Capturing"<<std::endl;
     //debug
-    std::cout << getMetadata() << std::endl;    
+    //std::cout << getMetadata() << std::endl;    
 
 } 
 
@@ -70,22 +70,21 @@ void Gallery::writeMetadata(frame f, std::string captureFname){
     if (result<=0) std::cerr << "Error writing metadata" << std::endl;
 }
 
-std::string Gallery::getMetadata(){
+std::string Gallery::getMetadata(std::string fname){
     //Come back to here to pass in fname 
     //for now just read back image capture from this run
 
-    if (captureFname == ""){
-        return "";
+    if (fname == ""){
+        fname = captureFname;
     }
-    TagInfo *info = et->ImageInfo(captureFname.c_str());//replace captureFname with filename as appropriate
+    receivedMetadata="";
+    TagInfo *info = et->ImageInfo(fname.c_str());
     if (info){
         for (TagInfo *i=info; i; i=i->next){
             tagName = i->name;
             if (tagName == "Description"){
                 receivedMetadata = i->value;
-
-                //debug
-                std::cout<< receivedMetadata << std::endl;
+                break;
             }
         }
         delete info;
@@ -94,7 +93,7 @@ std::string Gallery::getMetadata(){
     }else{
         std::cout << "No metadata to read" << std::endl;
     }
-    return "";
+    return receivedMetadata;
 }
 
 

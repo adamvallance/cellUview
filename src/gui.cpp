@@ -1,57 +1,77 @@
 #include "gui.h"
 
-
-Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, std::vector<imageProcessor *>& blocksIn) {
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
+{
     widget = win;
     ui = ui_win;
     ui->setupUi(widget);
-    //ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
-    //const std::vector<imageProcessor*> *blocks = blocksIn;
+    // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
+    // const std::vector<imageProcessor*> *blocks = blocksIn;
     this->gallery = galleryIn;
-    blocks=blocksIn;
+    blocks = blocksIn;
 
     //------------make connections-------------
-    //push button (to be renamed @Jake) connects to gallery capture
-    
-    ////do a capture
-    //QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
-    
-    //// How to connect a button to an instance of another class
-    //QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
+    // push button (to be renamed @Jake) connects to gallery capture
 
-    //toggle edge
-    QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
+    ////do a capture
+    // QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
+
+    //// How to connect a button to an instance of another class
+    // QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
+
+    // toggle edge
+    // QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
+
+    // testing restore settings
+    QObject::connect(ui->pushButton, &QPushButton::released, this, [&]()
+                     { restoreSettings(""); });
 }
 
+void Gui::receiveFrame(frame newFrame)
+{
 
-
-void Gui::receiveFrame(frame newFrame) {
-
-    //if capturing, capture before conversion to rgb
-    if (doCapture){
+    // if capturing, capture before conversion to rgb
+    if (doCapture)
+    {
         gallery->captureFrame(newFrame);
-        doCapture = false; //reset flag
+        doCapture = false; // reset flag
     }
 
-    img = newFrame.image; 
-    
-    //maybe try replacing img with newFrame.img to avoid unnecessary copying.
-    //convert from default opencv bgr to QT rgb
+    img = newFrame.image;
+
+    // maybe try replacing img with newFrame.img to avoid unnecessary copying.
+    // convert from default opencv bgr to QT rgb
     cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
 
-    QImage imgOut = QImage((uchar *) img.data, img.cols, img.rows, img.step,
-                            QImage::Format_RGB888);
+    QImage imgOut = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                           QImage::Format_RGB888);
     ui->scopeVideoFeed->setPixmap(QPixmap::fromImage(imgOut));
-    ui->scopeVideoFeed->resize(ui->scopeVideoFeed->pixmap()->size());   
+    ui->scopeVideoFeed->resize(ui->scopeVideoFeed->pixmap()->size());
 }
-    
 
-
-void Gui::SetVisible(bool visible) {
+void Gui::SetVisible(bool visible)
+{
     widget->setVisible(visible);
 }
 
-//set to capture on next frame
-void Gui::captureNextFrame(){
+// set to capture on next frame
+void Gui::captureNextFrame()
+{
     doCapture = true;
+}
+
+void Gui::restoreSettings(std::string fname)
+{
+    // debug only
+    captureNextFrame();
+    // debug only
+
+    metadataStr = this->gallery->getMetadata(fname);
+    std::cout << "restored data: ";
+    std::cout << metadataStr << std::endl;
+
+    // for (auto block : blocks)
+    // {
+    //     block->updateSettings(metadataStr);
+    // }
 }
