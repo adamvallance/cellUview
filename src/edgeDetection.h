@@ -15,7 +15,7 @@ class edgeDetection: public imageProcessor{
 public:
     edgeDetection() = default;
     void receiveFrame(frame newFrame);
-    void updateSettings(std::string encoded);
+    //void updateSettings(std::string encoded);
 
 private:
     //add any other methods here

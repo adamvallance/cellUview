@@ -20,12 +20,12 @@ void edgeDetection::receiveFrame(frame newFrame) {
     enhanceEdge(newFrame); 
 }
 
-void edgeDetection::updateSettings(){
-    parameter = "edgeThreshold"{
+// void edgeDetection::updateSettings(){
+//     parameter = "edgeThreshold"{
         
-    }
+//     }
 
-}
+// }
 
 
 void edgeDetection::enhanceEdge(frame f) {

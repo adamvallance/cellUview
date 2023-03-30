@@ -77,37 +77,43 @@ std::map<std::string, std::string> Gallery::getMetadata(std::string fname){
     if (fname == ""){
         fname = captureFname;
     }
-    receivedMetadata="";
-    TagInfo *info = et->ImageInfo(fname.c_str());
-    if (info){
-        for (TagInfo *i=info; i; i=i->next){
-            tagName = i->name;
-            if (tagName == "Description"){
-                receivedMetadata = i->value;
 
-                //build back into param map matching frame
-                std::string pair;
-                std::string item;
-                std::istringstream iss(receivedMetadata);
-                while (std::getline(iss, pair, *metaDataPairDelim)){
-                    std::vector<std::string> rec ={};
-                    std::istringstream iss2(pair);
-                    while (std::getline(iss2, item, *metaDataItemDelim)){
-                        rec.push_back(item);
-                    }
-                    restoredParams[rec[0]] = rec[1];
-                }
-                break;
-            }
-        }
+    //debug
+    std::cout<<fname<<std::endl;
 
-        delete info;
+    // receivedMetadata="";
+    // TagInfo *info = et->ImageInfo(fname.c_str());
+    // if (info){
+    //     for (TagInfo *i=info; i; i=i->next){
+    //         tagName = i->name;
+    //         if (tagName == "Description"){
+    //             receivedMetadata = i->value;
 
-    }else if (et->LastComplete()<=0){
-        std::cerr << "Metadata read error" << std::endl;
-    }else{
-        std::cout << "No metadata to read" << std::endl;
-    }
+    //             //build back into param map matching frame
+    //             std::string pair;
+    //             std::string item;
+    //             std::istringstream iss(receivedMetadata);
+    //             while (std::getline(iss, pair, *metaDataPairDelim)){
+    //                 std::vector<std::string> rec ={};
+    //                 std::istringstream iss2(pair);
+    //                 while (std::getline(iss2, item, *metaDataItemDelim)){
+    //                     rec.push_back(item);
+    //                 }
+    //                 restoredParams[rec[0]] = rec[1];
+    //             }
+    //             break;
+    //         }
+    //     }
+
+    //     delete info;
+
+    // }else if (et->LastComplete()<=0){
+    //     std::cerr << "Metadata read error" << std::endl;
+    // }else{
+    //     std::cout << "No metadata to read" << std::endl;
+    // }
+    // //debug
+    // //std::cout<<restoredParams["edgeThreshold"]<<std::endl;
     return restoredParams;
 }
 
@@ -121,7 +127,7 @@ void Gallery::updateImgName(std::string newName){
         updateIndex();
     }
 }
-
+ 
 void Gallery::updateIndex(){
 //(re)open already existing/newly created directory 
     //to find if files with current name already exist

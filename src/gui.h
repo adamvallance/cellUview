@@ -31,7 +31,7 @@ private:
     Gallery* gallery;
     std::vector<imageProcessor*> blocks;
 
-    std::string metadataStr;
+    std::map<std::string, std::string> metadata;
 
 
 

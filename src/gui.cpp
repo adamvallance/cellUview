@@ -14,7 +14,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     // push button (to be renamed @Jake) connects to gallery capture
 
     ////do a capture
-    // QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
+    //QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
     //// How to connect a button to an instance of another class
     // QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
@@ -23,8 +23,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     // QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
 
     // testing restore settings
-    QObject::connect(ui->pushButton, &QPushButton::released, this, [&]()
-                     { restoreSettings(""); });
+    QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
 }
 
 void Gui::receiveFrame(frame newFrame)
@@ -66,9 +65,9 @@ void Gui::restoreSettings(std::string fname)
     captureNextFrame();
     // debug only
 
-    metadataStr = this->gallery->getMetadata(fname);
-    std::cout << "restored data: ";
-    std::cout << metadataStr << std::endl;
+    metadata = this->gallery->getMetadata(fname);
+    //std::cout << "restored data: ";
+    //std::cout << metadataStr << std::endl;
 
         
 
