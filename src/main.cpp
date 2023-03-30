@@ -12,8 +12,10 @@
 #include "OpenFlexureWelcome.h"
 #include "processingTemplate.h"
 #include "edgeDetection.h"
-using namespace cv;
-using namespace std;
+#include "gallery.h"
+#include "erosion.h"
+#include "dilation.h"
+
 #define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
 
 
@@ -24,19 +26,24 @@ int main(int argc, char* argv[]){
     QMainWindow window;
     Ui_GUI ui;
     
-    //creating camera and gui instances
+    //creating camera and gallery and gui instances
     Camera camera;
-
+    Gallery gallery;
+    Gui gui(&window, &ui, &gallery);
     
 #ifdef USE_TEMPLATE
     //Template example;
     edgeDetection edge;
+    erosion erode;
+    dilation dilate;
     //register callbacks
     Gui gui(&window, &ui, &edge);
     
-    camera.registerCallback(&edge);
-    //edge.registerCallback(&example);
-    edge.registerCallback(&gui);
+    camera.registerCallback(&dilate);
+    //erode.registerCallback(&dilate);
+    dilate.registerCallback(&gui);
+    //example.registerCallback(&gui);
+    //edge.registerCallback(&gui);
 #else 
     camera.registerCallback(&gui);
 #endif
