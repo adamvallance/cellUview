@@ -29,21 +29,19 @@ int main(int argc, char* argv[]){
     //creating camera and gallery and gui instances
     Camera camera;
     Gallery gallery;
-    Gui gui(&window, &ui, &gallery);
-    
+
 #ifdef USE_TEMPLATE
     //Template example;
     edgeDetection edge;
     erosion erode;
     dilation dilate;
     //register callbacks
-    Gui gui(&window, &ui, &edge);
+    Gui gui(&window, &ui, &gallery, &edge);
     
-    camera.registerCallback(&dilate);
-    //erode.registerCallback(&dilate);
-    dilate.registerCallback(&gui);
-    //example.registerCallback(&gui);
-    //edge.registerCallback(&gui);
+    camera.registerCallback(&erode);
+    erode.registerCallback(&dilate);
+    dilate.registerCallback(&edge);
+    edge.registerCallback(&gui);
 #else 
     camera.registerCallback(&gui);
 #endif

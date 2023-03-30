@@ -18,7 +18,7 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void newFrame(frame newFrame);
-    Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection *edgeDetectorPtr);edgeDetection* edgeDetectorPtr
+    Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection *edgeDetectorPtr);
     void SetVisible(bool visible);
 
 private:

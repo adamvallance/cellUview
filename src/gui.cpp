@@ -16,7 +16,7 @@ Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection* ed
     });
 
     QObject::connect(ui->lineEdit, &QLineEdit::textChanged, ui->horizontalSlider_2, [&](const QString &text) {
-        bool ok;edgeDetection* edgeDetectorPtr
+        bool ok;
         int value = text.toInt(&ok);
         if (ok) {
             ui->horizontalSlider_2->setValue(value);

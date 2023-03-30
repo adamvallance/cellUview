@@ -12,11 +12,11 @@ void edgeDetection::newFrame(frame newFrame) {
     // do stuff here
 
     // passing frame into the edge detection function
-    enhanceEdge(newFrame, threshold); 
+    enhanceEdge(newFrame); 
 }
 
 
-void edgeDetection::enhanceEdge(frame inputFrame, int theshold) {
+void edgeDetection::enhanceEdge(frame inputFrame) {
     // Convert input frame to cv::Mat
     cv::Mat input_mat(inputFrame.image.rows, inputFrame.image.cols, CV_8UC3, inputFrame.image.data);
 
@@ -27,7 +27,7 @@ void edgeDetection::enhanceEdge(frame inputFrame, int theshold) {
     cv::Mat gray_frame;
     cv::cvtColor(input_mat, gray_frame, cv::COLOR_BGR2GRAY);
     cv::GaussianBlur(gray_frame, gray_frame, cv::Size(3, 3), 0);
-    cv::Canny(gray_frame, gray_frame, threshold, theshold);
+    cv::Canny(gray_frame, gray_frame, threshold, threshold);
 
     // Superimpose edges on to the origional frame
     cv::Mat overlay_mat;

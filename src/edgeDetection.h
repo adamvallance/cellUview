@@ -21,6 +21,6 @@ public:
 
 private:
     //add any other methods here
-    void enhanceEdge(frame, int threshold); //edge detection
+    void enhanceEdge(frame); //edge detection
 };
 #endif // OPENFLEXURE_EDGE_DETECTION_H
