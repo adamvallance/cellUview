@@ -11,10 +11,13 @@
 #include "imageProcessor.h"
 
 
-class edgeDetection: public imageProcessor{
+class edgeDetection:   public imageProcessor{
+   
 public:
     edgeDetection() = default;
+    int threshold= 255;
     void newFrame(frame newFrame);
+    void updateThreshold(int value);
 
 private:
     //add any other methods here

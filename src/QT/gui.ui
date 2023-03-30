@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1153</width>
-    <height>824</height>
+    <width>1269</width>
+    <height>889</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -204,14 +204,27 @@ background-color: #FF212121}</string>
      <widget class="QSlider" name="horizontalSlider_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>90</y>
-        <width>711</width>
+        <width>611</width>
         <height>21</height>
        </rect>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>90</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>
@@ -222,8 +235,8 @@ background-color: #FF212121}</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1153</width>
-     <height>17</height>
+     <width>1269</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">

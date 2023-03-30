@@ -1,20 +1,36 @@
 #include "gui.h"
+#include "edgeDetection.h"
 
 
-Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn) {
+
+
+Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection* edgeDetectorPtr) {
     widget = win;
     ui = ui_win;
+    edgeDetector = edgeDetectorPtr;
     ui->setupUi(widget);
-    //ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
-    
+
+    QObject::connect(ui->horizontalSlider_2, &QSlider::valueChanged, ui->lineEdit, [&](int value) {
+        ui->lineEdit->setText(QString::number(value));
+        edgeDetector->updateThreshold(value);
+    });
+
+    QObject::connect(ui->lineEdit, &QLineEdit::textChanged, ui->horizontalSlider_2, [&](const QString &text) {
+        bool ok;
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->horizontalSlider_2->setValue(value);
+        }
+    });
+        
     this->gallery = galleryIn;
 
     //------------make connections-------------
     //push button (to be renamed @Jake) connects to gallery capture
     QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
+    //ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png")));edgeDetection add back in for future logo?
+    //QObject::connect(ui->horizontalSlider_2, &QSlider::valueChanged, this, edgeDetector->updateThreshold);
 }
-
-
 
 void Gui::newFrame(frame newFrame) {
 

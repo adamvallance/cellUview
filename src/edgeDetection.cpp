@@ -27,7 +27,7 @@ void edgeDetection::enhanceEdge(frame inputFrame) {
     cv::Mat gray_frame;
     cv::cvtColor(input_mat, gray_frame, cv::COLOR_BGR2GRAY);
     cv::GaussianBlur(gray_frame, gray_frame, cv::Size(3, 3), 0);
-    cv::Canny(gray_frame, gray_frame, 100, 100);
+    cv::Canny(gray_frame, gray_frame, threshold, threshold);
 
     // Superimpose edges on to the origional frame
     cv::Mat overlay_mat;
@@ -44,3 +44,6 @@ void edgeDetection::enhanceEdge(frame inputFrame) {
     frameCb->newFrame(outputFrame);
 }
 
+void edgeDetection::updateThreshold(int value){
+    threshold=255-2.55*value;
+}
