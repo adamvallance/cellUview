@@ -20,6 +20,13 @@ void edgeDetection::receiveFrame(frame newFrame) {
     enhanceEdge(newFrame); 
 }
 
+void edgeDetection::updateSettings(){
+    parameter = "edgeThreshold"{
+        
+    }
+
+}
+
 
 void edgeDetection::enhanceEdge(frame f) {
     // Convert input frame to cv::Mat

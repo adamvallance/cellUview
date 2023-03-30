@@ -35,9 +35,6 @@ void Camera::stop(){
     cameraThread.join();
 }
 
-// void Camera::receiveFrame(frame newFrame){
-//     return;
-// }
 void Camera::registerCallback(imageProcessor* cb){
     frameCb = cb;
 }

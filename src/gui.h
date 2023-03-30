@@ -34,5 +34,6 @@ private:
     std::string metadataStr;
 
 
+
 };
 #endif // OPENFLEXURE_GUI_H

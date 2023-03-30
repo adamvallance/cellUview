@@ -70,7 +70,7 @@ void Gallery::writeMetadata(frame f, std::string captureFname){
     if (result<=0) std::cerr << "Error writing metadata" << std::endl;
 }
 
-std::string Gallery::getMetadata(std::string fname){
+std::map<std::string, std::string> Gallery::getMetadata(std::string fname){
     //Come back to here to pass in fname 
     //for now just read back image capture from this run
 
@@ -84,16 +84,31 @@ std::string Gallery::getMetadata(std::string fname){
             tagName = i->name;
             if (tagName == "Description"){
                 receivedMetadata = i->value;
+
+                //build back into param map matching frame
+                std::string pair;
+                std::string item;
+                std::istringstream iss(receivedMetadata);
+                while (std::getline(iss, pair, *metaDataPairDelim)){
+                    std::vector<std::string> rec ={};
+                    std::istringstream iss2(pair);
+                    while (std::getline(iss2, item, *metaDataItemDelim)){
+                        rec.push_back(item);
+                    }
+                    restoredParams[rec[0]] = rec[1];
+                }
                 break;
             }
         }
+
         delete info;
+
     }else if (et->LastComplete()<=0){
         std::cerr << "Metadata read error" << std::endl;
     }else{
         std::cout << "No metadata to read" << std::endl;
     }
-    return receivedMetadata;
+    return restoredParams;
 }
 
 
@@ -142,3 +157,4 @@ void Gallery::updateIndex(){
     }  
 
 }
+

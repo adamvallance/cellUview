@@ -10,7 +10,9 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include "cpp_exiftool/src/ExifTool.h"
-
+#include <sstream>
+#include <iterator>
+#include <string>
 #include "frame.h"
 
 class Gallery{
@@ -20,7 +22,7 @@ class Gallery{
         void captureFrame(frame);
         void updateImgName(std::string);
         void updateIndex();
-        std::string getMetadata(std::string = "");
+        std::map<std::string, std::string> getMetadata(std::string = "");
 
     private:
         void writeMetadata(frame, std::string);
@@ -44,6 +46,9 @@ class Gallery{
         std::string MetadataToWrite;
 
         ExifTool *et = new ExifTool();
+
+        std::map<std::string, std::string> restoredParams;
+
 
 };
 #endif //OPENFLEXURE_GALLERY_H

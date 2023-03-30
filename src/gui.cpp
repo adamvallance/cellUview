@@ -70,6 +70,8 @@ void Gui::restoreSettings(std::string fname)
     std::cout << "restored data: ";
     std::cout << metadataStr << std::endl;
 
+        
+
     // for (auto block : blocks)
     // {
     //     block->updateSettings(metadataStr);

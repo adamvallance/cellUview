@@ -13,22 +13,9 @@ class imageProcessor{
 public:
     imageProcessor() = default;
 
-    // //  //frame structure passed between processing classes
-    // struct frame{ 
-    //     cv::Mat image;
-    //     //add metadata in here eg contrast = 0.4 so that settings are saved in the image itself. 
-    //     std::string note;
-    //     //edge detection threshold metadata
-    //     float edgeThreshold;
-
-    //     //ideas:
-    //     //low res version for gallery view?
-    //     //original un-enhanced version. 
-    // };
-
     virtual void receiveFrame(frame newFrame) = 0; 
 
-    //virtual void updateSettings(std::string) = 0;
+    virtual void updateSettings(std::string) = 0;
 
     void registerCallback(imageProcessor* cb){
         frameCb = cb;
@@ -39,10 +26,17 @@ public:
         return enabled;
     }
 
-    bool enabled = true;
+    bool getEnabled(){
+        return enabled;
+    }
+
 
 protected:
     imageProcessor* frameCb = nullptr;
+    std::string parameter;
+    bool enabled = true;
+
+
 };
 
 #endif

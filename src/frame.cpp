@@ -29,7 +29,7 @@ std::string frame::encodeMetadata(){
     //     encodedString += key + "*" + value + "*";
     // }
     for (const auto& kv: params){
-        encodedString += kv.first + "*" + kv.second + "*";
+        encodedString += kv.first + metaDataItemDelim + kv.second + metaDataPairDelim;
     }
     return encodedString;
 }

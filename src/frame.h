@@ -9,6 +9,9 @@
 #include <typeinfo>
 #include <map>
 
+#define metaDataPairDelim "|"
+#define metaDataItemDelim "*"
+
 
 class frame{
     public: 

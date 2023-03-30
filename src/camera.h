@@ -12,7 +12,7 @@
 #include "frame.h"
 
 
-class Camera{//}: public imageProcessor{
+class Camera{
 public:
     Camera() = default;
     void start(int deviceID = 0, int apiID=0);
