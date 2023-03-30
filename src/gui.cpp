@@ -86,7 +86,18 @@ void Gui::restoreSettings(std::string fname)
     captureNextFrame();
     // debug only
 
+
     metadata = this->gallery->getMetadata(fname);
+    //this doesn't break
+    std::cout<<metadata.size()<<std::endl;
+    //this doesn't break
+    std::cout<<metadata["dilation"]<<std::endl;
+    
+    ////this does BREAK bizzare
+    // std::cout<<"erosion::" + metadata["erosion"]<<std::endl;
+    // std::cout<<"edgeThreshold::" + metadata["edgeThreshold"]<<std::endl;
+    // std::cout<<"dilation::" + metadata["dilation"]<<std::endl;
+
     //std::cout << "restored data: ";
     //std::cout << metadataStr << std::endl;
 

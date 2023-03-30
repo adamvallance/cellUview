@@ -13,7 +13,7 @@ void Camera::postFrame(){
     if (capture.empty()) {
         std::cerr << "OpenFlexure Error! blank frame grabbed\nPlease check your PiCamera microscope module is connected.<n";
         this-> stop(); // stop processing. To avoid endless loop
-        return;
+        exit(1);
     } 
     
     //Create frame instance
