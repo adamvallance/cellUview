@@ -1,14 +1,33 @@
 #include "gui.h"
+#include "edgeDetection.h"
 
 Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
     ui = ui_win;
     ui->setupUi(widget);
-    // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
-    // const std::vector<imageProcessor*> *blocks = blocksIn;
+
     this->gallery = galleryIn;
     blocks = blocksIn;
+
+    // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
+    // const std::vector<imageProcessor*> *blocks = blocksIn;
+
+    QObject::connect(ui->horizontalSlider_2, &QSlider::valueChanged, ui->lineEdit, [&](int value) {
+        ui->lineEdit->setText(QString::number(value));
+        blocks[blocks.size()-1]->updateThreshold(value);
+        //edgeDetector->updateThreshold(value);
+    });
+
+    QObject::connect(ui->lineEdit, &QLineEdit::textChanged, ui->horizontalSlider_2, [&](const QString &text) {
+        bool ok;
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->horizontalSlider_2->setValue(value);
+        }
+    });
+        
+
 
     //------------make connections-------------
     // push button (to be renamed @Jake) connects to gallery capture

@@ -46,7 +46,6 @@ int main(int argc, char* argv[]){
     dilate.registerCallback(&edge);
     edge.registerCallback(&gui);
 
-
     //start camera
     camera.start();
     

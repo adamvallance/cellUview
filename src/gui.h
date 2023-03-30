@@ -1,15 +1,17 @@
 #ifndef OPENFLEXURE_GUI_H
 #define OPENFLEXURE_GUI_H
 #include <QMainWindow> 
-#include <QCoreApplication>
+
 #include "QT/qtWindow.h" //compiled header file from qtcreator
 #include "stdlib.h"
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include "imageProcessor.h"
+#include "edgeDetection.h"
 #include "gallery.h"
 #include "frame.h"
+
 
 
 class Gui : public QWidget, public imageProcessor{ 
@@ -35,5 +37,6 @@ private:
 
 
 
+    edgeDetection *edgeDetector;
 };
 #endif // OPENFLEXURE_GUI_H
