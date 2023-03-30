@@ -39,7 +39,7 @@ void edgeDetection::enhanceEdge(frame f) {
     cv::Mat gray_img;
     cv::cvtColor(input_mat, gray_img, cv::COLOR_BGR2GRAY);
     cv::GaussianBlur(gray_img, gray_img, cv::Size(3, 3), 0);
-    cv::Canny(gray_img, gray_img, 100, 100);
+    cv::Canny(gray_img, gray_img, threshold, threshold);
 
     // Superimpose edges on to the original frame
     cv::Mat overlay_mat;
@@ -49,7 +49,7 @@ void edgeDetection::enhanceEdge(frame f) {
     // Add output matrix to frame
     f.image = output_mat;
 
-    f.setParameter("edgeThreshold", std::to_string(0.9));
+    f.setParameter("edgeThreshold", std::to_string(sliderThreshold));
     //TODO: when sliding threshold added this should match threshold variable
 
     // Output the frame through the callback onto the next instance in the dataflow
@@ -58,5 +58,7 @@ void edgeDetection::enhanceEdge(frame f) {
 }
 
 void edgeDetection::updateThreshold(int value){
+    sliderThreshold = value;
+    std::cout<<std::to_string(value)<<std::endl;
     threshold=255-2.55*value;
 }

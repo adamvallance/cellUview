@@ -15,7 +15,9 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     QObject::connect(ui->horizontalSlider_2, &QSlider::valueChanged, ui->lineEdit, [&](int value) {
         ui->lineEdit->setText(QString::number(value));
-        blocks[blocks.size()-1]->updateThreshold(value);
+
+        //access derived method of edgeDetector from vector of base class (image processor) pointers
+        static_cast<edgeDetection*>(blocks[blocks.size()-1])->updateThreshold(value);
         //edgeDetector->updateThreshold(value);
     });
 

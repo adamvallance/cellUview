@@ -13,7 +13,7 @@ TEST(edgeDetectTest, checkThresholdMetadata){
     edgeDetection edge;
 
     frame expected; //expected output frame
-    expected.setParameter("edgeThreshold", std::to_string(0.9)); //default value
+    expected.setParameter("edgeThreshold", std::to_string(90)); //default value
     // expected.edgeThreshold = 0;     //debug, using this will cause a fail
     
     frame f;
@@ -22,6 +22,7 @@ TEST(edgeDetectTest, checkThresholdMetadata){
     f.image = capture;
 
     edge.registerCallback(&endtest);
+    edge.updateThreshold(90);
     edge.receiveFrame(f);
     std::cout<<endtest.currentFrame.getParam("edgeThreshold")<<std::endl;
     std::cout<<expected.getParam("edgeThreshold")<<std::endl;

@@ -13,11 +13,12 @@
 
 class edgeDetection:   public imageProcessor{
    
+
 public:
     edgeDetection() = default;
-    void receiveFrame(frame newFrame);
-    //void updateSettings(std::string encoded);
     int threshold= 255;
+    int sliderThreshold = 100; //slider threshold used for metadata purposes
+    void receiveFrame(frame newFrame);
     void updateThreshold(int value);
 
 private:
