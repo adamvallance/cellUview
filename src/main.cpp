@@ -23,6 +23,8 @@ int main(int argc, char* argv[]){
     QMainWindow window;
     Ui_GUI ui;
     
+ 
+
     //creating camera and gallery and gui instances
     Camera camera;
     Gallery gallery;
@@ -51,7 +53,9 @@ int main(int argc, char* argv[]){
     
     //start gui
     gui.SetVisible(true);
+
     app.exec(); //loops main thread
+
     
     //stop camera
     camera.stop();
