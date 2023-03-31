@@ -88,14 +88,45 @@ void Gui::restoreSettings(std::string fname)
 
 
     metadata = this->gallery->getMetadata(fname);
-    std::string erosion = metadata["erosion"];
-    std::cout<<"erosion::" + erosion<<std::endl;
+
+
+    ////debug
+    //std::string erosion = metadata["erosion"];
+    //std::cout<<"erosion::" + erosion<<std::endl;
     
 
-        
+    //pass retrieved metadata through callbacks to each image proc block
+    for (auto block : blocks){
+        block->updateSettings(metadata);
+    }
+    this->updateSettings(metadata);//updates gui sliders
+}
 
-    // for (auto block : blocks)
-    // {
-    //     block->updateSettings(metadataStr);
-    // }
+//resets gui sliders and checkboxes to match new settings
+void Gui::updateSettings(std::map<std::string, std::string> metadata){
+    std::cout<<"in gui update settings"<<std::endl;
+    std::string value;
+    std::string label;
+    for (auto block: blocks){
+        label = block->getParamLabel();
+        std::cout<<label<<std::endl;
+        try{
+            value = metadata[label];
+        }catch(...){
+            std::cerr<<"label not in metadata";
+            return;
+        };
+        std::cout<<value<<std::endl;
+
+        if (value == ""){
+            std::cerr<<"check paramLabel is defined in derived image procesor class"<<std::endl;
+        }
+
+        //janky but not sure how else to make these connections
+        else if(label == "edgeThreshold"){
+            ui->horizontalSlider_2->setValue(std::stoi(value));
+        }
+
+    }
+    
 }

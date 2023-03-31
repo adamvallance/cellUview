@@ -15,7 +15,9 @@ public:
 
     virtual void receiveFrame(frame newFrame) = 0; 
 
-    //virtual void updateSettings(std::string) = 0;
+    virtual void updateSettings(std::map<std::string, std::string>) = 0;
+
+    virtual std::string getParamLabel() = 0;
 
     void registerCallback(imageProcessor* cb){
         frameCb = cb;
@@ -33,7 +35,6 @@ public:
 
 protected:
     imageProcessor* frameCb = nullptr;
-    std::string parameter;
     bool enabled = true;
 
 

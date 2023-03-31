@@ -28,6 +28,9 @@ private:
     bool doCapture =false;
     void captureNextFrame();
     void restoreSettings(std::string = "");
+    void updateSettings(std::map<std::string, std::string>);
+    std::string getParamLabel(){return "";};
+
 
     cv::Mat img;
     Gallery* gallery;

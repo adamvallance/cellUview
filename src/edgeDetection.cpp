@@ -10,7 +10,7 @@
 //Receives in new frames through a callback.
 void edgeDetection::receiveFrame(frame newFrame) {
     if (!enabled){
-        newFrame.setParameter("edgeThreshold", "OFF");
+        newFrame.setParameter(paramLabel, "OFF");
         frameCb->receiveFrame(newFrame);
         return;
     }
@@ -19,13 +19,6 @@ void edgeDetection::receiveFrame(frame newFrame) {
     // passing frame into the edge detection function
     enhanceEdge(newFrame); 
 }
-
-// void edgeDetection::updateSettings(){
-//     parameter = "edgeThreshold"{
-        
-//     }
-
-// }
 
 
 void edgeDetection::enhanceEdge(frame f) {
@@ -49,7 +42,7 @@ void edgeDetection::enhanceEdge(frame f) {
     // Add output matrix to frame
     f.image = output_mat;
 
-    f.setParameter("edgeThreshold", std::to_string(sliderThreshold));
+    f.setParameter(paramLabel, std::to_string(sliderThreshold));
     //TODO: when sliding threshold added this should match threshold variable
 
     // Output the frame through the callback onto the next instance in the dataflow
@@ -61,4 +54,22 @@ void edgeDetection::updateThreshold(int value){
     sliderThreshold = value;
     std::cout<<std::to_string(value)<<std::endl;
     threshold=255-2.55*value;
+}
+void edgeDetection::updateSettings(std::map<std::string, std::string> metadata){
+    std::string rec = metadata[paramLabel];
+    int metaThreshold;
+    if (rec == "OFF"){
+        if (getEnabled() == true){
+            toggleEnable();
+        }
+    }else{
+        try{
+            metaThreshold = std::stoi(metadata[paramLabel]);
+        }catch(...){
+            std::cout<<"Error invalid metadata"<<std::endl;
+            return;
+        }
+    }
+    
+    updateThreshold(metaThreshold);   
 }
