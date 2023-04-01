@@ -1,14 +1,18 @@
 #include "gui.h"
 #include "edgeDetection.h"
+#include "greyScale.h"
 
 
 
 
-Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection* edgeDetectorPtr) {
+Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection* edgeDetectorPtr) {  /* greyScale* greyDetectorPtr */
     widget = win;
     ui = ui_win;
     edgeDetector = edgeDetectorPtr;
+    /* greyDetector= greyDetectorPtr; */
     ui->setupUi(widget);
+
+    
 
     QObject::connect(ui->horizontalSlider_2, &QSlider::valueChanged, ui->lineEdit, [&](int value) {
         ui->lineEdit->setText(QString::number(value));

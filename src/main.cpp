@@ -15,6 +15,7 @@
 #include "gallery.h"
 #include "erosion.h"
 #include "dilation.h"
+#include "greyScale.h"
 
 #define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
 
@@ -35,13 +36,15 @@ int main(int argc, char* argv[]){
     edgeDetection edge;
     erosion erode;
     dilation dilate;
+    //greyScale grey;
     //register callbacks
-    Gui gui(&window, &ui, &gallery, &edge);
+    Gui gui(&window, &ui, &gallery, &edge) ; /* &grey */
     
     camera.registerCallback(&erode);
     erode.registerCallback(&dilate);
     dilate.registerCallback(&edge);
     edge.registerCallback(&gui);
+    /* grey.registerCallback(&grey); */
 #else 
     camera.registerCallback(&gui);
 #endif

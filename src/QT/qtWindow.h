@@ -20,7 +20,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -29,24 +28,20 @@ class Ui_GUI
 {
 public:
     QWidget *centralwidget;
-    QWidget *ImageCaptureColumn;
     QWidget *widget;
-    QPushButton *pushButton;
-    QWidget *ImageHolder;
-    QWidget *StreamControlPanel;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_5;
-    QPushButton *pushButton_6;
-    QWidget *StreamView;
+    QLabel *OpenFlexurePlus;
+    QWidget *widget_2;
     QLabel *scopeVideoFeed;
-    QTabWidget *ControlPanel;
-    QWidget *tab;
-    QSlider *horizontalSlider;
-    QWidget *tab_2;
+    QWidget *widget_3;
+    QPushButton *pushButton;
+    QWidget *widget_4;
+    QLabel *label_2;
+    QWidget *widget_5;
+    QLabel *label;
+    QWidget *widget_6;
     QSlider *horizontalSlider_2;
     QLineEdit *lineEdit;
+    QLabel *label_3;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
     QStatusBar *statusbar;
@@ -55,75 +50,85 @@ public:
     {
         if (GUI->objectName().isEmpty())
             GUI->setObjectName(QString::fromUtf8("GUI"));
-        GUI->resize(1269, 889);
+        GUI->resize(1162, 936);
         centralwidget = new QWidget(GUI);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         centralwidget->setStyleSheet(QString::fromUtf8("#centralWidget {\n"
 "background-color:#FF121212}"));
-        ImageCaptureColumn = new QWidget(centralwidget);
-        ImageCaptureColumn->setObjectName(QString::fromUtf8("ImageCaptureColumn"));
-        ImageCaptureColumn->setGeometry(QRect(30, -10, 331, 781));
-        ImageCaptureColumn->setStyleSheet(QString::fromUtf8("#ImageCaptureColumn{\n"
-"background-color:#FF212121}"));
-        widget = new QWidget(ImageCaptureColumn);
+        widget = new QWidget(centralwidget);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(20, 489, 191, 21));
-        pushButton = new QPushButton(ImageCaptureColumn);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(20, 700, 291, 51));
-        ImageHolder = new QWidget(ImageCaptureColumn);
-        ImageHolder->setObjectName(QString::fromUtf8("ImageHolder"));
-        ImageHolder->setGeometry(QRect(40, 70, 251, 221));
-        StreamControlPanel = new QWidget(centralwidget);
-        StreamControlPanel->setObjectName(QString::fromUtf8("StreamControlPanel"));
-        StreamControlPanel->setGeometry(QRect(380, 490, 741, 31));
-        pushButton_2 = new QPushButton(StreamControlPanel);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(0, 0, 31, 18));
-        pushButton_3 = new QPushButton(StreamControlPanel);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(40, 0, 31, 18));
-        pushButton_4 = new QPushButton(StreamControlPanel);
-        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-        pushButton_4->setGeometry(QRect(80, 0, 31, 18));
-        pushButton_5 = new QPushButton(StreamControlPanel);
-        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
-        pushButton_5->setGeometry(QRect(120, 0, 31, 18));
-        pushButton_6 = new QPushButton(StreamControlPanel);
-        pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
-        pushButton_6->setGeometry(QRect(710, 0, 31, 18));
-        StreamView = new QWidget(centralwidget);
-        StreamView->setObjectName(QString::fromUtf8("StreamView"));
-        StreamView->setGeometry(QRect(380, -10, 741, 491));
-        StreamView->setStyleSheet(QString::fromUtf8("#StreamView {\n"
-"background-color: #FF212121}"));
-        scopeVideoFeed = new QLabel(StreamView);
+        widget->setGeometry(QRect(0, 0, 1321, 80));
+        widget->setStyleSheet(QString::fromUtf8("\n"
+"	background-color: rgb(179, 179, 179);\n"
+""));
+        OpenFlexurePlus = new QLabel(widget);
+        OpenFlexurePlus->setObjectName(QString::fromUtf8("OpenFlexurePlus"));
+        OpenFlexurePlus->setGeometry(QRect(0, 19, 1321, 41));
+        OpenFlexurePlus->setAlignment(Qt::AlignCenter);
+        widget_2 = new QWidget(centralwidget);
+        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        widget_2->setGeometry(QRect(0, 80, 1351, 841));
+        widget_2->setStyleSheet(QString::fromUtf8("\n"
+"background-color: rgb(18, 18, 18);"));
+        scopeVideoFeed = new QLabel(widget_2);
         scopeVideoFeed->setObjectName(QString::fromUtf8("scopeVideoFeed"));
-        scopeVideoFeed->setGeometry(QRect(6, 11, 731, 481));
-        ControlPanel = new QTabWidget(centralwidget);
-        ControlPanel->setObjectName(QString::fromUtf8("ControlPanel"));
-        ControlPanel->setGeometry(QRect(380, 540, 741, 231));
-        tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
-        horizontalSlider = new QSlider(tab);
-        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
-        horizontalSlider->setGeometry(QRect(10, 90, 711, 21));
-        horizontalSlider->setOrientation(Qt::Horizontal);
-        ControlPanel->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QString::fromUtf8("tab_2"));
-        horizontalSlider_2 = new QSlider(tab_2);
+        scopeVideoFeed->setGeometry(QRect(500, 20, 581, 441));
+        widget_3 = new QWidget(widget_2);
+        widget_3->setObjectName(QString::fromUtf8("widget_3"));
+        widget_3->setGeometry(QRect(10, 20, 471, 781));
+        widget_3->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
+        pushButton = new QPushButton(widget_3);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(30, 720, 410, 40));
+        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        widget_4 = new QWidget(widget_3);
+        widget_4->setObjectName(QString::fromUtf8("widget_4"));
+        widget_4->setGeometry(QRect(30, 530, 410, 141));
+        widget_4->setStyleSheet(QString::fromUtf8(""));
+        label_2 = new QLabel(widget_4);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(0, 30, 410, 25));
+        label_2->setStyleSheet(QString::fromUtf8("background-color: rgb(83, 83, 83);\n"
+"color: rgb(255, 255, 255);"));
+        label_2->setAlignment(Qt::AlignCenter);
+        widget_5 = new QWidget(widget_3);
+        widget_5->setObjectName(QString::fromUtf8("widget_5"));
+        widget_5->setGeometry(QRect(30, 60, 410, 401));
+        widget_5->setStyleSheet(QString::fromUtf8(""));
+        label = new QLabel(widget_3);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(30, 20, 410, 25));
+        label->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
+"background-color: rgb(83, 83, 83);"));
+        label->setAlignment(Qt::AlignCenter);
+        widget_6 = new QWidget(widget_2);
+        widget_6->setObjectName(QString::fromUtf8("widget_6"));
+        widget_6->setGeometry(QRect(500, 520, 641, 281));
+        widget_6->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
+        horizontalSlider_2 = new QSlider(widget_6);
         horizontalSlider_2->setObjectName(QString::fromUtf8("horizontalSlider_2"));
-        horizontalSlider_2->setGeometry(QRect(20, 90, 611, 21));
+        horizontalSlider_2->setGeometry(QRect(10, 190, 341, 31));
+        horizontalSlider_2->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
+"    background-color: rgb(29, 185, 84);\n"
+"}\n"
+"\n"
+""));
         horizontalSlider_2->setOrientation(Qt::Horizontal);
-        lineEdit = new QLineEdit(tab_2);
+        lineEdit = new QLineEdit(widget_6);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(650, 90, 71, 25));
-        ControlPanel->addTab(tab_2, QString());
+        lineEdit->setGeometry(QRect(370, 190, 71, 31));
+        lineEdit->setStyleSheet(QString::fromUtf8("\n"
+"background-color: rgb(179, 179, 179);"));
+        label_3 = new QLabel(widget_6);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setGeometry(QRect(-4, -4, 711, 40));
+        label_3->setStyleSheet(QString::fromUtf8("background-color: rgb(83, 83, 83);\n"
+"color: rgb(255, 255, 255);"));
+        label_3->setAlignment(Qt::AlignCenter);
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1269, 22));
+        menubar->setGeometry(QRect(0, 0, 1162, 22));
         menuOpenflexure = new QMenu(menubar);
         menuOpenflexure->setObjectName(QString::fromUtf8("menuOpenflexure"));
         GUI->setMenuBar(menubar);
@@ -135,25 +140,19 @@ public:
 
         retranslateUi(GUI);
 
-        ControlPanel->setCurrentIndex(1);
-
-
         QMetaObject::connectSlotsByName(GUI);
     } // setupUi
 
     void retranslateUi(QMainWindow *GUI)
     {
         GUI->setWindowTitle(QCoreApplication::translate("GUI", "MainWindow", nullptr));
-        pushButton->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
-        pushButton_4->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
-        pushButton_5->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
-        pushButton_6->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
+        OpenFlexurePlus->setText(QCoreApplication::translate("GUI", "OpenFlexure +", nullptr));
         scopeVideoFeed->setText(QCoreApplication::translate("GUI", "TextLabel", nullptr));
-        ControlPanel->setTabText(ControlPanel->indexOf(tab), QCoreApplication::translate("GUI", "Tab 1", nullptr));
+        pushButton->setText(QCoreApplication::translate("GUI", "Capture Image", nullptr));
+        label_2->setText(QCoreApplication::translate("GUI", "Image Settings", nullptr));
+        label->setText(QCoreApplication::translate("GUI", "Gallery", nullptr));
         lineEdit->setText(QString());
-        ControlPanel->setTabText(ControlPanel->indexOf(tab_2), QCoreApplication::translate("GUI", "Tab 2", nullptr));
+        label_3->setText(QCoreApplication::translate("GUI", "Control Panel", nullptr));
         menuOpenflexure->setTitle(QCoreApplication::translate("GUI", "Openflexure+", nullptr));
     } // retranslateUi
 
