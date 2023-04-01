@@ -8,13 +8,29 @@
 // Receives new frames through a callback.
 void erosion::receiveFrame(frame newFrame) {
     if (!enabled){
-        newFrame.setParameter("erosion", "OFF");
+        newFrame.setParameter(paramLabel, "OFF");
         frameCb->receiveFrame(newFrame);
         return;
     }
 
     // Pass frame into the erosion function
     erode(newFrame); 
+}
+
+void erosion::updateSettings(std::map<std::string, std::string> metadata){
+    
+    std::string rec = metadata[paramLabel];
+
+    bool desired = (rec == "ON");
+    // std::cout<<rec<<std::endl;
+
+    // std::cout<<desired<<std::endl;
+
+    if (enabled != desired){
+        toggleEnable();
+    }
+
+    
 }
 
 void erosion::erode(frame f) {
@@ -31,7 +47,7 @@ void erosion::erode(frame f) {
     // Overwrite frame image
     f.image = output_mat;
 
-    f.setParameter("erosion", "ON");
+    f.setParameter(paramLabel, "ON");
     // Output the frame through the callback onto the next instance in the dataflow
     frameCb->receiveFrame(f);
 }

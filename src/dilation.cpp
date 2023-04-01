@@ -1,3 +1,4 @@
+
 // This file performs standard dilation to grow boundaries in the image. Usually to compensate for erosion
 
 // Author Mark Main
@@ -8,7 +9,7 @@
 // Receives new frames through a callback.
 void dilation::receiveFrame(frame newFrame) {
     if (!enabled){
-        newFrame.setParameter("dilation", "OFF");
+        newFrame.setParameter(paramLabel, "OFF");
         frameCb->receiveFrame(newFrame);
         return;
     }
@@ -32,6 +33,22 @@ void dilation::dilate(frame f) {
     f.image = output_mat;
 
     // Output the frame through the callback onto the next instance in the dataflow
-    f.setParameter("dilation", "ON");
+    f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
+}
+
+void dilation::updateSettings(std::map<std::string, std::string> metadata){
+    
+    std::string rec = metadata[paramLabel];
+
+    bool desired = (rec == "ON");
+    // std::cout<<rec<<std::endl;
+
+    // std::cout<<desired<<std::endl;
+
+    if (enabled != desired){
+        toggleEnable();
+    }
+
+    
 }

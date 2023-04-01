@@ -30,11 +30,11 @@ int main(int argc, char* argv[]){
     
     edgeDetection edge;
     //edge.toggleEnable(); //changes default enable to disabled
-    // erosion erode;
+    erosion erode;
     // dilation dilate;
 
     //std::vector <imageProcessor *> blocks={&erode, &dilate, &edge};
-    std::vector <imageProcessor *> blocks={&edge};
+    std::vector <imageProcessor *> blocks={&erode, &edge};
 
     Gui gui(&window, &ui, &gallery, blocks);
 
@@ -43,9 +43,9 @@ int main(int argc, char* argv[]){
     //Keep image enhancement classes in the callback chain
     //but call instance.toggleEnable to bypass
     //register callbacks
-    camera.registerCallback(&edge);
-    // erode.registerCallback(&dilate);
-    // dilate.registerCallback(&edge);
+    camera.registerCallback(&erode);
+    erode.registerCallback(&edge);
+    // dilate.registerCallback(&erode);
     edge.registerCallback(&gui);
 
     //start camera

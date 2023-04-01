@@ -13,38 +13,69 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
     // const std::vector<imageProcessor*> *blocks = blocksIn;
 
-    QObject::connect(ui->horizontalSlider_2, &QSlider::valueChanged, ui->lineEdit, [&](int value) {
-        ui->lineEdit->setText(QString::number(value));
-
-        //access derived method of edgeDetector from vector of base class (image processor) pointers
-        static_cast<edgeDetection*>(blocks[blocks.size()-1])->updateThreshold(value);
-        //edgeDetector->updateThreshold(value);
+    //-----------block 0 erosion---------------------
+    QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[0]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[0]->toggleEnable();
+        }
+         
     });
 
-    QObject::connect(ui->lineEdit, &QLineEdit::textChanged, ui->horizontalSlider_2, [&](const QString &text) {
+    // //-----------block 1 dilation ---------------------
+    // QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+    //     if (blocks[1]->getEnabled() != enable){
+    //         blocks[1]->toggleEnable();
+    //     }
+         
+    // });
+   
+    //-------------block -1 edge enhancement-----------------------
+    QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->lineEdit, [&](int sliderValue) {
+        ui->lineEdit->setText(QString::number(sliderValue));
+        bool enabled = blocks[blocks.size()-1]->getEnabled();
+        if (sliderValue == 0){ //disable if 0 on slider is selected
+            if (enabled){
+                blocks[blocks.size()-1]->toggleEnable();
+            }
+        }
+        else{
+            if (!enabled){
+                blocks[blocks.size()-1]->toggleEnable();
+            }
+        }
+        //access derived method of edgeDetector from vector of base class (image processor) pointers
+        static_cast<edgeDetection*>(blocks[blocks.size()-1])->updateThreshold(sliderValue);
+
+    });
+
+    QObject::connect(ui->lineEdit, &QLineEdit::textChanged, ui->edgeEnhancementSlider, [&](const QString &text) {
         bool ok;
         int value = text.toInt(&ok);
         if (ok) {
-            ui->horizontalSlider_2->setValue(value);
+            ui->edgeEnhancementSlider->setValue(value);
         }
     });
-        
+    
+
+
+
 
 
     //------------make connections-------------
     // push button (to be renamed @Jake) connects to gallery capture
 
     ////do a capture
-    //QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
+    //QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
     //// How to connect a button to an instance of another class
-    // QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
+    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
 
     // toggle edge
-    // QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
+    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
 
     // testing restore settings
-    QObject::connect(ui->pushButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
+    QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
 }
 
 void Gui::receiveFrame(frame newFrame)
@@ -104,19 +135,19 @@ void Gui::restoreSettings(std::string fname)
 
 //resets gui sliders and checkboxes to match new settings
 void Gui::updateSettings(std::map<std::string, std::string> metadata){
-    std::cout<<"in gui update settings"<<std::endl;
+    //std::cout<<"in gui update settings"<<std::endl;
     std::string value;
     std::string label;
     for (auto block: blocks){
         label = block->getParamLabel();
-        std::cout<<label<<std::endl;
+        //std::cout<<label<<std::endl;
         try{
             value = metadata[label];
         }catch(...){
             std::cerr<<"label not in metadata";
             return;
         };
-        std::cout<<value<<std::endl;
+        //std::cout<<value<<std::endl;
 
         if (value == ""){
             std::cerr<<"check paramLabel is defined in derived image procesor class"<<std::endl;
@@ -124,7 +155,7 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 
         //janky but not sure how else to make these connections
         else if(label == "edgeThreshold"){
-            ui->horizontalSlider_2->setValue(std::stoi(value));
+            ui->edgeEnhancementSlider->setValue(std::stoi(value));
         }
 
     }

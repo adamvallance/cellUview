@@ -11,6 +11,8 @@
 #include "edgeDetection.h"
 #include "gallery.h"
 #include "frame.h"
+#include "dilation.h"
+#include "erosion.h"
 
 
 

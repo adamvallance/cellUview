@@ -52,17 +52,20 @@ void edgeDetection::enhanceEdge(frame f) {
 
 void edgeDetection::updateThreshold(int value){
     sliderThreshold = value;
-    std::cout<<std::to_string(value)<<std::endl;
+    //std::cout<<std::to_string(value)<<std::endl;
     threshold=255-2.55*value;
 }
 void edgeDetection::updateSettings(std::map<std::string, std::string> metadata){
     std::string rec = metadata[paramLabel];
     int metaThreshold;
     if (rec == "OFF"){
-        if (getEnabled() == true){
+        if (enabled == true){
             toggleEnable();
         }
     }else{
+        if (enabled==false){
+            toggleEnable();
+        }
         try{
             metaThreshold = std::stoi(metadata[paramLabel]);
         }catch(...){
