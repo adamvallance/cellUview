@@ -14,6 +14,7 @@
 #include <iterator>
 #include <string>
 #include "frame.h"
+#include <cstdio>
 
 class Gallery{
 

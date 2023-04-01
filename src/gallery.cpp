@@ -68,6 +68,10 @@ void Gallery::writeMetadata(frame f, std::string captureFname){
     et->WriteInfo(captureFname.c_str());
     int result = et->Complete();
     if (result<=0) std::cerr << "Error writing metadata" << std::endl;
+
+    //remove original image left over from exiftool
+    std::string origCap = captureFname + "_original";
+    std::remove(origCap.c_str());
 }
 
 std::map<std::string, std::string> Gallery::getMetadata(std::string fname){
