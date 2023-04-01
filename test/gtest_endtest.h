@@ -15,13 +15,9 @@
 class EndTester : public imageProcessor{
     public:
         frame currentFrame;
-        void receiveFrame(frame newFrame){
-            std::cout<<"inside cb";
-            std::cout<<newFrame.getParam("edgeThreshold")<<std::endl;
-            //frame currentFrame(newFrame); //copy 
+        void receiveFrame(frame newFrame){     
+            //std::cout<<"RECEIVED FRAME";     
             currentFrame.copyFrom(&newFrame);
-            std::cout<<currentFrame.getParam("edgeThreshold")<<std::endl;
-            //currentFrame = newFrame;
         }
 
         //overriding virtual functions which are not required

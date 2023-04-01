@@ -23,7 +23,9 @@ class frame{
         //and copy from there into a constructed second frame
         void copyFrom(frame* copyFrom){
             this->image = copyFrom->image;
+            this->doMeta = copyFrom ->doMeta;
             this->params = copyFrom->params;
+
         }
 
         
@@ -35,6 +37,8 @@ class frame{
         std::string getParam(std::string);
 
         frame(frame const & ) = default; //default copy constructor
+        
+        int getParamSize();
 
     
     private:

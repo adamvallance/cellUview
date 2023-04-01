@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "gtest_camera.h"
 #include "gtest_edgedetect.h"
+#include "gtest_metadata.h"
 
 
 int main(int argc, char **argv) {

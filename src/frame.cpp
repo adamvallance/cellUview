@@ -2,26 +2,25 @@
 
 
 void frame::setParameter(std::string param, std::string val){
-    if (!doMeta){
+    if (doMeta == false){
         return;
     }
 
     //if param is valid
     if (std::count(validParams.begin(), validParams.end(), param)){
+        //save parameter
         params[param] = val;
     }else{
         std::cerr<< "invalid metadata paremter :" + param <<std::endl;
     }
     
-    //if param in valid params
-    //assert type is right
-    //set parameter
+//maybe add type assertion
 
 
 }
 
 std::string frame::encodeMetadata(){
-    if (!doMeta){
+    if (doMeta == false){
         return "";
     }
     //c++17
@@ -34,5 +33,12 @@ std::string frame::encodeMetadata(){
     return encodedString;
 }
 std::string frame::getParam(std::string param){
+    if (doMeta == false){
+        return "NULL";
+    }
     return params[param];
+}
+
+int frame::getParamSize(){
+    return params.size();
 }
