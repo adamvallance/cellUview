@@ -36,6 +36,7 @@ public:
     QWidget *widget;
     QPushButton *captureButton;
     QWidget *ImageHolder;
+    QPushButton *restoreSettingsButton;
     QWidget *StreamControlPanel;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
@@ -80,6 +81,9 @@ public:
         ImageHolder = new QWidget(ImageCaptureColumn);
         ImageHolder->setObjectName(QStringLiteral("ImageHolder"));
         ImageHolder->setGeometry(QRect(40, 70, 251, 221));
+        restoreSettingsButton = new QPushButton(ImageCaptureColumn);
+        restoreSettingsButton->setObjectName(QStringLiteral("restoreSettingsButton"));
+        restoreSettingsButton->setGeometry(QRect(20, 630, 291, 51));
         StreamControlPanel = new QWidget(centralwidget);
         StreamControlPanel->setObjectName(QStringLiteral("StreamControlPanel"));
         StreamControlPanel->setGeometry(QRect(380, 490, 741, 31));
@@ -160,6 +164,7 @@ public:
     {
         GUI->setWindowTitle(QApplication::translate("GUI", "MainWindow", 0));
         captureButton->setText(QApplication::translate("GUI", "Capture Image", 0));
+        restoreSettingsButton->setText(QApplication::translate("GUI", "Restore Settings", 0));
         pushButton_2->setText(QApplication::translate("GUI", "PushButton", 0));
         pushButton_3->setText(QApplication::translate("GUI", "PushButton", 0));
         pushButton_4->setText(QApplication::translate("GUI", "PushButton", 0));

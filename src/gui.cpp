@@ -11,7 +11,6 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     blocks = blocksIn;
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
-    // const std::vector<imageProcessor*> *blocks = blocksIn;
 
     //-----------block 0 erosion---------------------
     QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
@@ -67,7 +66,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     // push button (to be renamed @Jake) connects to gallery capture
 
     ////do a capture
-    //QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
+    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
     //// How to connect a button to an instance of another class
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
@@ -76,7 +75,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
 
     // testing restore settings
-    QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
+    QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
 }
 
 void Gui::receiveFrame(frame newFrame)
@@ -114,11 +113,7 @@ void Gui::captureNextFrame()
 
 void Gui::restoreSettings(std::string fname)
 {
-    // debug only
-    captureNextFrame();
-    // debug only
-
-
+    std::cout<<"restoring settings" <<std::endl;
     metadata = this->gallery->getMetadata(fname);
 
 
@@ -141,22 +136,43 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     std::string label;
     for (auto block: blocks){
         label = block->getParamLabel();
-        //std::cout<<label<<std::endl;
         try{
             value = metadata[label];
         }catch(...){
             std::cerr<<"label not in metadata";
             return;
         };
+
+
         //std::cout<<value<<std::endl;
 
         if (value == ""){
             std::cerr<<"check paramLabel is defined in derived image procesor class"<<std::endl;
+            return;
+        }
+
+        bool valueBool = false;
+        if (value == "ON"){
+            valueBool = true;
+        }else if (value == "OFF"){
+            valueBool = false;
         }
 
         //janky but not sure how else to make these connections
-        else if(label == "edgeThreshold"){
-            ui->edgeEnhancementSlider->setValue(std::stoi(value));
+        if(label == "edgeThreshold"){
+            try{
+                ui->edgeEnhancementSlider->setValue(std::stoi(value));
+            }catch(...){
+                std::cerr<<"Invalid metadata for edge enhancement"<<std::endl;
+            }
+        }
+
+        else if(label == "erosion"){
+            ui->erosionCheckBox->setChecked(valueBool);
+        }
+
+        else if(label == "dilation"){
+            ui->dilationCheckBox->setChecked(valueBool);
         }
 
     }

@@ -64,6 +64,19 @@ background-color:#FF212121}</string>
       </rect>
      </property>
     </widget>
+    <widget class="QPushButton" name="restoreSettingsButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>630</y>
+       <width>291</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Restore Settings</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="StreamControlPanel" native="true">
     <property name="geometry">
