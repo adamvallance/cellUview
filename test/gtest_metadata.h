@@ -77,6 +77,8 @@ TEST(metadata, saveMetadata){
     EXPECT_EQ(expected.getParam("erosion"), endtest.currentFrame.getParam("erosion"));
     EXPECT_EQ(expected.getParam("dilation"), endtest.currentFrame.getParam("dilation"));
 
+
+
 }
 
 

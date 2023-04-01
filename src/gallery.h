@@ -26,6 +26,7 @@ class Gallery{
         std::map<std::string, std::string> getMetadata(std::string = "");
 
         std::string getPathname(){return pathname;}; //testing only
+        std::string getCaptureFname(){return captureFname;};//testing only
 
     private:
         void writeMetadata(frame, std::string);
