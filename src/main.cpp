@@ -10,7 +10,6 @@
 #include "stdlib.h"
 #include "gui.h"
 #include "OpenFlexureWelcome.h"
-#include "processingTemplate.h"
 #include "edgeDetection.h"
 #include "gallery.h"
 #include "erosion.h"

@@ -24,6 +24,10 @@ class EndTester : public imageProcessor{
             //currentFrame = newFrame;
         }
 
+        //overriding virtual functions which are not required
+        void updateSettings(std::map<std::string, std::string> in){return;}
+        std::string getParamLabel(){return "";};
+
 };
 
 
