@@ -61,9 +61,16 @@ fi
 
 
 #main, calls functions already defined
+read -p "Would you like to install opencv? skip if already installed. <y/n>" prompt
+if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" || $prompt == "YES" ]]
+then
 getPrerequisites
 installExif
-#installOpenCV2 
+installOpenCV2 
+else
+getPrerequisites
+installExif
+fi
 
 
 
