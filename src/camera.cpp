@@ -20,6 +20,13 @@ void Camera::postFrame(){
     
     //Create frame instance
     frame f;
+    f.doMeta = doMeta;
+
+    //turn back off for next frame
+    if (doMeta){
+        doMeta = false;
+    }
+
     f.image = capture;
     //outputs f to the receiveFrame method of the next object in the dataflow through a callback
     frameCb -> receiveFrame(f);
@@ -43,6 +50,10 @@ void Camera::registerCallback(imageProcessor* cb){
 
 bool Camera::getIsOn(){
     return isOn;    //method to check status of camera
+}
+
+void Camera::captureMetadata(){
+    doMeta = true;
 }
 
 

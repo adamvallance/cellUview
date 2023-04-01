@@ -13,6 +13,7 @@
 #include "frame.h"
 #include "dilation.h"
 #include "erosion.h"
+#include "camera.h"
 
 
 
@@ -21,7 +22,7 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
-    Gui(QMainWindow*, Ui_GUI*, Gallery*, std::vector <imageProcessor *>&);
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
 
 private:
@@ -36,6 +37,7 @@ private:
 
     cv::Mat img;
     Gallery* gallery;
+    Camera* cam;
     std::vector<imageProcessor*> blocks;
 
     std::map<std::string, std::string> metadata;

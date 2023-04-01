@@ -35,7 +35,7 @@ public:
 
 protected:
     imageProcessor* frameCb = nullptr;
-    bool enabled = true;
+    bool enabled = false;
 
 
 };

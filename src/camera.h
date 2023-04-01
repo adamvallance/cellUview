@@ -20,6 +20,7 @@ public:
     //void receiveFrame(frame newFrame);
     bool getIsOn();
     void registerCallback(imageProcessor*);
+    void captureMetadata();
     
 private:
     frame f;
@@ -29,6 +30,7 @@ private:
     std::thread cameraThread;
     bool isOn = false;
     imageProcessor* frameCb = nullptr;
+    bool doMeta = false;
 
 };
 

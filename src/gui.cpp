@@ -1,14 +1,16 @@
 #include "gui.h"
 #include "edgeDetection.h"
 
-Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
     ui = ui_win;
     ui->setupUi(widget);
 
     this->gallery = galleryIn;
+    this->cam = camera;
     blocks = blocksIn;
+    enabled = true;
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
@@ -82,8 +84,7 @@ void Gui::receiveFrame(frame newFrame)
 {
 
     // if capturing, capture before conversion to rgb
-    if (doCapture)
-    {
+    if (doCapture && newFrame.doMeta){
         gallery->captureFrame(newFrame);
         doCapture = false; // reset flag
     }
@@ -108,6 +109,7 @@ void Gui::SetVisible(bool visible)
 // set to capture on next frame
 void Gui::captureNextFrame()
 {
+    cam->captureMetadata();
     doCapture = true;
 }
 

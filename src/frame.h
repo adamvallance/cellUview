@@ -30,7 +30,7 @@ class frame{
         cv::Mat image;
         void setParameter(std::string, std::string);
         std::string encodeMetadata();
-        bool doMeta = true;
+        bool doMeta = false;
 
         std::string getParam(std::string);
 
@@ -41,7 +41,6 @@ class frame{
         std::map<std::string, std::string> params;
 
         const std::vector<std::string> validParams= {
-            "note",
             "edgeThreshold",
             "erosion",
             "dilation"
