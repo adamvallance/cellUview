@@ -25,6 +25,8 @@ class Gallery{
         void updateIndex();
         std::map<std::string, std::string> getMetadata(std::string = "");
 
+        std::string getPathname(){return pathname;}; //testing only
+
     private:
         void writeMetadata(frame, std::string);
 

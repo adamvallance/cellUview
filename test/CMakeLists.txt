@@ -11,6 +11,6 @@ include_directories(../src)
 enable_testing()
 
 add_executable(main main.cpp)
-target_link_libraries(main ${OpenCV_LIBS} gtest gtest_main camera edgeDetection imageProc)
+target_link_libraries(main ${OpenCV_LIBS} gtest gtest_main camera imageProc gallery)
 
 

@@ -22,7 +22,7 @@ set_target_properties(exifLibrary PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_S
 
 #compile and link OpenFlexure executable
 add_executable(OpenFlexure main.cpp camera.cpp gui.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp frame.cpp)
-set_property(TARGET OpenFlexure PROPERTY CXX_STANDARD 17)
+#set_property(TARGET OpenFlexure PROPERTY CXX_STANDARD 17)
 target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads exifLibrary)
 
 
@@ -31,5 +31,9 @@ target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads e
 add_library(camera camera.cpp camera.h frame.cpp)
 target_link_libraries(camera ${OpenCV_LIBS} Threads::Threads)
 
-add_library(edgeDetection edgeDetection.cpp edgeDetection.h frame.cpp)
-target_link_libraries(edgeDetection ${OpenCV_LIBS} Threads::Threads)
+
+add_library(imageProc edgeDetection.cpp erosion.cpp dilation.cpp frame.cpp imageProcessor.h)
+target_link_libraries(imageProc ${OpenCV_LIBS} Threads::Threads)
+
+add_library(gallery gallery.cpp)
+target_link_libraries(gallery ${OpenCV_LIBS} exifLibrary Threads::Threads)
