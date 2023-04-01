@@ -31,10 +31,9 @@ int main(int argc, char* argv[]){
     edgeDetection edge;
     //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
-    // dilation dilate;
+    dilation dilate;
 
-    //std::vector <imageProcessor *> blocks={&erode, &dilate, &edge};
-    std::vector <imageProcessor *> blocks={&erode, &edge};
+    std::vector <imageProcessor *> blocks={&erode, &dilate, &edge};
 
     Gui gui(&window, &ui, &gallery, blocks);
 
@@ -44,8 +43,8 @@ int main(int argc, char* argv[]){
     //but call instance.toggleEnable to bypass
     //register callbacks
     camera.registerCallback(&erode);
-    erode.registerCallback(&edge);
-    // dilate.registerCallback(&erode);
+    erode.registerCallback(&dilate);
+    dilate.registerCallback(&edge);
     edge.registerCallback(&gui);
 
     //start camera

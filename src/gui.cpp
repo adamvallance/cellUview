@@ -23,12 +23,13 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     });
 
     // //-----------block 1 dilation ---------------------
-    // QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
-    //     if (blocks[1]->getEnabled() != enable){
-    //         blocks[1]->toggleEnable();
-    //     }
+    QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[1]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[1]->toggleEnable();
+        }
          
-    // });
+    });
    
     //-------------block -1 edge enhancement-----------------------
     QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->lineEdit, [&](int sliderValue) {
