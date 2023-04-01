@@ -165,7 +165,11 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
             try{
                 ui->edgeEnhancementSlider->setValue(std::stoi(value));
             }catch(...){
+                if (value == "OFF"){
+                    ui->edgeEnhancementSlider->setValue(0);
+                }else{
                 std::cerr<<"Invalid metadata for edge enhancement"<<std::endl;
+                }
             }
         }
 
