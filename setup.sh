@@ -59,8 +59,14 @@ fi
 
 #main, calls functions already defined
 
-getPrerequisites
-installExif
+#getPrerequisites
+#installExif
+if [ $# -ne 0 ]; then
+    if [ $1 == '-n' ]; then
+        echo "Skipping opencv installation"
+        exit
+    fi
+fi
 installOpenCV2 
 
 

@@ -10,6 +10,10 @@ git clone https://github.com/adamvallance/openflexure-microscopy-enhancement.git
 cd openflexure-microscopy-enhancement
 sudo bash setup.sh
 ```
+Alternatively, to avoid rebuilding opencv 4.7.0, if already installed on machine enter
+```
+sudo bash setup.sh -n
+```
 
 
 ## build openflexureplus

@@ -18,17 +18,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    #- uses: lukka/get-cmake@v3.12.0
+    
+    # - name: Setup OpenCV
+    #   uses: Dovyski/setup-opencv-action@v1.1
+    #   with: 
+    #     opencv-version: '4.7.0'
 
-    - name: run setup script
-      run: ./setup.sh 
-      shell: bash
+    # - name: run setup script
+    #   run: ./setup.sh #[-n]
+    #   shell: bash
 
     - name: run build script
       # Build your program with the given configuration
-      run: |
-       chmod + x ./build.sh 
+      run: ./build.sh
       shell: bash
-      
+
     - name: run unit tests
       run: ./test/main
 
