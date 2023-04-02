@@ -35,7 +35,7 @@ jobs:
         opencv-version: '4.7.0'
 
     - name: run setup script
-      run: ./setup.sh [-n]
+      run: ./setup.sh -n
       shell: bash
 
     - name: run build script
