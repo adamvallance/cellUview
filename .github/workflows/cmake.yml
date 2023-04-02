@@ -1,0 +1,48 @@
+name: CMake
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  CI:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v3
+    #- uses: lukka/get-cmake@v3.12.0
+
+    - name: Cache OpenCV
+      id: opencv-cache
+      uses: actions/cache@v2
+      with:
+        path: ./opencv-install
+        key: ${{ runner.os }}-opencv-cache
+    
+    - name: With OpenCV
+      uses: rayandrew/with-opencv-action@v1
+      with: 
+        dir: ./opencv-install
+        cached: ${{ steps.opencv-cache.outputs.cache-hit }} 
+        opencv-version: '4.7.0'
+
+    - name: run setup script
+      run: ./setup.sh -n
+      shell: bash
+
+    - name: run build script
+      # Build your program with the given configuration
+      run: ./build.sh
+      shell: bash
+
+    - name: run unit tests
+      run: ./test/main
+
+
