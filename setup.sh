@@ -83,10 +83,7 @@ if [ $# -ne 0 ]; then
     fi
 fi
 installOpenCV2 
-else
-getPrerequisites
-installExif
-fi
+
 
 
 
