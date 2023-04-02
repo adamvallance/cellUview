@@ -10,6 +10,7 @@ src/OpenFlexure_automoc.dir/
 *.a
 *_automoc.cpp
 *.save
+*.autosave
 
 .vscode/
 
