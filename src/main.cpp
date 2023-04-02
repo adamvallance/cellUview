@@ -36,9 +36,9 @@ int main(int argc, char* argv[]){
     edgeDetection edge;
     erosion erode;
     dilation dilate;
-    //greyScale grey;
+    greyScale grey;
     //register callbacks
-    Gui gui(&window, &ui, &gallery, &edge) ; /* &grey */
+    Gui gui(&window, &ui, &gallery, &edge, &grey) ; /* &grey */
     
     camera.registerCallback(&erode);
     erode.registerCallback(&dilate);

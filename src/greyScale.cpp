@@ -1,6 +1,11 @@
 #include "greyScale.h"
 #include <opencv2/imgproc.hpp>
 
+void greyScale::newFrame(frame newFrame) {
+    
+    greyEnhance(newFrame); 
+}
+
 
 void greyScale::greyEnhance(frame inputFrame) {
     // Convert input frame to cv::Mat

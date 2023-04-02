@@ -16,7 +16,7 @@ greyScale() = default;
 void newFrame(frame newFrame);
 
 private:
-//add any other methods here
+
 void greyEnhance(frame); // grayscale conversion
 };
 #endif // OPENFLEXURE_GREY_SCALE_H

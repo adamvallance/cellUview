@@ -18,6 +18,6 @@ public:
 
 private:
     //add any other methods here
-    void erode(frame); //edge detection
+    void erode(frame); //errode function
 };
 #endif // OPENFLEXURE_EROSION_H

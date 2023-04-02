@@ -18,7 +18,7 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void newFrame(frame newFrame);
-    Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection *edgeDetectorPtr); //greyScale *greyDetectorPtr
+    Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection *edgeDetectorPtr, greyScale* greyDetectorPtr); //greyScale *greyDetectorPtr
     void SetVisible(bool visible);
 
 private:
@@ -32,6 +32,6 @@ private:
 
 
     edgeDetection *edgeDetector;
-    greyScale *greyDetector;
+    greyScale* greyDetector;
 };
 #endif // OPENFLEXURE_GUI_H

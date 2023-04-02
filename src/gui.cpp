@@ -5,11 +5,11 @@
 
 
 
-Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection* edgeDetectorPtr) {  /* greyScale* greyDetectorPtr */
+Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection* edgeDetectorPtr, greyScale* greyDetectorPtr) {  
     widget = win;
     ui = ui_win;
     edgeDetector = edgeDetectorPtr;
-    /* greyDetector= greyDetectorPtr; */
+    greyDetector= greyDetectorPtr; 
     ui->setupUi(widget);
 
     
