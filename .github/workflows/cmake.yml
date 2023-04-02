@@ -2,8 +2,6 @@ name: CMake
 
 on:
   push:
-    branches: 
-      -*
   pull_request:
     branches: [ "main" ]
 
@@ -12,7 +10,7 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  CI:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
@@ -21,13 +19,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Build
-      # Build your program with the given configuration
-      run:  
-        -sudo bash $(GITHUB_WORKSPACE}/setup.sh y y
-        -bash ${GITHUB_WORKSPACE}/build.sh
+    - name: run setup script
+      run: ./setup.sh 
+      shell: bash
 
-    - name: Test
+    - name: run build script
+      # Build your program with the given configuration
+      run: |
+       chmod + x ./build.sh 
+      shell: bash
+      
+    - name: run unit tests
       run: ./test/main
 
 

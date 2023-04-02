@@ -79,7 +79,6 @@ doCmake(){
 
 
 # #main, handles options from command line
-
 built=0 
 installed=0
 doRun=0
