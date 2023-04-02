@@ -15,6 +15,7 @@
 #include "gallery.h"
 #include "erosion.h"
 #include "dilation.h"
+#include "kMeansCluster.h"
 
 #define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
 
@@ -36,11 +37,13 @@ int main(int argc, char* argv[]){
     edgeDetection edge;
     erosion erode;
     dilation dilate;
+    kMeansCluster kMean;
     //register callbacks
     
-    camera.registerCallback(&dilate);
+    camera.registerCallback(&kMean);
+    kMean.registerCallback(&gui);
     //erode.registerCallback(&dilate);
-    dilate.registerCallback(&gui);
+    //dilate.registerCallback(&gui);
     //example.registerCallback(&gui);
     //edge.registerCallback(&gui);
 #else 
