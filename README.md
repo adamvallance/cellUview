@@ -55,7 +55,7 @@ Make sure you have opencv_build and opencv_src inside the main directory. instal
 
 ## Google Test
 
-### Installation
+<!-- ### Installation
 It is necessary to also install Google Test, as unit tests are run when building.
 To install, run the following commands:
 ```
@@ -65,7 +65,7 @@ sudo cmake CMakeLists.txt
 sudo make
 sudo cp *.a /usr/lib
 ```
-These commands to be added to setup script.
+These commands to be added to setup script. -->
 
 ### Adding Tests
 
