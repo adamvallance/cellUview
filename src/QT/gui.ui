@@ -41,7 +41,7 @@ background-color:#FF212121}</string>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="captureButton">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -51,7 +51,7 @@ background-color:#FF212121}</string>
       </rect>
      </property>
      <property name="text">
-      <string>PushButton</string>
+      <string>Capture Image</string>
      </property>
     </widget>
     <widget class="QWidget" name="ImageHolder" native="true">
@@ -62,6 +62,19 @@ background-color:#FF212121}</string>
        <width>251</width>
        <height>221</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="restoreSettingsButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>630</y>
+       <width>291</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Restore Settings</string>
      </property>
     </widget>
    </widget>
@@ -201,7 +214,7 @@ background-color: #FF212121}</string>
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
-     <widget class="QSlider" name="horizontalSlider_2">
+     <widget class="QSlider" name="edgeEnhancementSlider">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -227,6 +240,45 @@ background-color: #FF212121}</string>
        <string/>
       </property>
      </widget>
+     <widget class="QCheckBox" name="dilationCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>90</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Dilation</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="erosionCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>30</y>
+        <width>90</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Erosion</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>130</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Edge Enhancement</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -236,7 +288,7 @@ background-color: #FF212121}</string>
      <x>0</x>
      <y>0</y>
      <width>1269</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">

@@ -1,64 +1,186 @@
 #include "gui.h"
 #include "edgeDetection.h"
 
-
-
-
-Gui::Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection* edgeDetectorPtr) {
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, std::vector<imageProcessor *> &blocksIn)
+{
     widget = win;
     ui = ui_win;
-    edgeDetector = edgeDetectorPtr;
     ui->setupUi(widget);
 
-    QObject::connect(ui->horizontalSlider_2, &QSlider::valueChanged, ui->lineEdit, [&](int value) {
-        ui->lineEdit->setText(QString::number(value));
-        edgeDetector->updateThreshold(value);
+    this->gallery = galleryIn;
+    this->cam = camera;
+    blocks = blocksIn;
+    enabled = true;
+
+    // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
+
+    //-----------block 0 erosion---------------------
+    QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[0]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[0]->toggleEnable();
+        }
+         
     });
 
-    QObject::connect(ui->lineEdit, &QLineEdit::textChanged, ui->horizontalSlider_2, [&](const QString &text) {
+    // //-----------block 1 dilation ---------------------
+    QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[1]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[1]->toggleEnable();
+        }
+         
+    });
+   
+    //-------------block -1 edge enhancement-----------------------
+    QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->lineEdit, [&](int sliderValue) {
+        ui->lineEdit->setText(QString::number(sliderValue));
+        bool enabled = blocks[blocks.size()-1]->getEnabled();
+        if (sliderValue == 0){ //disable if 0 on slider is selected
+            if (enabled){
+                blocks[blocks.size()-1]->toggleEnable();
+            }
+        }
+        else{
+            if (!enabled){
+                blocks[blocks.size()-1]->toggleEnable();
+            }
+        }
+        //access derived method of edgeDetector from vector of base class (image processor) pointers
+        static_cast<edgeDetection*>(blocks[blocks.size()-1])->updateThreshold(sliderValue);
+
+    });
+
+    QObject::connect(ui->lineEdit, &QLineEdit::textChanged, ui->edgeEnhancementSlider, [&](const QString &text) {
         bool ok;
         int value = text.toInt(&ok);
         if (ok) {
-            ui->horizontalSlider_2->setValue(value);
+            ui->edgeEnhancementSlider->setValue(value);
         }
     });
-        
-    this->gallery = galleryIn;
+    
+
+
+
+
 
     //------------make connections-------------
-    //push button (to be renamed @Jake) connects to gallery capture
-    QObject::connect(ui->pushButton, &QPushButton::released, this, &Gui::captureNextFrame);
-    //ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png")));edgeDetection add back in for future logo?
-    //QObject::connect(ui->horizontalSlider_2, &QSlider::valueChanged, this, edgeDetector->updateThreshold);
+    // push button (to be renamed @Jake) connects to gallery capture
+
+    ////do a capture
+    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
+
+    //// How to connect a button to an instance of another class
+    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
+
+    // toggle edge
+    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
+
+    // testing restore settings
+    QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
 }
 
-void Gui::newFrame(frame newFrame) {
+void Gui::receiveFrame(frame newFrame)
+{
 
-    //if capturing, capture before conversion to rgb
-    if (doCapture){
+    // if capturing, capture before conversion to rgb
+    if (doCapture && newFrame.doMeta){
         gallery->captureFrame(newFrame);
-        doCapture = false; //reset flag
+        doCapture = false; // reset flag
     }
 
-    img = newFrame.image; 
-    
-    //maybe try replacing img with newFrame.img to avoid unnecessary copying.
-    //convert from default opencv bgr to QT rgb
+    img = newFrame.image;
+
+    // maybe try replacing img with newFrame.img to avoid unnecessary copying.
+    // convert from default opencv bgr to QT rgb
     cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
 
-    QImage imgOut = QImage((uchar *) img.data, img.cols, img.rows, img.step,
-                            QImage::Format_RGB888);
+    QImage imgOut = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                           QImage::Format_RGB888);
     ui->scopeVideoFeed->setPixmap(QPixmap::fromImage(imgOut));
-    ui->scopeVideoFeed->resize(ui->scopeVideoFeed->pixmap()->size());   
+    ui->scopeVideoFeed->resize(ui->scopeVideoFeed->pixmap()->size());
 }
-    
 
-
-void Gui::SetVisible(bool visible) {
+void Gui::SetVisible(bool visible)
+{
     widget->setVisible(visible);
 }
 
-//set to capture on next frame
-void Gui::captureNextFrame(){
+// set to capture on next frame
+void Gui::captureNextFrame()
+{
+    cam->captureMetadata();
     doCapture = true;
+}
+
+void Gui::restoreSettings(std::string fname)
+{
+    std::cout<<"restoring settings" <<std::endl;
+    metadata = this->gallery->getMetadata(fname);
+
+
+    ////debug
+    //std::string erosion = metadata["erosion"];
+    //std::cout<<"erosion::" + erosion<<std::endl;
+    
+
+    //pass retrieved metadata through callbacks to each image proc block
+    for (auto block : blocks){
+        block->updateSettings(metadata);
+    }
+    this->updateSettings(metadata);//updates gui sliders
+}
+
+//resets gui sliders and checkboxes to match new settings
+void Gui::updateSettings(std::map<std::string, std::string> metadata){
+    //std::cout<<"in gui update settings"<<std::endl;
+    std::string value;
+    std::string label;
+    for (auto block: blocks){
+        label = block->getParamLabel();
+        try{
+            value = metadata[label];
+        }catch(...){
+            std::cerr<<"label not in metadata";
+            return;
+        };
+
+
+        //std::cout<<value<<std::endl;
+
+        if (value == ""){
+            std::cerr<<"check paramLabel is defined in derived image procesor class"<<std::endl;
+            return;
+        }
+
+        bool valueBool = false;
+        if (value == "ON"){
+            valueBool = true;
+        }else if (value == "OFF"){
+            valueBool = false;
+        }
+
+        //janky but not sure how else to make these connections
+        if(label == "edgeThreshold"){
+            try{
+                ui->edgeEnhancementSlider->setValue(std::stoi(value));
+            }catch(...){
+                if (value == "OFF"){
+                    ui->edgeEnhancementSlider->setValue(0);
+                }else{
+                std::cerr<<"Invalid metadata for edge enhancement"<<std::endl;
+                }
+            }
+        }
+
+        else if(label == "erosion"){
+            ui->erosionCheckBox->setChecked(valueBool);
+        }
+
+        else if(label == "dilation"){
+            ui->dilationCheckBox->setChecked(valueBool);
+        }
+
+    }
+    
 }

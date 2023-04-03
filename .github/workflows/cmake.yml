@@ -19,22 +19,22 @@ jobs:
     - uses: actions/checkout@v3
     #- uses: lukka/get-cmake@v3.12.0
 
-    - name: Cache OpenCV
-      id: opencv-cache
-      uses: actions/cache@v2
-      with:
-        path: ./opencv-install
-        key: ${{ runner.os }}-opencv-cache
+    # - name: Cache OpenCV
+    #   id: opencv-cache
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: ./opencv-install
+    #     key: ${{ runner.os }}-opencv-cache
     
-    - name: With OpenCV
-      uses: rayandrew/with-opencv-action@v1
-      with: 
-        dir: ./opencv-install
-        cached: ${{ steps.opencv-cache.outputs.cache-hit }} 
-        opencv-version: '4.7.0'
+    # - name: With OpenCV
+    #   uses: rayandrew/with-opencv-action@v1
+    #   with: 
+    #     dir: ./opencv-install
+    #     cached: ${{ steps.opencv-cache.outputs.cache-hit }} 
+    #     opencv-version: '4.7.0'
 
     - name: run setup script
-      run: ./setup.sh -n
+      run: ./setup.sh 
       shell: bash
 
     - name: run build script

@@ -1,3 +1,4 @@
+
 // This file performs standard dilation to grow boundaries in the image. Usually to compensate for erosion
 
 // Author Mark Main
@@ -6,8 +7,12 @@
 #include <opencv2/imgproc.hpp>
 
 // Receives new frames through a callback.
-void dilation::newFrame(frame newFrame) {
-    // Do stuff here
+void dilation::receiveFrame(frame newFrame) {
+    if (!enabled){
+        newFrame.setParameter(paramLabel, "OFF");
+        frameCb->receiveFrame(newFrame);
+        return;
+    }
 
     // Pass frame into the dilation function
     dilate(newFrame); 
@@ -28,5 +33,22 @@ void dilation::dilate(frame f) {
     f.image = output_mat;
 
     // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->newFrame(f);
+    f.setParameter(paramLabel, "ON");
+    frameCb->receiveFrame(f);
+}
+
+void dilation::updateSettings(std::map<std::string, std::string> metadata){
+    
+    std::string rec = metadata[paramLabel];
+
+    bool desired = (rec == "ON");
+    // std::cout<<rec<<std::endl;
+
+    // std::cout<<desired<<std::endl;
+
+    if (enabled != desired){
+        toggleEnable();
+    }
+
+    
 }

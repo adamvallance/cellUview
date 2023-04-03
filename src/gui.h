@@ -10,6 +10,10 @@
 #include "imageProcessor.h"
 #include "edgeDetection.h"
 #include "gallery.h"
+#include "frame.h"
+#include "dilation.h"
+#include "erosion.h"
+#include "camera.h"
 
 
 
@@ -17,8 +21,8 @@ class Gui : public QWidget, public imageProcessor{
     Q_OBJECT
 
 public:
-    void newFrame(frame newFrame);
-    Gui(QMainWindow* win, Ui_GUI* ui_win, Gallery* galleryIn, edgeDetection *edgeDetectorPtr);
+    void receiveFrame(frame newFrame);
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
 
 private:
@@ -26,9 +30,18 @@ private:
     Ui_GUI *ui;
     bool doCapture =false;
     void captureNextFrame();
+    void restoreSettings(std::string = "");
+    void updateSettings(std::map<std::string, std::string>);
+    std::string getParamLabel(){return "";};
+
 
     cv::Mat img;
     Gallery* gallery;
+    Camera* cam;
+    std::vector<imageProcessor*> blocks;
+
+    std::map<std::string, std::string> metadata;
+
 
 
     edgeDetection *edgeDetector;

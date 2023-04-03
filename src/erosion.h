@@ -14,10 +14,14 @@
 class erosion: public imageProcessor{
 public:
     erosion() = default;
-    void newFrame(frame newFrame);
+    void receiveFrame(frame newFrame);
+    std::string getParamLabel(){return paramLabel;};
+
+    void updateSettings(std::map<std::string, std::string>);
 
 private:
     //add any other methods here
     void erode(frame); //edge detection
+    std::string paramLabel = "erosion";
 };
 #endif // OPENFLEXURE_EROSION_H
