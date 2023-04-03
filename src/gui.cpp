@@ -185,7 +185,7 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         else if(label == "erosion"){
             ui->erosionCheckBox->setChecked(valueBool);
         }
-        else if(label == "erosion"){
+        else if(label == "greyScale"){
             ui->greyScaleBox->setChecked(valueBool);
         }
 
