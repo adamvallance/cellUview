@@ -10,13 +10,11 @@
 #include "stdlib.h"
 #include "gui.h"
 #include "OpenFlexureWelcome.h"
-#include "processingTemplate.h"
-#include "edgeDetection.h"
 #include "gallery.h"
 #include "flatFieldCorrect.h"
-
-#define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
-
+#include "erosion.h"
+#include "dilation.h"
+#include "edgeDetection.h"
 
 int main(int argc, char* argv[]){
     OpenFlexureWelcome::welcomeMessage();
@@ -25,30 +23,47 @@ int main(int argc, char* argv[]){
     QMainWindow window;
     Ui_GUI ui;
     
+ 
+
     //creating camera and gallery and gui instances
     Camera camera;
     Gallery gallery;
-    Gui gui(&window, &ui, &gallery);
     
-#ifdef USE_TEMPLATE
-    Template example;
     edgeDetection edge;
     flatFieldCorrect flat;
-    //register callbacks
-    
-    camera.registerCallback(&flat);
-    flat.registerCallback(&gui);
-    //edge.registerCallback(&gui);
-#else 
-    camera.registerCallback(&gui);
-#endif
+    //edge.toggleEnable(); //changes default enable to disabled
+    erosion erode;
+    dilation dilate;
+
+    //std::vector <imageProcessor *> blocks={&erode, &dilate, &edge};
+    std::vector <imageProcessor*> blocks = {&flat};
+
+    Gui gui(&window, &ui, &gallery, &camera, blocks);
+
+    //Keep image enhancement classes in the callback chain
+    //but call instance.toggleEnable to bypass
+    //eg to default turn 
+
+    //register callbacks. To change order, change the order in the blocks vector above
+    camera.registerCallback(blocks[0]);
+    for (int i = 0; i < blocks.size()-1; i++){
+            blocks[i]->registerCallback(blocks[i+1]);
+    }
+
+    blocks.back()->registerCallback(&gui);
+
 
     //start camera
     camera.start();
     
     //start gui
     gui.SetVisible(true);
-    app.exec(); //loops main thread
+
+    try{
+        app.exec(); //loops main thread
+    }catch(...){
+        app.exit();
+    }
     
     //stop camera
     camera.stop();

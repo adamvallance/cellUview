@@ -13,8 +13,10 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -32,8 +34,9 @@ public:
     QWidget *centralwidget;
     QWidget *ImageCaptureColumn;
     QWidget *widget;
-    QPushButton *pushButton;
+    QPushButton *captureButton;
     QWidget *ImageHolder;
+    QPushButton *restoreSettingsButton;
     QWidget *StreamControlPanel;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
@@ -46,7 +49,11 @@ public:
     QWidget *tab;
     QSlider *horizontalSlider;
     QWidget *tab_2;
-    QSlider *horizontalSlider_2;
+    QSlider *edgeEnhancementSlider;
+    QLineEdit *lineEdit;
+    QCheckBox *dilationCheckBox;
+    QCheckBox *erosionCheckBox;
+    QLabel *label;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
     QStatusBar *statusbar;
@@ -55,7 +62,7 @@ public:
     {
         if (GUI->objectName().isEmpty())
             GUI->setObjectName(QStringLiteral("GUI"));
-        GUI->resize(1153, 824);
+        GUI->resize(1269, 889);
         centralwidget = new QWidget(GUI);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         centralwidget->setStyleSheet(QLatin1String("#centralWidget {\n"
@@ -68,12 +75,15 @@ public:
         widget = new QWidget(ImageCaptureColumn);
         widget->setObjectName(QStringLiteral("widget"));
         widget->setGeometry(QRect(20, 489, 191, 21));
-        pushButton = new QPushButton(ImageCaptureColumn);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(20, 700, 291, 51));
+        captureButton = new QPushButton(ImageCaptureColumn);
+        captureButton->setObjectName(QStringLiteral("captureButton"));
+        captureButton->setGeometry(QRect(20, 700, 291, 51));
         ImageHolder = new QWidget(ImageCaptureColumn);
         ImageHolder->setObjectName(QStringLiteral("ImageHolder"));
         ImageHolder->setGeometry(QRect(40, 70, 251, 221));
+        restoreSettingsButton = new QPushButton(ImageCaptureColumn);
+        restoreSettingsButton->setObjectName(QStringLiteral("restoreSettingsButton"));
+        restoreSettingsButton->setGeometry(QRect(20, 630, 291, 51));
         StreamControlPanel = new QWidget(centralwidget);
         StreamControlPanel->setObjectName(QStringLiteral("StreamControlPanel"));
         StreamControlPanel->setGeometry(QRect(380, 490, 741, 31));
@@ -112,15 +122,27 @@ public:
         ControlPanel->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        horizontalSlider_2 = new QSlider(tab_2);
-        horizontalSlider_2->setObjectName(QStringLiteral("horizontalSlider_2"));
-        horizontalSlider_2->setGeometry(QRect(10, 90, 711, 21));
-        horizontalSlider_2->setOrientation(Qt::Horizontal);
+        edgeEnhancementSlider = new QSlider(tab_2);
+        edgeEnhancementSlider->setObjectName(QStringLiteral("edgeEnhancementSlider"));
+        edgeEnhancementSlider->setGeometry(QRect(20, 90, 611, 21));
+        edgeEnhancementSlider->setOrientation(Qt::Horizontal);
+        lineEdit = new QLineEdit(tab_2);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setGeometry(QRect(650, 90, 71, 25));
+        dilationCheckBox = new QCheckBox(tab_2);
+        dilationCheckBox->setObjectName(QStringLiteral("dilationCheckBox"));
+        dilationCheckBox->setGeometry(QRect(20, 30, 90, 21));
+        erosionCheckBox = new QCheckBox(tab_2);
+        erosionCheckBox->setObjectName(QStringLiteral("erosionCheckBox"));
+        erosionCheckBox->setGeometry(QRect(120, 30, 90, 21));
+        label = new QLabel(tab_2);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(570, 130, 141, 16));
         ControlPanel->addTab(tab_2, QString());
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1153, 17));
+        menubar->setGeometry(QRect(0, 0, 1269, 20));
         menuOpenflexure = new QMenu(menubar);
         menuOpenflexure->setObjectName(QStringLiteral("menuOpenflexure"));
         GUI->setMenuBar(menubar);
@@ -141,7 +163,8 @@ public:
     void retranslateUi(QMainWindow *GUI)
     {
         GUI->setWindowTitle(QApplication::translate("GUI", "MainWindow", 0));
-        pushButton->setText(QApplication::translate("GUI", "PushButton", 0));
+        captureButton->setText(QApplication::translate("GUI", "Capture Image", 0));
+        restoreSettingsButton->setText(QApplication::translate("GUI", "Restore Settings", 0));
         pushButton_2->setText(QApplication::translate("GUI", "PushButton", 0));
         pushButton_3->setText(QApplication::translate("GUI", "PushButton", 0));
         pushButton_4->setText(QApplication::translate("GUI", "PushButton", 0));
@@ -149,6 +172,10 @@ public:
         pushButton_6->setText(QApplication::translate("GUI", "PushButton", 0));
         scopeVideoFeed->setText(QApplication::translate("GUI", "TextLabel", 0));
         ControlPanel->setTabText(ControlPanel->indexOf(tab), QApplication::translate("GUI", "Tab 1", 0));
+        lineEdit->setText(QString());
+        dilationCheckBox->setText(QApplication::translate("GUI", "Dilation", 0));
+        erosionCheckBox->setText(QApplication::translate("GUI", "Erosion", 0));
+        label->setText(QApplication::translate("GUI", "Edge Enhancement", 0));
         ControlPanel->setTabText(ControlPanel->indexOf(tab_2), QApplication::translate("GUI", "Tab 2", 0));
         menuOpenflexure->setTitle(QApplication::translate("GUI", "Openflexure+", 0));
     } // retranslateUi

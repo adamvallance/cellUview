@@ -2,6 +2,7 @@
 #define OPENFLEXURE_IMAGEPROCESSOR_H
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
+#include "frame.h"
 
 #include <iostream>
 #include <stdlib.h>
@@ -12,27 +13,31 @@ class imageProcessor{
 public:
     imageProcessor() = default;
 
-    //  //frame structure passed between processing classes
-    struct frame{ 
-        cv::Mat image;
-        //add metadata in here eg contrast = 0.4 so that settings are saved in the image itself. 
-        std::string note;
-        //edge detection threshold metadata
-        float edgeThreshold;
+    virtual void receiveFrame(frame newFrame) = 0; 
 
-        //ideas:
-        //low res version for gallery view?
-        //original un-enhanced version. 
-    };
+    virtual void updateSettings(std::map<std::string, std::string>) = 0;
 
-    virtual void newFrame(frame newFrame) = 0; 
+    virtual std::string getParamLabel() = 0;
 
     void registerCallback(imageProcessor* cb){
         frameCb = cb;
     }
 
+    bool toggleEnable(){
+        enabled = !enabled;
+        return enabled;
+    }
+
+    bool getEnabled(){
+        return enabled;
+    }
+
+
 protected:
     imageProcessor* frameCb = nullptr;
+    bool enabled = false;
+
+
 };
 
 #endif

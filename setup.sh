@@ -1,31 +1,133 @@
-#adapted from github.com/albanjoseph/signapse
+#SETUP script. Author Adam Vallance. This script installs prerequisite packages. Builds and installs cmake 
+#if the version is insufficient, and then builds opencv (image processing) and also builds and installs exiv2 (for image metadata handling) and 
 
-sudo apt install cmake gcc build-essential qtbase5-dev qtdeclarative5-dev  libgtest-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools -y 
-##added more libraries to hopefully fix qt5-default not working
+#installs prerequisite packages
+getPrerequisites(){
+    cwd=$(pwd)
+    sudo apt update
+    sudo apt upgrade
+    pkgs=(gcc cmake build-essential libtool autoconf unzip wget qtbase5-dev qtdeclarative5-dev  libgtest-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools) #dont think these are needed anymore but coudl be: python3 python3-dev glibc-source)
+    sudo apt-get -y --ignore-missing install "${pkgs[@]}"
+
+    cd /usr/src/gtest
+    sudo cmake CMakeLists.txt
+    sudo make
+    sudo cp *.a /usr/lib
+    cd $cwd
+
+}
 
 
-CV_VERSION="69357b1e88680658a07cffde7678a4d697469f03"
-## Download OpenCV code
-printf "Downloading OpenCV ..."
-if [ ! -d "opencv_src" ]; then
-  printf "\n"
-  wget "https://github.com/opencv/opencv/archive/$CV_VERSION.zip" || exit 1
-  unzip -q $CV_VERSION
-  mv "opencv-$CV_VERSION" opencv_src
-else
-  printf " skipped download\n"
-fi
-if [ ! -d "opencv_build" ]; then
-  printf "\n"
-  mkdir -p opencv_build
-  cd opencv_build
-  #install with only the nessessary packages - reduces build time
-  cmake -DBUILD_LIST=dnn,improc,videoio, -DCMAKE_BUILD_TYPE=Release ../opencv_src || exit 1
-  #set make jobs to 4 - reduces build time
+installExif(){
+    
+    #install exiftool
+    cwd=$(pwd)
+    wget http://exiftool.org/Image-ExifTool-12.58.tar.gz || exit 1
+    tar -xf Image-ExifTool-12.58.tar.gz
+    rm -rf Image-ExifTool-12.58.tar.gz
+    cd Image-ExifTool-12.58
+    perl Makefile.PL
+    make test
+    sudo make install
+    cd ..
+    rm -rf Image-ExifTool-12.58
+    cd src
+    wget http://exiftool.org/cpp_exiftool/cpp_exiftool.tar.gz || exit 1
+    tar -xf cpp_exiftool.tar.gz
+    rm -rf cpp_exiftool.tar.gz
+    cd cpp_exiftool
+    make
+    cp inc/* src/
+    cd src
+    sudo ar -rc exifLibrary.a *.o
+    cd ../.. 
+    cd $cwd
+
+
+    #note that exiftool library is built inside src/cpp rather than a /inc folder for cmake simplicity
+}
+
+
+
+#https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
+
+installOpenCV2(){
+cwd=$(pwd)    
+if [ ! -d "opencv" ]; then
+  wget https://github.com/opencv/opencv/archive/refs/tags/4.7.0.tar.gz || exit 1
+  tar -xf 4.7.0.tar.gz
+  rm -rf 4.7.0.tar.gz
+  mv opencv-4.7.0 opencv
+  cd opencv
+  mkdir build && cd build
+  cmake -D CMAKE_BUILD_TYPE=Release 
+   -D CMAKE_INSTALL_PREFIX=/usr/local 
+  cmake -D BUILD_LIST=improc,videoio ..  
   make -j4 || exit 1
-  #maybe add something to remove if build goes wrong?
-  cd ..
-  rm 69357b1e88680658a07cffde7678a4d697469f03.zip #remove zip download
-else
-  printf " skipped build\n"
+  sudo make install
+  cd ../..
+
 fi
+cd $cwd
+
+}
+
+
+#main, calls functions already defined
+getPrerequisites
+installExif
+if [ $# -ne 0 ]; then
+    if [ $1 == '-n' ]; then
+        echo "Skipping opencv installation"
+        exit
+    fi
+fi
+installOpenCV2 
+
+
+
+
+
+####------DEPRECATED, for higher cmake versions------#####
+# #if cmake version less than 3.11 then build from source
+# checkCMAKE(){
+#     cmakeVerOutput=$(cmake --version)
+#     cmakeVer=$(echo $cmakeVerOutput | cut -d' ' -f 3)
+#     cmakeMajor=$(echo $cmakeVer | cut -d'.' -f 1)
+#     cmakeMinor=$(echo $cmakeVer | cut -d'.' -f 2) 
+#     if [ $cmakeMajor -lt 3 ]
+#     then
+
+#         installCMAKE3_12
+#         return
+#     fi
+#     if [ $cmakeMajor -eq 3 ]
+#     then
+#         if [ $cmakeMinor -lt 12 ]
+#         then
+#             installCMAKE3_12
+#             return
+#         fi
+#     fi
+#     echo "CMake $cmakeVer is valid"
+
+# }
+
+# #builds cmake 3.12 from source and installs
+# installCMAKE3_12(){
+    # echo "Current CMake Version not sufficient. Building and installing cmake 3.12"
+    # #save current working directory to return upon completion   
+    # cwd=$(pwd)
+
+    # mkdir ~/temp && cd ~/temp
+    # wget cmake.org/files/v3.12/cmake-3.12.3.tar.gz
+    # tar -xzvf cmake-3.12.3.tar.gz
+    # cd cmake-3.12.3/
+    # ./bootstrap
+    # make -j$(nproc)
+    # sudo make install
+    # rm -rf temp
+    # echo "note that new cmake version will not be recognised until new vscode terminal is started"
+    # cd $cwd
+
+# }

@@ -10,13 +10,20 @@
 #include <thread>
 
 #include "imageProcessor.h"
+#include "frame.h"
 
 class EndTester : public imageProcessor{
     public:
-        void newFrame(frame newFrame){
-            currentFrame = newFrame;
-        }
         frame currentFrame;
+        void receiveFrame(frame newFrame){     
+            //std::cout<<"RECEIVED FRAME";     
+            currentFrame.copyFrom(&newFrame);
+        }
+
+        //overriding virtual functions which are not required
+        void updateSettings(std::map<std::string, std::string> in){return;}
+        std::string getParamLabel(){return "";};
+
 };
 
 

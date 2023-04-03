@@ -11,13 +11,20 @@
 #include "imageProcessor.h"
 
 
-class edgeDetection: public imageProcessor{
+class edgeDetection:   public imageProcessor{
+   
+
 public:
     edgeDetection() = default;
-    void newFrame(frame newFrame);
-
+    int threshold= 255;
+    int sliderThreshold = 100; //slider threshold used for metadata purposes
+    void receiveFrame(frame newFrame);
+    void updateThreshold(int value);
+    void updateSettings(std::map<std::string, std::string>);
+    std::string getParamLabel(){return paramLabel;};
 private:
     //add any other methods here
     void enhanceEdge(frame); //edge detection
+    std::string paramLabel = "edgeThreshold";
 };
 #endif // OPENFLEXURE_EDGE_DETECTION_H
