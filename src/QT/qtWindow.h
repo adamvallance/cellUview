@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gui.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.15.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -40,7 +40,7 @@ public:
     QPushButton *restoreSettingsButton;
     QLabel *label_2;
     QWidget *widget_6;
-    QSlider *horizontalSlider_2;
+    QSlider *edgeEnhancementSlider;
     QLineEdit *lineEdit;
     QLabel *label_3;
     QCheckBox *greyScaleBox;
@@ -56,8 +56,8 @@ public:
             GUI->setObjectName(QString::fromUtf8("GUI"));
         GUI->resize(1162, 936);
         centralwidget = new QWidget(GUI);
-        centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        centralwidget->setStyleSheet(QLatin1String("#centralWidget {\n"
+        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        centralwidget->setStyleSheet(QString::fromUtf8("#centralWidget {\n"
 "background-color:#FF121212}"));
         widget = new QWidget(centralwidget);
         widget->setObjectName(QString::fromUtf8("widget"));
@@ -109,14 +109,14 @@ public:
         widget_6->setObjectName(QString::fromUtf8("widget_6"));
         widget_6->setGeometry(QRect(500, 520, 641, 281));
         widget_6->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
-        horizontalSlider_2 = new QSlider(widget_6);
-        horizontalSlider_2->setObjectName(QString::fromUtf8("horizontalSlider_2"));
-        horizontalSlider_2->setGeometry(QRect(10, 190, 341, 31));
-        horizontalSlider_2->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
+        edgeEnhancementSlider = new QSlider(widget_6);
+        edgeEnhancementSlider->setObjectName(QString::fromUtf8("edgeEnhancementSlider"));
+        edgeEnhancementSlider->setGeometry(QRect(10, 190, 341, 31));
+        edgeEnhancementSlider->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
-        horizontalSlider_2->setOrientation(Qt::Horizontal);
+        edgeEnhancementSlider->setOrientation(Qt::Horizontal);
         lineEdit = new QLineEdit(widget_6);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         lineEdit->setGeometry(QRect(370, 190, 71, 31));
@@ -145,10 +145,10 @@ public:
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1162, 22));
         menuOpenflexure = new QMenu(menubar);
-        menuOpenflexure->setObjectName(QStringLiteral("menuOpenflexure"));
+        menuOpenflexure->setObjectName(QString::fromUtf8("menuOpenflexure"));
         GUI->setMenuBar(menubar);
         statusbar = new QStatusBar(GUI);
-        statusbar->setObjectName(QStringLiteral("statusbar"));
+        statusbar->setObjectName(QString::fromUtf8("statusbar"));
         GUI->setStatusBar(statusbar);
 
         menubar->addAction(menuOpenflexure->menuAction());

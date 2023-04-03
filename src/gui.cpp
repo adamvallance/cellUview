@@ -32,6 +32,14 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
         }
          
     });
+    // //-----------block 2 grey ---------------------
+    QObject::connect(ui->greyScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[2]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[2]->toggleEnable();
+        }
+         
+    });
    
     //-------------block -1 edge enhancement-----------------------
     QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->lineEdit, [&](int sliderValue) {
@@ -176,6 +184,9 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 
         else if(label == "erosion"){
             ui->erosionCheckBox->setChecked(valueBool);
+        }
+        else if(label == "erosion"){
+            ui->greyScaleBox->setChecked(valueBool);
         }
 
         else if(label == "dilation"){

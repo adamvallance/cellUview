@@ -11,12 +11,14 @@
 class greyScale: public imageProcessor{
 
 public:
-greyScale() = default;
-
-void newFrame(frame newFrame);
+    greyScale() = default;
+    void receiveFrame(frame);
+    std::string getParamLabel(){return paramLabel;};
+    void updateSettings(std::map<std::string, std::string>);
 
 private:
 
-void greyEnhance(frame); // grayscale conversion
+    void greyEnhance(frame); // grayscale conversion
+    std::string paramLabel = "greyScale";
 };
 #endif // OPENFLEXURE_GREY_SCALE_H
