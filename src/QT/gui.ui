@@ -185,7 +185,7 @@ background-color: rgb(83, 83, 83);</string>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(33, 33, 33);</string>
      </property>
-     <widget class="QSlider" name="horizontalSlider_2">
+     <widget class="QSlider" name="edgeEnhancementSlider">
       <property name="geometry">
        <rect>
         <x>10</x>

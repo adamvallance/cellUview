@@ -1,15 +1,20 @@
 #include "greyScale.h"
 #include <opencv2/imgproc.hpp>
 
-void greyScale::newFrame(frame newFrame) {
-    
+void greyScale::receiveFrame(frame newFrame) {
+    if (!enabled){
+        newFrame.setParameter(paramLabel, "OFF");
+        frameCb->receiveFrame(newFrame);
+        return;
+    }
+
+    // Pass frame into the erosion function
     greyEnhance(newFrame); 
 }
 
-
-void greyScale::greyEnhance(frame inputFrame) {
+void greyScale::greyEnhance(frame f) {
     // Convert input frame to cv::Mat
-    cv::Mat input_mat(inputFrame.image.rows, inputFrame.image.cols, CV_8UC3, inputFrame.image.data);
+    cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
 
     // Create output cv::Mat
     cv::Mat output_mat(input_mat.size(), CV_8UC3);
@@ -21,10 +26,26 @@ void greyScale::greyEnhance(frame inputFrame) {
     // Copy grayscale frame to output
     cv::cvtColor(gray_frame, output_mat, cv::COLOR_GRAY2BGR);
 
-    // Convert output cv::Mat to frame
-    frame outputFrame;
-    outputFrame.image = output_mat.clone();
+    //Add output to frame
+    f.image = output_mat;
 
     // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->newFrame(outputFrame);
+    f.setParameter(paramLabel, "ON");
+    frameCb->receiveFrame(f);
+}
+
+void greyScale::updateSettings(std::map<std::string, std::string> metadata){
+    
+    std::string rec = metadata[paramLabel];
+
+    bool desired = (rec == "ON");
+    // std::cout<<rec<<std::endl;
+
+    // std::cout<<desired<<std::endl;
+
+    if (enabled != desired){
+        toggleEnable();
+    }
+
+    
 }
