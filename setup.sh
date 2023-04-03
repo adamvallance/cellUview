@@ -3,16 +3,25 @@
 
 #installs prerequisite packages
 getPrerequisites(){
+    cwd=$(pwd)
     sudo apt update
     sudo apt upgrade
     pkgs=(gcc cmake build-essential libtool autoconf unzip wget qtbase5-dev qtdeclarative5-dev  libgtest-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools) #dont think these are needed anymore but coudl be: python3 python3-dev glibc-source)
     sudo apt-get -y --ignore-missing install "${pkgs[@]}"
+
+    cd /usr/src/gtest
+    sudo cmake CMakeLists.txt
+    sudo make
+    sudo cp *.a /usr/lib
+    cd $cwd
+
 }
 
 
 installExif(){
     
     #install exiftool
+    cwd=$(pwd)
     wget http://exiftool.org/Image-ExifTool-12.58.tar.gz || exit 1
     tar -xf Image-ExifTool-12.58.tar.gz
     rm -rf Image-ExifTool-12.58.tar.gz
@@ -22,15 +31,20 @@ installExif(){
     sudo make install
     cd ..
     rm -rf Image-ExifTool-12.58
+    cd src
     wget http://exiftool.org/cpp_exiftool/cpp_exiftool.tar.gz || exit 1
     tar -xf cpp_exiftool.tar.gz
     rm -rf cpp_exiftool.tar.gz
     cd cpp_exiftool
     make
-    sudo make install
-    cd .. 
+    cp inc/* src/
+    cd src
+    sudo ar -rc exifLibrary.a *.o
+    cd ../.. 
+    cd $cwd
 
 
+    #note that exiftool library is built inside src/cpp rather than a /inc folder for cmake simplicity
 }
 
 
@@ -38,6 +52,7 @@ installExif(){
 #https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
 
 installOpenCV2(){
+cwd=$(pwd)    
 if [ ! -d "opencv" ]; then
   wget https://github.com/opencv/opencv/archive/refs/tags/4.7.0.tar.gz || exit 1
   tar -xf 4.7.0.tar.gz
@@ -53,6 +68,7 @@ if [ ! -d "opencv" ]; then
   cd ../..
 
 fi
+cd $cwd
 
 }
 
@@ -60,7 +76,14 @@ fi
 #main, calls functions already defined
 getPrerequisites
 installExif
+if [ $# -ne 0 ]; then
+    if [ $1 == '-n' ]; then
+        echo "Skipping opencv installation"
+        exit
+    fi
+fi
 installOpenCV2 
+
 
 
 

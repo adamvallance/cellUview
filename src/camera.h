@@ -9,20 +9,29 @@
 #include <thread>
 #include "imageProcessor.h"
 
+#include "frame.h"
 
-class Camera: public imageProcessor{
+
+class Camera{
 public:
     Camera() = default;
     void start(int deviceID = 0, int apiID=0);
     void stop();
-    void newFrame(frame newFrame);
+    //void receiveFrame(frame newFrame);
     bool getIsOn();
+    void registerCallback(imageProcessor*);
+    void captureMetadata();
     
 private:
+    frame f;
     void postFrame();
     void threadLoop();
     cv::VideoCapture videoCapture;
     std::thread cameraThread;
     bool isOn = false;
+    imageProcessor* frameCb = nullptr;
+    bool doMeta = false;
+
 };
+
 #endif // OPENFLEXURE_CAMERA_H

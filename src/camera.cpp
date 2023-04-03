@@ -12,13 +12,24 @@ void Camera::postFrame(){
     videoCapture.read(capture);
     if (capture.empty()) {
         std::cerr << "OpenFlexure Error! blank frame grabbed\nPlease check your PiCamera microscope module is connected.<n";
+        frameCb==nullptr;
         this-> stop(); // stop processing. To avoid endless loop
-        return;
+        throw 1;
+        //exit(1);
+    } 
+    
+    //Create frame instance
+    frame f;
+    f.doMeta = doMeta;
+
+    //turn back off for next frame
+    if (doMeta){
+        doMeta = false;
     }
-    frame f; 
+
     f.image = capture;
-    //outputs f to the newFrame method of the next object in the dataflow through a callback
-    frameCb -> newFrame(f);
+    //outputs f to the receiveFrame method of the next object in the dataflow through a callback
+    frameCb -> receiveFrame(f);
 
 }
 
@@ -33,12 +44,16 @@ void Camera::stop(){
     cameraThread.join();
 }
 
-void Camera::newFrame(frame newFrame){
-    return;
+void Camera::registerCallback(imageProcessor* cb){
+    frameCb = cb;
 }
 
 bool Camera::getIsOn(){
     return isOn;    //method to check status of camera
+}
+
+void Camera::captureMetadata(){
+    doMeta = true;
 }
 
 

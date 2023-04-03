@@ -8,7 +8,12 @@
 
 
 //Receives in new frames through a callback.
-void edgeDetection::newFrame(frame newFrame) {
+void edgeDetection::receiveFrame(frame newFrame) {
+    if (!enabled){
+        newFrame.setParameter(paramLabel, "OFF");
+        frameCb->receiveFrame(newFrame);
+        return;
+    }
     // do stuff here
 
     // passing frame into the edge detection function
@@ -16,34 +21,58 @@ void edgeDetection::newFrame(frame newFrame) {
 }
 
 
-void edgeDetection::enhanceEdge(frame inputFrame) {
+void edgeDetection::enhanceEdge(frame f) {
     // Convert input frame to cv::Mat
-    cv::Mat input_mat(inputFrame.image.rows, inputFrame.image.cols, CV_8UC3, inputFrame.image.data);
+    cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
 
     // Create output cv::Mat
     cv::Mat output_mat(input_mat.size(), CV_8UC3);
 
     // Perform edge detection with set threshold
-    cv::Mat gray_frame;
-    cv::cvtColor(input_mat, gray_frame, cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(gray_frame, gray_frame, cv::Size(3, 3), 0);
-    cv::Canny(gray_frame, gray_frame, threshold, threshold);
+    cv::Mat gray_img;
+    cv::cvtColor(input_mat, gray_img, cv::COLOR_BGR2GRAY);
+    cv::GaussianBlur(gray_img, gray_img, cv::Size(3, 3), 0);
+    cv::Canny(gray_img, gray_img, threshold, threshold);
 
-    // Superimpose edges on to the origional frame
+    // Superimpose edges on to the original frame
     cv::Mat overlay_mat;
-    cv::cvtColor(gray_frame, overlay_mat, cv::COLOR_GRAY2BGR);
+    cv::cvtColor(gray_img, overlay_mat, cv::COLOR_GRAY2BGR);
     cv::addWeighted(input_mat, 0.9, overlay_mat, 0.3, 0, output_mat);
 
-    // Convert output cv::Mat to frame
-    frame outputFrame;
-    outputFrame.image = output_mat.clone();
-    outputFrame.edgeThreshold = 0.9;    //metadata for test
+    // Add output matrix to frame
+    f.image = output_mat;
+
+    f.setParameter(paramLabel, std::to_string(sliderThreshold));
     //TODO: when sliding threshold added this should match threshold variable
 
     // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->newFrame(outputFrame);
+    frameCb->receiveFrame(f);
+
 }
 
 void edgeDetection::updateThreshold(int value){
+    sliderThreshold = value;
+    //std::cout<<std::to_string(value)<<std::endl;
     threshold=255-2.55*value;
+}
+void edgeDetection::updateSettings(std::map<std::string, std::string> metadata){
+    std::string rec = metadata[paramLabel];
+    int metaThreshold;
+    if (rec == "OFF"){
+        if (enabled == true){
+            toggleEnable();
+        }
+    }else{
+        if (enabled==false){
+            toggleEnable();
+        }
+        try{
+            metaThreshold = std::stoi(metadata[paramLabel]);
+        }catch(...){
+            std::cout<<"Error invalid metadata"<<std::endl;
+            return;
+        }
+    }
+    
+    updateThreshold(metaThreshold);   
 }

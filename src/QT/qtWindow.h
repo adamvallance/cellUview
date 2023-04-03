@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gui.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.6
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -56,8 +56,8 @@ public:
             GUI->setObjectName(QString::fromUtf8("GUI"));
         GUI->resize(1162, 936);
         centralwidget = new QWidget(GUI);
-        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        centralwidget->setStyleSheet(QString::fromUtf8("#centralWidget {\n"
+        centralwidget->setObjectName(QStringLiteral("centralwidget"));
+        centralwidget->setStyleSheet(QLatin1String("#centralWidget {\n"
 "background-color:#FF121212}"));
         widget = new QWidget(centralwidget);
         widget->setObjectName(QString::fromUtf8("widget"));
@@ -145,10 +145,10 @@ public:
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1162, 22));
         menuOpenflexure = new QMenu(menubar);
-        menuOpenflexure->setObjectName(QString::fromUtf8("menuOpenflexure"));
+        menuOpenflexure->setObjectName(QStringLiteral("menuOpenflexure"));
         GUI->setMenuBar(menubar);
         statusbar = new QStatusBar(GUI);
-        statusbar->setObjectName(QString::fromUtf8("statusbar"));
+        statusbar->setObjectName(QStringLiteral("statusbar"));
         GUI->setStatusBar(statusbar);
 
         menubar->addAction(menuOpenflexure->menuAction());

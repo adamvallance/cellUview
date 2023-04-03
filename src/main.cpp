@@ -10,15 +10,11 @@
 #include "stdlib.h"
 #include "gui.h"
 #include "OpenFlexureWelcome.h"
-#include "processingTemplate.h"
 #include "edgeDetection.h"
 #include "gallery.h"
 #include "erosion.h"
 #include "dilation.h"
 #include "greyScale.h"
-
-#define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
-
 
 int main(int argc, char* argv[]){
     OpenFlexureWelcome::welcomeMessage();
@@ -27,36 +23,45 @@ int main(int argc, char* argv[]){
     QMainWindow window;
     Ui_GUI ui;
     
+ 
+
     //creating camera and gallery and gui instances
     Camera camera;
     Gallery gallery;
-
-#ifdef USE_TEMPLATE
-    //Template example;
+    
     edgeDetection edge;
+    //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
-    greyScale grey;    // erode.registerCallback(&dilate);
-    // dilate.registerCallback(&edge);
-    // edge.registerCallback(&gui);
-    //register callbacks
-    Gui gui(&window, &ui, &gallery, &edge, &grey) ; 
-    
-    camera.registerCallback(&grey);
-    // erode.registerCallback(&dilate);
-    // dilate.registerCallback(&edge);
-    // edge.registerCallback(&gui);
-    grey.registerCallback(&gui);
-#else 
-    camera.registerCallback(&gui);
-#endif
+
+    std::vector <imageProcessor *> blocks={&erode, &dilate, &edge};
+
+    Gui gui(&window, &ui, &gallery, &camera, blocks);
+
+    //Keep image enhancement classes in the callback chain
+    //but call instance.toggleEnable to bypass
+    //eg to default turn 
+
+    //register callbacks. To change order, change the order in the blocks vector above
+    camera.registerCallback(blocks[0]);
+    for (int i = 0; i < blocks.size()-1; i++){
+            blocks[i]->registerCallback(blocks[i+1]);
+    }
+
+    blocks.back()->registerCallback(&gui);
+
 
     //start camera
     camera.start();
     
     //start gui
     gui.SetVisible(true);
-    app.exec(); //loops main thread
+
+    try{
+        app.exec(); //loops main thread
+    }catch(...){
+        app.exit();
+    }
     
     //stop camera
     camera.stop();
