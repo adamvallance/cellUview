@@ -15,6 +15,16 @@
 #include "erosion.h"
 #include "dilation.h"
 #include "greyScale.h"
+#include "motorDriver.h"
+
+
+class MotorPrintCallback : public MotorCallback {
+    virtual void returnPosition(std::string message){
+        std::cout << message << std::endl;
+    }
+};
+
+
 
 int main(int argc, char* argv[]){
     OpenFlexureWelcome::welcomeMessage();
@@ -38,6 +48,11 @@ int main(int argc, char* argv[]){
 
     Gui gui(&window, &ui, &gallery, &camera, blocks);
 
+    MotorDriver motor;
+    MotorPrintCallback motorReturn;
+    motor.registerCallback(&motorReturn);
+
+
     //Keep image enhancement classes in the callback chain
     //but call instance.toggleEnable to bypass
     //eg to default turn 
@@ -53,6 +68,9 @@ int main(int argc, char* argv[]){
 
     //start camera
     camera.start();
+
+    //open motor communication
+    motor.start();
     
     //start gui
     gui.SetVisible(true);
@@ -63,6 +81,10 @@ int main(int argc, char* argv[]){
         app.exit();
     }
     
+
+    //close motor comms
+    motor.stop();
+
     //stop camera
     camera.stop();
     
