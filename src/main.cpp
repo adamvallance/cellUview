@@ -15,6 +15,7 @@
 #include "erosion.h"
 #include "dilation.h"
 #include "edgeDetection.h"
+#include "greyScale.h"
 
 int main(int argc, char* argv[]){
     OpenFlexureWelcome::welcomeMessage();
@@ -34,9 +35,8 @@ int main(int argc, char* argv[]){
     //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
-
-    //std::vector <imageProcessor *> blocks={&erode, &dilate, &edge};
-    std::vector <imageProcessor*> blocks = {&flat};
+    greyScale grey;
+    std::vector <imageProcessor *> blocks={&flat, &erode, &dilate, &grey, &edge};
 
     Gui gui(&window, &ui, &gallery, &camera, blocks);
 
