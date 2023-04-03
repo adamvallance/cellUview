@@ -10,6 +10,7 @@
 #include "imageProcessor.h"
 #include "edgeDetection.h"
 #include "gallery.h"
+#include "greyScale.h"
 #include "frame.h"
 #include "dilation.h"
 #include "erosion.h"
@@ -45,5 +46,6 @@ private:
 
 
     edgeDetection *edgeDetector;
+    greyScale *greyDetector;
 };
 #endif // OPENFLEXURE_GUI_H

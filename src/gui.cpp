@@ -1,5 +1,6 @@
 #include "gui.h"
 #include "edgeDetection.h"
+#include "greyScale.h"
 
 Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, std::vector<imageProcessor *> &blocksIn)
 {
@@ -28,6 +29,14 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
         bool enabled = blocks[1]->getEnabled();
         if (enabled != checkboxValue){
             blocks[1]->toggleEnable();
+        }
+         
+    });
+    // //-----------block 2 grey ---------------------
+    QObject::connect(ui->greyScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[2]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[2]->toggleEnable();
         }
          
     });
@@ -175,6 +184,9 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 
         else if(label == "erosion"){
             ui->erosionCheckBox->setChecked(valueBool);
+        }
+        else if(label == "greyScale"){
+            ui->greyScaleBox->setChecked(valueBool);
         }
 
         else if(label == "dilation"){

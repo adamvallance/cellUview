@@ -47,7 +47,8 @@ class frame{
         const std::vector<std::string> validParams= {
             "edgeThreshold",
             "erosion",
-            "dilation"
+            "dilation",
+            "greyScale"
             //ADD MORE PARAMETERS HERE
         };
 
