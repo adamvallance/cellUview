@@ -75,7 +75,7 @@ background-color: rgb(18, 18, 18);</string>
       <string>TextLabel</string>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_3" native="true">
+    <widget class="QWidget" name="ImageCaptureColumn" native="true">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -87,7 +87,7 @@ background-color: rgb(18, 18, 18);</string>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(33, 33, 33);</string>
      </property>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="captureButton">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -103,40 +103,7 @@ background-color: rgb(18, 18, 18);</string>
        <string>Capture Image</string>
       </property>
      </widget>
-     <widget class="QWidget" name="widget_4" native="true">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>530</y>
-        <width>410</width>
-        <height>141</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>10</y>
-         <width>410</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(83, 83, 83);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Image Settings</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="widget_5" native="true">
+     <widget class="QWidget" name="ImageHolder" native="true">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -164,6 +131,42 @@ background-color: rgb(83, 83, 83);</string>
       </property>
       <property name="text">
        <string>Gallery</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="restoreSettingsButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>664</y>
+        <width>411</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>Restore Settings</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>470</y>
+        <width>410</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+      </property>
+      <property name="text">
+       <string>Image Settings</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -252,6 +255,38 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Grey Scale</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="dilationCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>90</y>
+        <width>92</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Dilation</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="erosionCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>120</y>
+        <width>92</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Erosion</string>
       </property>
      </widget>
     </widget>
