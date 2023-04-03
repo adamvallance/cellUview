@@ -19,11 +19,15 @@ find_package(Threads REQUIRED)
 add_library(exifLibrary SHARED IMPORTED)
 set_target_properties(exifLibrary PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/cpp_exiftool/src/exifLibrary.a)
 
+#adding wiringSerial library
+find_library(wiringPi_LIB wiringPi)
+
+
 
 #compile and link OpenFlexure executable
-add_executable(OpenFlexure main.cpp camera.cpp gui.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp frame.cpp greyScale.cpp)
+add_executable(OpenFlexure main.cpp camera.cpp gui.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp frame.cpp greyScale.cpp motorDriver.cpp)
 #set_property(TARGET OpenFlexure PROPERTY CXX_STANDARD 17)
-target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads exifLibrary)
+target_link_libraries(OpenFlexure ${OpenCV_LIBS} Qt5::Widgets Threads::Threads exifLibrary wiringPi)
 
 
 #create libraries for testing
