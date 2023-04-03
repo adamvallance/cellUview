@@ -29,12 +29,13 @@ class Gallery{
         std::string getCaptureFname(){return captureFname;};//testing only
 
     private:
+        int initialiseDirectory(std::string, std::string);
         void writeMetadata(frame, std::string);
-
 
         DIR *dir;
         struct dirent *ent;
         std::string pathname = "";
+        std::string flatPath = "";
         std::string imgName = "capture";
         int captureImgCounter = 0;
         std::string captureFname = "";

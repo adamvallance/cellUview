@@ -4,27 +4,27 @@
 
 #include "flatFieldCorrect.h"
 
-#include "flatFieldCorrect.h"
-
 #include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 
 
 //Receives in new frames through a callback.
-void flatFieldCorrect::newFrame(frame newFrame) {
+
+void flatFieldCorrect::receiveFrame(frame newFrame) {
+    if (!enabled){
+        frameCb->receiveFrame(newFrame);
+        return;
+    }
     // do stuff here
 
-    // passing frame into the flat field correction function
+    // passing frame into the edge detection function
     flatField(newFrame); 
-    
-    // show the corrected image
 }
 
-
-void flatFieldCorrect::flatField(frame inputFrame) {
+void flatFieldCorrect::flatField(frame f) {
     // Load reference and actual images, where reference image is collected by user
     cv::Mat reference_image = cv::imread("/home/mark/RealTime/LENSopenflexure-microscopy-enhancement/src/capture8.jpg", cv::IMREAD_GRAYSCALE);
-    cv::Mat actual_image = inputFrame.image;
+    cv::Mat actual_image = f.image;
 
     // Calculate the correction factor
     cv::Mat correction_factor;
@@ -97,11 +97,11 @@ void flatFieldCorrect::flatField(frame inputFrame) {
     //std::cout << "reference_image size: " << correction_factor.size() << std::endl;
 
     // // Check if the dimensions of the input frame and corrected image match
-    // if (inputFrame.image.size() == corrected_image.size()) {
+    // if (f.image.size() == corrected_image.size()) {
     //     // Copy the corrected image back to the input frame
-    //     corrected_image.copyTo(inputFrame.image);
+    //     corrected_image.copyTo(f.image);
     // } else {
     //     std::cerr << "Error: image dimensions do not match!" << std::endl;
     // }
-    frameCb->newFrame(inputFrame);
+    frameCb->receiveFrame(f);
 }

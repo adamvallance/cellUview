@@ -32,7 +32,7 @@ add_library(camera camera.cpp camera.h frame.cpp)
 target_link_libraries(camera ${OpenCV_LIBS} Threads::Threads)
 
 
-add_library(imageProc edgeDetection.cpp erosion.cpp dilation.cpp frame.cpp imageProcessor.h)
+add_library(imageProc edgeDetection.cpp erosion.cpp dilation.cpp frame.cpp imageProcessor.h flatFieldCorrect.cpp)
 target_link_libraries(imageProc ${OpenCV_LIBS} Threads::Threads)
 
 add_library(gallery gallery.cpp)

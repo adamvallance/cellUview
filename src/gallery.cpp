@@ -12,30 +12,39 @@ Gallery::Gallery(){
 //---- find or create gallery directory----
     pathname = getenv("HOME");
     pathname += + "/OpenFlexureGallery/"; 
-    
-    //if it doesn't exist
-    if ((dir = opendir(pathname.c_str())) == NULL){
-        //try to make the directory
-        if (mkdir(pathname.c_str(), S_IRWXU) == -1){
-            //if failed:
-            std::cerr << "Error :  " << std::strerror(errno) << std::endl;
-            std::cout << "Gallery directory not found/created";
-            //ADD. disable button if failed
-            pathname = ""; 
-            return;
-        }
-        else{//if gallery succesfully made
-            std::cout << "Gallery directory created at " + pathname << std::endl;
-        }
-    }else{//if gallery already exists
-        std::cout << "Gallery directory found at " + pathname << std::endl;
-        closedir(dir);
-    }
-
+    flatPath = pathname + "/.FlatFieldGallery";
     //updates index to find highest existing file with matching name to avoid overwriting
+    initialiseDirectory(pathname, "Openflexure Gallery");
+    initialiseDirectory(flatPath, "Flat field capture gallery");
     updateIndex();
     
 }
+
+int Gallery::initialiseDirectory(std::string path, std::string description){
+        //if it doesn't exist
+    if ((dir = opendir(path.c_str())) == NULL){
+        //try to make the directory
+        if (mkdir(path.c_str(), S_IRWXU) == -1){
+            //if failed:
+            std::cerr << "Error :  " << std::strerror(errno) << std::endl;
+            std::cout << description << " directory not found/created";
+            //ADD. disable button if failed
+            pathname = ""; 
+            return 1;
+        }
+        else{//if gallery succesfully made
+            std::cout << description << " directory created at " + path << std::endl;
+        }
+    }else{//if gallery already exists
+        std::cout << description << " directory found at " + path << std::endl;
+        closedir(dir);
+    }
+
+    return 0;
+
+    //updates index to find highest existing file with matching name to avoid overwriting
+}
+
 
 //add some error handling
 void Gallery::captureFrame(frame capFrame){
