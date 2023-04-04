@@ -50,14 +50,20 @@ void MotorDriver::run(){
         
             serialFlush(fd);
 
-            serialPuts(fd, "mrx 100");  // half rotation for x
-            do {
-                bytesToRead = serialDataAvail(fd);
-                //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
-            }
-            while ( bytesToRead < 1  &&  enabled);
-            read(fd, dataRead, bytesToRead);        // wait for and read done message
-            //std::cout << dataRead << std::endl; //debug
+            // serialPuts(fd, "mrx 100");  // half rotation for x
+            // do {
+            //     bytesToRead = serialDataAvail(fd);
+            //     //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
+            // }
+            // while ( bytesToRead < 1  &&  enabled);
+            // read(fd, dataRead, bytesToRead);        // wait for and read done message
+            // //std::cout << dataRead << std::endl; //debug
+
+            mov('x', 512);
+
+            getPosition();
+
+            resetToZero();
 
             getPosition();
 
@@ -88,12 +94,17 @@ void MotorDriver::getPosition(){
     //parse position char array
     std::string temp = "";
     std::string dataString = dataRead;
+    std::cout << "dataString: " << dataString << std::endl;    //debug
     int i = 0;
     for (char & x : dataString){
         if (x == ' ' || x == '\n'){
+            std::cout << "Str to convert to int: " << temp << std::endl;    //debug
             positionArray[i] = stoi(temp);  // updates positionArray with int value
             temp = "";
             i = i+1;
+            if (i>2){
+                break;
+            }
         }
         else {
             temp = temp + x;
@@ -101,5 +112,37 @@ void MotorDriver::getPosition(){
     }
     i = 0;
 
+}
+
+void MotorDriver::mov(char axis, int inc){
+
+    std::string commandStr = "mr";
+    commandStr = commandStr + axis + ' ' + std::__cxx11::to_string(inc);    // construct command string with axis and increment value
+    const char* command = commandStr.c_str();
+    std::cout << "Command string: " << command << std::endl;    //debug
+
+    serialPuts(fd, command);  // perform movement
+
+    do {
+        bytesToRead = serialDataAvail(fd);
+        //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
+    }
+    while ( bytesToRead < 1  &&  enabled);
+    read(fd, dataRead, bytesToRead);        // wait for and read done message
+    //std::cout << dataRead << std::endl; //debug
+
+    return;
+
+}
+
+void MotorDriver::resetToZero(){
+    serialPuts(fd, "zero");
+    do {
+        bytesToRead = serialDataAvail(fd);
+        //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
+    }
+    while ( bytesToRead < 1  &&  enabled);
+    //read(fd, dataRead, bytesToRead);        // wait for and read done message
+    serialFlush(fd);
 }
 

@@ -27,22 +27,19 @@ public:
     void stop();
 
     void resetToZero();
+    void getPosition();
+    void mov(char axis, int inc);
 
 
 private:
 
     void run();
 
-    void getPosition();
-
     MotorCallback* motorCb = nullptr;
     bool enabled = false;
 
     int fd = 0;
     std::string currentPosition = "0 0 0";
-    int currentX = 0;
-    int currentY = 0;
-    int currentZ = 0;
     int positionArray[3]; 
     std::string commandAck = "";
     int bytesToRead;
