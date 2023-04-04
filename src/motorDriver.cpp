@@ -30,57 +30,53 @@ void MotorDriver::stop(){
 
 void MotorDriver::run(){
 
-    //while(enabled){
-        // serialPuts(fd, "mr 5000 5000 -250");    //dummy rotation for now
-        // //std::cout << commandAck << std::endl; //debug only
-        // serialPuts(fd, "p?");
-        // currentPosition = serialGetchar(fd);
-        // motorCb -> returnPosition(currentPosition);
+    do {                                        // read the intro message and discard
+        bytesToRead = serialDataAvail(fd);
+        //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
+    }
+    while ( bytesToRead < 1  &&  enabled);
 
-        do {                                        // read the intro message and discard
-            bytesToRead = serialDataAvail(fd);
-            //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
-        }
-        while ( bytesToRead < 1  &&  enabled);
+    read(fd, firmwareVer, bytesToRead);         // reads intro message with firmware version
+    std::cout << "Initial message : " << firmwareVer << std::endl; //debug
 
-        read(fd, firmwareVer, bytesToRead);         // reads intro message with firmware version
-        std::cout << "Initial message : " << firmwareVer << std::endl; //debug
+    while (enabled){
+    
+        serialFlush(fd);
 
-        while (enabled){
-        
-            serialFlush(fd);
+        mov('x', 512);
 
-            // serialPuts(fd, "mrx 100");  // half rotation for x
-            // do {
-            //     bytesToRead = serialDataAvail(fd);
-            //     //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
-            // }
-            // while ( bytesToRead < 1  &&  enabled);
-            // read(fd, dataRead, bytesToRead);        // wait for and read done message
-            // //std::cout << dataRead << std::endl; //debug
+        getPosition();
+        //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
+        motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
 
-            mov('x', 512);
+        mov('y', 1024);
 
-            getPosition();
+        getPosition();
+        //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
+        motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
 
-            resetToZero();
+        mov('z', -512);
 
-            getPosition();
+        getPosition();
+        //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
+        motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
 
-            //std::cout << dataRead << std::endl; //debug
-            std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
+        resetToZero();
 
-            currentPosition = dataRead;
-            motorCb -> returnPosition(currentPosition);
+        getPosition();
+        //std::cout << dataRead << std::endl; //debug
+        //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
 
-        }
+        //currentPosition = dataRead;
+        motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
 
-    //}
+    }
+
 
 }
 
 void MotorDriver::getPosition(){
-
+    
     serialPuts(fd, "p?");   //request new position
 
     do {
@@ -94,11 +90,11 @@ void MotorDriver::getPosition(){
     //parse position char array
     std::string temp = "";
     std::string dataString = dataRead;
-    std::cout << "dataString: " << dataString << std::endl;    //debug
+    //std::cout << "dataString: " << dataString << std::endl;    //debug
     int i = 0;
     for (char & x : dataString){
         if (x == ' ' || x == '\n'){
-            std::cout << "Str to convert to int: " << temp << std::endl;    //debug
+            //std::cout << "Str to convert to int: " << temp << std::endl;    //debug
             positionArray[i] = stoi(temp);  // updates positionArray with int value
             temp = "";
             i = i+1;
@@ -111,6 +107,8 @@ void MotorDriver::getPosition(){
         }
     }
     i = 0;
+
+    return;
 
 }
 
@@ -143,6 +141,9 @@ void MotorDriver::resetToZero(){
     }
     while ( bytesToRead < 1  &&  enabled);
     //read(fd, dataRead, bytesToRead);        // wait for and read done message
-    serialFlush(fd);
+    //std::cout << dataRead << std::endl;
+    serialFlush(fd);        // wait for and discard returned message
+    //std::cout << serialDataAvail(fd) << std::endl;
+    return;
 }
 

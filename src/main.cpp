@@ -19,8 +19,8 @@
 
 
 class MotorPrintCallback : public MotorCallback {
-    virtual void returnPosition(std::string message){
-        std::cout << "Motor return message: " << message << std::endl;
+    virtual void returnPosition(int x, int y, int z){
+        std::cout << "Motor current position:  " << "x: " << x << "  y: " << y << "  z: " << z << std::endl;
     }
 };
 

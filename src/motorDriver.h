@@ -11,7 +11,7 @@
 
 class MotorCallback {
 public:
-    virtual void returnPosition(std::string message) = 0;
+    virtual void returnPosition(int x, int y, int z) = 0;
 };
 
 
@@ -51,13 +51,7 @@ private:
     char dataRead[];
 
 
-
-
-
 };
-
-
-
 
 
 
