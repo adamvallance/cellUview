@@ -81,7 +81,7 @@ int main(int argc, char* argv[]){
     }
     
 
-    //stop camera
+    //stop camera and motor
     motor.stop();
     camera.stop();
     

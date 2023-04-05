@@ -35,8 +35,11 @@ void MotorDriver::start(const char* device, int baud){
 void MotorDriver::stop(){
     if (fd>-1){  // only need to end if motor connection opened
         enabled=false;
-        motorThread.join();
-        serialClose(fd);
+        std::cout<<"Running: "<<running<<std::endl;
+        if (running){           //if any motor functions are active
+            motorThread.join();
+        }
+        serialClose(fd);        // close serial comms
 
     }
 }
@@ -135,6 +138,8 @@ void MotorDriver::mov(char axis, int inc){
 //std::vector<int>* 
 void MotorDriver::movThread(){
 
+    running = true;     //flag to indicate thread is active
+
     std::string commandStr = "mr";
     commandStr = commandStr + commandAxis + ' ' + std::__cxx11::to_string(commandInc);    // construct command string with axis and increment value
     const char* command = commandStr.c_str();
@@ -150,6 +155,8 @@ void MotorDriver::movThread(){
     read(fd, dataRead, bytesToRead);        // wait for and read done message
     //std::cout << dataRead << std::endl; //debug
 
+    running = false;
+    
     motorThread.detach();
     //return;
 

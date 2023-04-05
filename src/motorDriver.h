@@ -41,14 +41,14 @@ private:
     bool enabled = false;
 
     int fd = 0;
-    std::string currentPosition = "0 0 0";
     int positionArray[3]; 
-    std::string commandAck = "";
     int bytesToRead;
 
 
     char commandAxis;
     int commandInc;
+
+    bool running = false;
     
 
     std::thread motorThread;
