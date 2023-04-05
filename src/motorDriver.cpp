@@ -156,8 +156,7 @@ void MotorDriver::mov(char axis, int inc){
     motorThread = std::thread(&MotorDriver::movThread, this);
 }
 
-//if making return pos
-//std::vector<int>* 
+
 void MotorDriver::movThread(){
 
     running = true;     //flag to indicate thread is active
@@ -183,11 +182,6 @@ void MotorDriver::movThread(){
     
     motorThread.detach();
     //return;
-
-    //Updating gui pseudocode
-    // pos = updatePosition();
-    // return pos
-    //mind change void to whatever the type of pos is
 
 }
 

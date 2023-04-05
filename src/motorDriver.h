@@ -27,8 +27,6 @@ public:
     void start(const char* device = "/dev/ttyUSB0", int baud = 115200);
     void stop();
 
-    void resetToZero();
-    void updatePosition();
     int getPositionX();
     int getPositionY();
     int getPositionZ();
@@ -41,6 +39,9 @@ private:
     void run();
 
     void movThread();
+
+    void resetToZero();
+    void updatePosition();
 
     MotorCallback* motorCb = nullptr;
     bool enabled = false;
