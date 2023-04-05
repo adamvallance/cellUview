@@ -44,7 +44,7 @@ private:
     bool enabled = false;
 
     int fd = 0;
-    int positionArray[3]; 
+    int positionArray[3] = {0, 0, 0}; 
     int bytesToRead;
 
 
@@ -56,7 +56,7 @@ private:
 
     std::thread motorThread;
 
-    char firmwareVer[28];
+    char firmwareVer[26];
     char dataRead[];
 
 

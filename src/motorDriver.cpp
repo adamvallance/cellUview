@@ -28,6 +28,8 @@ void MotorDriver::start(const char* device, int baud){
         read(fd, firmwareVer, bytesToRead);         // reads intro message with firmware version
         std::cout << "Motor driver connection opened: " << firmwareVer << std::endl;
 
+        resetToZero();      // starting position should be 0, 0, 0
+
         //motorThread = std::thread(&MotorDriver::run, this);
     }   
 }

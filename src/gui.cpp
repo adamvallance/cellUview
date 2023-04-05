@@ -90,6 +90,20 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
     QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 1024); });
     QObject::connect(ui->xDownButton, &QPushButton::released, this, [&](){ motorMove('x', -1024); });
 
+    //QObject::connect(ui->xPos, &QLineEdit::textChanged, this, [&](const QString &text) {
+    QObject::connect(ui->xPos, &QLineEdit::returnPressed, this, [&]() {
+        bool ok;
+        QString text = ui->xPos->text();
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPositionX();
+                int toMove = finalPosition - currentPosition;
+                motorMove('x', toMove);
+            }
+        }
+    });
 
 
 
@@ -204,18 +218,21 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 }
 
 void Gui::motorMove(char ax, int increment){
+    
     bool motorsRunning = motors->getRunning();
-    if (!motorsRunning){
+    if (!motorsRunning){            // only move if motors not currently actuve
+        
         motors->mov(ax, increment);
+
+        if (ax=='x'){
+            int positionForUpdate = motors->getPositionX();
+            ui->xPos->setText(QString::number(positionForUpdate+increment));    // update position to starting pos + increment
+        }
+
+        //need to add for y and z
+
     }
-    
-    
-    
-    //ui->textbox->settext()
-    //pos = mov(thingy)
-    //gui->update textbox with pos
+
 }
 
-void Gui::returnPosition(int x, int y, int z){
-        std::cout << "Motor current position:  " << "x: " << x << "  y: " << y << "  z: " << z << std::endl;
-}
+
