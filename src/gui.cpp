@@ -87,20 +87,50 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
 
 
     // motor ui element connections
-    QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 1024); });
-    QObject::connect(ui->xDownButton, &QPushButton::released, this, [&](){ motorMove('x', -1024); });
-
-    //QObject::connect(ui->xPos, &QLineEdit::textChanged, this, [&](const QString &text) {
-    QObject::connect(ui->xPos, &QLineEdit::returnPressed, this, [&]() {
+    QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 1); });
+    QObject::connect(ui->xDownButton, &QPushButton::released, this, [&](){ motorMove('x', -1); });
+    QObject::connect(ui->xPos, &QLineEdit::returnPressed, this, [&]() {     // only move motors after enter pressed
         bool ok;
-        QString text = ui->xPos->text();
+        QString text = ui->xPos->text();                // get text from ui element
         int finalPosition = text.toInt(&ok);
         if (ok) {
             bool motorsRunning = motors->getRunning();  // check if motors active
             if (!motorsRunning){  
                 int currentPosition = motors->getPositionX();
-                int toMove = finalPosition - currentPosition;
+                int toMove = finalPosition - currentPosition;   // move difference between current and desired positions 
                 motorMove('x', toMove);
+            }
+        }
+    });
+
+    QObject::connect(ui->yUpButton, &QPushButton::released, this, [&](){ motorMove('y', 1); });
+    QObject::connect(ui->yDownButton, &QPushButton::released, this, [&](){ motorMove('y', -1); });
+    QObject::connect(ui->yPos, &QLineEdit::returnPressed, this, [&]() {
+        bool ok;
+        QString text = ui->yPos->text();
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPositionY();
+                int toMove = finalPosition - currentPosition;
+                motorMove('y', toMove);
+            }
+        }
+    });
+
+    QObject::connect(ui->zUpButton, &QPushButton::released, this, [&](){ motorMove('z', 1); });
+    QObject::connect(ui->zDownButton, &QPushButton::released, this, [&](){ motorMove('z', -1); });
+    QObject::connect(ui->zPos, &QLineEdit::returnPressed, this, [&]() {
+        bool ok;
+        QString text = ui->zPos->text();
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPositionZ();
+                int toMove = finalPosition - currentPosition;
+                motorMove('z', toMove);
             }
         }
     });
@@ -229,7 +259,15 @@ void Gui::motorMove(char ax, int increment){
             ui->xPos->setText(QString::number(positionForUpdate+increment));    // update position to starting pos + increment
         }
 
-        //need to add for y and z
+        if (ax=='y'){
+            int positionForUpdate = motors->getPositionY();
+            ui->yPos->setText(QString::number(positionForUpdate+increment));   
+        }
+
+        if (ax=='z'){
+            int positionForUpdate = motors->getPositionZ();
+            ui->zPos->setText(QString::number(positionForUpdate+increment));  
+        }
 
     }
 

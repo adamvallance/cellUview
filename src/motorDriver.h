@@ -30,6 +30,8 @@ public:
     void resetToZero();
     void updatePosition();
     int getPositionX();
+    int getPositionY();
+    int getPositionZ();
     bool getRunning();
     void mov(char axis, int inc);
 

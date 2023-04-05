@@ -136,6 +136,14 @@ int MotorDriver::getPositionX(){
     return positionArray[0];
 }
 
+int MotorDriver::getPositionY(){
+    return positionArray[1];
+}
+
+int MotorDriver::getPositionZ(){
+    return positionArray[2];
+}
+
 
 bool MotorDriver::getRunning(){
     return running;
