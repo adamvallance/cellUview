@@ -27,6 +27,7 @@ public:
     Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, MotorDriver*, std::vector <imageProcessor *>&);
     //Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
+    void returnPosition(int x, int y, int z);
 
 private:
     QMainWindow *widget;
@@ -35,7 +36,10 @@ private:
     void captureNextFrame();
     void restoreSettings(std::string = "");
     void updateSettings(std::map<std::string, std::string>);
+    
     void motorMove(char ax, int increment);
+    
+
     std::string getParamLabel(){return "";};
 
 

@@ -204,11 +204,18 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 }
 
 void Gui::motorMove(char ax, int increment){
-    motors->mov(ax, increment);
-    //motorThread = std::thread(&MotorDriver::mov(ax, increment), motors);
+    bool motorsRunning = motors->getRunning();
+    if (!motorsRunning){
+        motors->mov(ax, increment);
+    }
+    
     
     
     //ui->textbox->settext()
     //pos = mov(thingy)
     //gui->update textbox with pos
+}
+
+void Gui::returnPosition(int x, int y, int z){
+        std::cout << "Motor current position:  " << "x: " << x << "  y: " << y << "  z: " << z << std::endl;
 }

@@ -35,7 +35,7 @@ void MotorDriver::start(const char* device, int baud){
 void MotorDriver::stop(){
     if (fd>-1){  // only need to end if motor connection opened
         enabled=false;
-        std::cout<<"Running: "<<running<<std::endl;
+        //std::cout<<"Running: "<<running<<std::endl;   //debug
         if (running){           //if any motor functions are active
             motorThread.join();
         }
@@ -123,8 +123,20 @@ void MotorDriver::updatePosition(){
     }
     i = 0;
 
+    motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
+
     return;
 
+}
+
+
+int MotorDriver::getPositionX(){
+    return positionArray[0];
+}
+
+
+bool MotorDriver::getRunning(){
+    return running;
 }
 
 
@@ -155,6 +167,8 @@ void MotorDriver::movThread(){
     read(fd, dataRead, bytesToRead);        // wait for and read done message
     //std::cout << dataRead << std::endl; //debug
 
+    updatePosition();
+    
     running = false;
     
     motorThread.detach();

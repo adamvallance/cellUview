@@ -20,6 +20,7 @@ class MotorDriver {
 public:
     MotorDriver() = default;     // constructor
 
+    //void registerCallback(MotorCallback* cb);
     void registerCallback(MotorCallback* cb);
 
     //void start(std::string device = "/dev/ttyUSB0", int baud = 115200);
@@ -28,6 +29,8 @@ public:
 
     void resetToZero();
     void updatePosition();
+    int getPositionX();
+    bool getRunning();
     void mov(char axis, int inc);
 
 
