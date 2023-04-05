@@ -28,7 +28,7 @@ void MotorDriver::start(const char* device, int baud){
         read(fd, firmwareVer, bytesToRead);         // reads intro message with firmware version
         std::cout << "Motor driver connection opened: " << firmwareVer << std::endl;
 
-        motorThread = std::thread(&MotorDriver::run, this);
+        //motorThread = std::thread(&MotorDriver::run, this);
     }   // is this bad practice??
 }
 

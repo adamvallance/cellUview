@@ -24,8 +24,8 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
-    //Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, MotorDriver*, std::vector <imageProcessor *>&);
-    Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, std::vector <imageProcessor *>&);
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, MotorDriver*, std::vector <imageProcessor *>&);
+    //Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
 
 private:
@@ -46,10 +46,6 @@ private:
 
     std::map<std::string, std::string> metadata;
 
-
-
-    edgeDetection *edgeDetector;
-    greyScale *greyDetector;
 
     MotorDriver *motors;
 };
