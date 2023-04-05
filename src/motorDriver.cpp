@@ -8,6 +8,7 @@ void MotorDriver::registerCallback(MotorCallback* cb){
 //void MotorDriver::start(std::string device, int baud){
 void MotorDriver::start(const char* device, int baud){
     if (enabled){
+        std::cout<<"Motor already started"<<std::endl;
         return;
     }
     enabled = true;
@@ -16,28 +17,31 @@ void MotorDriver::start(const char* device, int baud){
         std::cerr << "Error: could not connect to motor driver" << std::endl;
         //throw 1;
     } 
-    else {
+    else {//connection succesful
         serialFlush(fd);
+
+        do {                                        // wait for intro message
+            bytesToRead = serialDataAvail(fd);
+            //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
+        }
+        while ( bytesToRead < 1  &&  enabled);
+        read(fd, firmwareVer, bytesToRead);         // reads intro message with firmware version
+        std::cout << "Motor driver connection opened: " << firmwareVer << std::endl;
+
         motorThread = std::thread(&MotorDriver::run, this);
     }   // is this bad practice??
 }
 
 void MotorDriver::stop(){
-    serialClose(fd);
-    enabled=false;
-    motorThread.join();
+    if (fd>-1){  // only need to end if motor connection opened
+        enabled=false;
+        motorThread.join();
+        serialClose(fd);
+
+    }
 }
 
 void MotorDriver::run(){
-
-    do {                                        // read the intro message and discard
-        bytesToRead = serialDataAvail(fd);
-        //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
-    }
-    while ( bytesToRead < 1  &&  enabled);
-
-    read(fd, firmwareVer, bytesToRead);         // reads intro message with firmware version
-    std::cout << "Initial message : " << firmwareVer << std::endl; //debug
 
     while (enabled){
     
@@ -94,8 +98,16 @@ void MotorDriver::getPosition(){
     int i = 0;
     for (char & x : dataString){
         if (x == ' ' || x == '\n'){
-            //std::cout << "Str to convert to int: " << temp << std::endl;    //debug
-            positionArray[i] = stoi(temp);  // updates positionArray with int value
+            try {
+                //std::cout << "Str to convert to int: " << temp << std::endl;    //debug
+                positionArray[i] = stoi(temp);  // updates positionArray with int value
+            }
+            catch(...){
+               if (temp == "done"){
+                    return;
+               }
+               positionArray[i] = -1;
+            }
             temp = "";
             i = i+1;
             if (i>2){

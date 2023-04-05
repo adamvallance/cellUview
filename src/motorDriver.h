@@ -54,5 +54,11 @@ private:
 };
 
 
+class MotorPrintCallback : public MotorCallback {
+    virtual void returnPosition(int x, int y, int z){
+        std::cout << "Motor current position:  " << "x: " << x << "  y: " << y << "  z: " << z << std::endl;
+    }
+};
+
 
 #endif //MOTOR_DRIVER_H

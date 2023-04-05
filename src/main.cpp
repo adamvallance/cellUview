@@ -18,11 +18,7 @@
 #include "motorDriver.h"
 
 
-class MotorPrintCallback : public MotorCallback {
-    virtual void returnPosition(int x, int y, int z){
-        std::cout << "Motor current position:  " << "x: " << x << "  y: " << y << "  z: " << z << std::endl;
-    }
-};
+
 
 
 
@@ -46,10 +42,12 @@ int main(int argc, char* argv[]){
     greyScale grey;
     std::vector <imageProcessor *> blocks={&erode, &dilate, &grey, &edge};
 
-    Gui gui(&window, &ui, &gallery, &camera, blocks);
-
     MotorDriver motor;
     MotorPrintCallback motorReturn;
+
+    //Gui gui(&window, &ui, &gallery, &camera, &motor, blocks);
+    Gui gui(&window, &ui, &gallery, &camera, blocks);
+
     motor.registerCallback(&motorReturn);
 
 
@@ -78,14 +76,13 @@ int main(int argc, char* argv[]){
     try{
         app.exec(); //loops main thread
     }catch(...){
+        motor.stop();
         app.exit();
     }
     
 
-    //close motor comms
-    motor.stop();
-
     //stop camera
+    motor.stop();
     camera.stop();
     
     //exit

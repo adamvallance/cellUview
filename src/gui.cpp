@@ -2,6 +2,7 @@
 #include "edgeDetection.h"
 #include "greyScale.h"
 
+//Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, MotorDriver *motors, std::vector<imageProcessor *> &blocksIn)
 Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
@@ -10,6 +11,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     this->gallery = galleryIn;
     this->cam = camera;
+    //this->motor = motors;
     blocks = blocksIn;
     enabled = true;
 
@@ -87,6 +89,13 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
+
+
+
+    // motor ui element connections
+    //QObject::connect(ui->xUpButton, &QPushButton::released, this, &Gui::motorMove('x', 1024));
+    //QObject::connect(ui->xDownButton, &QPushButton::released, this, &Gui::motorMove('x', -1024));
+
 }
 
 void Gui::receiveFrame(frame newFrame)
@@ -196,3 +205,8 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     }
     
 }
+
+// void Gui::motorMove(char ax, int increment)
+// {
+//     motor->mov(ax, increment);
+// }

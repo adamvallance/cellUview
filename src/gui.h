@@ -15,6 +15,7 @@
 #include "dilation.h"
 #include "erosion.h"
 #include "camera.h"
+#include "motorDriver.h"
 
 
 
@@ -23,6 +24,7 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
+    //Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, MotorDriver*, std::vector <imageProcessor *>&);
     Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
 
@@ -33,6 +35,7 @@ private:
     void captureNextFrame();
     void restoreSettings(std::string = "");
     void updateSettings(std::map<std::string, std::string>);
+    void motorMove(char ax, int increment);
     std::string getParamLabel(){return "";};
 
 
@@ -47,5 +50,7 @@ private:
 
     edgeDetection *edgeDetector;
     greyScale *greyDetector;
+
+    MotorDriver *motors;
 };
 #endif // OPENFLEXURE_GUI_H
