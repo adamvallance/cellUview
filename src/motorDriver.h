@@ -31,6 +31,7 @@ public:
     int getPositionY();
     int getPositionZ();
     bool getRunning();
+    bool getConnected();
     void mov(char axis, int inc);
 
 
@@ -45,6 +46,8 @@ private:
 
     MotorCallback* motorCb = nullptr;
     bool enabled = false;
+
+    bool connected = false;
 
     int fd = 0;
     int positionArray[3] = {0, 0, 0}; 

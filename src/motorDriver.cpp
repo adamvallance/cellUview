@@ -30,6 +30,8 @@ void MotorDriver::start(const char* device, int baud){
 
         resetToZero();      // starting position should be 0, 0, 0
 
+        connected = true;
+
         //motorThread = std::thread(&MotorDriver::run, this);
     }   
 }
@@ -37,6 +39,7 @@ void MotorDriver::start(const char* device, int baud){
 void MotorDriver::stop(){
     if (fd>-1){  // only need to end if motor connection opened
         enabled=false;
+        connected=false;
         //std::cout<<"Running: "<<running<<std::endl;   //debug
         if (running){           //if any motor functions are active
             motorThread.join();
@@ -147,6 +150,11 @@ int MotorDriver::getPositionZ(){
 
 bool MotorDriver::getRunning(){
     return running;
+}
+
+
+bool MotorDriver::getConnected(){
+    return connected;
 }
 
 

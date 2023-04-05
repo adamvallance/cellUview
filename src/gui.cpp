@@ -249,8 +249,9 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 
 void Gui::motorMove(char ax, int increment){
     
+    bool motorsConnected = motors->getConnected();
     bool motorsRunning = motors->getRunning();
-    if (!motorsRunning){            // only move if motors not currently actuve
+    if (!motorsRunning && motorsConnected){            // only move if motors connected and not currently active
         
         motors->mov(ax, increment);
 
