@@ -81,12 +81,6 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
     ////do a capture
     QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
-    //// How to connect a button to an instance of another class
-    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
-
-    // toggle edge
-    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
-
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
 
@@ -95,8 +89,9 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
     // motor ui element connections
     QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 1024); });
     QObject::connect(ui->xDownButton, &QPushButton::released, this, [&](){ motorMove('x', -1024); });
-    //QObject::connect(ui->xUpButton, &QPushButton::released, this, &Gui::motorMove('x', 1024));
-    //QObject::connect(ui->xDownButton, &QPushButton::released, this, &Gui::motorMove('x', -1024));
+
+
+
 
 }
 
@@ -208,7 +203,12 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     
 }
 
-void Gui::motorMove(char ax, int increment)
-{
+void Gui::motorMove(char ax, int increment){
     motors->mov(ax, increment);
+    //motorThread = std::thread(&MotorDriver::mov(ax, increment), motors);
+    
+    
+    //ui->textbox->settext()
+    //pos = mov(thingy)
+    //gui->update textbox with pos
 }

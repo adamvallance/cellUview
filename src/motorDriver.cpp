@@ -29,7 +29,7 @@ void MotorDriver::start(const char* device, int baud){
         std::cout << "Motor driver connection opened: " << firmwareVer << std::endl;
 
         //motorThread = std::thread(&MotorDriver::run, this);
-    }   // is this bad practice??
+    }   
 }
 
 void MotorDriver::stop(){
@@ -49,25 +49,25 @@ void MotorDriver::run(){
 
         mov('x', 512);
 
-        getPosition();
+        updatePosition();
         //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
         motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
 
         mov('y', 1024);
 
-        getPosition();
+        updatePosition();
         //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
         motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
 
         mov('z', -512);
 
-        getPosition();
+        updatePosition();
         //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
         motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
 
         resetToZero();
 
-        getPosition();
+        updatePosition();
         //std::cout << dataRead << std::endl; //debug
         //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
 
@@ -79,7 +79,7 @@ void MotorDriver::run(){
 
 }
 
-void MotorDriver::getPosition(){
+void MotorDriver::updatePosition(){
     
     serialPuts(fd, "p?");   //request new position
 
@@ -124,10 +124,19 @@ void MotorDriver::getPosition(){
 
 }
 
+
 void MotorDriver::mov(char axis, int inc){
+    commandAxis = axis;
+    commandInc = inc;
+    motorThread = std::thread(&MotorDriver::movThread, this);
+}
+
+//if making return pos
+//std::vector<int>* 
+void MotorDriver::movThread(){
 
     std::string commandStr = "mr";
-    commandStr = commandStr + axis + ' ' + std::__cxx11::to_string(inc);    // construct command string with axis and increment value
+    commandStr = commandStr + commandAxis + ' ' + std::__cxx11::to_string(commandInc);    // construct command string with axis and increment value
     const char* command = commandStr.c_str();
     std::cout << "Command string: " << command << std::endl;    //debug
 
@@ -141,7 +150,13 @@ void MotorDriver::mov(char axis, int inc){
     read(fd, dataRead, bytesToRead);        // wait for and read done message
     //std::cout << dataRead << std::endl; //debug
 
-    return;
+    motorThread.detach();
+    //return;
+
+    //Updating gui pseudocode
+    // pos = updatePosition();
+    // return pos
+    //mind change void to whatever the type of pos is
 
 }
 

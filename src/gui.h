@@ -48,5 +48,6 @@ private:
 
 
     MotorDriver *motors;
+    //std::thread motorThread;
 };
 #endif // OPENFLEXURE_GUI_H
