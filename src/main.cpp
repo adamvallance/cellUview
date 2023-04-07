@@ -43,12 +43,9 @@ int main(int argc, char* argv[]){
     std::vector <imageProcessor *> blocks={&erode, &dilate, &grey, &edge};
 
     MotorDriver motor;
-    MotorPrintCallback motorReturn;
 
     Gui gui(&window, &ui, &gallery, &camera, &motor, blocks);
     //Gui gui(&window, &ui, &gallery, &camera, blocks);
-
-    motor.registerCallback(&motorReturn);
 
 
     //Keep image enhancement classes in the callback chain

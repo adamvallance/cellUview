@@ -9,10 +9,10 @@
 #include <unistd.h>
 
 
-class MotorCallback {
-public:
-    virtual void returnPosition(int x, int y, int z) = 0;
-};
+// class MotorCallback {
+// public:
+//     virtual void returnPosition(int x, int y, int z) = 0;
+// };
 
 
 class MotorDriver {
@@ -20,8 +20,7 @@ class MotorDriver {
 public:
     MotorDriver() = default;     // constructor
 
-    //void registerCallback(MotorCallback* cb);
-    void registerCallback(MotorCallback* cb);
+    // void registerCallback(MotorCallback* cb);
 
     //void start(std::string device = "/dev/ttyUSB0", int baud = 115200);
     void start(const char* device = "/dev/ttyUSB0", int baud = 115200);
@@ -30,6 +29,7 @@ public:
     int getPositionX();
     int getPositionY();
     int getPositionZ();
+    //int* getPosition();
     bool getRunning();
     bool getConnected();
     void mov(char axis, int inc);
@@ -37,14 +37,12 @@ public:
 
 private:
 
-    void run();
-
     void movThread();
 
     void resetToZero();
     void updatePosition();
 
-    MotorCallback* motorCb = nullptr;
+    // MotorCallback* motorCb = nullptr;
     bool enabled = false;
 
     bool connected = false;
@@ -69,11 +67,11 @@ private:
 };
 
 
-class MotorPrintCallback : public MotorCallback {
-    virtual void returnPosition(int x, int y, int z){
-        std::cout << "Motor current position:  " << "x: " << x << "  y: " << y << "  z: " << z << std::endl;
-    }
-};
+// class MotorPrintCallback : public MotorCallback {
+//     virtual void returnPosition(int x, int y, int z){
+//         std::cout << "Motor current position:  " << "x: " << x << "  y: " << y << "  z: " << z << std::endl;
+//     }
+// };
 
 
 #endif //MOTOR_DRIVER_H

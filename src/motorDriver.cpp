@@ -1,9 +1,9 @@
 #include "motorDriver.h"
 
 
-void MotorDriver::registerCallback(MotorCallback* cb){
-    motorCb = cb;
-}
+// void MotorDriver::registerCallback(MotorCallback* cb){
+//     motorCb = cb;
+// }
 
 //void MotorDriver::start(std::string device, int baud){
 void MotorDriver::start(const char* device, int baud){
@@ -49,43 +49,6 @@ void MotorDriver::stop(){
     }
 }
 
-void MotorDriver::run(){
-
-    while (enabled){
-    
-        serialFlush(fd);
-
-        mov('x', 512);
-
-        updatePosition();
-        //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
-        motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
-
-        mov('y', 1024);
-
-        updatePosition();
-        //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
-        motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
-
-        mov('z', -512);
-
-        updatePosition();
-        //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
-        motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
-
-        resetToZero();
-
-        updatePosition();
-        //std::cout << dataRead << std::endl; //debug
-        //std::cout << positionArray[0] << " " << positionArray[1] << " " << positionArray[2] << std::endl; //debug
-
-        //currentPosition = dataRead;
-        motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
-
-    }
-
-
-}
 
 void MotorDriver::updatePosition(){
     
@@ -128,7 +91,8 @@ void MotorDriver::updatePosition(){
     }
     i = 0;
 
-    motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
+    // Callback interface not used in current code structure
+    // motorCb -> returnPosition(positionArray[0], positionArray[1], positionArray[2]);
 
     return;
 
@@ -146,6 +110,10 @@ int MotorDriver::getPositionY(){
 int MotorDriver::getPositionZ(){
     return positionArray[2];
 }
+
+// int* MotorDriver::getPosition(){
+//     return positionArray;
+// }
 
 
 bool MotorDriver::getRunning(){
@@ -172,7 +140,7 @@ void MotorDriver::movThread(){
     std::string commandStr = "mr";
     commandStr = commandStr + commandAxis + ' ' + std::__cxx11::to_string(commandInc);    // construct command string with axis and increment value
     const char* command = commandStr.c_str();
-    std::cout << "Command string: " << command << std::endl;    //debug
+    // std::cout << "Command string: " << command << std::endl;    //debug
 
     serialPuts(fd, command);  // perform movement
 
