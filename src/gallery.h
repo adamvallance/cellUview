@@ -20,7 +20,7 @@ class Gallery{
 
     public:
         Gallery();
-        void captureFrame(frame);
+        void captureFrame(frame, bool flatfield=false);
         void updateImgName(std::string);
         void updateIndex();
         std::map<std::string, std::string> getMetadata(std::string = "");

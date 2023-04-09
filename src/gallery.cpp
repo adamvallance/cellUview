@@ -12,7 +12,7 @@ Gallery::Gallery(){
 //---- find or create gallery directory----
     pathname = getenv("HOME");
     pathname += + "/OpenFlexureGallery/"; 
-    flatPath = pathname + "/.FlatFieldGallery";
+    flatPath = pathname + ".FlatFieldGallery";
     //updates index to find highest existing file with matching name to avoid overwriting
     initialiseDirectory(pathname, "Openflexure Gallery");
     initialiseDirectory(flatPath, "Flat field capture gallery");
@@ -47,12 +47,22 @@ int Gallery::initialiseDirectory(std::string path, std::string description){
 
 
 //add some error handling
-void Gallery::captureFrame(frame capFrame){
+void Gallery::captureFrame(frame capFrame, bool updateFlatField){
     if (pathname == ""){
         return;
     }
     //add ability to set custom string before number
+    if (updateFlatField == true){
+        captureFname = pathname + "/.FlatFieldGallery/flatField.jpg";
 
+        //save image
+        img = capFrame.image;
+        cv::imwrite(captureFname, img); 
+        
+        std::cout<<"Capturing flat field and applying"<<std::endl;
+        updateFlatField = false;
+
+    }else{
     //build output name string
     captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
 
@@ -69,6 +79,8 @@ void Gallery::captureFrame(frame capFrame){
     //debug
     //std::cout << getMetadata() << std::endl;    
 
+    }   
+    
 } 
 
 void Gallery::writeMetadata(frame f, std::string captureFname){

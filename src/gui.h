@@ -34,6 +34,8 @@ private:
     void restoreSettings(std::string = "");
     void updateSettings(std::map<std::string, std::string>);
     std::string getParamLabel(){return "";};
+    bool updateFlatField = false;
+    void setUpdateFlatField();
 
 
     cv::Mat img;

@@ -172,6 +172,22 @@ background-color: rgb(83, 83, 83);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QPushButton" name="FlatFieldButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>600</y>
+        <width>411</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>Flat Field Correction</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="widget_6" native="true">
      <property name="geometry">
@@ -298,7 +314,7 @@ color: rgb(255, 255, 255);</string>
      <x>0</x>
      <y>0</y>
      <width>1162</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">

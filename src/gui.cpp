@@ -79,6 +79,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     ////do a capture
     QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
 
+    QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
+
     //// How to connect a button to an instance of another class
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
 
@@ -93,11 +95,15 @@ void Gui::receiveFrame(frame newFrame)
 {
 
     // if capturing, capture before conversion to rgb
-    if (doCapture && newFrame.doMeta){
+    if (doCapture && newFrame.doMeta && updateFlatField == false){
         gallery->captureFrame(newFrame);
-        doCapture = false; // reset flag
     }
+    else if (doCapture && newFrame.doMeta && updateFlatField == true){
+        gallery->captureFrame(newFrame, updateFlatField);
+        updateFlatField = false;
 
+    }
+    doCapture = false; // reset flag
     img = newFrame.image;
 
     // maybe try replacing img with newFrame.img to avoid unnecessary copying.
@@ -108,7 +114,15 @@ void Gui::receiveFrame(frame newFrame)
                            QImage::Format_RGB888);
     ui->scopeVideoFeed->setPixmap(QPixmap::fromImage(imgOut));
     ui->scopeVideoFeed->resize(ui->scopeVideoFeed->pixmap()->size());
+
 }
+
+void Gui::setUpdateFlatField(){
+    updateFlatField=true;
+    cam->captureMetadata();
+    doCapture = true;
+}
+
 
 void Gui::SetVisible(bool visible)
 {
@@ -121,6 +135,7 @@ void Gui::captureNextFrame()
     cam->captureMetadata();
     doCapture = true;
 }
+
 
 void Gui::restoreSettings(std::string fname)
 {
