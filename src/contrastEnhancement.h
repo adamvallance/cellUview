@@ -16,8 +16,8 @@ class contrastEnhancement:   public imageProcessor{
 
 public:
     contrastEnhancement() = default;
-    int threshold= 0;
-    int sliderThreshold = 10; //slider threshold used for metadata purposes
+    float threshold= 0;
+    float sliderThreshold = 10; //slider threshold used for metadata purposes
     void receiveFrame(frame newFrame);
     void updateThreshold(int value);
     void updateSettings(std::map<std::string, std::string>);
@@ -26,6 +26,7 @@ private:
     //add any other methods here
     void contrastEnhance(frame); //edge detection
     std::string paramLabel = "contrastThreshold";
+
 };
 #endif // OPENFLEXURE_CONTRAST_ENHANCEMENT_H
 

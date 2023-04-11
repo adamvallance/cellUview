@@ -241,7 +241,7 @@ color: rgb(255, 255, 255);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QCheckBox" name="greyScaleBox">
+     <widget class="QCheckBox" name="grayScaleBox">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -254,7 +254,7 @@ color: rgb(255, 255, 255);</string>
        <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Grey Scale</string>
+       <string>Gray Scale</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="dilationCheckBox">
@@ -305,7 +305,7 @@ color: rgb(255, 255, 255);</string>
 </string>
       </property>
       <property name="maximum">
-       <number>10</number>
+       <number>99</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>

@@ -8,17 +8,17 @@
 #include <thread>
 #include "imageProcessor.h"
 
-class greyScale: public imageProcessor{
+class grayScale: public imageProcessor{
 
 public:
-    greyScale() = default;
+    grayScale() = default;
     void receiveFrame(frame);
     std::string getParamLabel(){return paramLabel;};
     void updateSettings(std::map<std::string, std::string>);
 
 private:
 
-    void greyEnhance(frame); // grayscale conversion
-    std::string paramLabel = "greyScale";
+    void grayEnhance(frame); // grayscale conversion
+    std::string paramLabel = "grayScale";
 };
 #endif // OPENFLEXURE_GREY_SCALE_H

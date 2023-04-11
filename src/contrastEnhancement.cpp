@@ -31,7 +31,7 @@ void contrastEnhancement::contrastEnhance(frame f) {
 
     // Apply contrast enhancement to the input image
     cv::Mat lab_img;
-    cv::cvtColor(input_mat, lab_img, cv::COLOR_BGR2Lab);
+    cv::cvtColor(input_mat, lab_img, cv::COLOR_BGR2Lab); //LAB colour space is used in colourimetry
 
     std::vector<cv::Mat> lab_planes(3);
     cv::split(lab_img, lab_planes);
@@ -57,7 +57,8 @@ void contrastEnhancement::contrastEnhance(frame f) {
 
 void contrastEnhancement::updateThreshold(int value){
     sliderThreshold = value;
-    threshold = value;
+    threshold = exp(0.022 * value) / 2.2;
+    //std::cout<<"Theshold value"<< threshold<<std::endl;
 }
 void contrastEnhancement::updateSettings(std::map<std::string, std::string> metadata){
     std::string rec = metadata[paramLabel];

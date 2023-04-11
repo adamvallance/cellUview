@@ -1,7 +1,7 @@
 #include "gui.h"
 #include "edgeDetection.h"
 #include "contrastEnhancement.h"
-#include "greyScale.h"
+#include "grayScale.h"
 
 Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, std::vector<imageProcessor *> &blocksIn)
 {
@@ -33,8 +33,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
         }
          
     });
-    // //-----------block 2 grey ---------------------
-    QObject::connect(ui->greyScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+    // //-----------block 2 gray ---------------------
+    QObject::connect(ui->grayScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[2]->getEnabled();
         if (enabled != checkboxValue){
             blocks[2]->toggleEnable();
@@ -73,19 +73,19 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     // //-----------block -2 contrast ---------------------
     QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
         ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
-        bool enabled = blocks[blocks.size()-2]->getEnabled();
+        bool enabled = blocks[3]->getEnabled();
         if (sliderValue1 == 0){ //disable if 0 on slider is selected
             if (enabled){
-                blocks[blocks.size()-2]->toggleEnable();
+                blocks[3]->toggleEnable();
             }
         }
         else{
             if (!enabled){
-                blocks[blocks.size()-2]->toggleEnable();
+                blocks[3]->toggleEnable();
             }
         }
         //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-        static_cast<contrastEnhancement*>(blocks[blocks.size()-2])->updateThreshold(sliderValue1);
+        static_cast<contrastEnhancement*>(blocks[3])->updateThreshold(sliderValue1);
 
     });
 
@@ -225,8 +225,8 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         else if(label == "erosion"){
             ui->erosionCheckBox->setChecked(valueBool);
         }
-        else if(label == "greyScale"){
-            ui->greyScaleBox->setChecked(valueBool);
+        else if(label == "grayScale"){
+            ui->grayScaleBox->setChecked(valueBool);
         }
 
         else if(label == "dilation"){

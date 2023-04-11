@@ -45,7 +45,7 @@ public:
     QSlider *edgeEnhancementSlider;
     QLineEdit *edgeEnhancementValueInput;
     QLabel *label_3;
-    QCheckBox *greyScaleBox;
+    QCheckBox *grayScaleBox;
     QCheckBox *dilationCheckBox;
     QCheckBox *erosionCheckBox;
     QSlider *contrastEnhancementSlider;
@@ -134,10 +134,10 @@ public:
         label_3->setStyleSheet(QLatin1String("background-color: rgb(83, 83, 83);\n"
 "color: rgb(255, 255, 255);"));
         label_3->setAlignment(Qt::AlignCenter);
-        greyScaleBox = new QCheckBox(widget_6);
-        greyScaleBox->setObjectName(QStringLiteral("greyScaleBox"));
-        greyScaleBox->setGeometry(QRect(30, 60, 92, 23));
-        greyScaleBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        grayScaleBox = new QCheckBox(widget_6);
+        grayScaleBox->setObjectName(QStringLiteral("grayScaleBox"));
+        grayScaleBox->setGeometry(QRect(30, 60, 92, 23));
+        grayScaleBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         dilationCheckBox = new QCheckBox(widget_6);
         dilationCheckBox->setObjectName(QStringLiteral("dilationCheckBox"));
         dilationCheckBox->setGeometry(QRect(30, 90, 92, 23));
@@ -153,7 +153,7 @@ public:
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
-        contrastEnhancementSlider->setMaximum(10);
+        contrastEnhancementSlider->setMaximum(99);
         contrastEnhancementSlider->setOrientation(Qt::Horizontal);
         contrastEnhancementValueInput = new QLineEdit(widget_6);
         contrastEnhancementValueInput->setObjectName(QStringLiteral("contrastEnhancementValueInput"));
@@ -197,7 +197,7 @@ public:
         label_2->setText(QApplication::translate("GUI", "Image Settings", Q_NULLPTR));
         edgeEnhancementValueInput->setText(QString());
         label_3->setText(QApplication::translate("GUI", "Control Panel", Q_NULLPTR));
-        greyScaleBox->setText(QApplication::translate("GUI", "Grey Scale", Q_NULLPTR));
+        grayScaleBox->setText(QApplication::translate("GUI", "Gray Scale", Q_NULLPTR));
         dilationCheckBox->setText(QApplication::translate("GUI", "Dilation", Q_NULLPTR));
         erosionCheckBox->setText(QApplication::translate("GUI", "Erosion", Q_NULLPTR));
         contrastEnhancementValueInput->setText(QString());

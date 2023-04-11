@@ -14,7 +14,7 @@
 #include "gallery.h"
 #include "erosion.h"
 #include "dilation.h"
-#include "greyScale.h"
+#include "grayScale.h"
 #include "contrastEnhancement.h"
 
 int main(int argc, char* argv[]){
@@ -35,8 +35,8 @@ int main(int argc, char* argv[]){
     //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
-    greyScale grey;
-    std::vector <imageProcessor *> blocks={&erode, &dilate, &grey, &cont, &edge};
+    grayScale gray;
+    std::vector <imageProcessor *> blocks={&erode, &dilate, &gray, &cont, &edge};
 
     Gui gui(&window, &ui, &gallery, &camera, blocks);
 
