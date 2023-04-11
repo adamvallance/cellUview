@@ -1,6 +1,6 @@
 
-#ifndef OPENFLEXURE_DILATION_H
-#define OPENFLEXURE_DILATION_H
+#ifndef CELLUVIEW_DILATION_H
+#define CELLUVIEW_DILATION_H
 
 
 #include <opencv2/core.hpp>
@@ -24,4 +24,4 @@ private:
     void dilate(frame); //image dilation
     std::string paramLabel = "dilation";
 };
-#endif // OPENFLEXURE_DILATION_H
+#endif // CELLUVIEW_DILATION_H

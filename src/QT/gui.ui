@@ -32,7 +32,7 @@ background-color:#FF121212}</string>
 	background-color: rgb(179, 179, 179);
 </string>
     </property>
-    <widget class="QLabel" name="OpenFlexurePlus">
+    <widget class="QLabel" name="cellUviewPlus">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -42,7 +42,7 @@ background-color:#FF121212}</string>
       </rect>
      </property>
      <property name="text">
-      <string>OpenFlexure +</string>
+      <string>cellUview</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -374,7 +374,7 @@ background-color: rgb(179, 179, 179);</string>
    </property>
    <widget class="QMenu" name="menuOpenflexure">
     <property name="title">
-     <string>Openflexure+</string>
+     <string>cellUview</string>
     </property>
    </widget>
    <addaction name="menuOpenflexure"/>

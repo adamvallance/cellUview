@@ -32,7 +32,7 @@ class Ui_GUI
 public:
     QWidget *centralwidget;
     QWidget *widget;
-    QLabel *OpenFlexurePlus;
+    QLabel *cellUviewPlus;
     QWidget *widget_2;
     QLabel *scopeVideoFeed;
     QWidget *ImageCaptureColumn;
@@ -71,10 +71,10 @@ public:
         widget->setStyleSheet(QLatin1String("\n"
 "	background-color: rgb(179, 179, 179);\n"
 ""));
-        OpenFlexurePlus = new QLabel(widget);
-        OpenFlexurePlus->setObjectName(QStringLiteral("OpenFlexurePlus"));
-        OpenFlexurePlus->setGeometry(QRect(0, 19, 1321, 41));
-        OpenFlexurePlus->setAlignment(Qt::AlignCenter);
+        cellUviewPlus = new QLabel(widget);
+        cellUviewPlus->setObjectName(QStringLiteral("cellUviewPlus"));
+        cellUviewPlus->setGeometry(QRect(0, 19, 1321, 41));
+        cellUviewPlus->setAlignment(Qt::AlignCenter);
         widget_2 = new QWidget(centralwidget);
         widget_2->setObjectName(QStringLiteral("widget_2"));
         widget_2->setGeometry(QRect(0, 80, 1351, 841));
@@ -189,7 +189,7 @@ public:
     void retranslateUi(QMainWindow *GUI)
     {
         GUI->setWindowTitle(QApplication::translate("GUI", "MainWindow", Q_NULLPTR));
-        OpenFlexurePlus->setText(QApplication::translate("GUI", "OpenFlexure +", Q_NULLPTR));
+        cellUviewPlus->setText(QApplication::translate("GUI", "cellUview", Q_NULLPTR));
         scopeVideoFeed->setText(QApplication::translate("GUI", "TextLabel", Q_NULLPTR));
         captureButton->setText(QApplication::translate("GUI", "Capture Image", Q_NULLPTR));
         label->setText(QApplication::translate("GUI", "Gallery", Q_NULLPTR));
@@ -203,7 +203,7 @@ public:
         contrastEnhancementValueInput->setText(QString());
         label_4->setText(QApplication::translate("GUI", "Edge Detection", Q_NULLPTR));
         label_5->setText(QApplication::translate("GUI", "Contrast Enhancement", Q_NULLPTR));
-        menuOpenflexure->setTitle(QApplication::translate("GUI", "Openflexure+", Q_NULLPTR));
+        menuOpenflexure->setTitle(QApplication::translate("GUI", "cellUview", Q_NULLPTR));
     } // retranslateUi
 
 };

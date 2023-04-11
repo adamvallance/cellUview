@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_GREY_SCALE_H
-#define OPENFLEXURE_GREY_SCALE_H
+#ifndef CELLUVIEW_GREY_SCALE_H
+#define CELLUVIEW_GREY_SCALE_H
 
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
@@ -21,4 +21,4 @@ private:
     void grayEnhance(frame); // grayscale conversion
     std::string paramLabel = "grayScale";
 };
-#endif // OPENFLEXURE_GREY_SCALE_H
+#endif // CELLUVIEW_GREY_SCALE_H

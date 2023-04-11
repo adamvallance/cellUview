@@ -36,7 +36,7 @@ rebuildGUI(){
 }
 
 
-##compiles OpenFlexure with CMake
+##compiles cellUview with CMake
 doCmake(){
     if [ $built -eq 0 ]; then
         if [ $clear_cache -eq 1 ]; then
@@ -44,7 +44,7 @@ doCmake(){
             echo "CMakeCache cleared."
         fi
 
-        echo "Beginnng OpenFlexurePlus build"
+        echo "Beginnng cellUviewPlus build"
 
         if [ $buildGUI -eq 1 ]; then
             rebuildGUI
@@ -70,7 +70,7 @@ doCmake(){
             fi
         fi
 
-        echo "OpenFlexure build succesful"
+        echo "cellUview build succesful"
         built=1
     fi
 
@@ -109,12 +109,12 @@ do
          exit;;
       -i)
         doCmake
-        sudo cp bin/OpenFlexure /usr/bin/ 
+        sudo cp bin/cellUview /usr/bin/ 
         if [ $? -ne 0 ]; then
             echo "Error. Sudo required to install on path. Try without -i option."
             exit 1
         fi
-        echo "To run, type OpenFlexure into the terminal"
+        echo "To run, type cellUview into the terminal"
         installed=1
         ;;
       -r)
@@ -136,14 +136,14 @@ done
 
 #build if not already built - no options provided
 doCmake 
-#if r is input then run either the binary from the default bin/OpenFlexure or from the installed path /usr/bin
+#if r is input then run either the binary from the default bin/cellUview or from the installed path /usr/bin
 if [ $doRun -eq 1 ]; then
     if [ $installed -eq 1 ]; then
-        OpenFlexure
+        cellUview
         exit
     fi
     if [ $installed -eq 0 ]; then
-        bin/OpenFlexure
+        bin/cellUview
     fi
 fi
 

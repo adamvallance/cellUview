@@ -9,7 +9,7 @@
 #include "camera.h"
 #include "stdlib.h"
 #include "gui.h"
-#include "OpenFlexureWelcome.h"
+#include "cellUviewWelcome.h"
 #include "edgeDetection.h"
 #include "gallery.h"
 #include "erosion.h"
@@ -18,7 +18,7 @@
 #include "contrastEnhancement.h"
 
 int main(int argc, char* argv[]){
-    OpenFlexureWelcome::welcomeMessage();
+    cellUviewWelcome::welcomeMessage();
     
     QApplication app(argc, argv);
     QMainWindow window;

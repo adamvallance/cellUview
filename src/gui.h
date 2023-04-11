@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_GUI_H
-#define OPENFLEXURE_GUI_H
+#ifndef CELLUVIEW_GUI_H
+#define CELLUVIEW_GUI_H
 #include <QMainWindow> 
 
 #include "QT/qtWindow.h" //compiled header file from qtcreator
@@ -49,4 +49,4 @@ private:
     edgeDetection *edgeDetector;
     grayScale *grayDetector;
 };
-#endif // OPENFLEXURE_GUI_H
+#endif // CELLUVIEW_GUI_H

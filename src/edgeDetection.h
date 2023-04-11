@@ -1,6 +1,6 @@
 
-#ifndef OPENFLEXURE_EDGE_DETECTION_H
-#define OPENFLEXURE_EDGE_DETECTION_H
+#ifndef CELLUVIEW_EDGE_DETECTION_H
+#define CELLUVIEW_EDGE_DETECTION_H
 
 
 #include <opencv2/core.hpp>
@@ -27,4 +27,4 @@ private:
     void enhanceEdge(frame); //edge detection
     std::string paramLabel = "edgeThreshold";
 };
-#endif // OPENFLEXURE_EDGE_DETECTION_H
+#endif // CELLUVIEW_EDGE_DETECTION_H

@@ -1,6 +1,6 @@
 
-#ifndef OPENFLEXURE_CONTRAST_ENHANCEMENT_H
-#define OPENFLEXURE_CONTRAST_ENHANCEMENT_H
+#ifndef CELLUVIEW_CONTRAST_ENHANCEMENT_H
+#define CELLUVIEW_CONTRAST_ENHANCEMENT_H
 
 
 #include <opencv2/core.hpp>
@@ -28,5 +28,5 @@ private:
     std::string paramLabel = "contrastThreshold";
 
 };
-#endif // OPENFLEXURE_CONTRAST_ENHANCEMENT_H
+#endif // CELLUVIEW_CONTRAST_ENHANCEMENT_H
 

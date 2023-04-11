@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(OpenFlexure)
+project(cellUview)
 
 set(OpenCV_DIR "../opencv_build")
 

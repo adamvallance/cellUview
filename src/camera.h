@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_CAMERA_H
-#define OPENFLEXURE_CAMERA_H
+#ifndef CELLUVIEW_CAMERA_H
+#define CELLUVIEW_CAMERA_H
 
 
 #include <opencv2/core.hpp>
@@ -34,4 +34,4 @@ private:
 
 };
 
-#endif // OPENFLEXURE_CAMERA_H
+#endif // CELLUVIEW_CAMERA_H

@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_IMAGEPROCESSOR_H
-#define OPENFLEXURE_IMAGEPROCESSOR_H
+#ifndef CELLUVIEW_IMAGEPROCESSOR_H
+#define CELLUVIEW_IMAGEPROCESSOR_H
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 #include "frame.h"
