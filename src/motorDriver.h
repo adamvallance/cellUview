@@ -61,7 +61,7 @@ private:
     std::thread motorThread;
 
     char firmwareVer[26];
-    char dataRead[];
+    char dataRead[30];
 
 
 };

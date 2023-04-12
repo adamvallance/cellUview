@@ -45,6 +45,7 @@ void MotorDriver::stop(){
             motorThread.join();
         }
         serialClose(fd);        // close serial comms
+        std::cout << "Motor driver connection closed" << std::endl;
 
     }
 }
@@ -157,7 +158,7 @@ void MotorDriver::movThread(){
     running = false;
     
     motorThread.detach();
-    //return;
+    return;
 
 }
 

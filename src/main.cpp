@@ -73,7 +73,6 @@ int main(int argc, char* argv[]){
     try{
         app.exec(); //loops main thread
     }catch(...){
-        motor.stop();
         app.exit();
     }
     
