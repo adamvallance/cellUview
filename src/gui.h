@@ -35,6 +35,7 @@ private:
     void updateSettings(std::map<std::string, std::string>);
     std::string getParamLabel(){return "";};
     bool updateFlatField = false;
+    bool flatFieldEnable = false;
     void setUpdateFlatField();
 
 

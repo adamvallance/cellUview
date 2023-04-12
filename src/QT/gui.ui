@@ -173,19 +173,28 @@ background-color: rgb(83, 83, 83);</string>
       </property>
      </widget>
      <widget class="QPushButton" name="FlatFieldButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>600</y>
+        <y>610</y>
         <width>411</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(179, 179, 179);</string>
       </property>
       <property name="text">
-       <string>Flat Field Correction</string>
+       <string>Flat Field Capture (Perform with empty objective)</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>
@@ -303,6 +312,25 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Erosion</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="flatFieldBox">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>461</x>
+        <y>60</y>
+        <width>161</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Flat Field Correction</string>
       </property>
      </widget>
     </widget>

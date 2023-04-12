@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <thread>
 #include "imageProcessor.h"
+#include "gallery.h"
 
 
 class flatFieldCorrect: public imageProcessor{

@@ -15,28 +15,38 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
-    //-----------block 0 erosion---------------------
-    QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+     //-----------block 0 flat field---------------------
+    QObject::connect(ui->flatFieldBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[0]->getEnabled();
         if (enabled != checkboxValue){
             blocks[0]->toggleEnable();
         }
          
     });
-
-    // //-----------block 1 dilation ---------------------
-    QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+ 
+ 
+    //-----------block 1 erosion---------------------
+    QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[1]->getEnabled();
         if (enabled != checkboxValue){
             blocks[1]->toggleEnable();
         }
          
     });
-    // //-----------block 2 grey ---------------------
-    QObject::connect(ui->greyScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+
+    // //-----------block 2 dilation ---------------------
+    QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[2]->getEnabled();
         if (enabled != checkboxValue){
             blocks[2]->toggleEnable();
+        }
+         
+    });
+    // //-----------block 3 grey ---------------------
+    QObject::connect(ui->greyScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[3]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[3]->toggleEnable();
         }
          
     });

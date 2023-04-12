@@ -26,7 +26,10 @@ class Gallery{
         std::map<std::string, std::string> getMetadata(std::string = "");
 
         std::string getPathname(){return pathname;}; //testing only
+        // std::string getFlatFieldPath(){return flatFieldPath;};
         std::string getCaptureFname(){return captureFname;};//testing only
+
+
 
     private:
         int initialiseDirectory(std::string, std::string);
@@ -35,7 +38,7 @@ class Gallery{
         DIR *dir;
         struct dirent *ent;
         std::string pathname = "";
-        std::string flatPath = "";
+        std::string flatFieldPath = "";
         std::string imgName = "capture";
         int captureImgCounter = 0;
         std::string captureFname = "";
