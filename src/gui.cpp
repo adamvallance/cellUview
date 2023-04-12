@@ -96,7 +96,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
         if (ok) {
             bool motorsRunning = motors->getRunning();  // check if motors active
             if (!motorsRunning){  
-                int currentPosition = motors->getPositionX();
+                int currentPosition = motors->getPosition()[0];
                 int toMove = finalPosition - currentPosition;   // move difference between current and desired positions 
                 motorMove('x', toMove);
             }
@@ -112,7 +112,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
         if (ok) {
             bool motorsRunning = motors->getRunning();  // check if motors active
             if (!motorsRunning){  
-                int currentPosition = motors->getPositionY();
+                int currentPosition = motors->getPosition()[1];
                 int toMove = finalPosition - currentPosition;
                 motorMove('y', toMove);
             }
@@ -128,7 +128,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
         if (ok) {
             bool motorsRunning = motors->getRunning();  // check if motors active
             if (!motorsRunning){  
-                int currentPosition = motors->getPositionZ();
+                int currentPosition = motors->getPosition()[2];
                 int toMove = finalPosition - currentPosition;
                 motorMove('z', toMove);
             }
@@ -256,17 +256,17 @@ void Gui::motorMove(char ax, int increment){
         motors->mov(ax, increment);
 
         if (ax=='x'){
-            int positionForUpdate = motors->getPositionX();
+            int positionForUpdate = motors->getPosition()[0];
             ui->xPos->setText(QString::number(positionForUpdate+increment));    // update position to starting pos + increment
         }
 
-        if (ax=='y'){
-            int positionForUpdate = motors->getPositionY();
+        else if (ax=='y'){
+            int positionForUpdate = motors->getPosition()[1];
             ui->yPos->setText(QString::number(positionForUpdate+increment));   
         }
 
-        if (ax=='z'){
-            int positionForUpdate = motors->getPositionZ();
+        else if (ax=='z'){
+            int positionForUpdate = motors->getPosition()[2];
             ui->zPos->setText(QString::number(positionForUpdate+increment));  
         }
 

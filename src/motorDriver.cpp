@@ -100,21 +100,9 @@ void MotorDriver::updatePosition(){
 }
 
 
-int MotorDriver::getPositionX(){
-    return positionArray[0];
+int* MotorDriver::getPosition(){
+    return positionArray;
 }
-
-int MotorDriver::getPositionY(){
-    return positionArray[1];
-}
-
-int MotorDriver::getPositionZ(){
-    return positionArray[2];
-}
-
-// int* MotorDriver::getPosition(){
-//     return positionArray;
-// }
 
 
 bool MotorDriver::getRunning(){

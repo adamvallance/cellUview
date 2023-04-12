@@ -26,12 +26,10 @@ public:
     void start(const char* device = "/dev/ttyUSB0", int baud = 115200);
     void stop();
 
-    int getPositionX();
-    int getPositionY();
-    int getPositionZ();
-    //int* getPosition();
+    int* getPosition();
     bool getRunning();
     bool getConnected();
+
     void mov(char axis, int inc);
 
 
@@ -51,13 +49,11 @@ private:
     int positionArray[3] = {0, 0, 0}; 
     int bytesToRead;
 
-
     char commandAxis;
     int commandInc;
 
     bool running = false;
     
-
     std::thread motorThread;
 
     char firmwareVer[26];
