@@ -27,8 +27,11 @@ void MotorDriver::start(const char* device, int baud){
         while ( bytesToRead < 1  &&  enabled);
         read(fd, firmwareVer, bytesToRead);         // reads intro message with firmware version
         std::cout << "Motor driver connection opened: " << firmwareVer << std::endl;
+        std::string firmwareStr = firmwareVer;
+        std::cout << "Motor driver connection opened: " << firmwareStr << std::endl;
 
-        resetToZero();      // starting position should be 0, 0, 0
+        //resetToZero();      // starting position should be 0, 0, 0
+        motorThread = std::thread(&MotorDriver::resetToZero, this);
 
         connected = true;
 
@@ -151,6 +154,9 @@ void MotorDriver::movThread(){
 }
 
 void MotorDriver::resetToZero(){
+
+    running = true;
+
     serialPuts(fd, "zero");
     do {
         bytesToRead = serialDataAvail(fd);
@@ -161,6 +167,10 @@ void MotorDriver::resetToZero(){
     //std::cout << dataRead << std::endl;
     serialFlush(fd);        // wait for and discard returned message
     //std::cout << serialDataAvail(fd) << std::endl;
+
+    running = false;
+
+    motorThread.detach();
     return;
 }
 
