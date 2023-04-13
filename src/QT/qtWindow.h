@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gui.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.6
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -34,10 +34,19 @@ public:
     QWidget *widget_2;
     QLabel *scopeVideoFeed;
     QWidget *ImageCaptureColumn;
-    QPushButton *captureButton;
     QWidget *ImageHolder;
-    QLabel *label;
+    QPushButton *xUpButton;
+    QPushButton *xDownButton;
+    QLineEdit *xPos;
+    QLineEdit *yPos;
+    QPushButton *yUpButton;
+    QPushButton *yDownButton;
+    QLineEdit *zPos;
+    QPushButton *zUpButton;
+    QPushButton *zDownButton;
     QPushButton *restoreSettingsButton;
+    QPushButton *captureButton;
+    QLabel *label;
     QLabel *label_2;
     QWidget *widget_6;
     QSlider *edgeEnhancementSlider;
@@ -81,24 +90,63 @@ public:
         ImageCaptureColumn->setObjectName(QString::fromUtf8("ImageCaptureColumn"));
         ImageCaptureColumn->setGeometry(QRect(10, 20, 471, 781));
         ImageCaptureColumn->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
-        captureButton = new QPushButton(ImageCaptureColumn);
-        captureButton->setObjectName(QString::fromUtf8("captureButton"));
-        captureButton->setGeometry(QRect(30, 720, 410, 40));
-        captureButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         ImageHolder = new QWidget(ImageCaptureColumn);
         ImageHolder->setObjectName(QString::fromUtf8("ImageHolder"));
         ImageHolder->setGeometry(QRect(30, 60, 410, 401));
         ImageHolder->setStyleSheet(QString::fromUtf8(""));
+        xUpButton = new QPushButton(ImageHolder);
+        xUpButton->setObjectName(QString::fromUtf8("xUpButton"));
+        xUpButton->setGeometry(QRect(100, 80, 61, 41));
+        xUpButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        xDownButton = new QPushButton(ImageHolder);
+        xDownButton->setObjectName(QString::fromUtf8("xDownButton"));
+        xDownButton->setGeometry(QRect(170, 80, 61, 41));
+        xDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        xPos = new QLineEdit(ImageHolder);
+        xPos->setObjectName(QString::fromUtf8("xPos"));
+        xPos->setGeometry(QRect(130, 30, 71, 41));
+        xPos->setStyleSheet(QString::fromUtf8("\n"
+"background-color: rgb(179, 179, 179);"));
+        yPos = new QLineEdit(ImageHolder);
+        yPos->setObjectName(QString::fromUtf8("yPos"));
+        yPos->setGeometry(QRect(130, 160, 71, 41));
+        yPos->setStyleSheet(QString::fromUtf8("\n"
+"background-color: rgb(179, 179, 179);"));
+        yUpButton = new QPushButton(ImageHolder);
+        yUpButton->setObjectName(QString::fromUtf8("yUpButton"));
+        yUpButton->setGeometry(QRect(100, 210, 61, 41));
+        yUpButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        yDownButton = new QPushButton(ImageHolder);
+        yDownButton->setObjectName(QString::fromUtf8("yDownButton"));
+        yDownButton->setGeometry(QRect(170, 210, 61, 41));
+        yDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        zPos = new QLineEdit(ImageHolder);
+        zPos->setObjectName(QString::fromUtf8("zPos"));
+        zPos->setGeometry(QRect(130, 290, 71, 41));
+        zPos->setStyleSheet(QString::fromUtf8("\n"
+"background-color: rgb(179, 179, 179);"));
+        zUpButton = new QPushButton(ImageHolder);
+        zUpButton->setObjectName(QString::fromUtf8("zUpButton"));
+        zUpButton->setGeometry(QRect(100, 340, 61, 41));
+        zUpButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        zDownButton = new QPushButton(ImageHolder);
+        zDownButton->setObjectName(QString::fromUtf8("zDownButton"));
+        zDownButton->setGeometry(QRect(170, 340, 61, 41));
+        zDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        restoreSettingsButton = new QPushButton(ImageHolder);
+        restoreSettingsButton->setObjectName(QString::fromUtf8("restoreSettingsButton"));
+        restoreSettingsButton->setGeometry(QRect(320, 194, 81, 41));
+        restoreSettingsButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        captureButton = new QPushButton(ImageHolder);
+        captureButton->setObjectName(QString::fromUtf8("captureButton"));
+        captureButton->setGeometry(QRect(320, 250, 81, 40));
+        captureButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         label = new QLabel(ImageCaptureColumn);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(30, 20, 410, 25));
         label->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
 "background-color: rgb(83, 83, 83);"));
         label->setAlignment(Qt::AlignCenter);
-        restoreSettingsButton = new QPushButton(ImageCaptureColumn);
-        restoreSettingsButton->setObjectName(QString::fromUtf8("restoreSettingsButton"));
-        restoreSettingsButton->setGeometry(QRect(30, 664, 411, 41));
-        restoreSettingsButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         label_2 = new QLabel(ImageCaptureColumn);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(30, 470, 410, 25));
@@ -130,11 +178,11 @@ public:
         label_3->setAlignment(Qt::AlignCenter);
         greyScaleBox = new QCheckBox(widget_6);
         greyScaleBox->setObjectName(QString::fromUtf8("greyScaleBox"));
-        greyScaleBox->setGeometry(QRect(30, 60, 92, 23));
+        greyScaleBox->setGeometry(QRect(30, 10, 92, 23));
         greyScaleBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         dilationCheckBox = new QCheckBox(widget_6);
         dilationCheckBox->setObjectName(QString::fromUtf8("dilationCheckBox"));
-        dilationCheckBox->setGeometry(QRect(30, 90, 92, 23));
+        dilationCheckBox->setGeometry(QRect(140, 10, 92, 23));
         dilationCheckBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         erosionCheckBox = new QCheckBox(widget_6);
         erosionCheckBox->setObjectName(QString::fromUtf8("erosionCheckBox"));
@@ -163,9 +211,18 @@ public:
         GUI->setWindowTitle(QCoreApplication::translate("GUI", "MainWindow", nullptr));
         OpenFlexurePlus->setText(QCoreApplication::translate("GUI", "OpenFlexure +", nullptr));
         scopeVideoFeed->setText(QCoreApplication::translate("GUI", "TextLabel", nullptr));
+        xUpButton->setText(QCoreApplication::translate("GUI", "x up", nullptr));
+        xDownButton->setText(QCoreApplication::translate("GUI", "x down", nullptr));
+        xPos->setText(QString());
+        yPos->setText(QString());
+        yUpButton->setText(QCoreApplication::translate("GUI", "y up", nullptr));
+        yDownButton->setText(QCoreApplication::translate("GUI", "y down", nullptr));
+        zPos->setText(QString());
+        zUpButton->setText(QCoreApplication::translate("GUI", "z up", nullptr));
+        zDownButton->setText(QCoreApplication::translate("GUI", "z down", nullptr));
+        restoreSettingsButton->setText(QCoreApplication::translate("GUI", "Restore Settings", nullptr));
         captureButton->setText(QCoreApplication::translate("GUI", "Capture Image", nullptr));
         label->setText(QCoreApplication::translate("GUI", "Gallery", nullptr));
-        restoreSettingsButton->setText(QCoreApplication::translate("GUI", "Restore Settings", nullptr));
         label_2->setText(QCoreApplication::translate("GUI", "Image Settings", nullptr));
         lineEdit->setText(QString());
         label_3->setText(QCoreApplication::translate("GUI", "Control Panel", nullptr));
