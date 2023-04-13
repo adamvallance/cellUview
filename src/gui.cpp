@@ -87,8 +87,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
 
 
     // motor ui element connections
-    QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 1); });
-    QObject::connect(ui->xDownButton, &QPushButton::released, this, [&](){ motorMove('x', -1); });
+    QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 10); });
+    QObject::connect(ui->xDownButton, &QPushButton::released, this, [&](){ motorMove('x', -10); });
     QObject::connect(ui->xPos, &QLineEdit::returnPressed, this, [&]() {     // only move motors after enter pressed
         bool ok;
         QString text = ui->xPos->text();                // get text from ui element
@@ -103,8 +103,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
         }
     });
 
-    QObject::connect(ui->yUpButton, &QPushButton::released, this, [&](){ motorMove('y', 1); });
-    QObject::connect(ui->yDownButton, &QPushButton::released, this, [&](){ motorMove('y', -1); });
+    QObject::connect(ui->yUpButton, &QPushButton::released, this, [&](){ motorMove('y', 10); });
+    QObject::connect(ui->yDownButton, &QPushButton::released, this, [&](){ motorMove('y', -10); });
     QObject::connect(ui->yPos, &QLineEdit::returnPressed, this, [&]() {
         bool ok;
         QString text = ui->yPos->text();
@@ -119,8 +119,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, M
         }
     });
 
-    QObject::connect(ui->zUpButton, &QPushButton::released, this, [&](){ motorMove('z', 1); });
-    QObject::connect(ui->zDownButton, &QPushButton::released, this, [&](){ motorMove('z', -1); });
+    QObject::connect(ui->zUpButton, &QPushButton::released, this, [&](){ motorMove('z', 10); });
+    QObject::connect(ui->zDownButton, &QPushButton::released, this, [&](){ motorMove('z', -10); });
     QObject::connect(ui->zPos, &QLineEdit::returnPressed, this, [&]() {
         bool ok;
         QString text = ui->zPos->text();
