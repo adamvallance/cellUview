@@ -9,15 +9,16 @@
 #include "camera.h"
 #include "stdlib.h"
 #include "gui.h"
-#include "OpenFlexureWelcome.h"
+#include "cellUviewWelcome.h"
 #include "edgeDetection.h"
 #include "gallery.h"
 #include "erosion.h"
 #include "dilation.h"
-#include "greyScale.h"
+#include "grayScale.h"
+#include "contrastEnhancement.h"
 
 int main(int argc, char* argv[]){
-    OpenFlexureWelcome::welcomeMessage();
+    cellUviewWelcome::welcomeMessage();
     
     QApplication app(argc, argv);
     QMainWindow window;
@@ -30,11 +31,12 @@ int main(int argc, char* argv[]){
     Gallery gallery;
     
     edgeDetection edge;
+    contrastEnhancement cont;
     //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
-    greyScale grey;
-    std::vector <imageProcessor *> blocks={&erode, &dilate, &grey, &edge};
+    grayScale gray;
+    std::vector <imageProcessor *> blocks={&erode, &dilate, &gray, &cont, &edge};
 
     Gui gui(&window, &ui, &gallery, &camera, blocks);
 

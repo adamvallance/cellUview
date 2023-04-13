@@ -32,7 +32,7 @@ background-color:#FF121212}</string>
 	background-color: rgb(179, 179, 179);
 </string>
     </property>
-    <widget class="QLabel" name="OpenFlexurePlus">
+    <widget class="QLabel" name="cellUviewPlus">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -42,7 +42,7 @@ background-color:#FF121212}</string>
       </rect>
      </property>
      <property name="text">
-      <string>OpenFlexure +</string>
+      <string>cellUview</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -204,7 +204,7 @@ background-color: rgb(83, 83, 83);</string>
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="edgeEnhancementValueInput">
       <property name="geometry">
        <rect>
         <x>370</x>
@@ -241,12 +241,12 @@ color: rgb(255, 255, 255);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QCheckBox" name="greyScaleBox">
+     <widget class="QCheckBox" name="grayScaleBox">
       <property name="geometry">
        <rect>
         <x>30</x>
         <y>60</y>
-        <width>92</width>
+        <width>111</width>
         <height>23</height>
        </rect>
       </property>
@@ -254,7 +254,7 @@ color: rgb(255, 255, 255);</string>
        <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Grey Scale</string>
+       <string>Gray Scale</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="dilationCheckBox">
@@ -289,6 +289,77 @@ color: rgb(255, 255, 255);</string>
        <string>Erosion</string>
       </property>
      </widget>
+     <widget class="QSlider" name="contrastEnhancementSlider">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>230</y>
+        <width>341</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider::handle:horizontal {
+    background-color: rgb(29, 185, 84);
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>99</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="contrastEnhancementValueInput">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>230</y>
+        <width>71</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>190</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Edge Detection</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>230</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Contrast Enhancement</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -303,7 +374,7 @@ color: rgb(255, 255, 255);</string>
    </property>
    <widget class="QMenu" name="menuOpenflexure">
     <property name="title">
-     <string>Openflexure+</string>
+     <string>cellUview</string>
     </property>
    </widget>
    <addaction name="menuOpenflexure"/>

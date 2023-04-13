@@ -1,6 +1,6 @@
 
-#ifndef OPENFLEXURE_EDGE_DETECTION_H
-#define OPENFLEXURE_EDGE_DETECTION_H
+#ifndef CELLUVIEW_EDGE_DETECTION_H
+#define CELLUVIEW_EDGE_DETECTION_H
 
 
 #include <opencv2/core.hpp>
@@ -16,7 +16,7 @@ class edgeDetection:   public imageProcessor{
 
 public:
     edgeDetection() = default;
-    int threshold= 255;
+    int threshold= 0;
     int sliderThreshold = 100; //slider threshold used for metadata purposes
     void receiveFrame(frame newFrame);
     void updateThreshold(int value);
@@ -27,4 +27,4 @@ private:
     void enhanceEdge(frame); //edge detection
     std::string paramLabel = "edgeThreshold";
 };
-#endif // OPENFLEXURE_EDGE_DETECTION_H
+#endif // CELLUVIEW_EDGE_DETECTION_H
