@@ -24,7 +24,7 @@ public:
     std::string getParamLabel(){return paramLabel;};
 private:
     //add any other methods here
-    void contrastEnhance(frame); //edge detection
+    void contrastEnhance(frame); //contrast enhancement
     std::string paramLabel = "contrastThreshold";
 
 };

@@ -44,7 +44,7 @@ doCmake(){
             echo "CMakeCache cleared."
         fi
 
-        echo "Beginnng cellUviewPlus build"
+        echo "Beginning cellUview build"
 
         if [ $buildGUI -eq 1 ]; then
             rebuildGUI

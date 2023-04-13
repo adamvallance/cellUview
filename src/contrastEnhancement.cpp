@@ -1,4 +1,4 @@
-// This file performs standard edge detection using opencv, at a set threshold. This edge detection is then overlayed on the video stream in the form of white lines.
+// This file performs standard contrast enhancement using opencv, at a set threshold. This contrast enhancement is then overlayed on the video stream.
 
 // Author Mark Main
 
@@ -17,7 +17,7 @@ void contrastEnhancement::receiveFrame(frame newFrame) {
     }
     // do stuff here
 
-    // passing frame into the edge detection function
+    // passing frame into the contrast enhancement function
     contrastEnhance(newFrame); 
 }
 
@@ -57,7 +57,7 @@ void contrastEnhancement::contrastEnhance(frame f) {
 
 void contrastEnhancement::updateThreshold(int value){
     sliderThreshold = value;
-    threshold = exp(0.022 * value) / 2.2;
+    threshold = exp(0.022 * value) / 2.2; //Applying non-linearity to slider
     //std::cout<<"Theshold value"<< threshold<<std::endl;
 }
 void contrastEnhancement::updateSettings(std::map<std::string, std::string> metadata){
