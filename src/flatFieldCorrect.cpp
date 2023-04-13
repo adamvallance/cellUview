@@ -25,39 +25,39 @@ void flatFieldCorrect::receiveFrame(frame newFrame) {
 }
 
 void flatFieldCorrect::flatField(frame f) {
-    // Load reference and actual images, where reference image is collected by user
+    // Load reference images
     std::string pathname = getenv("HOME");
-    pathname += + "/OpenFlexureGallery/"; 
-    std::string flatFieldPath = pathname + ".FlatFieldGallery/flatField.jpg";
-    std::cout << "Recieved Flat field" << std::endl;
-    cv::Mat reference_image = cv::imread(flatFieldPath, cv::IMREAD_GRAYSCALE);
-    cv::Mat actual_image = f.image;
+    pathname += + "/OpenFlexureGallery/.FlatFieldGallery/";
+    std::vector<cv::Mat> reference_images;
+    for (int i = 1; i <= 20; i++) {
+        std::string flatFieldPath = pathname + "flatField" + std::to_string(i) + ".jpg";
+        cv::Mat reference_image = cv::imread(flatFieldPath, cv::IMREAD_GRAYSCALE);
+        reference_images.push_back(reference_image);
+    }
 
-    // Calculate the correction factor
+    // Calculate the average of the reference images
+    cv::Mat average_reference_image;
+    cv::addWeighted(reference_images[0], 1.0/20, reference_images[1], 1.0/20, 0, average_reference_image);
+    for (int i = 2; i < 20; i++) {
+        cv::addWeighted(average_reference_image, 1.0, reference_images[i], 1.0/20, 0, average_reference_image);
+    }
+
+    // Calculate the correction factor using the average reference image
     cv::Mat correction_factor;
-    cv::GaussianBlur(reference_image, reference_image, cv::Size(31, 31), 0); //31x31 is large, but adjustment may be needed to produce an ideal outcome
-    cv::resize(reference_image, correction_factor, actual_image.size());
-    cv::divide(correction_factor, reference_image, correction_factor);
+    cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(31, 31), 0);
+    cv::resize(average_reference_image, correction_factor, f.image.size());
+    cv::divide(correction_factor, average_reference_image, correction_factor);
 
-    cv::Mat correction_factor3C(correction_factor.rows, correction_factor.cols, CV_8UC3); // create new 3-channel image
-
-    // replicate single channel to all three channels
+    cv::Mat correction_factor3C(correction_factor.rows, correction_factor.cols, CV_8UC3);
     std::vector<cv::Mat> channels(3);
     channels[0] = correction_factor;
     channels[1] = correction_factor;
     channels[2] = correction_factor;
-
-    // merge three channels into single 3-channel image
     cv::merge(channels, correction_factor3C);
 
-
-
     // Apply produced correction factor to the input image
-
     cv::Mat corrected_image;
-
-    // Multiply the two matrices 
-    cv::multiply(actual_image, correction_factor3C, corrected_image);
+    cv::multiply(f.image, correction_factor3C, corrected_image);
 
     frameCb->receiveFrame(f);
 }
