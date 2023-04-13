@@ -131,6 +131,8 @@ void Gui::setUpdateFlatField(){
     updateFlatField=true;
     cam->captureMetadata();
     doCapture = true;
+    //To allow checkbox to be enabled
+    ui->flatFieldBox->setEnabled(true);
 }
 
 

@@ -316,7 +316,7 @@ color: rgb(255, 255, 255);</string>
      </widget>
      <widget class="QCheckBox" name="flatFieldBox">
       <property name="enabled">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>

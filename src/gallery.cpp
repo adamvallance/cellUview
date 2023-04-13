@@ -54,16 +54,16 @@ void Gallery::captureFrame(frame capFrame, bool updateFlatField){
     //add ability to set custom string before number
     if (updateFlatField == true){
         for (int i = 1; i <= 20; i++) {
-        captureFname = pathname + "/.FlatFieldGallery/flatField" + std::to_string(i) + ".jpg";
-        std::string flatFieldPath = captureFname;
+            captureFname = pathname + "/.FlatFieldGallery/flatField" + std::to_string(i) + ".jpg";
+            std::string flatFieldPath = captureFname;
 
-        //save image
-        img = capFrame.image;
-        cv::imwrite(captureFname, img); 
-        
-        std::cout<<"Capturing flat field "<< i <<std::endl;
-        updateFlatField = false;}
-
+            //save image
+            img = capFrame.image;
+            cv::imwrite(captureFname, img); 
+            
+            
+            updateFlatField = false;}
+        std::cout<<"Capturing flat field reference images."<<std::endl;
     }else{
     //build output name string
     captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";

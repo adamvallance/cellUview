@@ -153,7 +153,7 @@ public:
         erosionCheckBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         flatFieldBox = new QCheckBox(widget_6);
         flatFieldBox->setObjectName(QStringLiteral("flatFieldBox"));
-        flatFieldBox->setEnabled(true);
+        flatFieldBox->setEnabled(false);
         flatFieldBox->setGeometry(QRect(461, 60, 161, 23));
         flatFieldBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         GUI->setCentralWidget(centralwidget);
