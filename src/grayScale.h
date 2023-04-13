@@ -18,7 +18,11 @@ public:
 
 private:
 
-    void grayEnhance(frame); // grayscale conversion
+    //void grayEnhance(frame); // grayscale conversion
+    void grayEnhance(); // grayscale conversion
     std::string paramLabel = "grayScale";
+    std::thread grayScaleThread;
+    frame procFrame;
+
 };
 #endif // CELLUVIEW_GREY_SCALE_H

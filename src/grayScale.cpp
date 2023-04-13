@@ -9,10 +9,23 @@ void grayScale::receiveFrame(frame newFrame) {
     }
 
     // Pass frame into the erosion function
-    grayEnhance(newFrame); 
+    //grayEnhance(newFrame); 
+
+    procFrame.copyFrom(&newFrame);
+
+    std::cout<<"Gonna start the new thread for gray scale"<<std::endl;
+
+    grayScaleThread = std::thread(&grayScale::grayEnhance, this);
+    // grayScaleThread = std::thread( [&, this](){ grayEnhance(std::ref(newFrame)); } );
 }
 
-void grayScale::grayEnhance(frame f) {
+void grayScale::grayEnhance() {
+    std::cout<<"Called it"<<std::endl;
+    
+    // Copy frame for processing
+    frame f; 
+    f.copyFrom(&procFrame);
+
     // Convert input frame to cv::Mat
     cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
 
@@ -32,6 +45,7 @@ void grayScale::grayEnhance(frame f) {
     // Output the frame through the callback onto the next instance in the dataflow
     f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
+    grayScaleThread.detach();
 }
 
 void grayScale::updateSettings(std::map<std::string, std::string> metadata){
