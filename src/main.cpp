@@ -38,7 +38,7 @@ int main(int argc, char* argv[]){
     grayScale gray;
     std::vector <imageProcessor *> blocks={&camera, &erode, &dilate, &gray, &cont, &edge};
 
-    Gui gui(&window, &ui, &gallery, &camera, blocks);
+    Gui gui(&window, &ui, &gallery, blocks);
 
     //Keep image enhancement classes in the callback chain
     //but call instance.toggleEnable to bypass

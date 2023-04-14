@@ -3,15 +3,15 @@
 #include "contrastEnhancement.h"
 #include "grayScale.h"
 
-Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, std::vector<imageProcessor *> &blocksIn)
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
     ui = ui_win;
     ui->setupUi(widget);
 
     this->gallery = galleryIn;
-    this->cam = camera;
     blocks = blocksIn;
+    this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
