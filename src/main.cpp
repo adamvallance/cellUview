@@ -52,6 +52,7 @@ int main(int argc, char* argv[]){
 
     blocks.back()->registerCallback(&gui);
 
+    gray.start();
 
     //start camera
     camera.start();
@@ -67,6 +68,8 @@ int main(int argc, char* argv[]){
     
     //stop camera
     camera.stop();
+
+    gray.stop();
     
     //exit
     return 0;

@@ -12,40 +12,59 @@ void grayScale::receiveFrame(frame newFrame) {
     //grayEnhance(newFrame); 
 
     procFrame.copyFrom(&newFrame);
+    update = true;
 
-    std::cout<<"Gonna start the new thread for gray scale"<<std::endl;
+    //std::cout<<"Gonna start the new thread for gray scale"<<std::endl;
 
-    grayScaleThread = std::thread(&grayScale::grayEnhance, this);
+    // grayScaleThread = std::thread(&grayScale::grayEnhance, this);
     // grayScaleThread = std::thread( [&, this](){ grayEnhance(std::ref(newFrame)); } );
 }
 
+void grayScale::start(){
+    running = true;
+    grayScaleThread = std::thread(&grayScale::grayEnhance, this);
+}
+
+void grayScale::stop(){
+    running = false;
+    grayScaleThread.join();
+}
+
 void grayScale::grayEnhance() {
-    std::cout<<"Called it"<<std::endl;
-    
-    // Copy frame for processing
-    frame f; 
-    f.copyFrom(&procFrame);
+        
+    while (running){    
 
-    // Convert input frame to cv::Mat
-    cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
+        if (update){
+        //std::cout<<"Called it"<<std::endl;
+        
+        // Copy frame for processing
+            frame f; 
+            f.copyFrom(&procFrame);
 
-    // Create output cv::Mat
-    cv::Mat output_mat(input_mat.size(), CV_8UC3);
+            // Convert input frame to cv::Mat
+            cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
 
-    // Convert input frame to grayscale
-    cv::Mat gray_frame;
-    cv::cvtColor(input_mat, gray_frame, cv::COLOR_BGR2GRAY);
+            // Create output cv::Mat
+            cv::Mat output_mat(input_mat.size(), CV_8UC3);
 
-    // Copy grayscale frame to output
-    cv::cvtColor(gray_frame, output_mat, cv::COLOR_GRAY2BGR);
+            // Convert input frame to grayscale
+            cv::Mat gray_frame;
+            cv::cvtColor(input_mat, gray_frame, cv::COLOR_BGR2GRAY);
 
-    //Add output to frame
-    f.image = output_mat;
+            // Copy grayscale frame to output
+            cv::cvtColor(gray_frame, output_mat, cv::COLOR_GRAY2BGR);
 
-    // Output the frame through the callback onto the next instance in the dataflow
-    f.setParameter(paramLabel, "ON");
-    frameCb->receiveFrame(f);
-    grayScaleThread.detach();
+            //Add output to frame
+            f.image = output_mat;
+
+            // Output the frame through the callback onto the next instance in the dataflow
+            f.setParameter(paramLabel, "ON");
+            frameCb->receiveFrame(f);
+            update = false;
+        }
+
+    }
+
 }
 
 void grayScale::updateSettings(std::map<std::string, std::string> metadata){

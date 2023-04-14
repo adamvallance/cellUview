@@ -16,6 +16,9 @@ public:
     std::string getParamLabel(){return paramLabel;};
     void updateSettings(std::map<std::string, std::string>);
 
+    void start();
+    void stop();
+
 private:
 
     //void grayEnhance(frame); // grayscale conversion
@@ -23,6 +26,8 @@ private:
     std::string paramLabel = "grayScale";
     std::thread grayScaleThread;
     frame procFrame;
+    bool update = false;
+    bool running = false;
 
 };
 #endif // CELLUVIEW_GREY_SCALE_H
