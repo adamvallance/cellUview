@@ -68,8 +68,8 @@ void MotorDriver::run(){
 
     while (enabled){
 
-        std::unique_lock lk(mut);
-        cond_var.wait_for(lk, 1s); //block for a second but wake up if new data
+        std::unique_lock<std::mutex> lock(mut);
+        cond_var.wait_for(lock, 1s); //block for a second but wake up if new data
         std::cout<<"cond var just passed"<<std::endl;
         if (update){            // if there is a new movement to make
     
@@ -193,7 +193,7 @@ void MotorDriver::mov(char axis, int inc){
     commandAxis = axis;
     commandInc = inc;
     //motorThread = std::thread(&MotorDriver::movThread, this);
-    std::lock_guard lk(mut);
+    std::lock_guard<std::mutex> lock(mut);
     update = true;
     cond_var.notify_all();
 }
