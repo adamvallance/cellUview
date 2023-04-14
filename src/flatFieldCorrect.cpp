@@ -21,8 +21,26 @@ void flatFieldCorrect::receiveFrame(frame newFrame) {
 
     // passing frame into the edge detection function
     flatField(newFrame); 
+
+
 }
 
+
+void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadata){
+    
+    std::string rec = metadata[paramLabel];
+
+    bool desired = (rec == "ON");
+    // std::cout<<rec<<std::endl;
+
+    // std::cout<<desired<<std::endl;
+
+    if (enabled != desired){
+        toggleEnable();
+    }
+
+    
+}
 void flatFieldCorrect::updateAverage(frame f) {
     // Load reference images
     std::string pathname = getenv("HOME");
@@ -46,26 +64,15 @@ void flatFieldCorrect::updateAverage(frame f) {
     cv::Mat correction_factor;
     cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(31, 31), 0);
     cv::resize(average_reference_image, correction_factor, f.image.size());
+    cv::Mat normalised_correction_factor;
+    cv::normalize(correction_factor, normalised_correction_factor, 0, 1, cv::NORM_MINMAX);
 
-    current_correction_factor = correction_factor;
+
+    current_correction_factor = normalised_correction_factor;
 
 }
 
-void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadata){
-    
-    std::string rec = metadata[paramLabel];
 
-    bool desired = (rec == "ON");
-    // std::cout<<rec<<std::endl;
-
-    // std::cout<<desired<<std::endl;
-
-    if (enabled != desired){
-        toggleEnable();
-    }
-
-    
-}
 
 
 void flatFieldCorrect::flatField(frame f) {
