@@ -13,6 +13,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     this->cam = camera;
     blocks = blocksIn;
     enabled = true;
+    this->displayImages();
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
