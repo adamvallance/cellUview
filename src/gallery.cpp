@@ -175,3 +175,6 @@ void Gallery::updateIndex(){
 
 }
 
+
+//get rid of back slashes in names
+

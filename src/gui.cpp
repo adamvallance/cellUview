@@ -98,8 +98,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
         }
     });
     
-
-
+    
 
 
     //------------make connections-------------
@@ -113,7 +112,11 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     // toggle edge
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
-
+    QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
+        QString enteredText = ui->updateNameBox->toPlainText();
+        std::string enteredTextStr = enteredText.toStdString();
+        textEditController(enteredTextStr);
+    });
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
     //gallery button connections
@@ -260,8 +263,6 @@ void Gui::displayImages() {
         return;
     }
 
-
-
 //if the gallery index is negative 1, show nothing, if its anything else, display image in that index.
 // so make a part with initliseation checks essentially 
 
@@ -325,7 +326,7 @@ if (moveUp == true ){
         if (batchIndex-galleryBatchNumber>1){
             batchIndex=batchIndex-1;}
         
-        
+      intialGallerySetting();  
     // don't update the gallery position indexes on the "next" button press
     // dont update the batch index
     
@@ -395,3 +396,55 @@ displayImages();
 
 
 }
+
+void Gui :: intialGallerySetting (){
+   std::string directoryStr = this->gallery->getPathname();
+    QString directory = QString::fromStdString(directoryStr);
+    QDir imageDir(directory);
+   
+    imageFilters << "*.jpg";
+    QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+
+    if (images.size() ==0){
+        galleryPos1Index =-1;
+        galleryPos2Index =-1;
+        galleryPos3Index =-1;
+        galleryPos4Index =-1;
+    }
+    else if (images.size() ==1){
+        galleryPos1Index =0;
+        galleryPos2Index =-1;
+        galleryPos3Index =-1;
+        galleryPos4Index =-1;
+    }
+    else if (images.size() ==2){
+        galleryPos1Index =0;
+        galleryPos2Index =1;
+        galleryPos3Index =-1;
+        galleryPos4Index =-1;
+    }
+     else if (images.size() ==3){
+        galleryPos1Index =0;
+        galleryPos2Index =1;
+        galleryPos3Index =2;
+        galleryPos4Index =-1;
+    }
+    else if (images.size() ==4){
+        galleryPos1Index =0;
+        galleryPos2Index =1;
+        galleryPos3Index =2;
+        galleryPos4Index =3;
+    } 
+    else{}
+
+
+
+}
+
+void Gui::textEditController(std::string enteredTextStr){
+    std::cout<<"Entered String: "<<enteredTextStr<<std::endl;
+}
+
+//function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
+
+

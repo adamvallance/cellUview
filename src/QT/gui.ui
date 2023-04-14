@@ -296,6 +296,16 @@ background-color: rgb(83, 83, 83);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QTextEdit" name="updateNameBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>570</y>
+        <width>411</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="widget_6" native="true">
      <property name="geometry">

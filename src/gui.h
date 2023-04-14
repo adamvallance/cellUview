@@ -37,7 +37,9 @@ private:
     std::string getParamLabel(){return "";};
     void updateGalleryIndex(bool);
     void displayImages();
-    int galleryPos1Index = 0;
+    void intialGallerySetting();
+    void onCaptureButtonPress();
+    void textEditController(std::string enteredTextStr);    int galleryPos1Index = 0;
     int galleryPos2Index = 1;
     int galleryPos3Index = 2;
     int galleryPos4Index = 3;

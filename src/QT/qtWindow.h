@@ -21,6 +21,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -47,6 +48,7 @@ public:
     QLabel *ImageSettings;
     QPushButton *restoreSettingsButton;
     QLabel *Divider1;
+    QTextEdit *updateNameBox;
     QWidget *widget_6;
     QSlider *edgeEnhancementSlider;
     QLineEdit *edgeEnhancementValueInput;
@@ -155,6 +157,9 @@ public:
         Divider1->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
 "background-color: rgb(83, 83, 83);"));
         Divider1->setAlignment(Qt::AlignCenter);
+        updateNameBox = new QTextEdit(ImageCaptureColumn);
+        updateNameBox->setObjectName(QString::fromUtf8("updateNameBox"));
+        updateNameBox->setGeometry(QRect(30, 570, 411, 31));
         widget_6 = new QWidget(widget_2);
         widget_6->setObjectName(QString::fromUtf8("widget_6"));
         widget_6->setGeometry(QRect(500, 520, 641, 281));
