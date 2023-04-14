@@ -9,8 +9,6 @@
 #include <opencv2/opencv.hpp>
 
 
-//Receives in new frames through a callback.
-
 
 
 void flatFieldCorrect::receiveFrame(frame newFrame) {
@@ -24,7 +22,7 @@ void flatFieldCorrect::receiveFrame(frame newFrame) {
     flatField(newFrame); 
 }
 
-void flatFieldCorrect::flatField(frame f) {
+void flatFieldCorrect::updateAverage(frame f) {
     // Load reference images
     std::string pathname = getenv("HOME");
     pathname += + "/OpenFlexureGallery/.FlatFieldGallery/";
@@ -54,10 +52,25 @@ void flatFieldCorrect::flatField(frame f) {
     channels[1] = correction_factor;
     channels[2] = correction_factor;
     cv::merge(channels, correction_factor3C);
+    current_correction_factor3C = correction_factor3C;
 
-    // Apply produced correction factor to the input image
+}
+
+
+void flatFieldCorrect::flatField(frame f) {
     cv::Mat corrected_image;
-    cv::multiply(f.image, correction_factor3C, corrected_image);
 
+    if (calculateAverageEnabled) {
+        updateAverage(f);
+        cv::multiply(f.image, current_correction_factor3C, corrected_image);
+        calculateAverageEnabled = false;
+    } else {
+        cv::multiply(f.image, current_correction_factor3C, corrected_image);
+    }
+    
     frameCb->receiveFrame(f);
+}
+
+void flatFieldCorrect::setUpdateFlag(){
+    calculateAverageEnabled = true;
 }

@@ -1,6 +1,5 @@
 #include "gui.h"
-#include "edgeDetection.h"
-#include "greyScale.h"
+
 
 Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, std::vector<imageProcessor *> &blocksIn)
 {
@@ -23,6 +22,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
         }
          
     });
+
+
  
  
     //-----------block 1 erosion---------------------
@@ -129,6 +130,7 @@ void Gui::receiveFrame(frame newFrame)
 
 void Gui::setUpdateFlatField(){
     updateFlatField=true;
+    static_cast<flatFieldCorrect*>(blocks[0])->setsetUpdateFlag();
     cam->captureMetadata();
     doCapture = true;
     //To allow checkbox to be enabled

@@ -15,6 +15,7 @@
 #include "dilation.h"
 #include "erosion.h"
 #include "camera.h"
+#include "flatFieldCorrect.h"
 
 
 

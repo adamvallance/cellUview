@@ -15,13 +15,19 @@
 class flatFieldCorrect: public imageProcessor{
 public:
     flatFieldCorrect() = default;
+
     void receiveFrame(frame newFrame);
     std::string getParamLabel(){return paramLabel;};
+    void setUpdateFlag();
+    
 
     void updateSettings(std::map<std::string, std::string>){return;};
 private:
     //add any other methods here
+    void updateAverage(frame);
     void flatField(frame); //Flat Field Correction
     std::string paramLabel = "flatField";
+    cv::Mat current_correction_factor3C;
+    bool calculateAverageEnabled;
 };
 #endif // OPENFLEXURE_FLAT_FIELD_CORRECT_H
