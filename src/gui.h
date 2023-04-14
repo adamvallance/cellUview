@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_GUI_H
-#define OPENFLEXURE_GUI_H
+#ifndef CELLUVIEW_GUI_H
+#define CELLUVIEW_GUI_H
 #include <QMainWindow> 
 
 #include "QT/qtWindow.h" //compiled header file from qtcreator
@@ -10,11 +10,12 @@
 #include "imageProcessor.h"
 #include "edgeDetection.h"
 #include "gallery.h"
-#include "greyScale.h"
+#include "grayScale.h"
 #include "frame.h"
 #include "dilation.h"
 #include "erosion.h"
 #include "camera.h"
+#include "contrastEnhancement.h"
 #include "motorDriver.h"
 
 
@@ -54,4 +55,4 @@ private:
     MotorDriver *motors;
     //std::thread motorThread;
 };
-#endif // OPENFLEXURE_GUI_H
+#endif // CELLUVIEW_GUI_H

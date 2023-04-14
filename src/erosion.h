@@ -1,6 +1,6 @@
 
-#ifndef OPENFLEXURE_EROSION_H
-#define OPENFLEXURE_EROSION_H
+#ifndef CELLUVIEW_EROSION_H
+#define CELLUVIEW_EROSION_H
 
 
 #include <opencv2/core.hpp>
@@ -24,4 +24,4 @@ private:
     void erode(frame); //edge detection
     std::string paramLabel = "erosion";
 };
-#endif // OPENFLEXURE_EROSION_H
+#endif // CELLUVIEW_EROSION_H

@@ -1,7 +1,7 @@
-#include "greyScale.h"
+#include "grayScale.h"
 #include <opencv2/imgproc.hpp>
 
-void greyScale::receiveFrame(frame newFrame) {
+void grayScale::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
         frameCb->receiveFrame(newFrame);
@@ -9,10 +9,10 @@ void greyScale::receiveFrame(frame newFrame) {
     }
 
     // Pass frame into the erosion function
-    greyEnhance(newFrame); 
+    grayEnhance(newFrame); 
 }
 
-void greyScale::greyEnhance(frame f) {
+void grayScale::grayEnhance(frame f) {
     // Convert input frame to cv::Mat
     cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
 
@@ -34,7 +34,7 @@ void greyScale::greyEnhance(frame f) {
     frameCb->receiveFrame(f);
 }
 
-void greyScale::updateSettings(std::map<std::string, std::string> metadata){
+void grayScale::updateSettings(std::map<std::string, std::string> metadata){
     
     std::string rec = metadata[paramLabel];
 

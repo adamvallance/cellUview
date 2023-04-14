@@ -1,14 +1,14 @@
 
-# OpenFlexure-microscopy-enhancement
+# cellUview-microscopy-enhancement
 
 [![CMake](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml/badge.svg)](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml)
 
-This project provides real-time image processing capabilities for the Raspberry Pi based OpenFlexure microscope platform for image enhancement including contrast and sharpness adjustment, edge detection/enhancement, and classification using k-means clustering.
+This project provides real-time image processing capabilities for the Raspberry Pi based cellUview microscope platform for image enhancement including contrast and sharpness adjustment, edge detection/enhancement, and classification using k-means clustering.
 
 <img src="https://openflexure.org/assets/ofm-photos/v7_side_view_crop.jpg" width="200" />
 
 # dev instructions
-To get OpenFlexure+, go to a terminal and type
+To get cellUview+, go to a terminal and type
 ```
 git clone https://github.com/adamvallance/openflexure-microscopy-enhancement.git
 cd openflexure-microscopy-enhancement
@@ -27,7 +27,7 @@ bash build.sh
 ```
 Then to run enter
 ```
-bin/OpenFlexure
+bin/cellUview
 ```
 
 ```build.sh``` has options:
@@ -49,9 +49,9 @@ or to build, remove the cmake cache, install and run straight away:
 ```
 bash build.sh -r -c -i
 ```
-If the -i option is used, OpenFlexurePlus can be executed from anywhere by typing 
+If the -i option is used, cellUviewPlus can be executed from anywhere by typing 
 ```
-OpenFlexure
+cellUview
 ```
 
 ### Note

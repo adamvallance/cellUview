@@ -9,21 +9,18 @@
 #include "camera.h"
 #include "stdlib.h"
 #include "gui.h"
-#include "OpenFlexureWelcome.h"
+#include "cellUviewWelcome.h"
 #include "edgeDetection.h"
 #include "gallery.h"
 #include "erosion.h"
 #include "dilation.h"
-#include "greyScale.h"
+#include "grayScale.h"
+#include "contrastEnhancement.h"
 #include "motorDriver.h"
 
 
-
-
-
-
 int main(int argc, char* argv[]){
-    OpenFlexureWelcome::welcomeMessage();
+    cellUviewWelcome::welcomeMessage();
     
     QApplication app(argc, argv);
     QMainWindow window;
@@ -36,16 +33,17 @@ int main(int argc, char* argv[]){
     Gallery gallery;
     
     edgeDetection edge;
+    contrastEnhancement cont;
     //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
-    greyScale grey;
-    std::vector <imageProcessor *> blocks={&erode, &dilate, &grey, &edge};
+    grayScale gray;
+    std::vector <imageProcessor *> blocks={&erode, &dilate, &gray, &cont, &edge};
 
     MotorDriver motor;
 
     Gui gui(&window, &ui, &gallery, &camera, &motor, blocks);
-    //Gui gui(&window, &ui, &gallery, &camera, blocks);
+
 
 
     //Keep image enhancement classes in the callback chain

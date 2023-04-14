@@ -11,7 +11,7 @@ void Camera::postFrame(){
     cv::Mat capture;
     videoCapture.read(capture);
     if (capture.empty()) {
-        std::cerr << "OpenFlexure Error! blank frame grabbed\nPlease check your PiCamera microscope module is connected.<n";
+        std::cerr << "cellUview Error! blank frame grabbed\nPlease check your PiCamera microscope module is connected.<n";
         frameCb==nullptr;
         this-> stop(); // stop processing. To avoid endless loop
         throw 1;
