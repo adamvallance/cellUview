@@ -62,18 +62,31 @@ void flatFieldCorrect::updateAverage(frame f) {
 
     // Calculate the correction factor using the average reference image
     cv::Mat correction_factor;
-    //cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(25, 25), 0);
+    cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(31, 31), 0);
     cv::resize(average_reference_image, correction_factor, f.image.size());
     cv::Mat normalised_correction_factor;
     cv::normalize(correction_factor, normalised_correction_factor, 0, 1, cv::NORM_MINMAX, CV_32FC3);
     cv::Mat inverted_img;
     cv::subtract(cv::Scalar(1, 1, 1), normalised_correction_factor, inverted_img);
     //std::cout<<inverted_img<<std::endl;
-    current_correction_factor = inverted_img;
+    
     // std::string pathname1 = getenv("HOME");
     // pathname1 += + "/OpenFlexureGallery/"; 
     // std::string filename1 = pathname1 + "bob" + ".jpg";
     // cv::imwrite(filename1, correction_factor);
+
+    cv::Mat whiteImage(f.image.rows, f.image.cols, CV_8UC3, cv::Scalar(255, 255, 255));
+
+
+    //cv::Mat whiteImage(f.image.rows,f.image.cols,CV_8UC3,255);
+
+    cv::subtract(whiteImage, correction_factor, correction_factor);
+    std::string pathname1 = getenv("HOME");
+    pathname1 += + "/OpenFlexureGallery/"; 
+    std::string filename1 = pathname1 + "bob" + ".jpg";
+    cv::imwrite(pathname1 + "john.jpg", whiteImage);
+    cv::imwrite(filename1, correction_factor);
+    current_correction_factor = correction_factor;
 
 }
 
@@ -95,9 +108,9 @@ void flatFieldCorrect::flatField(frame f) {
         //end of debug
         calculateAverageEnabled = false;
     }
-    f.image.convertTo(f.image, CV_32FC3, 1/255.0);
-    cv::multiply(f.image, current_correction_factor, f.image);
-    f.image.convertTo(f.image, CV_8UC3, 255);
+    //f.image.convertTo(f.image, CV_32FC3, 1/255.0);
+    cv::add(f.image, current_correction_factor, f.image);
+    //f.image.convertTo(f.image, CV_8UC3, 255);
     f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
 }
