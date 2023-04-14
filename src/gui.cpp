@@ -115,6 +115,9 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
+    //gallery button connections
+    QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryIndex(true);});
+    QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryIndex(false);});
 }
 
 void Gui::receiveFrame(frame newFrame)
@@ -236,4 +239,158 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 
     }
     
+}
+// last thing to do is 0 images, 1 image on open etc. 
+
+void Gui::displayImages() {
+
+   
+    std::string directoryStr = this->gallery->getPathname();
+    QString directory = QString::fromStdString(directoryStr);
+    QDir imageDir(directory);
+   
+    imageFilters << "*.jpg";
+    QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+    QSize labelSize = ui->galleryPos1->size();
+    QPixmap pixmap1, pixmap2, pixmap3, pixmap4;
+
+    if (images.isEmpty()) {
+        qWarning("No images found in directory %s", qUtf8Printable(directory));
+        return;
+    }
+
+
+
+//if the gallery index is negative 1, show nothing, if its anything else, display image in that index.
+// so make a part with initliseation checks essentially 
+
+if (galleryPos1Index != -1) {
+    QImage image1(directory + "/" + images[galleryPos1Index]);
+    pixmap1 = QPixmap::fromImage(image1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    
+} else {
+
+    ui->galleryPos1->clear();
+}
+
+if (galleryPos2Index != -1) {
+    QImage image2(directory + "/" + images[galleryPos2Index]);
+    pixmap2 = QPixmap::fromImage(image2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+} else {
+    ui->galleryPos2->clear();
+}
+
+if (galleryPos3Index != -1) {
+    QImage image3(directory + "/" + images[galleryPos3Index]);
+   pixmap3 = QPixmap::fromImage(image3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+} else {
+    ui->galleryPos3->clear();
+    
+}
+
+if (galleryPos4Index != -1) {
+    QImage image4(directory + "/" + images[galleryPos4Index]);
+    pixmap4 = QPixmap::fromImage(image4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+} else {
+    ui->galleryPos4->clear();
+}
+
+ui->galleryPos1->setPixmap(pixmap1);
+ui->galleryPos2->setPixmap(pixmap2);
+ui->galleryPos3->setPixmap(pixmap3);
+ui->galleryPos4->setPixmap(pixmap4);
+}
+
+void Gui::updateGalleryIndex (bool moveUp){
+ 
+
+std::string directoryStr = this->gallery->getPathname();
+    
+    QString directory = QString::fromStdString(directoryStr);
+    QDir imageDir(directory);
+    imageFilters << "*.jpg";
+    QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+    
+    float galleryBatchNumber = (float)images.size()/4;
+    
+if (moveUp == true ){
+    batchIndex=batchIndex+1;
+    float r = batchIndex-galleryBatchNumber;
+    
+    
+    if (batchIndex>= galleryBatchNumber) {
+        
+        //this is skipping over the second to last once the back button is pressed, stops a crash tho
+        if (batchIndex-galleryBatchNumber>1){
+            batchIndex=batchIndex-1;}
+        
+        
+    // don't update the gallery position indexes on the "next" button press
+    // dont update the batch index
+    
+     if (r<1) { 
+        
+         
+        if (r == 0.75) {
+            // update position 1 , make rest not show anything
+
+             
+            galleryPos1Index = batchIndex*4-4;
+            galleryPos2Index = -1;
+            galleryPos3Index = -1;
+            galleryPos4Index = -1;
+            
+            
+        }
+        else if (r == 0.5) {
+            
+            
+            galleryPos1Index = batchIndex*4-4;
+            galleryPos2Index = batchIndex*4-3;
+            galleryPos3Index = -1;
+            galleryPos4Index = -1;
+             
+        }
+        else if (r == 0.25) {
+
+            galleryPos1Index = batchIndex*4-4;
+            galleryPos2Index = batchIndex*4-3;
+            galleryPos3Index = batchIndex*4-2;
+            galleryPos4Index = -1;
+        }
+        
+        }
+
+    }
+    else{
+
+         
+            galleryPos1Index = batchIndex*4-4;
+            galleryPos2Index = batchIndex*4-3;
+            galleryPos3Index = batchIndex*4-2;
+            galleryPos4Index = batchIndex*4-1;
+   
+    }
+
+     
+}
+    
+else{
+    if (batchIndex==1){ 
+       return;
+    }
+    else{
+        
+        batchIndex =batchIndex-1;
+
+        galleryPos1Index = batchIndex*4-4;
+        galleryPos2Index = batchIndex*4-3;
+        galleryPos3Index = batchIndex*4-2;
+        galleryPos4Index = batchIndex*4-1;
+
+    }
+}
+displayImages();
+
+
 }

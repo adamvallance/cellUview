@@ -16,7 +16,7 @@
 #include "erosion.h"
 #include "camera.h"
 #include "contrastEnhancement.h"
-
+#include <QDir>
 
 
 class Gui : public QWidget, public imageProcessor{ 
@@ -35,7 +35,16 @@ private:
     void restoreSettings(std::string = "");
     void updateSettings(std::map<std::string, std::string>);
     std::string getParamLabel(){return "";};
-
+    void updateGalleryIndex(bool);
+    void displayImages();
+    int galleryPos1Index = 0;
+    int galleryPos2Index = 1;
+    int galleryPos3Index = 2;
+    int galleryPos4Index = 3;
+    QStringList images;
+    int batchIndex = 1; 
+    QDir imageDir;
+    QStringList imageFilters;
 
     cv::Mat img;
     Gallery* gallery;
