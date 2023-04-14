@@ -173,9 +173,6 @@ background-color: rgb(83, 83, 83);</string>
       </property>
      </widget>
      <widget class="QPushButton" name="FlatFieldButton">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -184,17 +181,11 @@ background-color: rgb(83, 83, 83);</string>
         <height>41</height>
        </rect>
       </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(179, 179, 179);</string>
       </property>
       <property name="text">
-       <string>Flat Field Capture (Perform with empty objective)</string>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
+       <string>Flat</string>
       </property>
      </widget>
     </widget>
@@ -315,25 +306,6 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Erosion</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="flatFieldBox">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>461</x>
-        <y>60</y>
-        <width>161</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);</string>
-      </property>
-      <property name="text">
-       <string>Flat Field Correction</string>
       </property>
      </widget>
      <widget class="QSlider" name="contrastEnhancementSlider">
@@ -462,6 +434,25 @@ background-color: rgb(179, 179, 179);</string>
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
+     <widget class="QCheckBox" name="flatFieldBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>60</y>
+        <width>111</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Flat</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -471,7 +462,7 @@ background-color: rgb(179, 179, 179);</string>
      <x>0</x>
      <y>0</y>
      <width>1162</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">

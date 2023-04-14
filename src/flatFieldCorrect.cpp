@@ -44,7 +44,7 @@ void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadat
 void flatFieldCorrect::updateAverage(frame f) {
     // Load reference images
     std::string pathname = getenv("HOME");
-    pathname += + "/OpenFlexureGallery/.FlatFieldGallery/";
+    pathname += + "/cellUviewGallery/.FlatFieldGallery/";
     std::vector<cv::Mat> reference_images;
     for (int i = 1; i <= 20; i++) {
         std::string flatFieldPath = pathname + "flatField" + std::to_string(i) + ".jpg";

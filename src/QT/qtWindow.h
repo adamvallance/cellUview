@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gui.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.9.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -118,11 +118,8 @@ public:
         label_2->setAlignment(Qt::AlignCenter);
         FlatFieldButton = new QPushButton(ImageCaptureColumn);
         FlatFieldButton->setObjectName(QStringLiteral("FlatFieldButton"));
-        FlatFieldButton->setEnabled(true);
         FlatFieldButton->setGeometry(QRect(30, 610, 411, 41));
-        FlatFieldButton->setAutoFillBackground(false);
         FlatFieldButton->setStyleSheet(QStringLiteral("background-color: rgb(179, 179, 179);"));
-        FlatFieldButton->setCheckable(false);
         widget_6 = new QWidget(widget_2);
         widget_6->setObjectName(QStringLiteral("widget_6"));
         widget_6->setGeometry(QRect(500, 520, 641, 281));
@@ -199,10 +196,15 @@ public:
 ""));
         exposureSlider->setMaximum(100);
         exposureSlider->setOrientation(Qt::Horizontal);
+        flatFieldBox = new QCheckBox(widget_6);
+        flatFieldBox->setObjectName(QStringLiteral("flatFieldBox"));
+        flatFieldBox->setEnabled(false);
+        flatFieldBox->setGeometry(QRect(480, 60, 111, 23));
+        flatFieldBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1162, 20));
+        menubar->setGeometry(QRect(0, 0, 1162, 25));
         menuOpenflexure = new QMenu(menubar);
         menuOpenflexure->setObjectName(QStringLiteral("menuOpenflexure"));
         GUI->setMenuBar(menubar);
@@ -219,19 +221,26 @@ public:
 
     void retranslateUi(QMainWindow *GUI)
     {
-        GUI->setWindowTitle(QCoreApplication::translate("GUI", "MainWindow", nullptr));
-        OpenFlexurePlus->setText(QCoreApplication::translate("GUI", "OpenFlexure +", nullptr));
-        scopeVideoFeed->setText(QCoreApplication::translate("GUI", "TextLabel", nullptr));
-        captureButton->setText(QCoreApplication::translate("GUI", "Capture Image", nullptr));
-        label->setText(QCoreApplication::translate("GUI", "Gallery", nullptr));
-        restoreSettingsButton->setText(QCoreApplication::translate("GUI", "Restore Settings", nullptr));
-        label_2->setText(QCoreApplication::translate("GUI", "Image Settings", nullptr));
-        lineEdit->setText(QString());
-        label_3->setText(QCoreApplication::translate("GUI", "Control Panel", nullptr));
-        greyScaleBox->setText(QCoreApplication::translate("GUI", "Grey Scale", nullptr));
-        dilationCheckBox->setText(QCoreApplication::translate("GUI", "Dilation", nullptr));
-        erosionCheckBox->setText(QCoreApplication::translate("GUI", "Erosion", nullptr));
-        menuOpenflexure->setTitle(QCoreApplication::translate("GUI", "Openflexure+", nullptr));
+        GUI->setWindowTitle(QApplication::translate("GUI", "MainWindow", Q_NULLPTR));
+        cellUviewPlus->setText(QApplication::translate("GUI", "cellUview", Q_NULLPTR));
+        scopeVideoFeed->setText(QApplication::translate("GUI", "TextLabel", Q_NULLPTR));
+        captureButton->setText(QApplication::translate("GUI", "Capture Image", Q_NULLPTR));
+        label->setText(QApplication::translate("GUI", "Gallery", Q_NULLPTR));
+        restoreSettingsButton->setText(QApplication::translate("GUI", "Restore Settings", Q_NULLPTR));
+        label_2->setText(QApplication::translate("GUI", "Image Settings", Q_NULLPTR));
+        FlatFieldButton->setText(QApplication::translate("GUI", "Flat", Q_NULLPTR));
+        edgeEnhancementValueInput->setText(QString());
+        label_3->setText(QApplication::translate("GUI", "Control Panel", Q_NULLPTR));
+        grayScaleBox->setText(QApplication::translate("GUI", "Gray Scale", Q_NULLPTR));
+        dilationCheckBox->setText(QApplication::translate("GUI", "Dilation", Q_NULLPTR));
+        erosionCheckBox->setText(QApplication::translate("GUI", "Erosion", Q_NULLPTR));
+        contrastEnhancementValueInput->setText(QString());
+        label_4->setText(QApplication::translate("GUI", "Edge Detection", Q_NULLPTR));
+        label_5->setText(QApplication::translate("GUI", "Contrast Enhancement", Q_NULLPTR));
+        exposureValueInput->setText(QString());
+        label_6->setText(QApplication::translate("GUI", "Exposure (EV)", Q_NULLPTR));
+        flatFieldBox->setText(QApplication::translate("GUI", "Flat", Q_NULLPTR));
+        menuOpenflexure->setTitle(QApplication::translate("GUI", "cellUview", Q_NULLPTR));
     } // retranslateUi
 
 };

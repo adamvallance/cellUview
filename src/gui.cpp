@@ -16,8 +16,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
-    //-----------block 1 erosion---------------------
-    QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+         //-----------block 1 flat field---------------------
+    QObject::connect(ui->flatFieldBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[1]->getEnabled();
         if (enabled != checkboxValue){
             blocks[1]->toggleEnable();
@@ -25,19 +25,28 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
          
     });
 
-    // //-----------block 2 dilation ---------------------
-    QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+    //-----------block 2 erosion---------------------
+    QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[2]->getEnabled();
         if (enabled != checkboxValue){
             blocks[2]->toggleEnable();
         }
          
     });
-    // //-----------block 3 gray ---------------------
-    QObject::connect(ui->grayScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+
+    // //-----------block 3 dilation ---------------------
+    QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[3]->getEnabled();
         if (enabled != checkboxValue){
             blocks[3]->toggleEnable();
+        }
+         
+    });
+    // //-----------block 4 gray ---------------------
+    QObject::connect(ui->grayScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[4]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[4]->toggleEnable();
         }
          
     });
@@ -70,22 +79,22 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
     });
     
-    // //-----------block -2 contrast ---------------------
+    // //-----------block 5 contrast ---------------------
     QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
         ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
-        bool enabled = blocks[4]->getEnabled();
+        bool enabled = blocks[5]->getEnabled();
         if (sliderValue1 == 0){ //disable if 0 on slider is selected
             if (enabled){
-                blocks[4]->toggleEnable();
+                blocks[5]->toggleEnable();
             }
         }
         else{
             if (!enabled){
-                blocks[4]->toggleEnable();
+                blocks[5]->toggleEnable();
             }
         }
         //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-        static_cast<contrastEnhancement*>(blocks[4])->updateThreshold(sliderValue1);
+        static_cast<contrastEnhancement*>(blocks[5])->updateThreshold(sliderValue1);
 
     });
 
