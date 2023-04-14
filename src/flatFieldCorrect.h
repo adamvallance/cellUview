@@ -27,7 +27,7 @@ private:
     void updateAverage(frame);
     void flatField(frame); //Flat Field Correction
     std::string paramLabel = "flatField";
-    cv::Mat current_correction_factor3C;
+    cv::Mat current_correction_factor;
     bool calculateAverageEnabled;
 };
 #endif // OPENFLEXURE_FLAT_FIELD_CORRECT_H
