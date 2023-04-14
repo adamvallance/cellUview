@@ -18,6 +18,7 @@ src/OpenFlexure_automoc.dir/
 *.air
 *.ipa
 *.apk
+*.jpg
 
 
 *.pdf

@@ -65,10 +65,15 @@ void flatFieldCorrect::updateAverage(frame f) {
     cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(31, 31), 0);
     cv::resize(average_reference_image, correction_factor, f.image.size());
     cv::Mat normalised_correction_factor;
-    cv::normalize(correction_factor, normalised_correction_factor, 0, 1, cv::NORM_MINMAX);
-
-
-    current_correction_factor = normalised_correction_factor;
+    cv::normalize(correction_factor, normalised_correction_factor, 0, 1, cv::NORM_MINMAX, CV_32FC3);
+    cv::Mat inverted_img;
+    cv::subtract(cv::Scalar(1, 1, 1), normalised_correction_factor, inverted_img);
+    //std::cout<<inverted_img<<std::endl;
+    current_correction_factor = inverted_img;
+    // std::string pathname1 = getenv("HOME");
+    // pathname1 += + "/OpenFlexureGallery/"; 
+    // std::string filename1 = pathname1 + "bob" + ".jpg";
+    // cv::imwrite(filename1, correction_factor);
 
 }
 
@@ -80,16 +85,19 @@ void flatFieldCorrect::flatField(frame f) {
 
     if (calculateAverageEnabled) {
         updateAverage(f);
-        cv::multiply(f.image, current_correction_factor, corrected_image);
-        std::string pathname = getenv("HOME");
-        pathname += + "/OpenFlexureGallery/"; 
-        std::string filename = pathname + "bob" + ".jpg";
-        cv::imwrite(filename, current_correction_factor);
+
+        //debug
+        // std::string pathname2 = getenv("HOME");
+        // pathname2 += + "/OpenFlexureGallery/"; 
+        // std::string filename2 = pathname2 + "brian" + ".jpg";
+        // cv::imwrite(filename2, f.image);
+        // std::cout<<f.image<<std::endl;
+        //end of debug
         calculateAverageEnabled = false;
-    } else {
-        cv::multiply(f.image, current_correction_factor, corrected_image);
     }
-    f.image = corrected_image;
+    f.image.convertTo(f.image, CV_32FC3, 1/255.0);
+    cv::multiply(f.image, current_correction_factor, f.image);
+    f.image.convertTo(f.image, CV_8UC3, 255);
     f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
 }
