@@ -48,8 +48,8 @@ void Camera::stop(){
 
 void Camera::setExposure(int exposureValue){
     videoCapture.set(cv::CAP_PROP_AUTO_EXPOSURE, 1); //set to manual exposure
-    float mapped = exposureValue * 0.1 -10;
-    videoCapture.set(cv::CAP_PROP_EXPOSURE, mapped);
+    //float mapped = exposureValue * 0.1 -10;
+    videoCapture.set(cv::CAP_PROP_EXPOSURE, exposureValue);
     std::cout<< "setting exposure to ";
     std::cout<<  exposureValue;
     std::cout<< std::endl;
