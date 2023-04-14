@@ -62,7 +62,7 @@ void flatFieldCorrect::updateAverage(frame f) {
 
     // Calculate the correction factor using the average reference image
     cv::Mat correction_factor;
-    cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(31, 31), 0);
+    cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(35, 35), 0);
     cv::resize(average_reference_image, correction_factor, f.image.size());
     cv::Mat normalised_correction_factor;
     cv::normalize(correction_factor, normalised_correction_factor, 0, 1, cv::NORM_MINMAX, CV_32FC3);
@@ -81,6 +81,7 @@ void flatFieldCorrect::updateAverage(frame f) {
     //cv::Mat whiteImage(f.image.rows,f.image.cols,CV_8UC3,255);
 
     cv::subtract(whiteImage, correction_factor, correction_factor);
+    
     std::string pathname1 = getenv("HOME");
     pathname1 += + "/OpenFlexureGallery/"; 
     std::string filename1 = pathname1 + "bob" + ".jpg";
@@ -109,7 +110,25 @@ void flatFieldCorrect::flatField(frame f) {
         calculateAverageEnabled = false;
     }
     //f.image.convertTo(f.image, CV_32FC3, 1/255.0);
-    cv::add(f.image, current_correction_factor, f.image);
+    cv::Mat f_16uc3, current_correction_factor_16uc3;
+    f.image.convertTo(f_16uc3, CV_16UC3);
+    current_correction_factor.convertTo(current_correction_factor_16uc3, CV_16UC3);
+    cv::add(f_16uc3, current_correction_factor_16uc3, current_correction_factor_16uc3);
+
+    // Find the maximum value in current_correction_factor_16uc3
+    double maxVal;
+    cv::minMaxLoc(current_correction_factor_16uc3, nullptr, &maxVal);
+
+    // Compute the scaling factor
+    double scaleFactor = 255.0 / maxVal;
+
+    // Scale current_correction_factor_16uc3 by the scaling factor
+    current_correction_factor_16uc3 *= scaleFactor;
+    current_correction_factor_16uc3.convertTo(f.image, CV_8UC3);
+
+
+
+    //std::cout<<current_correction_factor_16uc3<<std::endl;
     //f.image.convertTo(f.image, CV_8UC3, 255);
     f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
