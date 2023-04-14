@@ -30,6 +30,7 @@ void Camera::postFrame()
     // turn back off for next frame
     if (doMeta)
     {
+        f.setParameter(paramLabel, exposureState);
         doMeta = false;
     }
 
@@ -51,6 +52,7 @@ void Camera::stop(){
 }
 
 void Camera::setExposure(int exposureValue){
+    exposureState = std::to_string(exposureValue);
     videoCapture.set(cv::CAP_PROP_AUTO_EXPOSURE, 1); // set to manual exposure
     int mapped = exposureValue * 5;
     videoCapture.set(cv::CAP_PROP_EXPOSURE, exposureValue);
@@ -66,4 +68,22 @@ bool Camera::getIsOn(){
 
 void Camera::captureMetadata(){
     doMeta = true;
+}
+
+void Camera::updateSettings(std::map<std::string, std::string> metadata){
+    exposureState = metadata[paramLabel];
+
+    int metaThreshold;
+    if (exposureState == "OFF"){
+        videoCapture.set(cv::CAP_PROP_AUTO_EXPOSURE, 3); // set initial value to auto exposure
+    }else{
+        try{
+            metaThreshold = std::stoi(metadata[paramLabel]);
+        }catch(...){
+            std::cout<<"Error invalid metadata"<<std::endl;
+            return;
+        }
+    }
+    
+    setExposure(metaThreshold);   
 }

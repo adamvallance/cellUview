@@ -50,6 +50,7 @@ class frame{
             "dilation",
             "grayScale",
             "contrastThreshold",
+            "exposure"
             //ADD MORE PARAMETERS HERE
         };
 

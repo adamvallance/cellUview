@@ -22,6 +22,9 @@ public:
     void registerCallback(imageProcessor*);
     void captureMetadata();
     void setExposure(int);
+    std::string getParamLable(){return paramLabel;};
+    void updateSettings(std::map<std::string, std::string>);
+
     
 private:
     frame f;
@@ -29,7 +32,9 @@ private:
     void threadLoop();
     cv::VideoCapture videoCapture;
     std::thread cameraThread;
+    std::string exposureState = "OFF";
     bool isOn = false;
+    std::string paramLabel = "exposure";
     imageProcessor* frameCb = nullptr;
     bool doMeta = false;
 
