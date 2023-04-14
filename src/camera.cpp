@@ -36,6 +36,7 @@ void Camera::postFrame(){
 void Camera::start(int deviceID, int apiID){
     isOn=true;
     videoCapture.open(deviceID, apiID); 
+    videoCapture.set(cv::CAP_PROP_AUTO_EXPOSURE, 3); //set initial value to auto exposure
     cameraThread = std::thread(&Camera::threadLoop, this);
 }
 
@@ -46,7 +47,7 @@ void Camera::stop(){
 }
 
 void Camera::setExposure(int exposureValue){
-    videoCapture.set(cv::CAP_PROP_AUTO_EXPOSURE, 0.25);
+    videoCapture.set(cv::CAP_PROP_AUTO_EXPOSURE, 1); //set to manual exposure
     float mapped = exposureValue * 0.1 -10;
     videoCapture.set(cv::CAP_PROP_EXPOSURE, mapped);
     std::cout<< "setting exposure to ";
