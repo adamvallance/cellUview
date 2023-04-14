@@ -40,12 +40,12 @@ void MotorDriver::start(const char* device, int baud){
         }
         std::cout << "Motor driver connection opened: " << firmwareParsed << std::endl;
 
-        //resetToZero();      // starting position should be 0, 0, 0
-        motorThread = std::thread(&MotorDriver::resetToZero, this);
+        resetToZero();      // starting position should be 0, 0, 0
+        // motorThread = std::thread(&MotorDriver::resetToZero, this);
+
+        motorThread = std::thread(&MotorDriver::run, this);
 
         connected = true;
-
-        //motorThread = std::thread(&MotorDriver::run, this);
     }   
 }
 
@@ -54,13 +54,52 @@ void MotorDriver::stop(){
         enabled=false;
         connected=false;
         //std::cout<<"Running: "<<running<<std::endl;   //debug
-        if (running){           //if any motor functions are active
-            motorThread.join();
-        }
+        // if (running){           //if any motor functions are active
+        motorThread.join();
+        // }
         serialClose(fd);        // close serial comms
         std::cout << "Motor driver connection closed" << std::endl;
 
     }
+}
+
+
+void MotorDriver::run(){
+
+    while (enabled){
+
+        std::unique_lock lock(mut);
+        cond_var.wait_for(lock, 1s); //block for a second but wake up if new data
+        std::cout<<"cond var just passed"<<std::endl;
+        if (update){            // if there is a new movement to make
+    
+            running = true;     //flag to indicate motors are moving
+
+            std::string commandStr = "mr";
+            commandStr = commandStr + commandAxis + ' ' + std::__cxx11::to_string(commandInc);    // construct command string with axis and increment value
+            const char* command = commandStr.c_str();
+            std::cout << "Command string: " << command << std::endl;    //debug
+
+            serialPuts(fd, command);  // perform movement
+
+            do {
+                bytesToRead = serialDataAvail(fd);
+                //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
+            }
+            while ( bytesToRead < 1  &&  enabled);
+            read(fd, dataRead, bytesToRead);        // wait for and read done message
+            //std::cout << dataRead << std::endl; //debug
+
+            updatePosition();
+            
+            running = false;
+            update = false;
+        
+        }
+    
+
+    }
+
 }
 
 
@@ -113,6 +152,28 @@ void MotorDriver::updatePosition(){
 }
 
 
+void MotorDriver::resetToZero(){
+
+    running = true;
+
+    serialPuts(fd, "zero");
+    do {
+        bytesToRead = serialDataAvail(fd);
+        //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
+    }
+    while ( bytesToRead < 1  &&  enabled);
+    //read(fd, dataRead, bytesToRead);        // wait for and read done message
+    //std::cout << dataRead << std::endl;
+    serialFlush(fd);        // wait for and discard returned message
+    //std::cout << serialDataAvail(fd) << std::endl;
+
+    running = false;
+
+    // motorThread.detach();
+    // return;
+}
+
+
 int* MotorDriver::getPosition(){
     return positionArray;
 }
@@ -131,56 +192,11 @@ bool MotorDriver::getConnected(){
 void MotorDriver::mov(char axis, int inc){
     commandAxis = axis;
     commandInc = inc;
-    motorThread = std::thread(&MotorDriver::movThread, this);
+    //motorThread = std::thread(&MotorDriver::movThread, this);
+    std::lock_guard lock(mut);
+    update = true;
+    cond_var.notify_all();
 }
 
-
-void MotorDriver::movThread(){
-
-    running = true;     //flag to indicate thread is active
-
-    std::string commandStr = "mr";
-    commandStr = commandStr + commandAxis + ' ' + std::__cxx11::to_string(commandInc);    // construct command string with axis and increment value
-    const char* command = commandStr.c_str();
-    // std::cout << "Command string: " << command << std::endl;    //debug
-
-    serialPuts(fd, command);  // perform movement
-
-    do {
-        bytesToRead = serialDataAvail(fd);
-        //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
-    }
-    while ( bytesToRead < 1  &&  enabled);
-    read(fd, dataRead, bytesToRead);        // wait for and read done message
-    //std::cout << dataRead << std::endl; //debug
-
-    updatePosition();
     
-    running = false;
-    
-    motorThread.detach();
-    return;
-
-}
-
-void MotorDriver::resetToZero(){
-
-    running = true;
-
-    serialPuts(fd, "zero");
-    do {
-        bytesToRead = serialDataAvail(fd);
-        //std::cout << "Bytes to read: " << bytesToRead << std::endl; //debug
-    }
-    while ( bytesToRead < 1  &&  enabled);
-    //read(fd, dataRead, bytesToRead);        // wait for and read done message
-    //std::cout << dataRead << std::endl;
-    serialFlush(fd);        // wait for and discard returned message
-    //std::cout << serialDataAvail(fd) << std::endl;
-
-    running = false;
-
-    motorThread.detach();
-    return;
-}
 

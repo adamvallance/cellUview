@@ -8,6 +8,11 @@
 #include <wiringSerial.h>
 #include <unistd.h>
 
+#include <condition_variable>
+#include <mutex>
+#include <chrono>
+using namespace std::chrono_literals;
+
 
 // class MotorCallback {
 // public:
@@ -35,15 +40,16 @@ public:
 
 private:
 
-    void movThread();
+    //void movThread();
+
+    void run();
 
     void resetToZero();
     void updatePosition();
 
     // MotorCallback* motorCb = nullptr;
-    bool enabled = false;
-
-    bool connected = false;
+    bool enabled = false;       // motor thread enable
+    bool connected = false;     // motor board connection established
 
     int fd = 0;
     int positionArray[3] = {0, 0, 0}; 
@@ -52,9 +58,13 @@ private:
     char commandAxis;
     int commandInc;
 
-    bool running = false;
+    bool running = false;       // indicates motors currently moving
+    bool update = false;        // indicates new move to make
     
     std::thread motorThread;
+
+    std::mutex mut;
+    std::condition_variable cond_var;
 
     char firmwareVer[26];
     char dataRead[30];
