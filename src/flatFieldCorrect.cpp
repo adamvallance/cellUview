@@ -62,7 +62,7 @@ void flatFieldCorrect::updateAverage(frame f) {
 
     // Calculate the correction factor using the average reference image
     cv::Mat correction_factor;
-    cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(31, 31), 0);
+    cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(10, 10), 0);
     cv::resize(average_reference_image, correction_factor, f.image.size());
     cv::Mat normalised_correction_factor;
     cv::normalize(correction_factor, normalised_correction_factor, 0, 1, cv::NORM_MINMAX, CV_32FC3);
