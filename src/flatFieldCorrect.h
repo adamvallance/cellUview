@@ -21,7 +21,7 @@ public:
     void setUpdateFlag();
     
 
-    void updateSettings(std::map<std::string, std::string>){return;};
+    void updateSettings(std::map<std::string, std::string>);
 private:
     //add any other methods here
     void updateAverage(frame);

@@ -13,6 +13,7 @@
 
 void flatFieldCorrect::receiveFrame(frame newFrame) {
     if (!enabled){ 
+        newFrame.setParameter(paramLabel, "OFF");
         frameCb->receiveFrame(newFrame);
         return;
     }
@@ -56,6 +57,22 @@ void flatFieldCorrect::updateAverage(frame f) {
 
 }
 
+void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadata){
+    
+    std::string rec = metadata[paramLabel];
+
+    bool desired = (rec == "ON");
+    // std::cout<<rec<<std::endl;
+
+    // std::cout<<desired<<std::endl;
+
+    if (enabled != desired){
+        toggleEnable();
+    }
+
+    
+}
+
 
 void flatFieldCorrect::flatField(frame f) {
     cv::Mat corrected_image;
@@ -67,7 +84,7 @@ void flatFieldCorrect::flatField(frame f) {
     } else {
         cv::multiply(f.image, current_correction_factor3C, corrected_image);
     }
-    
+    f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
 }
 

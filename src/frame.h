@@ -48,7 +48,8 @@ class frame{
             "edgeThreshold",
             "erosion",
             "dilation",
-            "greyScale"
+            "greyScale",
+            "flatField",
             //ADD MORE PARAMETERS HERE
         };
 

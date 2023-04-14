@@ -130,7 +130,7 @@ void Gui::receiveFrame(frame newFrame)
 
 void Gui::setUpdateFlatField(){
     updateFlatField=true;
-    static_cast<flatFieldCorrect*>(blocks[0])->setsetUpdateFlag();
+    static_cast<flatFieldCorrect*>(blocks[0])->setUpdateFlag();
     cam->captureMetadata();
     doCapture = true;
     //To allow checkbox to be enabled
@@ -221,7 +221,9 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         else if(label == "dilation"){
             ui->dilationCheckBox->setChecked(valueBool);
         }
-
+        else if(label == "flatField"){
+            ui->flatFieldBox->setChecked(valueBool);
+        }
     }
     
 }
