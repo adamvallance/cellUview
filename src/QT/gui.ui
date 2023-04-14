@@ -360,6 +360,58 @@ background-color: rgb(179, 179, 179);</string>
        <string>Contrast Enhancement</string>
       </property>
      </widget>
+     <widget class="QLineEdit" name="exposureValueInput">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>150</y>
+        <width>71</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>150</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Exposure</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="exposureSlider">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>341</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider::handle:horizontal {
+    background-color: rgb(29, 185, 84);
+}
+</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -369,7 +421,7 @@ background-color: rgb(179, 179, 179);</string>
      <x>0</x>
      <y>0</y>
      <width>1162</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">

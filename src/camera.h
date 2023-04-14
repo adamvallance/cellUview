@@ -21,6 +21,7 @@ public:
     bool getIsOn();
     void registerCallback(imageProcessor*);
     void captureMetadata();
+    void setExposure(int);
     
 private:
     frame f;
