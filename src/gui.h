@@ -25,8 +25,7 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
-    Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, MotorDriver*, std::vector <imageProcessor *>&);
-    //Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, std::vector <imageProcessor *>&);
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, MotorDriver*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
     void returnPosition(int x, int y, int z);
 
