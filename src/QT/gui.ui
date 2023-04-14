@@ -200,6 +200,9 @@ background-color: rgb(83, 83, 83);</string>
 }
 </string>
       </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -305,7 +308,7 @@ color: rgb(255, 255, 255);</string>
 </string>
       </property>
       <property name="maximum">
-       <number>99</number>
+       <number>100</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -390,7 +393,7 @@ background-color: rgb(179, 179, 179);</string>
        <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Exposure</string>
+       <string>Exposure (EV)</string>
       </property>
      </widget>
      <widget class="QSlider" name="exposureSlider">
@@ -407,6 +410,9 @@ background-color: rgb(179, 179, 179);</string>
     background-color: rgb(29, 185, 84);
 }
 </string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>

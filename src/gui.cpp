@@ -73,19 +73,19 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     // //-----------block -2 contrast ---------------------
     QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
         ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
-        bool enabled = blocks[3]->getEnabled();
+        bool enabled = blocks[4]->getEnabled();
         if (sliderValue1 == 0){ //disable if 0 on slider is selected
             if (enabled){
-                blocks[3]->toggleEnable();
+                blocks[4]->toggleEnable();
             }
         }
         else{
             if (!enabled){
-                blocks[3]->toggleEnable();
+                blocks[4]->toggleEnable();
             }
         }
         //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-        static_cast<contrastEnhancement*>(blocks[3])->updateThreshold(sliderValue1);
+        static_cast<contrastEnhancement*>(blocks[4])->updateThreshold(sliderValue1);
 
     });
 
@@ -99,7 +99,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
         this->cam->setExposure(sliderValue2);
-        ui->exposureValueInput->setText(QString::number(sliderValue2));
+        ui->exposureValueInput->setText(QString::number(sliderValue2*5));
         // bool enabled = blocks[3]->getEnabled();
         // if (sliderValue2 == 0){ //disable if 0 on slider is selected
         //     if (enabled){
@@ -117,9 +117,10 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     });
     QObject::connect(ui->exposureValueInput, &QLineEdit::textChanged, ui->exposureSlider, [&](const QString &text) {
         bool ok;
+        
         int value = text.toInt(&ok);
         if (ok) {
-            ui->exposureSlider->setValue(value);
+            ui->exposureSlider->setValue(value/5);
         }
     });
     

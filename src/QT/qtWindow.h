@@ -125,6 +125,7 @@ public:
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
+        edgeEnhancementSlider->setMaximum(100);
         edgeEnhancementSlider->setOrientation(Qt::Horizontal);
         edgeEnhancementValueInput = new QLineEdit(widget_6);
         edgeEnhancementValueInput->setObjectName(QStringLiteral("edgeEnhancementValueInput"));
@@ -156,7 +157,7 @@ public:
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
-        contrastEnhancementSlider->setMaximum(99);
+        contrastEnhancementSlider->setMaximum(100);
         contrastEnhancementSlider->setOrientation(Qt::Horizontal);
         contrastEnhancementValueInput = new QLineEdit(widget_6);
         contrastEnhancementValueInput->setObjectName(QStringLiteral("contrastEnhancementValueInput"));
@@ -187,6 +188,7 @@ public:
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
+        exposureSlider->setMaximum(100);
         exposureSlider->setOrientation(Qt::Horizontal);
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
@@ -224,7 +226,7 @@ public:
         label_4->setText(QApplication::translate("GUI", "Edge Detection", 0));
         label_5->setText(QApplication::translate("GUI", "Contrast Enhancement", 0));
         exposureValueInput->setText(QString());
-        label_6->setText(QApplication::translate("GUI", "Exposure", 0));
+        label_6->setText(QApplication::translate("GUI", "Exposure (EV)", 0));
         menuOpenflexure->setTitle(QApplication::translate("GUI", "cellUview", 0));
     } // retranslateUi
 
