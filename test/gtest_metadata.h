@@ -9,7 +9,7 @@
 #include "erosion.h"
 #include "dilation.h"
 #include "imageProcessor.h"
-#include "greyScale.h"
+#include "grayScale.h"
 
 TEST(metadata, saveMetadata){
     
@@ -17,9 +17,9 @@ TEST(metadata, saveMetadata){
     edgeDetection edge;
     erosion erode;
     dilation dilate;
-    greyScale grey;
+    grayScale gray;
 
-    std::vector<imageProcessor *> blocks = {&erode, &dilate, &grey, &edge};
+    std::vector<imageProcessor *> blocks = {&erode, &dilate, &gray, &edge};
     
     frame f;
     cv::Mat capture;  
@@ -29,8 +29,8 @@ TEST(metadata, saveMetadata){
 
 
     erode.registerCallback(&dilate);
-    dilate.registerCallback(&grey);
-    grey.registerCallback(&edge);
+    dilate.registerCallback(&gray);
+    gray.registerCallback(&edge);
     edge.registerCallback(&endtest);
     edge.updateThreshold(90);
 
@@ -51,14 +51,14 @@ TEST(metadata, saveMetadata){
     expected.setParameter("erosion", "ON");
     expected.setParameter("dilation", "ON");
     expected.setParameter("edgeThreshold", std::to_string(90)); //default value
-    expected.setParameter("greyScale", "ON");
+    expected.setParameter("grayScale", "ON");
 
 
     // std::cout<<f.doMeta<<std::endl;
     // std::cout<<expected.doMeta<<std::endl;
 
     EXPECT_EQ(expected.getParam("edgeThreshold"), endtest.currentFrame.getParam("edgeThreshold"));
-    EXPECT_EQ(expected.getParam("greyScale"), endtest.currentFrame.getParam("greyScale"));
+    EXPECT_EQ(expected.getParam("grayScale"), endtest.currentFrame.getParam("grayScale"));
     EXPECT_EQ(expected.getParam("erosion"), endtest.currentFrame.getParam("erosion"));
     EXPECT_EQ(expected.getParam("dilation"), endtest.currentFrame.getParam("dilation"));
 
@@ -75,13 +75,13 @@ TEST(metadata, saveMetadata){
     expected.setParameter("erosion", "OFF");
     expected.setParameter("dilation", "OFF");
     expected.setParameter("edgeThreshold", "OFF"); 
-    expected.setParameter("greyScale", "OFF");
+    expected.setParameter("grayScale", "OFF");
     erode.receiveFrame(f);
 
     EXPECT_EQ(expected.getParam("edgeThreshold"), endtest.currentFrame.getParam("edgeThreshold"));
     EXPECT_EQ(expected.getParam("erosion"), endtest.currentFrame.getParam("erosion"));
     EXPECT_EQ(expected.getParam("dilation"), endtest.currentFrame.getParam("dilation"));
-    EXPECT_EQ(expected.getParam("greyScale"), endtest.currentFrame.getParam("greyScale"));
+    EXPECT_EQ(expected.getParam("grayScale"), endtest.currentFrame.getParam("grayScale"));
 
 
 }
@@ -94,9 +94,9 @@ TEST(metadata, disableMetadata){
     edgeDetection edge;
     erosion erode;
     dilation dilate;
-    greyScale grey;
+    grayScale gray;
 
-    std::vector<imageProcessor *> blocks = {&erode, &dilate, &grey, &edge};
+    std::vector<imageProcessor *> blocks = {&erode, &dilate, &gray, &edge};
 
     frame f;
     cv::Mat capture;  
@@ -107,8 +107,8 @@ TEST(metadata, disableMetadata){
 
     edge.registerCallback(&erode);
     erode.registerCallback(&dilate);
-    dilate.registerCallback(&grey);
-    grey.registerCallback(&edge);
+    dilate.registerCallback(&gray);
+    gray.registerCallback(&edge);
     edge.registerCallback(&endtest);
     edge.updateThreshold(90);
 
@@ -124,7 +124,7 @@ TEST(metadata, disableMetadata){
     EXPECT_EQ("NULL", endtest.currentFrame.getParam("edgeThreshold"));
     EXPECT_EQ("NULL", endtest.currentFrame.getParam("erosion"));
     EXPECT_EQ("NULL", endtest.currentFrame.getParam("dilation"));
-    EXPECT_EQ("NULL", endtest.currentFrame.getParam("greyScale"));
+    EXPECT_EQ("NULL", endtest.currentFrame.getParam("grayScale"));
     EXPECT_EQ(0, endtest.currentFrame.getParamSize());
 
 

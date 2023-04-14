@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_GALLERY_H
-#define OPENFLEXURE_GALLERY_H
+#ifndef CELLUVIEW_GALLERY_H
+#define CELLUVIEW_GALLERY_H
 
 #include "stdlib.h"
 #include <opencv2/core.hpp>
@@ -59,4 +59,4 @@ class Gallery{
 
 
 };
-#endif //OPENFLEXURE_GALLERY_H
+#endif //CELLUVIEW_GALLERY_H

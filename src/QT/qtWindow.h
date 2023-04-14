@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gui.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.7
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -32,7 +32,7 @@ class Ui_GUI
 public:
     QWidget *centralwidget;
     QWidget *widget;
-    QLabel *OpenFlexurePlus;
+    QLabel *cellUviewPlus;
     QWidget *widget_2;
     QLabel *scopeVideoFeed;
     QWidget *ImageCaptureColumn;
@@ -44,11 +44,18 @@ public:
     QPushButton *FlatFieldButton;
     QWidget *widget_6;
     QSlider *edgeEnhancementSlider;
-    QLineEdit *lineEdit;
+    QLineEdit *edgeEnhancementValueInput;
     QLabel *label_3;
-    QCheckBox *greyScaleBox;
+    QCheckBox *grayScaleBox;
     QCheckBox *dilationCheckBox;
     QCheckBox *erosionCheckBox;
+    QSlider *contrastEnhancementSlider;
+    QLineEdit *contrastEnhancementValueInput;
+    QLabel *label_4;
+    QLabel *label_5;
+    QLineEdit *exposureValueInput;
+    QLabel *label_6;
+    QSlider *exposureSlider;
     QCheckBox *flatFieldBox;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
@@ -69,10 +76,10 @@ public:
         widget->setStyleSheet(QLatin1String("\n"
 "	background-color: rgb(179, 179, 179);\n"
 ""));
-        OpenFlexurePlus = new QLabel(widget);
-        OpenFlexurePlus->setObjectName(QStringLiteral("OpenFlexurePlus"));
-        OpenFlexurePlus->setGeometry(QRect(0, 19, 1321, 41));
-        OpenFlexurePlus->setAlignment(Qt::AlignCenter);
+        cellUviewPlus = new QLabel(widget);
+        cellUviewPlus->setObjectName(QStringLiteral("cellUviewPlus"));
+        cellUviewPlus->setGeometry(QRect(0, 19, 1321, 41));
+        cellUviewPlus->setAlignment(Qt::AlignCenter);
         widget_2 = new QWidget(centralwidget);
         widget_2->setObjectName(QStringLiteral("widget_2"));
         widget_2->setGeometry(QRect(0, 80, 1351, 841));
@@ -127,11 +134,12 @@ public:
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
+        edgeEnhancementSlider->setMaximum(100);
         edgeEnhancementSlider->setOrientation(Qt::Horizontal);
-        lineEdit = new QLineEdit(widget_6);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(370, 190, 71, 31));
-        lineEdit->setStyleSheet(QLatin1String("\n"
+        edgeEnhancementValueInput = new QLineEdit(widget_6);
+        edgeEnhancementValueInput->setObjectName(QStringLiteral("edgeEnhancementValueInput"));
+        edgeEnhancementValueInput->setGeometry(QRect(370, 190, 71, 31));
+        edgeEnhancementValueInput->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(179, 179, 179);"));
         label_3 = new QLabel(widget_6);
         label_3->setObjectName(QStringLiteral("label_3"));
@@ -139,10 +147,10 @@ public:
         label_3->setStyleSheet(QLatin1String("background-color: rgb(83, 83, 83);\n"
 "color: rgb(255, 255, 255);"));
         label_3->setAlignment(Qt::AlignCenter);
-        greyScaleBox = new QCheckBox(widget_6);
-        greyScaleBox->setObjectName(QStringLiteral("greyScaleBox"));
-        greyScaleBox->setGeometry(QRect(30, 60, 92, 23));
-        greyScaleBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        grayScaleBox = new QCheckBox(widget_6);
+        grayScaleBox->setObjectName(QStringLiteral("grayScaleBox"));
+        grayScaleBox->setGeometry(QRect(30, 60, 111, 23));
+        grayScaleBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         dilationCheckBox = new QCheckBox(widget_6);
         dilationCheckBox->setObjectName(QStringLiteral("dilationCheckBox"));
         dilationCheckBox->setGeometry(QRect(30, 90, 92, 23));
@@ -151,15 +159,50 @@ public:
         erosionCheckBox->setObjectName(QStringLiteral("erosionCheckBox"));
         erosionCheckBox->setGeometry(QRect(30, 120, 92, 23));
         erosionCheckBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
-        flatFieldBox = new QCheckBox(widget_6);
-        flatFieldBox->setObjectName(QStringLiteral("flatFieldBox"));
-        flatFieldBox->setEnabled(false);
-        flatFieldBox->setGeometry(QRect(461, 60, 161, 23));
-        flatFieldBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        contrastEnhancementSlider = new QSlider(widget_6);
+        contrastEnhancementSlider->setObjectName(QStringLiteral("contrastEnhancementSlider"));
+        contrastEnhancementSlider->setGeometry(QRect(10, 230, 341, 31));
+        contrastEnhancementSlider->setStyleSheet(QLatin1String("QSlider::handle:horizontal {\n"
+"    background-color: rgb(29, 185, 84);\n"
+"}\n"
+""));
+        contrastEnhancementSlider->setMaximum(100);
+        contrastEnhancementSlider->setOrientation(Qt::Horizontal);
+        contrastEnhancementValueInput = new QLineEdit(widget_6);
+        contrastEnhancementValueInput->setObjectName(QStringLiteral("contrastEnhancementValueInput"));
+        contrastEnhancementValueInput->setGeometry(QRect(370, 230, 71, 31));
+        contrastEnhancementValueInput->setStyleSheet(QLatin1String("\n"
+"background-color: rgb(179, 179, 179);"));
+        label_4 = new QLabel(widget_6);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(460, 190, 111, 21));
+        label_4->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        label_5 = new QLabel(widget_6);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(460, 230, 161, 21));
+        label_5->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        exposureValueInput = new QLineEdit(widget_6);
+        exposureValueInput->setObjectName(QStringLiteral("exposureValueInput"));
+        exposureValueInput->setGeometry(QRect(370, 150, 71, 31));
+        exposureValueInput->setStyleSheet(QLatin1String("\n"
+"background-color: rgb(179, 179, 179);"));
+        label_6 = new QLabel(widget_6);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(460, 150, 111, 21));
+        label_6->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        exposureSlider = new QSlider(widget_6);
+        exposureSlider->setObjectName(QStringLiteral("exposureSlider"));
+        exposureSlider->setGeometry(QRect(10, 150, 341, 31));
+        exposureSlider->setStyleSheet(QLatin1String("QSlider::handle:horizontal {\n"
+"    background-color: rgb(29, 185, 84);\n"
+"}\n"
+""));
+        exposureSlider->setMaximum(100);
+        exposureSlider->setOrientation(Qt::Horizontal);
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1162, 25));
+        menubar->setGeometry(QRect(0, 0, 1162, 20));
         menuOpenflexure = new QMenu(menubar);
         menuOpenflexure->setObjectName(QStringLiteral("menuOpenflexure"));
         GUI->setMenuBar(menubar);
@@ -176,21 +219,19 @@ public:
 
     void retranslateUi(QMainWindow *GUI)
     {
-        GUI->setWindowTitle(QApplication::translate("GUI", "MainWindow", Q_NULLPTR));
-        OpenFlexurePlus->setText(QApplication::translate("GUI", "OpenFlexure +", Q_NULLPTR));
-        scopeVideoFeed->setText(QApplication::translate("GUI", "TextLabel", Q_NULLPTR));
-        captureButton->setText(QApplication::translate("GUI", "Capture Image", Q_NULLPTR));
-        label->setText(QApplication::translate("GUI", "Gallery", Q_NULLPTR));
-        restoreSettingsButton->setText(QApplication::translate("GUI", "Restore Settings", Q_NULLPTR));
-        label_2->setText(QApplication::translate("GUI", "Image Settings", Q_NULLPTR));
-        FlatFieldButton->setText(QApplication::translate("GUI", "Flat Field Capture (Perform with empty objective)", Q_NULLPTR));
+        GUI->setWindowTitle(QCoreApplication::translate("GUI", "MainWindow", nullptr));
+        OpenFlexurePlus->setText(QCoreApplication::translate("GUI", "OpenFlexure +", nullptr));
+        scopeVideoFeed->setText(QCoreApplication::translate("GUI", "TextLabel", nullptr));
+        captureButton->setText(QCoreApplication::translate("GUI", "Capture Image", nullptr));
+        label->setText(QCoreApplication::translate("GUI", "Gallery", nullptr));
+        restoreSettingsButton->setText(QCoreApplication::translate("GUI", "Restore Settings", nullptr));
+        label_2->setText(QCoreApplication::translate("GUI", "Image Settings", nullptr));
         lineEdit->setText(QString());
-        label_3->setText(QApplication::translate("GUI", "Control Panel", Q_NULLPTR));
-        greyScaleBox->setText(QApplication::translate("GUI", "Grey Scale", Q_NULLPTR));
-        dilationCheckBox->setText(QApplication::translate("GUI", "Dilation", Q_NULLPTR));
-        erosionCheckBox->setText(QApplication::translate("GUI", "Erosion", Q_NULLPTR));
-        flatFieldBox->setText(QApplication::translate("GUI", "Flat Field Correction", Q_NULLPTR));
-        menuOpenflexure->setTitle(QApplication::translate("GUI", "Openflexure+", Q_NULLPTR));
+        label_3->setText(QCoreApplication::translate("GUI", "Control Panel", nullptr));
+        greyScaleBox->setText(QCoreApplication::translate("GUI", "Grey Scale", nullptr));
+        dilationCheckBox->setText(QCoreApplication::translate("GUI", "Dilation", nullptr));
+        erosionCheckBox->setText(QCoreApplication::translate("GUI", "Erosion", nullptr));
+        menuOpenflexure->setTitle(QCoreApplication::translate("GUI", "Openflexure+", nullptr));
     } // retranslateUi
 
 };

@@ -1,31 +1,21 @@
 #include "gui.h"
+#include "edgeDetection.h"
+#include "contrastEnhancement.h"
+#include "grayScale.h"
 
-
-Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, std::vector<imageProcessor *> &blocksIn)
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
     ui = ui_win;
     ui->setupUi(widget);
 
     this->gallery = galleryIn;
-    this->cam = camera;
     blocks = blocksIn;
+    this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
-     //-----------block 0 flat field---------------------
-    QObject::connect(ui->flatFieldBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
-        bool enabled = blocks[0]->getEnabled();
-        if (enabled != checkboxValue){
-            blocks[0]->toggleEnable();
-        }
-         
-    });
-
-
- 
- 
     //-----------block 1 erosion---------------------
     QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[1]->getEnabled();
@@ -43,18 +33,19 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
         }
          
     });
-    // //-----------block 3 grey ---------------------
-    QObject::connect(ui->greyScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+    // //-----------block 3 gray ---------------------
+    QObject::connect(ui->grayScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[3]->getEnabled();
         if (enabled != checkboxValue){
             blocks[3]->toggleEnable();
         }
          
     });
-   
+
+
     //-------------block -1 edge enhancement-----------------------
-    QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->lineEdit, [&](int sliderValue) {
-        ui->lineEdit->setText(QString::number(sliderValue));
+    QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->edgeEnhancementValueInput, [&](int sliderValue) {
+        ui->edgeEnhancementValueInput->setText(QString::number(sliderValue));
         bool enabled = blocks[blocks.size()-1]->getEnabled();
         if (sliderValue == 0){ //disable if 0 on slider is selected
             if (enabled){
@@ -71,7 +62,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     });
 
-    QObject::connect(ui->lineEdit, &QLineEdit::textChanged, ui->edgeEnhancementSlider, [&](const QString &text) {
+    QObject::connect(ui->edgeEnhancementValueInput, &QLineEdit::textChanged, ui->edgeEnhancementSlider, [&](const QString &text) {
         bool ok;
         int value = text.toInt(&ok);
         if (ok) {
@@ -79,7 +70,60 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
         }
     });
     
+    // //-----------block -2 contrast ---------------------
+    QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
+        ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
+        bool enabled = blocks[4]->getEnabled();
+        if (sliderValue1 == 0){ //disable if 0 on slider is selected
+            if (enabled){
+                blocks[4]->toggleEnable();
+            }
+        }
+        else{
+            if (!enabled){
+                blocks[4]->toggleEnable();
+            }
+        }
+        //access derived method of contrastEnhancer from vector of base class (image processor) pointers
+        static_cast<contrastEnhancement*>(blocks[4])->updateThreshold(sliderValue1);
 
+    });
+
+    QObject::connect(ui->contrastEnhancementValueInput, &QLineEdit::textChanged, ui->contrastEnhancementSlider, [&](const QString &text) {
+        bool ok;
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->contrastEnhancementSlider->setValue(value);
+        }
+    });
+
+    QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
+        this->cam->setExposure(sliderValue2);
+        ui->exposureValueInput->setText(QString::number(sliderValue2*5));
+        // bool enabled = blocks[3]->getEnabled();
+        // if (sliderValue2 == 0){ //disable if 0 on slider is selected
+        //     if (enabled){
+        //         blocks[3]->toggleEnable();
+        //     }
+        // }
+        // else{
+        //     if (!enabled){
+        //         blocks[3]->toggleEnable();
+        //     }
+        // }
+        // //access derived method of contrastEnhancer from vector of base class (image processor) pointers
+        // static_cast<contrastEnhancement*>(blocks[3])->updateThreshold(sliderValue2);
+
+    });
+    QObject::connect(ui->exposureValueInput, &QLineEdit::textChanged, ui->exposureSlider, [&](const QString &text) {
+        bool ok;
+        
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->exposureSlider->setValue(value/5);
+        }
+    });
+    
 
 
 
@@ -210,12 +254,36 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
                 }
             }
         }
+                //janky but not sure how else to make these connections
+        else if(label == "contrastThreshold"){
+            try{
+                ui->contrastEnhancementSlider->setValue(std::stoi(value));
+            }catch(...){
+                if (value == "OFF"){
+                    ui->contrastEnhancementSlider->setValue(0);
+                }else{
+                std::cerr<<"Invalid metadata for contrast enhancement"<<std::endl;
+                }
+            }
+        }
+
+        else if(label == "exposure"){
+            try{
+                ui->exposureSlider->setValue(std::stoi(value));
+            }catch(...){
+                if (value == "OFF"){
+                    ui->exposureSlider->setValue(0);
+                }else{
+                std::cerr<<"Invalid metadata for contrast enhancement"<<std::endl;
+                }
+            }
+        }
 
         else if(label == "erosion"){
             ui->erosionCheckBox->setChecked(valueBool);
         }
-        else if(label == "greyScale"){
-            ui->greyScaleBox->setChecked(valueBool);
+        else if(label == "grayScale"){
+            ui->grayScaleBox->setChecked(valueBool);
         }
 
         else if(label == "dilation"){

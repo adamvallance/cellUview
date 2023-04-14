@@ -5,16 +5,16 @@
 
 //FUTURE todo:
 //configureable dir name and filename 
-//metadata saved? inside jpg or alongside comp7anion file to be viewed in OpenFlexure gallery?
+//metadata saved? inside jpg or alongside comp7anion file to be viewed in cellUview gallery?
 
 Gallery::Gallery(){
 
 //---- find or create gallery directory----
     pathname = getenv("HOME");
-    pathname += + "/OpenFlexureGallery/"; 
+    pathname += + "/cellUviewGallery/"; 
     flatFieldPath = pathname + ".FlatFieldGallery";
     //updates index to find highest existing file with matching name to avoid overwriting
-    initialiseDirectory(pathname, "Openflexure Gallery");
+    initialiseDirectory(pathname, "cellUview Gallery");
     initialiseDirectory(flatFieldPath, "Flat field capture gallery");
     updateIndex();
     

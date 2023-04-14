@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_GUI_H
-#define OPENFLEXURE_GUI_H
+#ifndef CELLUVIEW_GUI_H
+#define CELLUVIEW_GUI_H
 #include <QMainWindow> 
 
 #include "QT/qtWindow.h" //compiled header file from qtcreator
@@ -10,11 +10,12 @@
 #include "imageProcessor.h"
 #include "edgeDetection.h"
 #include "gallery.h"
-#include "greyScale.h"
+#include "grayScale.h"
 #include "frame.h"
 #include "dilation.h"
 #include "erosion.h"
 #include "camera.h"
+#include "contrastEnhancement.h"
 #include "flatFieldCorrect.h"
 
 
@@ -24,7 +25,7 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
-    Gui(QMainWindow*, Ui_GUI*, Gallery*, Camera*, std::vector <imageProcessor *>&);
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
 
 private:
@@ -50,6 +51,6 @@ private:
 
 
     edgeDetection *edgeDetector;
-    greyScale *greyDetector;
+    grayScale *grayDetector;
 };
-#endif // OPENFLEXURE_GUI_H
+#endif // CELLUVIEW_GUI_H

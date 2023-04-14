@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_FRAME_H
-#define OPENFLEXURE_FRAME_H
+#ifndef CELLUVIEW_FRAME_H
+#define CELLUVIEW_FRAME_H
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 
@@ -48,8 +48,10 @@ class frame{
             "edgeThreshold",
             "erosion",
             "dilation",
-            "greyScale",
+            "grayScale",
+            "contrastThreshold",
             "flatField",
+            "exposure"
             //ADD MORE PARAMETERS HERE
         };
 
@@ -60,4 +62,4 @@ class frame{
 
 
 
-#endif //OPENFLEXURE_FRAME_H
+#endif //CELLUVIEW_FRAME_H

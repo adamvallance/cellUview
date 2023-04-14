@@ -1,5 +1,5 @@
-#ifndef OPENFLEXURE_CAMERA_H
-#define OPENFLEXURE_CAMERA_H
+#ifndef CELLUVIEW_CAMERA_H
+#define CELLUVIEW_CAMERA_H
 
 
 #include <opencv2/core.hpp>
@@ -12,15 +12,20 @@
 #include "frame.h"
 
 
-class Camera{
+class Camera: public imageProcessor{
 public:
     Camera() = default;
     void start(int deviceID = 0, int apiID=0);
     void stop();
     //void receiveFrame(frame newFrame);
     bool getIsOn();
-    void registerCallback(imageProcessor*);
+    //void registerCallback(imageProcessor*);
     void captureMetadata();
+    void setExposure(int);
+    std::string getParamLabel(){return paramLabel;};
+    void updateSettings(std::map<std::string, std::string>);
+    void receiveFrame(frame newFrame){return;};
+
     
 private:
     frame f;
@@ -28,10 +33,12 @@ private:
     void threadLoop();
     cv::VideoCapture videoCapture;
     std::thread cameraThread;
+    std::string exposureState = "OFF";
     bool isOn = false;
-    imageProcessor* frameCb = nullptr;
+    std::string paramLabel = "exposure";
+    //imageProcessor* frameCb = nullptr;
     bool doMeta = false;
 
 };
 
-#endif // OPENFLEXURE_CAMERA_H
+#endif // CELLUVIEW_CAMERA_H
