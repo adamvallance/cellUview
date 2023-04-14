@@ -70,7 +70,7 @@ void MotorDriver::run(){
 
         std::unique_lock<std::mutex> lock(mut);
         cond_var.wait_for(lock, 1s); //block for a second but wake up if new data
-        std::cout<<"cond var just passed"<<std::endl;
+        // std::cout<<"cond var just passed"<<std::endl;    //debug
         if (update){            // if there is a new movement to make
     
             running = true;     //flag to indicate motors are moving
@@ -78,7 +78,7 @@ void MotorDriver::run(){
             std::string commandStr = "mr";
             commandStr = commandStr + commandAxis + ' ' + std::__cxx11::to_string(commandInc);    // construct command string with axis and increment value
             const char* command = commandStr.c_str();
-            std::cout << "Command string: " << command << std::endl;    //debug
+            // std::cout << "Command string: " << command << std::endl;    //debug
 
             serialPuts(fd, command);  // perform movement
 
