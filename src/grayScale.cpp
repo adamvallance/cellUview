@@ -12,7 +12,9 @@ void grayScale::receiveFrame(frame newFrame) {
     //grayEnhance(newFrame); 
 
     procFrame.copyFrom(&newFrame);
+    std::lock_guard lock(mut);
     update = true;
+    cond_var.notify_all();
 
     //std::cout<<"Gonna start the new thread for gray scale"<<std::endl;
 
@@ -34,6 +36,9 @@ void grayScale::grayEnhance() {
         
     while (running){    
 
+        std::unique_lock lock(mut);
+        cond_var.wait_for(lock, 1s); //block for a second but wake up if new data
+        std::cout<<"waited 1s for gs"<<std::endl;
         if (update){
         //std::cout<<"Called it"<<std::endl;
         
@@ -62,6 +67,8 @@ void grayScale::grayEnhance() {
             frameCb->receiveFrame(f);
             update = false;
         }
+        lock.unlock();
+        cond_var.notify_all();
 
     }
 

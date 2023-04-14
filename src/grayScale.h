@@ -8,6 +8,11 @@
 #include <thread>
 #include "imageProcessor.h"
 
+#include <condition_variable>
+#include <mutex>
+#include <chrono>
+using namespace std::chrono_literals;
+
 class grayScale: public imageProcessor{
 
 public:
@@ -28,6 +33,9 @@ private:
     frame procFrame;
     bool update = false;
     bool running = false;
+
+    std::mutex mut;
+    std::condition_variable cond_var;
 
 };
 #endif // CELLUVIEW_GREY_SCALE_H
