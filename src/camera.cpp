@@ -58,9 +58,7 @@ void Camera::setExposure(int exposureValue){
     videoCapture.set(cv::CAP_PROP_EXPOSURE, exposureValue);
 }
 
-void Camera::registerCallback(imageProcessor *cb){
-    frameCb = cb;
-}
+
 
 bool Camera::getIsOn(){
     return isOn; // method to check status of camera

@@ -36,7 +36,7 @@ int main(int argc, char* argv[]){
     erosion erode;
     dilation dilate;
     grayScale gray;
-    std::vector <imageProcessor *> blocks={&erode, &dilate, &gray, &cont, &edge};
+    std::vector <imageProcessor *> blocks={&camera, &erode, &dilate, &gray, &cont, &edge};
 
     Gui gui(&window, &ui, &gallery, &camera, blocks);
 
@@ -45,8 +45,8 @@ int main(int argc, char* argv[]){
     //eg to default turn 
 
     //register callbacks. To change order, change the order in the blocks vector above
-    camera.registerCallback(blocks[0]);
-    for (int i = 0; i < blocks.size()-1; i++){
+    camera.registerCallback(blocks[1]);
+    for (int i = 1; i < blocks.size()-1; i++){
             blocks[i]->registerCallback(blocks[i+1]);
     }
 
