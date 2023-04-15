@@ -90,16 +90,16 @@ void kMeansCluster::updateKMeans(frame f) {
 
     cv::Mat output = cv::Mat::zeros(centers.size(), centers.type());
     for (int i = 0; i < rows.size(); i++) {
-        cv::Vec3f row = rows[i];
+        cv::Vec3f row = rows[transformations[i]];
         output.at<cv::Vec3f>(i) = row;
-        transformations.push_back(i);
     }
     centers = output;
     //std::cout<<centers<<std::endl;
-    std::cout<<transformations[0]<<transformations[1]<<transformations[2]<< "   "<<std::endl<<std::endl;
+    std::cout<<transformations[0]<<transformations[1]<<transformations[2]<< "   ";//<<std::endl<<std::endl;
     
+
     // //reassign label values based on reordered centroids 
-    //std::cout<<labels.at<int>(0,0);
+    std::cout<<labels.at<int>(0,0);
     for (int i = 0; i < labels.rows; i++){
         labels.at<int>(i, 0) = transformations[labels.at<int>(i, 0)];
         ;
@@ -108,7 +108,7 @@ void kMeansCluster::updateKMeans(frame f) {
 
     centers = output;
     //std::cerr << labels.size << std::endl;
-    //std::cout<<labels.at<int>(0,0)<<std::endl;
+    std::cout<<labels.at<int>(0,0)<<std::endl;
     
 
     // Replace each pixel with the centroid of its cluster
