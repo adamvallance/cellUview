@@ -17,6 +17,7 @@
 #include "camera.h"
 #include "contrastEnhancement.h"
 #include <QDir>
+#include <QDialog>
 
 
 class Gui : public QWidget, public imageProcessor{ 
@@ -40,6 +41,7 @@ private:
     void intialGallerySetting();
     void onCaptureButtonPress();
     void textEditController(std::string enteredTextStr, bool pressed);
+    void showDialog();
     //std::string textEditController(std::string enteredTextStr){return myString;};    
     int galleryPos1Index = 0;
     int galleryPos2Index = 1;

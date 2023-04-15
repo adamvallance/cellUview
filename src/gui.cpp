@@ -105,7 +105,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     // push button (to be renamed @Jake) connects to gallery capture
 
     ////do a capture
-    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
+    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::showDialog); //&Gui::captureNextFrame
     QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){textEditController(myString, true);});
 
     //// How to connect a button to an instance of another class
@@ -482,5 +482,10 @@ void Gui :: intialGallerySetting (){
 }
 
 //function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
+void Gui:: showDialog(){
+    QDialog dialog;
+    dialog.setWindowTitle("Restore Image Properties");
 
+    dialog.exec();
+}
 
