@@ -116,7 +116,7 @@ background-color: rgb(18, 18, 18);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">background-color: rgb(33, 33, 33);</string>
       </property>
       <widget class="QLabel" name="galleryPos1">
        <property name="geometry">
@@ -290,52 +290,68 @@ background-color: rgb(83, 83, 83);</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>60</y>
+         <y>50</y>
          <width>191</width>
-         <height>101</height>
+         <height>121</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;</string>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
       <widget class="QPushButton" name="buttonPos2">
        <property name="geometry">
         <rect>
          <x>220</x>
-         <y>60</y>
+         <y>50</y>
          <width>191</width>
-         <height>101</height>
+         <height>121</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;</string>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
       <widget class="QPushButton" name="buttonPos3">
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>280</y>
+         <y>270</y>
          <width>191</width>
-         <height>101</height>
+         <height>121</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;</string>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
       <widget class="QPushButton" name="buttonPos4">
        <property name="geometry">
         <rect>
          <x>220</x>
-         <y>280</y>
+         <y>270</y>
          <width>191</width>
-         <height>101</height>
+         <height>121</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;</string>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </widget>

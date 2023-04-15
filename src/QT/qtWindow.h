@@ -118,7 +118,7 @@ public:
         ImageHolder = new QWidget(ImageCaptureColumn);
         ImageHolder->setObjectName(QString::fromUtf8("ImageHolder"));
         ImageHolder->setGeometry(QRect(30, 60, 410, 471));
-        ImageHolder->setStyleSheet(QString::fromUtf8(""));
+        ImageHolder->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
         galleryPos1 = new QLabel(ImageHolder);
         galleryPos1->setObjectName(QString::fromUtf8("galleryPos1"));
         galleryPos1->setGeometry(QRect(0, 20, 191, 191));
@@ -163,16 +163,24 @@ public:
         namePos1->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         buttonPos1 = new QPushButton(ImageHolder);
         buttonPos1->setObjectName(QString::fromUtf8("buttonPos1"));
-        buttonPos1->setGeometry(QRect(0, 60, 191, 101));
+        buttonPos1->setGeometry(QRect(0, 50, 191, 121));
+        buttonPos1->setStyleSheet(QString::fromUtf8("background-color: transparent;\n"
+"border: none;"));
         buttonPos2 = new QPushButton(ImageHolder);
         buttonPos2->setObjectName(QString::fromUtf8("buttonPos2"));
-        buttonPos2->setGeometry(QRect(220, 60, 191, 101));
+        buttonPos2->setGeometry(QRect(220, 50, 191, 121));
+        buttonPos2->setStyleSheet(QString::fromUtf8("background-color: transparent;\n"
+"border: none;"));
         buttonPos3 = new QPushButton(ImageHolder);
         buttonPos3->setObjectName(QString::fromUtf8("buttonPos3"));
-        buttonPos3->setGeometry(QRect(0, 280, 191, 101));
+        buttonPos3->setGeometry(QRect(0, 270, 191, 121));
+        buttonPos3->setStyleSheet(QString::fromUtf8("background-color: transparent;\n"
+"border: none;"));
         buttonPos4 = new QPushButton(ImageHolder);
         buttonPos4->setObjectName(QString::fromUtf8("buttonPos4"));
-        buttonPos4->setGeometry(QRect(220, 280, 191, 101));
+        buttonPos4->setGeometry(QRect(220, 270, 191, 121));
+        buttonPos4->setStyleSheet(QString::fromUtf8("background-color: transparent;\n"
+"border: none;"));
         GalleryHeader = new QLabel(ImageCaptureColumn);
         GalleryHeader->setObjectName(QString::fromUtf8("GalleryHeader"));
         GalleryHeader->setGeometry(QRect(30, 20, 410, 41));
@@ -340,10 +348,10 @@ public:
         namePos4->setText(QString());
         namePos2->setText(QString());
         namePos1->setText(QString());
-        buttonPos1->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
-        buttonPos2->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
-        buttonPos3->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
-        buttonPos4->setText(QCoreApplication::translate("GUI", "PushButton", nullptr));
+        buttonPos1->setText(QString());
+        buttonPos2->setText(QString());
+        buttonPos3->setText(QString());
+        buttonPos4->setText(QString());
         GalleryHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:700;\">Gallery</span></p></body></html>", nullptr));
         ImageSettings->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-weight:700;\">Capture Name</span></p></body></html>", nullptr));
         restoreSettingsButton->setText(QCoreApplication::translate("GUI", "Restore Settings", nullptr));

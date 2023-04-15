@@ -509,9 +509,13 @@ void Gui::showDialog(int position) {
     QLabel label;
     label.setPixmap(pixmap);
 
+    // Create a QPushButton and set its text
+    QPushButton button("Restore Image Properties");
+
     // Create a QHBoxLayout and add the label to it
-    QHBoxLayout layout;
+    QVBoxLayout layout;
     layout.addWidget(&label);
+    layout.addWidget(&button);
 
     // Add the QHBoxLayout to the dialog's layout
     dialog.setLayout(&layout);
