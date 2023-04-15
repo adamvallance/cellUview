@@ -67,15 +67,17 @@ void kMeansCluster::updateKMeans(frame f) {
     //Reordering centroids to avoid looking like a disco, with changing colours!
  // Extract the rows from the input matrix
     std::vector<cv::Vec3f> rows;
+    std::vector<int>transformations;
     for (int i = 0; i < centers.rows; i++) {
         cv::Vec3f row = centers.at<cv::Vec3f>(i);
         rows.push_back(row);
+        transformations.push_back(i);
     }
 
     auto compare_transformations = [&rows](cv::Vec3f& i, cv::Vec3f& j){
         return (i[0] < j[0]);
     };
-    std::vector<int>transformations = {0,1,2};
+
 
     // Sort the rows based on the first element of each row
     // std::sort(rows.begin(), rows.end(),
@@ -94,14 +96,18 @@ void kMeansCluster::updateKMeans(frame f) {
         output.at<cv::Vec3f>(i) = row;
     }
     centers = output;
-    //std::cout<<centers<<std::endl;
+    std::cout<<centers<<std::endl;
     std::cout<<transformations[0]<<transformations[1]<<transformations[2]<< "   ";//<<std::endl<<std::endl;
     
+    for (int i = 0; i < transformations.size(); i++){
+        ;
+    }
 
     // //reassign label values based on reordered centroids 
     std::cout<<labels.at<int>(0,0);
     for (int i = 0; i < labels.rows; i++){
         labels.at<int>(i, 0) = transformations[labels.at<int>(i, 0)];
+        //labels.at<int>(i,0) = transformations.
         ;
     }
     //std::cerr << centers << std::endl;
