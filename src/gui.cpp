@@ -17,6 +17,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     ui->dilationCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
     ui->erosionCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+    ui->flatFieldBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
 
 
     ui->grayScaleBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");

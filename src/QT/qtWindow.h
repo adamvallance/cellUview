@@ -57,6 +57,7 @@ public:
     QPushButton *restoreSettingsButton;
     QLabel *Divider1;
     QTextEdit *updateNameBox;
+    QPushButton *FlatFieldButton;
     QWidget *widget_6;
     QSlider *edgeEnhancementSlider;
     QLineEdit *edgeEnhancementValueInput;
@@ -68,6 +69,10 @@ public:
     QSlider *contrastEnhancementSlider;
     QLabel *ContrastEhnancement;
     QLabel *edgeDetectionLabel;
+    QSlider *exposureSlider;
+    QLineEdit *exposureValueInput;
+    QLabel *edgeDetectionLabel_2;
+    QCheckBox *flatFieldBox;
     QWidget *motorControlColumn;
     QLabel *MotorControls;
     QLabel *MotorControlUnderline;
@@ -215,8 +220,12 @@ public:
         Divider1->setAlignment(Qt::AlignCenter);
         updateNameBox = new QTextEdit(ImageCaptureColumn);
         updateNameBox->setObjectName(QString::fromUtf8("updateNameBox"));
-        updateNameBox->setGeometry(QRect(30, 570, 411, 41));
+        updateNameBox->setGeometry(QRect(30, 570, 411, 31));
         updateNameBox->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        FlatFieldButton = new QPushButton(ImageCaptureColumn);
+        FlatFieldButton->setObjectName(QString::fromUtf8("FlatFieldButton"));
+        FlatFieldButton->setGeometry(QRect(30, 610, 411, 41));
+        FlatFieldButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         widget_6 = new QWidget(background);
         widget_6->setObjectName(QString::fromUtf8("widget_6"));
         widget_6->setGeometry(QRect(500, 520, 641, 281));
@@ -257,7 +266,7 @@ public:
         dilationCheckBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         erosionCheckBox = new QCheckBox(widget_6);
         erosionCheckBox->setObjectName(QString::fromUtf8("erosionCheckBox"));
-        erosionCheckBox->setGeometry(QRect(30, 120, 92, 23));
+        erosionCheckBox->setGeometry(QRect(130, 60, 92, 23));
         erosionCheckBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         contrastEnhancementValueInput = new QLineEdit(widget_6);
         contrastEnhancementValueInput->setObjectName(QString::fromUtf8("contrastEnhancementValueInput"));
@@ -281,6 +290,26 @@ public:
         edgeDetectionLabel->setObjectName(QString::fromUtf8("edgeDetectionLabel"));
         edgeDetectionLabel->setGeometry(QRect(460, 190, 111, 21));
         edgeDetectionLabel->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        exposureSlider = new QSlider(widget_6);
+        exposureSlider->setObjectName(QString::fromUtf8("exposureSlider"));
+        exposureSlider->setGeometry(QRect(10, 150, 341, 31));
+        exposureSlider->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
+"    background-color: rgb(29, 185, 84);\n"
+"}\n"
+""));
+        exposureSlider->setOrientation(Qt::Horizontal);
+        exposureValueInput = new QLineEdit(widget_6);
+        exposureValueInput->setObjectName(QString::fromUtf8("exposureValueInput"));
+        exposureValueInput->setGeometry(QRect(370, 150, 71, 31));
+        exposureValueInput->setStyleSheet(QString::fromUtf8("\n"
+"background-color: rgb(179, 179, 179);"));
+        edgeDetectionLabel_2 = new QLabel(widget_6);
+        edgeDetectionLabel_2->setObjectName(QString::fromUtf8("edgeDetectionLabel_2"));
+        edgeDetectionLabel_2->setGeometry(QRect(460, 150, 111, 21));
+        edgeDetectionLabel_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        flatFieldBox = new QCheckBox(widget_6);
+        flatFieldBox->setObjectName(QString::fromUtf8("flatFieldBox"));
+        flatFieldBox->setGeometry(QRect(451, 60, 171, 23));
         motorControlColumn = new QWidget(background);
         motorControlColumn->setObjectName(QString::fromUtf8("motorControlColumn"));
         motorControlColumn->setGeometry(QRect(1160, 20, 311, 781));
@@ -408,6 +437,7 @@ public:
         ImageSettings->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-weight:700;\">Capture Name</span></p></body></html>", nullptr));
         restoreSettingsButton->setText(QCoreApplication::translate("GUI", "Restore Settings", nullptr));
         Divider1->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", nullptr));
+        FlatFieldButton->setText(QCoreApplication::translate("GUI", "Flat Field Capture (Capture with empty slide)", nullptr));
         edgeEnhancementValueInput->setText(QString());
         ControlPanelHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:700;\">Control Panel</span></p></body></html>", nullptr));
         grayScaleBox->setText(QCoreApplication::translate("GUI", "Grey Scale", nullptr));
@@ -416,6 +446,9 @@ public:
         contrastEnhancementValueInput->setText(QString());
         ContrastEhnancement->setText(QCoreApplication::translate("GUI", "Contrast Enhancement", nullptr));
         edgeDetectionLabel->setText(QCoreApplication::translate("GUI", "Edge Detection", nullptr));
+        exposureValueInput->setText(QString());
+        edgeDetectionLabel_2->setText(QCoreApplication::translate("GUI", "Exposure(EV)", nullptr));
+        flatFieldBox->setText(QCoreApplication::translate("GUI", "Flat Field Correction", nullptr));
         MotorControls->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:700;\">Motor Controls</span></p></body></html>", nullptr));
         MotorControlUnderline->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", nullptr));
         xAxisControlHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p>X-axis Controls</p></body></html>", nullptr));
