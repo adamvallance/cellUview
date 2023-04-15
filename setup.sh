@@ -6,7 +6,7 @@ getPrerequisites(){
     cwd=$(pwd)
     sudo apt update
     sudo apt upgrade
-    pkgs=(gcc cmake build-essential libtool autoconf unzip wget qtbase5-dev qtdeclarative5-dev  libgtest-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libwiringpi-dev) #dont think these are needed anymore but coudl be: python3 python3-dev glibc-source)
+    pkgs=(gcc cmake build-essential libtool autoconf unzip wget qtbase5-dev qtdeclarative5-dev  libgtest-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools doxygen libwiringpi-dev) #dont think these are needed anymore but coudl be: python3 python3-dev glibc-source)
     sudo apt-get -y --ignore-missing install "${pkgs[@]}"
 
     cd /usr/src/gtest
