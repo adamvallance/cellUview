@@ -1,0 +1,58 @@
+\hypertarget{gui_8h_source}{}\doxysection{gui.\+h}
+\label{gui_8h_source}\index{src/gui.h@{src/gui.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CELLUVIEW\_GUI\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CELLUVIEW\_GUI\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QMainWindow>}\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}QT/qtWindow.h"{}}\ \textcolor{comment}{//compiled\ header\ file\ from\ qtcreator}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}stdlib.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <opencv2/core.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <opencv2/imgproc.hpp>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <opencv2/imgcodecs.hpp>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}imageProcessor.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}edgeDetection.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}gallery.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}grayScale.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}frame.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}dilation.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}erosion.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}camera.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}contrastEnhancement.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_gui}{Gui}}\ :\ \textcolor{keyword}{public}\ QWidget,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classimage_processor}{imageProcessor}}\{\ }
+\DoxyCodeLine{00023\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ receiveFrame(\mbox{\hyperlink{classframe}{frame}}\ newFrame);}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_gui}{Gui}}(QMainWindow*,\ Ui\_GUI*,\ \mbox{\hyperlink{class_gallery}{Gallery}}*,\ std::vector\ <imageProcessor\ *>\&);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ SetVisible(\textcolor{keywordtype}{bool}\ visible);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00031\ \ \ \ \ QMainWindow\ *widget;}
+\DoxyCodeLine{00032\ \ \ \ \ Ui\_GUI\ *ui;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ doCapture\ =\textcolor{keyword}{false};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ captureNextFrame();}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ restoreSettings(std::string\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ updateSettings(std::map<std::string,\ std::string>);}
+\DoxyCodeLine{00037\ \ \ \ \ std::string\ getParamLabel()\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};\};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ cv::Mat\ img;}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_gallery}{Gallery}}*\ gallery;}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_camera}{Camera}}*\ cam;}
+\DoxyCodeLine{00043\ \ \ \ \ std::vector<imageProcessor*>\ blocks;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ std::map<std::string,\ std::string>\ metadata;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classedge_detection}{edgeDetection}}\ *edgeDetector;}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classgray_scale}{grayScale}}\ *grayDetector;}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CELLUVIEW\_GUI\_H}}
+
+\end{DoxyCode}

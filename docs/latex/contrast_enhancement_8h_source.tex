@@ -1,0 +1,38 @@
+\hypertarget{contrast_enhancement_8h_source}{}\doxysection{contrast\+Enhancement.\+h}
+\label{contrast_enhancement_8h_source}\index{src/contrastEnhancement.h@{src/contrastEnhancement.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ CELLUVIEW\_CONTRAST\_ENHANCEMENT\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ CELLUVIEW\_CONTRAST\_ENHANCEMENT\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <opencv2/core.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <opencv2/videoio.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}imageProcessor.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcontrast_enhancement}{contrastEnhancement}}:\ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classimage_processor}{imageProcessor}}\{}
+\DoxyCodeLine{00015\ \ \ \ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classcontrast_enhancement}{contrastEnhancement}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{float}\ threshold=\ 0;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{float}\ sliderThreshold\ =\ 10;\ \textcolor{comment}{//slider\ threshold\ used\ for\ metadata\ purposes}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ receiveFrame(\mbox{\hyperlink{classframe}{frame}}\ newFrame);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ updateThreshold(\textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ updateSettings(std::map<std::string,\ std::string>);}
+\DoxyCodeLine{00024\ \ \ \ \ std::string\ getParamLabel()\{\textcolor{keywordflow}{return}\ paramLabel;\};}
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//add\ any\ other\ methods\ here}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ contrastEnhance(\mbox{\hyperlink{classframe}{frame}});\ \textcolor{comment}{//contrast\ enhancement}}
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ paramLabel\ =\ \textcolor{stringliteral}{"{}contrastThreshold"{}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CELLUVIEW\_CONTRAST\_ENHANCEMENT\_H}}
+\DoxyCodeLine{00032\ }
+
+\end{DoxyCode}
