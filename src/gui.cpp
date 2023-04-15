@@ -166,6 +166,7 @@ void Gui::captureNextFrame()
 void Gui::restoreSettings(std::string fname)
 {
     std::cout<<"restoring settings" <<std::endl;
+    std::cout<<fname <<std::endl;
     metadata = this->gallery->getMetadata(fname);
 
 
@@ -511,6 +512,12 @@ void Gui::showDialog(int position) {
 
     // Create a QPushButton and set its text
     QPushButton button("Restore Image Properties");
+    QObject::connect(&button, &QPushButton::released, this, [=](){ 
+        std::string pathStr = this->gallery->getPathname();
+        std::string fileToRestore = pathStr + imagName.toStdString();
+        restoreSettings(fileToRestore); 
+        
+    });
 
     // Create a QHBoxLayout and add the label to it
     QVBoxLayout layout;
