@@ -3,6 +3,13 @@
 #include "contrastEnhancement.h"
 #include "grayScale.h"
 
+/**
+* Constructor to initialise the GUI and set connections
+* @param win points to QMainWindow 
+* @param ui_win points to Ui_GUI 
+* @param galleryIn points to Gallery instance
+* @param blocksIn is a std::vector of the image processing blocks
+**/
 Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
@@ -176,6 +183,10 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     QObject::connect(ui->buttonPos4, &QPushButton::released, this, [&](){showDialog(galleryPos4Index);});
 }
 
+/**
+* Function to recieve callbacks frames from image processor blocks
+* @param newFrame frame structure from processing block via callback interface
+**/
 void Gui::receiveFrame(frame newFrame)
 {
 
@@ -213,6 +224,9 @@ void Gui::receiveFrame(frame newFrame)
 
 }
 
+/**
+* Takes capture and initialises flatfield correction
+**/
 void Gui::setUpdateFlatField(){
     //std::cout<<"setUpdateField"<<std::endl;
 
@@ -226,12 +240,19 @@ void Gui::setUpdateFlatField(){
 }
 
 
+/**
+* Sets UI visibility 
+* @param visible true to make visible
+**/
 void Gui::SetVisible(bool visible)
 {
     widget->setVisible(visible);
 }
 
 // set to capture on next frame
+/**
+* Sets camera object to capture next frame
+**/
 void Gui::captureNextFrame()
 {
     cam->captureMetadata();
@@ -239,6 +260,10 @@ void Gui::captureNextFrame()
 }
 
 
+/**
+* Restores image processing settings from existing capture metadata
+* @param fname filename for image to restore metadata from
+**/
 void Gui::restoreSettings(std::string fname)
 {
     std::cout<<"restoring settings" <<std::endl;
@@ -259,6 +284,9 @@ void Gui::restoreSettings(std::string fname)
 }
 
 //resets gui sliders and checkboxes to match new settings
+/**
+* Restores GUI sliders and checkboxes to match the restored image processor settings.
+**/
 void Gui::updateSettings(std::map<std::string, std::string> metadata){
     //std::cout<<"in gui update settings"<<std::endl;
     std::string value;

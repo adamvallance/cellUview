@@ -21,7 +21,9 @@
 #include <QDialog>
 #include <QVBoxLayout>
 
-
+/**
+* A class which handles GUI connections and functionality.
+**/
 class Gui : public QWidget, public imageProcessor{ 
     Q_OBJECT
 
