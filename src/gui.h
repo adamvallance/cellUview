@@ -16,6 +16,7 @@
 #include "erosion.h"
 #include "camera.h"
 #include "contrastEnhancement.h"
+#include "flatFieldCorrect.h"
 
 
 
@@ -35,6 +36,10 @@ private:
     void restoreSettings(std::string = "");
     void updateSettings(std::map<std::string, std::string>);
     std::string getParamLabel(){return "";};
+    bool updateFlatField = false;
+    bool flatFieldEnable = false;
+    void setUpdateFlatField();
+    int flatFieldCounter = 0; 
 
 
     cv::Mat img;
