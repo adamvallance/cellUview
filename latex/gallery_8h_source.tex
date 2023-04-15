@@ -1,0 +1,69 @@
+\hypertarget{gallery_8h_source}{}\doxysection{gallery.\+h}
+\label{gallery_8h_source}\index{src/gallery.h@{src/gallery.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CELLUVIEW\_GALLERY\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CELLUVIEW\_GALLERY\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}stdlib.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <opencv2/core.hpp>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <opencv2/imgproc.hpp>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <opencv2/imgcodecs.hpp>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}imageProcessor.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <sys/types.h>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <sys/stat.h>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dirent.h>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}cpp\_exiftool/src/ExifTool.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <sstream>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <iterator>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}frame.h"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{class }\mbox{\hyperlink{class_gallery}{Gallery}}\{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keyword}{public}:}
+\DoxyCodeLine{22         \mbox{\hyperlink{class_gallery}{Gallery}}();}
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} captureFrame(\mbox{\hyperlink{classframe}{frame}}, \textcolor{keywordtype}{bool} flatfield=\textcolor{keyword}{false}, \textcolor{keywordtype}{int} flatFieldCounter = 0);}
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} updateImgName(std::string);}
+\DoxyCodeLine{25         \textcolor{keywordtype}{void} updateIndex();}
+\DoxyCodeLine{26         std::map<std::string, std::string> getMetadata(std::string = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28         std::string getPathname()\{\textcolor{keywordflow}{return} pathname;\}; \textcolor{comment}{//testing only}}
+\DoxyCodeLine{29         \textcolor{comment}{// std::string getFlatFieldPath()\{return flatFieldPath;\};}}
+\DoxyCodeLine{30         std::string getCaptureFname()\{\textcolor{keywordflow}{return} captureFname;\};\textcolor{comment}{//testing only}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     \textcolor{keyword}{private}:}
+\DoxyCodeLine{35         \textcolor{keywordtype}{int} initialiseDirectory(std::string, std::string);}
+\DoxyCodeLine{36         \textcolor{keywordtype}{void} writeMetadata(\mbox{\hyperlink{classframe}{frame}}, std::string);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38         DIR *dir;}
+\DoxyCodeLine{39         \textcolor{keyword}{struct }dirent *ent;}
+\DoxyCodeLine{40         std::string pathname = \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{41         std::string flatFieldPath = \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{42         std::string imgName = \textcolor{stringliteral}{"{}capture"{}};}
+\DoxyCodeLine{43         \textcolor{keywordtype}{int} captureImgCounter = 0;}
+\DoxyCodeLine{44         std::string captureFname = \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{45         \textcolor{keywordtype}{int} index;}
+\DoxyCodeLine{46         \textcolor{keywordtype}{int} lastHighestIndex = -\/1;}
+\DoxyCodeLine{47         \textcolor{keywordtype}{int} indexLen = 1;}
+\DoxyCodeLine{48         std::string existingCaptureFname; }
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51         cv::Mat img;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53         std::string tagName;}
+\DoxyCodeLine{54         std::string receivedMetadata;}
+\DoxyCodeLine{55         std::string MetadataToWrite;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57         ExifTool *et = \textcolor{keyword}{new} ExifTool();}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59         std::map<std::string, std::string> restoredParams;}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \};}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//CELLUVIEW\_GALLERY\_H}}
+
+\end{DoxyCode}
