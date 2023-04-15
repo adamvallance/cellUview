@@ -61,6 +61,40 @@ void kMeansCluster::updateKMeans(frame f) {
         std::cerr << "Error: " << e.what() << std::endl;
         return;
     }
+    std::cout<<labels.at<int>(0,0);
+        // Extract the rows from the input matrix
+    std::vector<cv::Vec3f> rows;
+    for (int i = 0; i < centers.rows; i++) {
+        cv::Vec3f row = centers.at<cv::Vec3f>(i);
+        rows.push_back(row);
+    }
+
+
+    //Reordering centroids to avoid looking like a disco, with changing colours!
+    // Sort the rows based on the first element of each row
+    std::sort(rows.begin(), rows.end(),
+              [](const cv::Vec3f& a, const cv::Vec3f& b) {
+                  return a[0] < b[0];
+              });
+
+    // Build the output matrix from the sorted rows
+    cv::Mat output = cv::Mat::zeros(centers.size(), centers.type());
+    for (int i = 0; i < rows.size(); i++) {
+        cv::Vec3f row = rows[i];
+        output.at<cv::Vec3f>(i) = row;
+    }
+
+    //reassign label values based on reordered centroids 
+    for (int i = 0; i < labels.rows; i++){
+        labels.at<int>(i, 0) = 
+
+    }
+    //std::cerr << centers << std::endl;
+
+    centers = output;
+    //std::cerr << labels.size << std::endl;
+    std::cout<<labels.at<int>(0,0)<<std::endl;
+    
 
     // Replace each pixel with the centroid of its cluster
     for (int i = 0; i < reshaped.rows; i++) {
@@ -87,15 +121,7 @@ void kMeansCluster::updateKMeans(frame f) {
         heatmap.at<cv::Vec3b>(i) = centroid_color;
     }
 
-
-    
-  
-    cv::Mat heatmap_resized;
-    cv::resize(heatmap, heatmap_resized, f.image.size(), 0, 0, cv::INTER_LINEAR);
-    heatmap_resized.convertTo(f.image, f.image.type());
-    f.image.convertTo(f.image, CV_8UC3);
-
-    current_k_means = f.image;
+    current_k_means = heatmap;
 }
 
 
