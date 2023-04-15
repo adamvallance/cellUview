@@ -133,10 +133,15 @@ void Gallery::updateImgName(std::string newName){
     if (newName.find("/") != std::string::npos) {
         std::cout << "Error. Contains illegal / char" << std::endl;
         //UPDATE TEXTBOX HERE TODO
+        //add check to see if names are the same, if they are then break. 
     }else{//update name
         imgName=newName;
         updateIndex();
     }
+    // if (newName.empty()){
+    //     imgName="Capture";
+    //     updateIndex();
+    // }
 }
  
 void Gallery::updateIndex(){

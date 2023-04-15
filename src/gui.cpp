@@ -246,6 +246,8 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     
 }
 // last thing to do is 0 images, 1 image on open etc. 
+// potenial bug, crashes when you in a different batch after a bunch of images have been deleted. 
+// probably need an auto position  
 
 void Gui::displayImages() {
 
@@ -445,13 +447,15 @@ void Gui :: intialGallerySetting (){
  void Gui::textEditController(std::string enteredTextStr, bool pressed){
 
     myString = enteredTextStr;
+    if (!myString.empty()){
     std::cout<<"Entered String: "<<enteredTextStr<<std::endl;
     if( pressed == true){
         this->gallery->updateImgName(myString);
         bool pressed =false;
     }
     else{}
-    
+    }
+    else{}
 }
 
 //function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
