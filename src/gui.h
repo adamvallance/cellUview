@@ -39,10 +39,13 @@ private:
     void displayImages();
     void intialGallerySetting();
     void onCaptureButtonPress();
-    void textEditController(std::string enteredTextStr);    int galleryPos1Index = 0;
+    void textEditController(std::string enteredTextStr, bool pressed);
+    //std::string textEditController(std::string enteredTextStr){return myString;};    
+    int galleryPos1Index = 0;
     int galleryPos2Index = 1;
     int galleryPos3Index = 2;
     int galleryPos4Index = 3;
+    std::string myString; 
     QStringList images;
     int batchIndex = 1; 
     QDir imageDir;

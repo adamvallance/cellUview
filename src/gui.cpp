@@ -106,6 +106,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
 
     ////do a capture
     QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
+    QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){textEditController(myString, true);});
 
     //// How to connect a button to an instance of another class
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
@@ -115,7 +116,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
         QString enteredText = ui->updateNameBox->toPlainText();
         std::string enteredTextStr = enteredText.toStdString();
-        textEditController(enteredTextStr);
+        textEditController(enteredTextStr, false);
     });
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
@@ -441,8 +442,16 @@ void Gui :: intialGallerySetting (){
 
 }
 
-void Gui::textEditController(std::string enteredTextStr){
+ void Gui::textEditController(std::string enteredTextStr, bool pressed){
+
+    myString = enteredTextStr;
     std::cout<<"Entered String: "<<enteredTextStr<<std::endl;
+    if( pressed == true){
+        this->gallery->updateImgName(myString);
+        bool pressed =false;
+    }
+    else{}
+    
 }
 
 //function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
