@@ -103,7 +103,7 @@ std::map<std::string, std::string> Gallery::getMetadata(std::string fname){
     }
 
     //debug
-    //std::cout<<fname<<std::endl;
+    std::cout<<fname<<std::endl;
 
     receivedMetadata="";
     TagInfo *info = et->ImageInfo(fname.c_str());

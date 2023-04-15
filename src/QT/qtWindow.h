@@ -12,9 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -102,8 +100,8 @@ public:
             GUI->setObjectName(QString::fromUtf8("GUI"));
         GUI->resize(1493, 943);
         centralwidget = new QWidget(GUI);
-        centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        centralwidget->setStyleSheet(QLatin1String("#centralWidget {\n"
+        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        centralwidget->setStyleSheet(QString::fromUtf8("#centralWidget {\n"
 "background-color:#FF121212}"));
         widget = new QWidget(centralwidget);
         widget->setObjectName(QString::fromUtf8("widget"));
@@ -127,11 +125,11 @@ public:
         ImageCaptureColumn = new QWidget(background);
         ImageCaptureColumn->setObjectName(QString::fromUtf8("ImageCaptureColumn"));
         ImageCaptureColumn->setGeometry(QRect(10, 20, 471, 781));
-        ImageCaptureColumn->setStyleSheet(QStringLiteral("background-color: rgb(33, 33, 33);"));
+        ImageCaptureColumn->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
         captureButton = new QPushButton(ImageCaptureColumn);
-        captureButton->setObjectName(QStringLiteral("captureButton"));
+        captureButton->setObjectName(QString::fromUtf8("captureButton"));
         captureButton->setGeometry(QRect(30, 720, 410, 40));
-        captureButton->setStyleSheet(QStringLiteral("background-color: rgb(179, 179, 179);"));
+        captureButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         ImageHolder = new QWidget(ImageCaptureColumn);
         ImageHolder->setObjectName(QString::fromUtf8("ImageHolder"));
         ImageHolder->setGeometry(QRect(30, 60, 410, 471));
@@ -231,20 +229,19 @@ public:
         widget_6 = new QWidget(background);
         widget_6->setObjectName(QString::fromUtf8("widget_6"));
         widget_6->setGeometry(QRect(500, 520, 641, 281));
-        widget_6->setStyleSheet(QStringLiteral("background-color: rgb(33, 33, 33);"));
+        widget_6->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
         edgeEnhancementSlider = new QSlider(widget_6);
-        edgeEnhancementSlider->setObjectName(QStringLiteral("edgeEnhancementSlider"));
+        edgeEnhancementSlider->setObjectName(QString::fromUtf8("edgeEnhancementSlider"));
         edgeEnhancementSlider->setGeometry(QRect(10, 190, 341, 31));
-        edgeEnhancementSlider->setStyleSheet(QLatin1String("QSlider::handle:horizontal {\n"
+        edgeEnhancementSlider->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
-        edgeEnhancementSlider->setMaximum(100);
         edgeEnhancementSlider->setOrientation(Qt::Horizontal);
         edgeEnhancementValueInput = new QLineEdit(widget_6);
-        edgeEnhancementValueInput->setObjectName(QStringLiteral("edgeEnhancementValueInput"));
+        edgeEnhancementValueInput->setObjectName(QString::fromUtf8("edgeEnhancementValueInput"));
         edgeEnhancementValueInput->setGeometry(QRect(370, 190, 71, 31));
-        edgeEnhancementValueInput->setStyleSheet(QLatin1String("\n"
+        edgeEnhancementValueInput->setStyleSheet(QString::fromUtf8("\n"
 "background-color: rgb(179, 179, 179);"));
         ControlPanelHeader = new QLabel(widget_6);
         ControlPanelHeader->setObjectName(QString::fromUtf8("ControlPanelHeader"));
@@ -264,9 +261,9 @@ public:
 "\n"
 ""));
         dilationCheckBox = new QCheckBox(widget_6);
-        dilationCheckBox->setObjectName(QStringLiteral("dilationCheckBox"));
+        dilationCheckBox->setObjectName(QString::fromUtf8("dilationCheckBox"));
         dilationCheckBox->setGeometry(QRect(30, 90, 92, 23));
-        dilationCheckBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        dilationCheckBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         erosionCheckBox = new QCheckBox(widget_6);
         erosionCheckBox->setObjectName(QString::fromUtf8("erosionCheckBox"));
         erosionCheckBox->setGeometry(QRect(130, 60, 92, 23));
@@ -277,13 +274,13 @@ public:
         contrastEnhancementValueInput->setStyleSheet(QString::fromUtf8("\n"
 "background-color: rgb(179, 179, 179);"));
         contrastEnhancementSlider = new QSlider(widget_6);
-        contrastEnhancementSlider->setObjectName(QStringLiteral("contrastEnhancementSlider"));
+        contrastEnhancementSlider->setObjectName(QString::fromUtf8("contrastEnhancementSlider"));
         contrastEnhancementSlider->setGeometry(QRect(10, 230, 341, 31));
-        contrastEnhancementSlider->setStyleSheet(QLatin1String("QSlider::handle:horizontal {\n"
+        contrastEnhancementSlider->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
-        contrastEnhancementSlider->setMaximum(100);
+        contrastEnhancementSlider->setMaximum(99);
         contrastEnhancementSlider->setOrientation(Qt::Horizontal);
         ContrastEhnancement = new QLabel(widget_6);
         ContrastEhnancement->setObjectName(QString::fromUtf8("ContrastEhnancement"));
@@ -402,10 +399,10 @@ public:
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1493, 22));
         menuOpenflexure = new QMenu(menubar);
-        menuOpenflexure->setObjectName(QStringLiteral("menuOpenflexure"));
+        menuOpenflexure->setObjectName(QString::fromUtf8("menuOpenflexure"));
         GUI->setMenuBar(menubar);
         statusbar = new QStatusBar(GUI);
-        statusbar->setObjectName(QStringLiteral("statusbar"));
+        statusbar->setObjectName(QString::fromUtf8("statusbar"));
         GUI->setStatusBar(statusbar);
 
         menubar->addAction(menuOpenflexure->menuAction());
