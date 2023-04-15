@@ -41,7 +41,7 @@ void kMeansCluster::kMeans(frame f) {
     cv::Mat reshaped = frame.reshape(1, frame.rows * frame.cols);
 
     // Define the number of clusters
-    int num_clusters = 10;
+    int num_clusters = 3;
 
     // Check if the number of clusters is positive
     if (num_clusters <= 0) {
