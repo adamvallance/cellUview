@@ -1,0 +1,50 @@
+\hypertarget{camera_8h_source}{}\doxysection{camera.\+h}
+\label{camera_8h_source}\index{src/camera.h@{src/camera.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CELLUVIEW\_CAMERA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CELLUVIEW\_CAMERA\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <opencv2/core.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <opencv2/videoio.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}imageProcessor.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}frame.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_camera}{Camera}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classimage_processor}{imageProcessor}}\{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_camera}{Camera}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ start(\textcolor{keywordtype}{int}\ deviceID\ =\ 0,\ \textcolor{keywordtype}{int}\ apiID=0);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ stop();}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//void\ receiveFrame(frame\ newFrame);}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ getIsOn();}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//void\ registerCallback(imageProcessor*);}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ captureMetadata();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ setExposure(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{00025\ \ \ \ \ std::string\ getParamLabel()\{\textcolor{keywordflow}{return}\ paramLabel;\};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ updateSettings(std::map<std::string,\ std::string>);}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ receiveFrame(\mbox{\hyperlink{classframe}{frame}}\ newFrame)\{\textcolor{keywordflow}{return};\};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classframe}{frame}}\ f;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ postFrame();}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ threadLoop();}
+\DoxyCodeLine{00034\ \ \ \ \ cv::VideoCapture\ videoCapture;}
+\DoxyCodeLine{00035\ \ \ \ \ std::thread\ cameraThread;}
+\DoxyCodeLine{00036\ \ \ \ \ std::string\ exposureState\ =\ \textcolor{stringliteral}{"{}OFF"{}};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{bool}\ isOn\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00038\ \ \ \ \ std::string\ paramLabel\ =\ \textcolor{stringliteral}{"{}exposure"{}};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//imageProcessor*\ frameCb\ =\ nullptr;}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ doMeta\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CELLUVIEW\_CAMERA\_H}}
+
+\end{DoxyCode}

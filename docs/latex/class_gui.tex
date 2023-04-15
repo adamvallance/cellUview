@@ -1,0 +1,69 @@
+\hypertarget{class_gui}{}\doxysection{Gui Class Reference}
+\label{class_gui}\index{Gui@{Gui}}
+Inheritance diagram for Gui\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gui}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_gui_a2f058a424b6584d1907b1f45422da4f6}{receive\+Frame}} (\mbox{\hyperlink{classframe}{frame}} new\+Frame)
+\item 
+\mbox{\Hypertarget{class_gui_a0787d4633eeebebc31ec40ad2b441c25}\label{class_gui_a0787d4633eeebebc31ec40ad2b441c25}} 
+{\bfseries Gui} (QMain\+Window $\ast$, Ui\+\_\+\+GUI $\ast$, \mbox{\hyperlink{class_gallery}{Gallery}} $\ast$, std\+::vector$<$ \mbox{\hyperlink{classimage_processor}{image\+Processor}} $\ast$ $>$ \&)
+\item 
+\mbox{\Hypertarget{class_gui_ac76a8210e18720a6bd248c0f1425a738}\label{class_gui_ac76a8210e18720a6bd248c0f1425a738}} 
+void {\bfseries Set\+Visible} (bool visible)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classimage_processor}{image\+Processor}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classimage_processor_a9bf1827b19fcf2d032efd493151c3b5b}\label{classimage_processor_a9bf1827b19fcf2d032efd493151c3b5b}} 
+virtual void {\bfseries receive\+Frame} (\mbox{\hyperlink{classframe}{frame}} new\+Frame)=0
+\item 
+\mbox{\Hypertarget{classimage_processor_af0e1b504003b23c4797acb105faa4aa3}\label{classimage_processor_af0e1b504003b23c4797acb105faa4aa3}} 
+virtual void {\bfseries update\+Settings} (std\+::map$<$ std\+::string, std\+::string $>$)=0
+\item 
+\mbox{\Hypertarget{classimage_processor_a51607435507ae4ff7ecb00ed98f08624}\label{classimage_processor_a51607435507ae4ff7ecb00ed98f08624}} 
+virtual std\+::string {\bfseries get\+Param\+Label} ()=0
+\item 
+\mbox{\Hypertarget{classimage_processor_af3c9e1ed9e62fe3f714a2c637951dc0f}\label{classimage_processor_af3c9e1ed9e62fe3f714a2c637951dc0f}} 
+void {\bfseries register\+Callback} (\mbox{\hyperlink{classimage_processor}{image\+Processor}} $\ast$cb)
+\item 
+\mbox{\Hypertarget{classimage_processor_a7570b72f296fce91a86baf55d2ffc06a}\label{classimage_processor_a7570b72f296fce91a86baf55d2ffc06a}} 
+bool {\bfseries toggle\+Enable} ()
+\item 
+\mbox{\Hypertarget{classimage_processor_a00e2d512096a68f1c3a0866cb7e82d8b}\label{classimage_processor_a00e2d512096a68f1c3a0866cb7e82d8b}} 
+bool {\bfseries get\+Enabled} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{classimage_processor}{image\+Processor}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classimage_processor_a801f1161fd1e94909f93f45fd3391592}\label{classimage_processor_a801f1161fd1e94909f93f45fd3391592}} 
+\mbox{\hyperlink{classimage_processor}{image\+Processor}} $\ast$ {\bfseries frame\+Cb} = nullptr
+\item 
+\mbox{\Hypertarget{classimage_processor_a7d225220555118bc37633cfe8740ae0e}\label{classimage_processor_a7d225220555118bc37633cfe8740ae0e}} 
+bool {\bfseries enabled} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gui_a2f058a424b6584d1907b1f45422da4f6}\label{class_gui_a2f058a424b6584d1907b1f45422da4f6}} 
+\index{Gui@{Gui}!receiveFrame@{receiveFrame}}
+\index{receiveFrame@{receiveFrame}!Gui@{Gui}}
+\doxysubsubsection{\texorpdfstring{receiveFrame()}{receiveFrame()}}
+{\footnotesize\ttfamily void Gui\+::receive\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classframe}{frame}}}]{new\+Frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classimage_processor}{image\+Processor}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui.\+h\item 
+src/gui.\+cpp\end{DoxyCompactItemize}

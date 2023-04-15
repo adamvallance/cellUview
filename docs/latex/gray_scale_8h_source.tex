@@ -1,0 +1,30 @@
+\hypertarget{gray_scale_8h_source}{}\doxysection{gray\+Scale.\+h}
+\label{gray_scale_8h_source}\index{src/grayScale.h@{src/grayScale.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CELLUVIEW\_GREY\_SCALE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CELLUVIEW\_GREY\_SCALE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <opencv2/core.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <opencv2/videoio.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}imageProcessor.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgray_scale}{grayScale}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classimage_processor}{imageProcessor}}\{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{classgray_scale}{grayScale}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ receiveFrame(\mbox{\hyperlink{classframe}{frame}});}
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ getParamLabel()\{\textcolor{keywordflow}{return}\ paramLabel;\};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ updateSettings(std::map<std::string,\ std::string>);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ grayEnhance(\mbox{\hyperlink{classframe}{frame}});\ \textcolor{comment}{//\ grayscale\ conversion}}
+\DoxyCodeLine{00022\ \ \ \ \ std::string\ paramLabel\ =\ \textcolor{stringliteral}{"{}grayScale"{}};}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CELLUVIEW\_GREY\_SCALE\_H}}
+
+\end{DoxyCode}
