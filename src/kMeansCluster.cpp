@@ -99,9 +99,13 @@ void kMeansCluster::updateKMeans(frame f) {
     std::cout<<centers<<std::endl;
     std::cout<<transformations[0]<<transformations[1]<<transformations[2]<< "   ";//<<std::endl<<std::endl;
     
+    std::vector<int>::iterator it;
+    std::vector<int>newTransform;
     for (int i = 0; i < transformations.size(); i++){
-        ;
+        it = std::find(transformations.begin(), transformations.end(), i);
+        newTransform.push_back(it - transformations.begin());
     }
+    transformations = newTransform;
 
     // //reassign label values based on reordered centroids 
     std::cout<<labels.at<int>(0,0);
