@@ -15,6 +15,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     enabled = true;
     this->displayImages();
 
+    ui->grayScaleBox->setStyleSheet("QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(179, 179, 179); }");
+
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
     //-----------block 0 erosion---------------------
@@ -515,7 +517,7 @@ void Gui::showDialog(int position) {
     QObject::connect(&button, &QPushButton::released, this, [=](){ 
         std::string pathStr = this->gallery->getPathname();
         std::string fileToRestore = pathStr + imagName.toStdString();
-        restoreSettings(fileToRestore); 
+        restoreSettings(imagName.toStdString()); 
         
     });
 
