@@ -75,6 +75,15 @@ public:
     QLabel *yAxisControlHeader;
     QLabel *zAxisControlHeader;
     QLabel *MotorControlUnderline_2;
+    QPushButton *xDownButton;
+    QPushButton *xUpButton;
+    QLineEdit *xPos;
+    QPushButton *yDownButton;
+    QPushButton *yUpButton;
+    QLineEdit *yPos;
+    QLineEdit *zPos;
+    QPushButton *zUpButton;
+    QPushButton *zDownButton;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
     QStatusBar *statusbar;
@@ -147,7 +156,7 @@ public:
         GalleryUnderline->setAlignment(Qt::AlignCenter);
         namePos3 = new QLabel(ImageHolder);
         namePos3->setObjectName(QString::fromUtf8("namePos3"));
-        namePos3->setGeometry(QRect(60, 400, 67, 17));
+        namePos3->setGeometry(QRect(0, 400, 191, 20));
         namePos3->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         namePos4 = new QLabel(ImageHolder);
         namePos4->setObjectName(QString::fromUtf8("namePos4"));
@@ -155,11 +164,11 @@ public:
         namePos4->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         namePos2 = new QLabel(ImageHolder);
         namePos2->setObjectName(QString::fromUtf8("namePos2"));
-        namePos2->setGeometry(QRect(280, 190, 67, 17));
+        namePos2->setGeometry(QRect(216, 190, 191, 16));
         namePos2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         namePos1 = new QLabel(ImageHolder);
         namePos1->setObjectName(QString::fromUtf8("namePos1"));
-        namePos1->setGeometry(QRect(60, 190, 67, 17));
+        namePos1->setGeometry(QRect(-4, 190, 191, 16));
         namePos1->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         buttonPos1 = new QPushButton(ImageHolder);
         buttonPos1->setObjectName(QString::fromUtf8("buttonPos1"));
@@ -234,13 +243,11 @@ public:
         grayScaleBox->setObjectName(QString::fromUtf8("grayScaleBox"));
         grayScaleBox->setGeometry(QRect(30, 60, 92, 23));
         grayScaleBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
-"QCheckBox::indicator:unchecked {\n"
-"    background-color:  rgb(179, 179, 179);\n"
-"};\n"
 "\n"
-"QCheckBox::indicator:checked {\n"
-"    background-color:  rgb(179, 179, 179);\n"
-"};\n"
+"QCheckBox::indicator {\n"
+"    background-color: red;\n"
+"    border: 2px solid black;\n"
+"}\n"
 "\n"
 ""));
         dilationCheckBox = new QCheckBox(widget_6);
@@ -297,22 +304,58 @@ public:
         xAxisControlHeader->setAlignment(Qt::AlignCenter);
         yAxisControlHeader = new QLabel(motorControlColumn);
         yAxisControlHeader->setObjectName(QString::fromUtf8("yAxisControlHeader"));
-        yAxisControlHeader->setGeometry(QRect(15, 230, 280, 25));
+        yAxisControlHeader->setGeometry(QRect(15, 170, 280, 25));
         yAxisControlHeader->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
 "background-color: rgb(83, 83, 83);"));
         yAxisControlHeader->setAlignment(Qt::AlignCenter);
         zAxisControlHeader = new QLabel(motorControlColumn);
         zAxisControlHeader->setObjectName(QString::fromUtf8("zAxisControlHeader"));
-        zAxisControlHeader->setGeometry(QRect(15, 380, 280, 25));
+        zAxisControlHeader->setGeometry(QRect(15, 260, 280, 25));
         zAxisControlHeader->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
 "background-color: rgb(83, 83, 83);"));
         zAxisControlHeader->setAlignment(Qt::AlignCenter);
         MotorControlUnderline_2 = new QLabel(motorControlColumn);
         MotorControlUnderline_2->setObjectName(QString::fromUtf8("MotorControlUnderline_2"));
-        MotorControlUnderline_2->setGeometry(QRect(15, 530, 280, 5));
+        MotorControlUnderline_2->setGeometry(QRect(15, 350, 280, 5));
         MotorControlUnderline_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
 "background-color: rgb(83, 83, 83);"));
         MotorControlUnderline_2->setAlignment(Qt::AlignCenter);
+        xDownButton = new QPushButton(motorControlColumn);
+        xDownButton->setObjectName(QString::fromUtf8("xDownButton"));
+        xDownButton->setGeometry(QRect(60, 120, 41, 31));
+        xDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        xUpButton = new QPushButton(motorControlColumn);
+        xUpButton->setObjectName(QString::fromUtf8("xUpButton"));
+        xUpButton->setGeometry(QRect(210, 120, 41, 31));
+        xUpButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        xPos = new QLineEdit(motorControlColumn);
+        xPos->setObjectName(QString::fromUtf8("xPos"));
+        xPos->setGeometry(QRect(115, 120, 81, 31));
+        xPos->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        yDownButton = new QPushButton(motorControlColumn);
+        yDownButton->setObjectName(QString::fromUtf8("yDownButton"));
+        yDownButton->setGeometry(QRect(60, 210, 41, 31));
+        yDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        yUpButton = new QPushButton(motorControlColumn);
+        yUpButton->setObjectName(QString::fromUtf8("yUpButton"));
+        yUpButton->setGeometry(QRect(210, 210, 41, 31));
+        yUpButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        yPos = new QLineEdit(motorControlColumn);
+        yPos->setObjectName(QString::fromUtf8("yPos"));
+        yPos->setGeometry(QRect(115, 210, 81, 31));
+        yPos->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        zPos = new QLineEdit(motorControlColumn);
+        zPos->setObjectName(QString::fromUtf8("zPos"));
+        zPos->setGeometry(QRect(115, 300, 81, 31));
+        zPos->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        zUpButton = new QPushButton(motorControlColumn);
+        zUpButton->setObjectName(QString::fromUtf8("zUpButton"));
+        zUpButton->setGeometry(QRect(210, 300, 41, 31));
+        zUpButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        zDownButton = new QPushButton(motorControlColumn);
+        zDownButton->setObjectName(QString::fromUtf8("zDownButton"));
+        zDownButton->setGeometry(QRect(60, 300, 41, 31));
+        zDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -333,7 +376,7 @@ public:
 
     void retranslateUi(QMainWindow *GUI)
     {
-        GUI->setWindowTitle(QCoreApplication::translate("GUI", "MainWindow", nullptr));
+        GUI->setWindowTitle(QCoreApplication::translate("GUI", "cellUview", nullptr));
         cellUview->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:20pt; font-weight:700;\">cellUview</span></p></body></html>", nullptr));
         scopeVideoFeed->setText(QString());
         captureButton->setText(QCoreApplication::translate("GUI", "Capture Image", nullptr));
@@ -370,7 +413,13 @@ public:
         yAxisControlHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p>Y-axis Controls</p></body></html>", nullptr));
         zAxisControlHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p>Z-axis Controls</p></body></html>", nullptr));
         MotorControlUnderline_2->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", nullptr));
-        menuOpenflexure->setTitle(QCoreApplication::translate("GUI", "Openflexure+", nullptr));
+        xDownButton->setText(QCoreApplication::translate("GUI", "-", nullptr));
+        xUpButton->setText(QCoreApplication::translate("GUI", "+", nullptr));
+        yDownButton->setText(QCoreApplication::translate("GUI", "-", nullptr));
+        yUpButton->setText(QCoreApplication::translate("GUI", "+", nullptr));
+        zUpButton->setText(QCoreApplication::translate("GUI", "+", nullptr));
+        zDownButton->setText(QCoreApplication::translate("GUI", "-", nullptr));
+        menuOpenflexure->setTitle(QCoreApplication::translate("GUI", "cellUview", nullptr));
     } // retranslateUi
 
 };
