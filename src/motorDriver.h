@@ -20,6 +20,9 @@ using namespace std::chrono_literals;
 // };
 
 
+/**
+* Class to interface with motor control board.
+**/
 class MotorDriver {
 
 public:

@@ -5,6 +5,11 @@
 //     motorCb = cb;
 // }
 
+/**
+* Opens serial link with motor driver board and starts motor thread.
+* @param device device id, defaults to "/dev/ttyUSB0"
+* @param baud baud rate of serial connection, defaults to 115200
+**/
 //void MotorDriver::start(std::string device, int baud){
 void MotorDriver::start(const char* device, int baud){
     if (enabled){
@@ -49,6 +54,9 @@ void MotorDriver::start(const char* device, int baud){
     }   
 }
 
+/**
+* Stops motor thread and closes serial connection.
+**/
 void MotorDriver::stop(){
     if (fd>-1){  // only need to end if motor connection opened
         enabled=false;
@@ -64,6 +72,11 @@ void MotorDriver::stop(){
 }
 
 
+/**
+* Private member function running in dedicated thread after motor connection opened. 
+* Runs while motors are enabled. 
+* Thread sleeps until a motor movement action is input.
+**/
 void MotorDriver::run(){
 
     while (enabled){
@@ -102,7 +115,9 @@ void MotorDriver::run(){
 
 }
 
-
+/**
+* Requests position from motor driver board and updates array.
+**/
 void MotorDriver::updatePosition(){
     
     serialPuts(fd, "p?");   //request new position
@@ -152,6 +167,9 @@ void MotorDriver::updatePosition(){
 }
 
 
+/**
+* Sends command to motor driver board to zero current position.
+**/
 void MotorDriver::resetToZero(){
 
     running = true;
@@ -173,22 +191,34 @@ void MotorDriver::resetToZero(){
     // return;
 }
 
-
+/**
+* @returns array of 3 integer values for current x, y, and z motor positions
+**/
 int* MotorDriver::getPosition(){
     return positionArray;
 }
 
 
+/**
+* @returns true if motors currently moving
+**/
 bool MotorDriver::getRunning(){
     return running;
 }
 
 
+/**
+* @returns true if motor connection could be established
+**/
 bool MotorDriver::getConnected(){
     return connected;
 }
 
 
+/**
+* Public member function called by GUI class to initiate a motor movement.
+* Updates axis and increment for movement and sets flag to wake motor thread.
+**/
 void MotorDriver::mov(char axis, int inc){
     commandAxis = axis;
     commandInc = inc;
