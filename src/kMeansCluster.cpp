@@ -72,33 +72,43 @@ void kMeansCluster::updateKMeans(frame f) {
         rows.push_back(row);
     }
 
-    // Sort the rows based on the first element of each row
-    std::sort(rows.begin(), rows.end(),
-              [](const cv::Vec3f& a, const cv::Vec3f& b) {
-                  return a[0] < b[0];
-              });
+    auto compare_transformations = [&rows](cv::Vec3f& i, cv::Vec3f& j){
+        return (i[0] < j[0]);
+    };
+    std::vector<int>transformations = {0,1,2};
 
+    // Sort the rows based on the first element of each row
+    // std::sort(rows.begin(), rows.end(),
+    //           [](const cv::Vec3f& a, const cv::Vec3f& b) {
+    //               return a[0] < b[0];
+    //           });
+    std::sort(transformations.begin(), transformations.end(),
+              [rows](int a, int b) {
+                  return rows[a][0] < rows[b][0];
+              });
     // Build the output matrix from the sorted rows
+
     cv::Mat output = cv::Mat::zeros(centers.size(), centers.type());
     for (int i = 0; i < rows.size(); i++) {
         cv::Vec3f row = rows[i];
         output.at<cv::Vec3f>(i) = row;
+        transformations.push_back(i);
     }
     centers = output;
-    std::cout<<centers<<std::endl;
-    //std::cout<<transformations[0]<<transformations[1]<<transformations[2]<< "   "<<std::endl<<std::endl;
+    //std::cout<<centers<<std::endl;
+    std::cout<<transformations[0]<<transformations[1]<<transformations[2]<< "   "<<std::endl<<std::endl;
     
     // //reassign label values based on reordered centroids 
     //std::cout<<labels.at<int>(0,0);
     for (int i = 0; i < labels.rows; i++){
-        //labels.at<int>(i, 0) = transformations[labels.at<int>(i, 0)];
+        labels.at<int>(i, 0) = transformations[labels.at<int>(i, 0)];
         ;
     }
     //std::cerr << centers << std::endl;
 
     centers = output;
     //std::cerr << labels.size << std::endl;
-    std::cout<<labels.at<int>(0,0)<<std::endl;
+    //std::cout<<labels.at<int>(0,0)<<std::endl;
     
 
     // Replace each pixel with the centroid of its cluster
