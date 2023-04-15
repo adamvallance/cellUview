@@ -84,6 +84,7 @@ public:
     QLineEdit *zPos;
     QPushButton *zUpButton;
     QPushButton *zDownButton;
+    QLabel *motorDisableText;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
     QStatusBar *statusbar;
@@ -164,11 +165,11 @@ public:
         namePos4->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         namePos2 = new QLabel(ImageHolder);
         namePos2->setObjectName(QString::fromUtf8("namePos2"));
-        namePos2->setGeometry(QRect(216, 190, 191, 16));
+        namePos2->setGeometry(QRect(216, 190, 191, 21));
         namePos2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         namePos1 = new QLabel(ImageHolder);
         namePos1->setObjectName(QString::fromUtf8("namePos1"));
-        namePos1->setGeometry(QRect(-4, 190, 191, 16));
+        namePos1->setGeometry(QRect(0, 190, 191, 21));
         namePos1->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         buttonPos1 = new QPushButton(ImageHolder);
         buttonPos1->setObjectName(QString::fromUtf8("buttonPos1"));
@@ -323,7 +324,11 @@ public:
         xDownButton = new QPushButton(motorControlColumn);
         xDownButton->setObjectName(QString::fromUtf8("xDownButton"));
         xDownButton->setGeometry(QRect(60, 120, 41, 31));
-        xDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        xDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);\n"
+"\n"
+"disabled {\n"
+"    background-color: gray;\n"
+"}"));
         xUpButton = new QPushButton(motorControlColumn);
         xUpButton->setObjectName(QString::fromUtf8("xUpButton"));
         xUpButton->setGeometry(QRect(210, 120, 41, 31));
@@ -356,6 +361,10 @@ public:
         zDownButton->setObjectName(QString::fromUtf8("zDownButton"));
         zDownButton->setGeometry(QRect(60, 300, 41, 31));
         zDownButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        motorDisableText = new QLabel(motorControlColumn);
+        motorDisableText->setObjectName(QString::fromUtf8("motorDisableText"));
+        motorDisableText->setGeometry(QRect(6, 76, 301, 261));
+        motorDisableText->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -419,6 +428,7 @@ public:
         yUpButton->setText(QCoreApplication::translate("GUI", "+", nullptr));
         zUpButton->setText(QCoreApplication::translate("GUI", "+", nullptr));
         zDownButton->setText(QCoreApplication::translate("GUI", "-", nullptr));
+        motorDisableText->setText(QCoreApplication::translate("GUI", "<html><head/><body><p align=\"center\">Motors are not connected</p><p align=\"center\">Manual operation only</p></body></html>", nullptr));
         menuOpenflexure->setTitle(QCoreApplication::translate("GUI", "cellUview", nullptr));
     } // retranslateUi
 

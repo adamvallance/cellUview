@@ -260,7 +260,7 @@ background-color: rgb(83, 83, 83);</string>
          <x>216</x>
          <y>190</y>
          <width>191</width>
-         <height>16</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -273,10 +273,10 @@ background-color: rgb(83, 83, 83);</string>
       <widget class="QLabel" name="namePos1">
        <property name="geometry">
         <rect>
-         <x>-4</x>
+         <x>0</x>
          <y>190</y>
          <width>191</width>
-         <height>16</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -911,7 +911,7 @@ disabled {
        <string>-</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="motorDisableText">
       <property name="geometry">
        <rect>
         <x>6</x>
