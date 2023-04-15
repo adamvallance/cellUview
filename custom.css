@@ -1201,7 +1201,8 @@ div.toc li a.aboveActive {
 
 code, div.fragment, pre.fragment {
     border-radius: var(--border-radius-small);
-    border: 1px solid var(--separator-color);
+    /* border: 1px solid var(--separator-color); */
+    border: none;
     overflow: hidden;
 }
 
@@ -1214,7 +1215,8 @@ code {
 
 div.fragment, pre.fragment {
     margin: var(--spacing-medium) 0;
-    padding: calc(var(--spacing-large) - (var(--spacing-large) / 6)) var(--spacing-large);
+    /* padding: calc(var(--spacing-large) - (var(--spacing-large) / 6)) var(--spacing-large); */
+    padding: 14px 16px;
     background: var(--fragment-background);
     color: var(--fragment-foreground);
     overflow-x: auto;
