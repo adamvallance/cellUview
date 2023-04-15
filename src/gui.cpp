@@ -260,6 +260,8 @@ void Gui::displayImages() {
     QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
     QSize labelSize = ui->galleryPos1->size();
     QPixmap pixmap1, pixmap2, pixmap3, pixmap4;
+    // list of image names here? 
+ //how images are brought in - filters jpg's images is a list of images 
 
     if (images.isEmpty()) {
         qWarning("No images found in directory %s", qUtf8Printable(directory));
@@ -272,10 +274,15 @@ void Gui::displayImages() {
 if (galleryPos1Index != -1) {
     QImage image1(directory + "/" + images[galleryPos1Index]);
     pixmap1 = QPixmap::fromImage(image1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QString image1Name = images.at(galleryPos1Index);
+    std::string img1Name = image1Name.toStdString();
+    std::cout<<"img1Name: "<<img1Name<<std::endl;
+
     
 } else {
 
     ui->galleryPos1->clear();
+    //ui->namePos1->clear();
 }
 
 if (galleryPos2Index != -1) {
@@ -283,6 +290,7 @@ if (galleryPos2Index != -1) {
     pixmap2 = QPixmap::fromImage(image2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 } else {
     ui->galleryPos2->clear();
+    //ui->namePos2->clear();
 }
 
 if (galleryPos3Index != -1) {
@@ -290,6 +298,7 @@ if (galleryPos3Index != -1) {
    pixmap3 = QPixmap::fromImage(image3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 } else {
     ui->galleryPos3->clear();
+    //ui->namePos3->clear();
     
 }
 
@@ -298,12 +307,18 @@ if (galleryPos4Index != -1) {
     pixmap4 = QPixmap::fromImage(image4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 } else {
     ui->galleryPos4->clear();
+   // ui->namePos4->clear();
 }
 
 ui->galleryPos1->setPixmap(pixmap1);
 ui->galleryPos2->setPixmap(pixmap2);
 ui->galleryPos3->setPixmap(pixmap3);
 ui->galleryPos4->setPixmap(pixmap4);
+
+//ui->namePos1->setText(name1) // however the name is called
+//ui->namePos2->setText(name2)
+//ui->namePos3->setText(name3)
+//ui->namePos4->setText(name4)
 }
 
 void Gui::updateGalleryIndex (bool moveUp){
