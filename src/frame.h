@@ -51,7 +51,8 @@ class frame{
             "grayScale",
             "contrastThreshold",
             "flatField",
-            "exposure"
+            "exposure",
+            "kMean"
             //ADD MORE PARAMETERS HERE
         };
 

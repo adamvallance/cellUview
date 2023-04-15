@@ -1,6 +1,6 @@
 
-#ifndef OPENFLEXURE_K_MEANS_CLUSTER_H
-#define OPENFLEXURE_K_MEANS_CLUSTER_H
+#ifndef CELLUVIEW_K_MEANS_CLUSTER_H
+#define CELLUVIEW_K_MEANS_CLUSTER_H
 
 
 #include <opencv2/core.hpp>
@@ -14,11 +14,14 @@
 class kMeansCluster: public imageProcessor{
 public:
     kMeansCluster() = default;
-    void newFrame(frame newFrame);
+    void receiveFrame(frame newFrame);
+    std::string getParamLabel(){return paramLabel;};
+
+    void updateSettings(std::map<std::string, std::string>);
 
 private:
     //add any other methods here
-    void kMeans(frame); //k means clustering
-    int frame_counter = 0;
+    void kMeans(frame); //edge detection
+    std::string paramLabel = "kMean";
 };
-#endif // OPENFLEXURE_EK_MEANS_CLUSTER_H
+#endif // CELLUVIEW_K_MEANS_CLUSTER_H

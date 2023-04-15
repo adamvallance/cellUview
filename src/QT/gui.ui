@@ -185,7 +185,7 @@ background-color: rgb(83, 83, 83);</string>
        <string notr="true">background-color: rgb(179, 179, 179);</string>
       </property>
       <property name="text">
-       <string>Flat</string>
+       <string>Flat Field Capture (Perform with empty slide)</string>
       </property>
      </widget>
     </widget>
@@ -440,8 +440,24 @@ background-color: rgb(179, 179, 179);</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>440</x>
         <y>60</y>
+        <width>151</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Flat Field Correction</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="kMeansBox">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>90</y>
         <width>111</width>
         <height>23</height>
        </rect>
@@ -450,7 +466,7 @@ background-color: rgb(179, 179, 179);</string>
        <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Flat</string>
+       <string>Kmeans</string>
       </property>
      </widget>
     </widget>

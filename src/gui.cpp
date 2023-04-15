@@ -51,7 +51,14 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
          
     });
 
-
+        // //-----------block 6 kmeans ---------------------
+    QObject::connect(ui->kMeansBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[6]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[6]->toggleEnable();
+        }
+         
+    });
     //-------------block -1 edge enhancement-----------------------
     QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->edgeEnhancementValueInput, [&](int sliderValue) {
         ui->edgeEnhancementValueInput->setText(QString::number(sliderValue));
@@ -314,6 +321,9 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         }
         else if(label == "flatField"){
             ui->flatFieldBox->setChecked(valueBool);
+        }
+        else if(label == "kMean"){
+            ui->kMeansBox->setChecked(valueBool);
         }
     }
     

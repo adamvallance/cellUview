@@ -1,27 +1,40 @@
-// This file performs 
+// This file performs standard kMeansCluster at a set threshold to remove blurry pixels
 
 // Author Mark Main
 
 #include "kMeansCluster.h"
 #include <opencv2/imgproc.hpp>
 
-
-void kMeansCluster::newFrame(frame newFrame) {
-    // Increment counter for the number of frames processed
-    frame_counter++;
-    std::cerr << "Frame number" << frame_counter << std::endl;
-    // Check if counter is a multiple of 25
-    if (frame_counter % 1 == 0) {
-        // Perform clustering on the new frame
-        this->kMeans(newFrame);
-    } else {
-        // Pass the new frame through without clustering
-        frameCb->newFrame(newFrame);
+// Receives new frames through a callback.
+void kMeansCluster::receiveFrame(frame newFrame) {
+    if (!enabled){
+        newFrame.setParameter(paramLabel, "OFF");
+        frameCb->receiveFrame(newFrame);
+        return;
     }
+
+    // Pass frame into the kMeansCluster function
+    kMeans(newFrame); 
+}
+
+void kMeansCluster::updateSettings(std::map<std::string, std::string> metadata){
+    
+    std::string rec = metadata[paramLabel];
+
+    bool desired = (rec == "ON");
+    // std::cout<<rec<<std::endl;
+
+    // std::cout<<desired<<std::endl;
+
+    if (enabled != desired){
+        toggleEnable();
+    }
+
+    
 }
 
 void kMeansCluster::kMeans(frame f) {
-    cv::Mat frame = f.image;
+cv::Mat frame = f.image;
 
     // Convert the image type from 0C3 to 32F so it is compatible
     //frame.convertTo(frame, CV_32F, 1.0/255.0);
@@ -106,6 +119,5 @@ void kMeansCluster::kMeans(frame f) {
     f.image = frame;
 
     // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->newFrame(f);
-
+    frameCb->receiveFrame(f);
 }

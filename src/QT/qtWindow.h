@@ -57,6 +57,7 @@ public:
     QLabel *label_6;
     QSlider *exposureSlider;
     QCheckBox *flatFieldBox;
+    QCheckBox *kMeansBox;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
     QStatusBar *statusbar;
@@ -199,8 +200,12 @@ public:
         flatFieldBox = new QCheckBox(widget_6);
         flatFieldBox->setObjectName(QStringLiteral("flatFieldBox"));
         flatFieldBox->setEnabled(false);
-        flatFieldBox->setGeometry(QRect(480, 60, 111, 23));
+        flatFieldBox->setGeometry(QRect(440, 60, 151, 23));
         flatFieldBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        kMeansBox = new QCheckBox(widget_6);
+        kMeansBox->setObjectName(QStringLiteral("kMeansBox"));
+        kMeansBox->setGeometry(QRect(450, 90, 111, 23));
+        kMeansBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -228,7 +233,7 @@ public:
         label->setText(QApplication::translate("GUI", "Gallery", Q_NULLPTR));
         restoreSettingsButton->setText(QApplication::translate("GUI", "Restore Settings", Q_NULLPTR));
         label_2->setText(QApplication::translate("GUI", "Image Settings", Q_NULLPTR));
-        FlatFieldButton->setText(QApplication::translate("GUI", "Flat", Q_NULLPTR));
+        FlatFieldButton->setText(QApplication::translate("GUI", "Flat Field Capture (Perform with empty slide)", Q_NULLPTR));
         edgeEnhancementValueInput->setText(QString());
         label_3->setText(QApplication::translate("GUI", "Control Panel", Q_NULLPTR));
         grayScaleBox->setText(QApplication::translate("GUI", "Gray Scale", Q_NULLPTR));
@@ -239,7 +244,8 @@ public:
         label_5->setText(QApplication::translate("GUI", "Contrast Enhancement", Q_NULLPTR));
         exposureValueInput->setText(QString());
         label_6->setText(QApplication::translate("GUI", "Exposure (EV)", Q_NULLPTR));
-        flatFieldBox->setText(QApplication::translate("GUI", "Flat", Q_NULLPTR));
+        flatFieldBox->setText(QApplication::translate("GUI", "Flat Field Correction", Q_NULLPTR));
+        kMeansBox->setText(QApplication::translate("GUI", "Kmeans", Q_NULLPTR));
         menuOpenflexure->setTitle(QApplication::translate("GUI", "cellUview", Q_NULLPTR));
     } // retranslateUi
 
