@@ -17,6 +17,7 @@
 #include "camera.h"
 #include "contrastEnhancement.h"
 #include "flatFieldCorrect.h"
+#include "kMeansCluster.h"
 
 
 

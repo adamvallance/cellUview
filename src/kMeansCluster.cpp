@@ -34,36 +34,14 @@ void kMeansCluster::updateSettings(std::map<std::string, std::string> metadata){
 }
 
 void kMeansCluster::kMeans(frame f) {
-cv::Mat frame = f.image;
-
-    // Convert the image type from 0C3 to 32F so it is compatible
-    //frame.convertTo(frame, CV_32F, 1.0/255.0);
-    frame.convertTo(frame, CV_32F);
-    std::cerr << "frame Type: " << frame.type() << std::endl;
-    std::cerr << "f.image Type: " << f.image.type() << std::endl;
+    cv::Mat frame = f.image;
+    frame.convertTo(frame, CV_32FC3);
     
-
-    // Some checks
-    //if (frame.empty() || frame.dims != 2 || frame.type() != CV_32F) {
-    if (frame.empty() || frame.dims != 2 || frame.type() != 21) {
-    std::cerr << "Error: input data is not a valid 2D matrix of type CV_32F" << std::endl;
-    
-    // Print out the type of the input matrix
-    int type = frame.type();
-    int depth = CV_MAT_DEPTH(type);
-    int channels = CV_MAT_CN(type);
-    std::cerr << "Input matrix type: " << depth << "C" << channels << std::endl;
-    //int channel = f.image.channels();
-    int channel = frame.channels();
-    std::cout << "Number of channels: " << channels << std::endl;
-    return;
-    }
-
     // Reshape image to a 2D array of pixels
     cv::Mat reshaped = frame.reshape(1, frame.rows * frame.cols);
 
     // Define the number of clusters
-    int num_clusters = 2;
+    int num_clusters = 10;
 
     // Check if the number of clusters is positive
     if (num_clusters <= 0) {
@@ -91,13 +69,12 @@ cv::Mat frame = f.image;
     }
 
     // Reshape the image back to its original size
-    cv::Mat output_mat = reshaped.reshape(1, frame.rows);
+    cv::Mat output_mat = reshaped.reshape(1, frame.rows).reshape(3, frame.rows);
+
 
     // Convert output cv::Mat to frame
-    //f.image = output_mat;
     frame = output_mat;
     cv::Mat heatmap = cv::Mat::zeros(frame.rows, frame.cols, CV_8UC3);
-    
     // Convert centers to CV_8UC3
     cv::Mat centers_8u;
     centers.convertTo(centers_8u, CV_8UC3);
@@ -108,14 +85,11 @@ cv::Mat frame = f.image;
         heatmap.at<cv::Vec3b>(i) = centroid_color;
     }
     
-    //cv::imshow("Heatmap", heatmap);
-   //cv::waitKey(0);
+  
     cv::Mat heatmap_resized;
     cv::resize(heatmap, heatmap_resized, frame.size(), 0, 0, cv::INTER_LINEAR);
     heatmap_resized.convertTo(frame, frame.type());
-    std::cerr << "Frame type before: " << frame.type() << std::endl;
     frame.convertTo(frame, CV_8UC3);
-    std::cerr << "Frame type after: " << frame.type() << std::endl;
     f.image = frame;
 
     // Output the frame through the callback onto the next instance in the dataflow
