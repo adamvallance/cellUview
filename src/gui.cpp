@@ -8,6 +8,7 @@
 * @param win points to QMainWindow 
 * @param ui_win points to Ui_GUI 
 * @param galleryIn points to Gallery instance
+* @param motorsIn points to MotorDriver instance
 * @param blocksIn is a std::vector of the image processing blocks
 **/
 Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *motorsIn, std::vector<imageProcessor *> &blocksIn)
@@ -402,6 +403,12 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     
 }
 
+/**
+* Calls MotorDriver move function if motors have been connected and initialised at startup.
+* Updates UI with new position.
+* @param ax axis of travel (x, y, or z)
+* @param increment step to move motors by
+**/
 void Gui::motorMove(char ax, int increment){
     
     bool motorsConnected = motors->getConnected();
