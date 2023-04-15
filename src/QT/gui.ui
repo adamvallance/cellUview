@@ -262,6 +262,22 @@ background-color: rgb(179, 179, 179);</string>
         <string/>
        </property>
       </widget>
+      <widget class="QLabel" name="motorDisabledText">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>30</y>
+         <width>201</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Motors Not Connected&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Manual Control Only&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label">
       <property name="geometry">
@@ -609,7 +625,7 @@ background-color: rgb(179, 179, 179);</string>
      <x>0</x>
      <y>0</y>
      <width>1162</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">

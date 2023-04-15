@@ -23,6 +23,12 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
 
+    // initialise motor positions at zero
+    ui->xPos->setText(QString::number(0));
+    ui->yPos->setText(QString::number(0));
+    ui->zPos->setText(QString::number(0));
+
+
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
          //-----------block 1 flat field---------------------
@@ -164,6 +170,20 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
 
 
+    ui->motorDisabledText->setVisible(false);       // motor disabled message default to invisible
+    // check if motors connected, if not, disable controls
+    if (!motors->getConnected()){ 
+        ui->motorDisabledText->setVisible(true);    // show no motors message
+        ui->xUpButton->setDisabled(true);
+        ui->xDownButton->setDisabled(true);
+        ui->xPos->setEnabled(false);
+        ui->yUpButton->setDisabled(true);
+        ui->yDownButton->setDisabled(true);
+        ui->yPos->setEnabled(false);
+        ui->zUpButton->setDisabled(true);
+        ui->zDownButton->setDisabled(true);
+        ui->zPos->setEnabled(false);
+    }
 
     // motor ui element connections
     QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 10); });
