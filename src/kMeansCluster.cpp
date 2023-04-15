@@ -33,12 +33,12 @@ void kMeansCluster::updateSettings(std::map<std::string, std::string> metadata){
     
 }
 
-void kMeansCluster::kMeans(frame f) {
-    cv::Mat frame = f.image;
-    frame.convertTo(frame, CV_32FC3);
+void kMeansCluster::updateKMeans(frame f) {
+
+    f.image.convertTo(f.image, CV_32FC3);
     
     // Reshape image to a 2D array of pixels
-    cv::Mat reshaped = frame.reshape(1, frame.rows * frame.cols);
+    cv::Mat reshaped = f.image.reshape(1, f.image.rows * f.image.cols);
 
     // Define the number of clusters
     int num_clusters = 3;
@@ -69,29 +69,43 @@ void kMeansCluster::kMeans(frame f) {
     }
 
     // Reshape the image back to its original size
-    cv::Mat output_mat = reshaped.reshape(1, frame.rows).reshape(3, frame.rows);
+    cv::Mat output_mat = reshaped.reshape(1, f.image.rows).reshape(3, f.image.rows);
 
 
-    // Convert output cv::Mat to frame
-    frame = output_mat;
-    cv::Mat heatmap = cv::Mat::zeros(frame.rows, frame.cols, CV_8UC3);
+    // Convert output cv::Mat to f.image
+    f.image = output_mat;
+    cv::Mat heatmap = cv::Mat::zeros(f.image.rows, f.image.cols, CV_8UC3);
     // Convert centers to CV_8UC3
     cv::Mat centers_8u;
     centers.convertTo(centers_8u, CV_8UC3);
 
+
+    // Iterate through the pixels and assign colors based on the cluster IDs
     for (int i = 0; i < reshaped.rows; i++) {
         int cluster_id = labels.at<int>(i);
-        cv::Vec3b centroid_color = centers_8u.at<cv::Vec3b>(cluster_id);
+        cv::Vec3b centroid_color = colors[cluster_id];
         heatmap.at<cv::Vec3b>(i) = centroid_color;
     }
+
+
     
   
     cv::Mat heatmap_resized;
-    cv::resize(heatmap, heatmap_resized, frame.size(), 0, 0, cv::INTER_LINEAR);
-    heatmap_resized.convertTo(frame, frame.type());
-    frame.convertTo(frame, CV_8UC3);
-    f.image = frame;
+    cv::resize(heatmap, heatmap_resized, f.image.size(), 0, 0, cv::INTER_LINEAR);
+    heatmap_resized.convertTo(f.image, f.image.type());
+    f.image.convertTo(f.image, CV_8UC3);
 
-    // Output the frame through the callback onto the next instance in the dataflow
+    current_k_means = f.image;
+}
+
+
+void kMeansCluster::kMeans(frame f) {
+    
+    
+    updateKMeans(f);
+    f.image = current_k_means;
+
+    f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
 }
+

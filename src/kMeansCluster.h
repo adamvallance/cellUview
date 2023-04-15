@@ -21,7 +21,12 @@ public:
 
 private:
     //add any other methods here
-    void kMeans(frame); //edge detection
+    void updateKMeans(frame);
+    void kMeans(frame);
     std::string paramLabel = "kMean";
+    // Define a vector of colors
+    std::vector<cv::Vec3b> colors = {cv::Vec3b(255, 0, 0), cv::Vec3b(0, 255, 0), cv::Vec3b(0, 0, 255)};
+    cv::Mat current_k_means;
+    cv::Mat current_centers;
 };
 #endif // CELLUVIEW_K_MEANS_CLUSTER_H
