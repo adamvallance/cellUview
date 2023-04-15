@@ -121,6 +121,6 @@ class Example Class{
 
 There are also keywords like ```@returns``` to explain what a function returns for example. Gets formatted nicely by doxygen. Refer to the doxygen guide for more stuff like this.
 
-To update the docs, need doxygen installed (easiest way by downloading and extracting the binary then doing ```make install```). Then, run ```doxygen``` in main repo directory. Maybe we can automate this process on pull request?
+To update the docs, run ```doxygen``` in main repo directory. Doxygen install is added to the setup script. Maybe we can automate this process on pull request?
 
 To view the online docs, nagivate to ```/docs/html``` and open ```index.html```. Next step to add this to a github pages link.
