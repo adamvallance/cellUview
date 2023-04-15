@@ -9,53 +9,63 @@
 #include "camera.h"
 #include "stdlib.h"
 #include "gui.h"
-#include "OpenFlexureWelcome.h"
-#include "processingTemplate.h"
+#include "cellUviewWelcome.h"
 #include "edgeDetection.h"
 #include "gallery.h"
+#include "flatFieldCorrect.h"
 #include "erosion.h"
 #include "dilation.h"
-#include "kMeansCluster.h"
-
-#define USE_TEMPLATE //uncomment this to add the example manipulation in the chain
-
+#include "grayScale.h"
+#include "contrastEnhancement.h"
 
 int main(int argc, char* argv[]){
-    OpenFlexureWelcome::welcomeMessage();
+    cellUviewWelcome::welcomeMessage();
     
     QApplication app(argc, argv);
     QMainWindow window;
     Ui_GUI ui;
     
+ 
+
     //creating camera and gallery and gui instances
     Camera camera;
     Gallery gallery;
-    Gui gui(&window, &ui, &gallery);
     
-#ifdef USE_TEMPLATE
-    Template example;
     edgeDetection edge;
+    contrastEnhancement cont;
+    flatFieldCorrect flat;
+    //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
-    kMeansCluster kMean;
-    //register callbacks
-    
-    camera.registerCallback(&kMean);
-    kMean.registerCallback(&gui);
-    //erode.registerCallback(&dilate);
-    //dilate.registerCallback(&gui);
-    //example.registerCallback(&gui);
-    //edge.registerCallback(&gui);
-#else 
-    camera.registerCallback(&gui);
-#endif
+    grayScale gray;
+    std::vector <imageProcessor *> blocks={&camera, &flat, &erode, &dilate, &gray, &cont, &edge};
+
+    Gui gui(&window, &ui, &gallery, blocks);
+
+    //Keep image enhancement classes in the callback chain
+    //but call instance.toggleEnable to bypass
+    //eg to default turn 
+
+    //register callbacks. To change order, change the order in the blocks vector above
+    camera.registerCallback(blocks[1]);
+    for (int i = 1; i < blocks.size()-1; i++){
+            blocks[i]->registerCallback(blocks[i+1]);
+    }
+
+    blocks.back()->registerCallback(&gui);
+
 
     //start camera
     camera.start();
     
     //start gui
     gui.SetVisible(true);
-    app.exec(); //loops main thread
+
+    try{
+        app.exec(); //loops main thread
+    }catch(...){
+        app.exit();
+    }
     
     //stop camera
     camera.stop();

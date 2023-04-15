@@ -1,14 +1,22 @@
-# OpenFlexure-microscopy-enhancement
-This project provides real-time image processing capabilities for the Raspberry Pi based OpenFlexure microscope platform for image enhancement including contrast and sharpness adjustment, edge detection/enhancement, and classification using k-means clustering.
+
+# cellUview-microscopy-enhancement
+
+[![CMake](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml/badge.svg)](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml)
+
+This project provides real-time image processing capabilities for the Raspberry Pi based cellUview microscope platform for image enhancement including contrast and sharpness adjustment, edge detection/enhancement, and classification using k-means clustering.
 
 <img src="https://openflexure.org/assets/ofm-photos/v7_side_view_crop.jpg" width="200" />
 
 # dev instructions
-To get OpenFlexure+, go to a terminal and type
+To get cellUview+, go to a terminal and type
 ```
 git clone https://github.com/adamvallance/openflexure-microscopy-enhancement.git
 cd openflexure-microscopy-enhancement
 sudo bash setup.sh
+```
+Alternatively, to avoid rebuilding opencv 4.7.0, if already installed on machine enter
+```
+sudo bash setup.sh -n
 ```
 
 
@@ -19,17 +27,18 @@ bash build.sh
 ```
 Then to run enter
 ```
-bin/OpenFlexure
+bin/cellUview
 ```
 
 ```build.sh``` has options:
 ```
-Syntax: build.sh [-h|r|i|c]"
-   options:"
-   -h     Print this Help."
-   -r     Build and run."
-   -i     Build and install executeable onto path /usr/bin. Requires sudo."
-   -c     Clear CMake Cache and build."
+Syntax: build.sh [-h|r|i|c]
+   options:
+   -h     Print this Help.
+   -r     Build and run.
+   -i     Build and install executeable onto path /usr/bin. Requires sudo.
+   -t     Build and run tests.
+   -c     Clear CMake Cache and build.
 ```
 
 Example: If you want to build and run straight away enter:
@@ -40,9 +49,9 @@ or to build, remove the cmake cache, install and run straight away:
 ```
 bash build.sh -r -c -i
 ```
-If the -i option is used, OpenFlexurePlus can be executed from anywhere by typing 
+If the -i option is used, cellUviewPlus can be executed from anywhere by typing 
 ```
-OpenFlexure
+cellUview
 ```
 
 ### Note
@@ -50,7 +59,7 @@ Make sure you have opencv_build and opencv_src inside the main directory. instal
 
 ## Google Test
 
-### Installation
+<!-- ### Installation
 It is necessary to also install Google Test, as unit tests are run when building.
 To install, run the following commands:
 ```
@@ -60,7 +69,7 @@ sudo cmake CMakeLists.txt
 sudo make
 sudo cp *.a /usr/lib
 ```
-These commands to be added to setup script.
+These commands to be added to setup script. -->
 
 ### Adding Tests
 
@@ -94,10 +103,8 @@ Finally, ```main.cpp``` in test should be updated to include the new test header
 To run the tests, re-run ```build.sh``` as the unit tests are automatically run during building.
 
 ## GUI build
-To update the GUI, copy ONLY the gui.ui file generated in QTCreator into  main directory.
-Then in a terminal enter
+To update the GUI, copy ONLY the gui.ui file generated in QTCreator into  main directory and run the build script with option -g.
 ```
-bash rebuildGUI.sh
+bash build.sh -g
 ```
-before building the whole program as described above.
 Edits to connections and signals should be made inside src/gui.cpp

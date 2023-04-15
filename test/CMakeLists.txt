@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(OpenFlexure)
+project(cellUview)
 
 set(OpenCV_DIR "../opencv_build")
 
@@ -11,4 +11,6 @@ include_directories(../src)
 enable_testing()
 
 add_executable(main main.cpp)
-target_link_libraries(main ${OpenCV_LIBS} gtest gtest_main camera edgeDetection)
+target_link_libraries(main ${OpenCV_LIBS} gtest gtest_main camera imageProc gallery)
+
+

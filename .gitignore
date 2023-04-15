@@ -1,15 +1,16 @@
 bin/
 .settings/
-OpenFlexure.code-workspace
+cellUview.code-workspace
 build/
-cpp_exiftool
+src/cpp_exiftool
 opencv/
-src/OpenFlexure_autogen/
+src/cellUview_autogen/
 src/moc_gui.cpp
-src/OpenFlexure_automoc.dir/
+src/cellUview_automoc.dir/
 *.a
 *_automoc.cpp
 *.save
+*.autosave
 
 .vscode/
 
@@ -17,6 +18,7 @@ src/OpenFlexure_automoc.dir/
 *.air
 *.ipa
 *.apk
+*.jpg
 
 
 *.pdf
