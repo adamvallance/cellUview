@@ -242,7 +242,7 @@ void Gui::captureNextFrame()
 void Gui::restoreSettings(std::string fname)
 {
     std::cout<<"restoring settings" <<std::endl;
-    std::cout<<fname <<std::endl;
+    // std::cout<<fname <<std::endl;
     metadata = this->gallery->getMetadata(fname);
 
 
