@@ -12,54 +12,74 @@ Gallery::Gallery(){
 //---- find or create gallery directory----
     pathname = getenv("HOME");
     pathname += + "/cellUviewGallery/"; 
-    
-    //if it doesn't exist
-    if ((dir = opendir(pathname.c_str())) == NULL){
-        //try to make the directory
-        if (mkdir(pathname.c_str(), S_IRWXU) == -1){
-            //if failed:
-            std::cerr << "Error :  " << std::strerror(errno) << std::endl;
-            std::cout << "Gallery directory not found/created";
-            //ADD. disable button if failed
-            pathname = ""; 
-            return;
-        }
-        else{//if gallery succesfully made
-            std::cout << "Gallery directory created at " + pathname << std::endl;
-        }
-    }else{//if gallery already exists
-        std::cout << "Gallery directory found at " + pathname << std::endl;
-        closedir(dir);
-    }
-
+    flatFieldPath = pathname + ".FlatFieldGallery";
     //updates index to find highest existing file with matching name to avoid overwriting
+    initialiseDirectory(pathname, "cellUview Gallery");
+    initialiseDirectory(flatFieldPath, "Flat field capture gallery");
     updateIndex();
     
 }
 
+int Gallery::initialiseDirectory(std::string path, std::string description){
+        //if it doesn't exist
+    if ((dir = opendir(path.c_str())) == NULL){
+        //try to make the directory
+        if (mkdir(path.c_str(), S_IRWXU) == -1){
+            //if failed:
+            std::cerr << "Error :  " << std::strerror(errno) << std::endl;
+            std::cout << description << " directory not found/created";
+            //ADD. disable button if failed
+            pathname = ""; 
+            return 1;
+        }
+        else{//if gallery succesfully made
+            std::cout << description << " directory created at " + path << std::endl;
+        }
+    }else{//if gallery already exists
+        std::cout << description << " directory found at " + path << std::endl;
+        closedir(dir);
+    }
+
+    return 0;
+
+    //updates index to find highest existing file with matching name to avoid overwriting
+}
+
+
 //add some error handling
-void Gallery::captureFrame(frame capFrame){
+void Gallery::captureFrame(frame capFrame, bool updateFlatField, int flatFieldCounter){
     if (pathname == ""){
         return;
     }
     //add ability to set custom string before number
+    if (updateFlatField == true){
+            captureFname = pathname + "/.FlatFieldGallery/flatField" + std::to_string(flatFieldCounter) + ".jpg";
+            std::string flatFieldPath = captureFname;
 
-    //build output name string
-    captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
+            //save image
+            img = capFrame.image;
+            cv::imwrite(captureFname, img); 
+            
+    }
+    else{
+        //build output name string
+        captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
 
-    //save image
-    img = capFrame.image;
-    cv::imwrite(captureFname, img); 
+        //save image
+        img = capFrame.image;
+        cv::imwrite(captureFname, img); 
 
-    captureImgCounter++;
+        captureImgCounter++;
+        
+
+        writeMetadata(capFrame, captureFname);
+        
+        std::cout<<"Capturing"<<std::endl;
+        //debug
+        //std::cout << getMetadata() << std::endl;    
+
+    }   
     
-
-    writeMetadata(capFrame, captureFname);
-    
-    std::cout<<"Capturing"<<std::endl;
-    //debug
-    //std::cout << getMetadata() << std::endl;    
-
 } 
 
 void Gallery::writeMetadata(frame f, std::string captureFname){

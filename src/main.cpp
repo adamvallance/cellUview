@@ -12,6 +12,7 @@
 #include "cellUviewWelcome.h"
 #include "edgeDetection.h"
 #include "gallery.h"
+#include "flatFieldCorrect.h"
 #include "erosion.h"
 #include "dilation.h"
 #include "grayScale.h"
@@ -32,11 +33,12 @@ int main(int argc, char* argv[]){
     
     edgeDetection edge;
     contrastEnhancement cont;
+    flatFieldCorrect flat;
     //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
     grayScale gray;
-    std::vector <imageProcessor *> blocks={&camera, &erode, &dilate, &gray, &cont, &edge};
+    std::vector <imageProcessor *> blocks={&camera, &flat, &erode, &dilate, &gray, &cont, &edge};
 
     Gui gui(&window, &ui, &gallery, blocks);
 
