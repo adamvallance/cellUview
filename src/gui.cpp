@@ -161,13 +161,24 @@ void Gui::receiveFrame(frame newFrame)
     // if capturing, capture before conversion to rgb
     if (doCapture && newFrame.doMeta && updateFlatField == false){
         gallery->captureFrame(newFrame);
+        doCapture = false; // reset flag
     }
     else if (doCapture && newFrame.doMeta && updateFlatField == true){
-        gallery->captureFrame(newFrame, updateFlatField);
-        updateFlatField = false;
+        if (flatFieldCounter <20){
+            gallery->captureFrame(newFrame, updateFlatField, flatFieldCounter);
+            //std::cout<<"capture"+ flatFieldCounter<<std::endl;
+            flatFieldCounter ++;
+            doCapture=true;
+            cam->captureMetadata();
+
+        }else{
+            updateFlatField = false;
+            doCapture = false;
+        }
+
 
     }
-    doCapture = false; // reset flag
+
     img = newFrame.image;
 
     // maybe try replacing img with newFrame.img to avoid unnecessary copying.
@@ -182,7 +193,10 @@ void Gui::receiveFrame(frame newFrame)
 }
 
 void Gui::setUpdateFlatField(){
+    //std::cout<<"setUpdateField"<<std::endl;
+
     updateFlatField=true;
+    flatFieldCounter = 0;
     static_cast<flatFieldCorrect*>(blocks[0])->setUpdateFlag();
     cam->captureMetadata();
     doCapture = true;

@@ -39,6 +39,7 @@ private:
     bool updateFlatField = false;
     bool flatFieldEnable = false;
     void setUpdateFlatField();
+    int flatFieldCounter = 0; 
 
 
     cv::Mat img;

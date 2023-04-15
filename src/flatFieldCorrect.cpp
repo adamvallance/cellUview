@@ -1,4 +1,4 @@
-// This file performs flat field correction on the input image, to compensate for uneven illumination on the image plane
+// This file performs flat field and chromatic abberation correction on the input image, to compensate for uneven illumination on the image plane
 
 // Author Mark Main
 
@@ -19,7 +19,7 @@ void flatFieldCorrect::receiveFrame(frame newFrame) {
     }
     // do stuff here
 
-    // passing frame into the edge detection function
+    // passing frame into the flat field function
     flatField(newFrame); 
 
 
@@ -46,7 +46,7 @@ void flatFieldCorrect::updateAverage(frame f) {
     std::string pathname = getenv("HOME");
     pathname += + "/cellUviewGallery/.FlatFieldGallery/";
     std::vector<cv::Mat> reference_images;
-    for (int i = 1; i <= 20; i++) {
+    for (int i = 0; i <= 19; i++) {
         std::string flatFieldPath = pathname + "flatField" + std::to_string(i) + ".jpg";
         cv::Mat reference_image = cv::imread(flatFieldPath);
         reference_images.push_back(reference_image);
@@ -54,41 +54,23 @@ void flatFieldCorrect::updateAverage(frame f) {
 
     // Calculate the average of the reference images
     cv::Mat average_reference_image;
+    //initialise average reference to be 1/20 weighted average of first two captures
     cv::addWeighted(reference_images[0], 1.0/20, reference_images[1], 1.0/20, 0, average_reference_image);
-    for (int i = 2; i < 20; i++) {
+    for (int i = 2; i < 19; i++) { //add further captures at 1/20 weighting to form weighted average.
         cv::addWeighted(average_reference_image, 1.0, reference_images[i], 1.0/20, 0, average_reference_image);
     }   
 
 
-    // Calculate the correction factor using the average reference image
+    // Calculate the correction factor using the average reference image and apply some blurring
     cv::Mat correction_factor;
     cv::GaussianBlur(average_reference_image, average_reference_image, cv::Size(35, 35), 0);
     cv::resize(average_reference_image, correction_factor, f.image.size());
-    cv::Mat normalised_correction_factor;
-    cv::normalize(correction_factor, normalised_correction_factor, 0, 1, cv::NORM_MINMAX, CV_32FC3);
-    cv::Mat inverted_img;
-    cv::subtract(cv::Scalar(1, 1, 1), normalised_correction_factor, inverted_img);
-    //std::cout<<inverted_img<<std::endl;
-    
-    // std::string pathname1 = getenv("HOME");
-    // pathname1 += + "/OpenFlexureGallery/"; 
-    // std::string filename1 = pathname1 + "bob" + ".jpg";
-    // cv::imwrite(filename1, correction_factor);
 
+    //Create a white matrix to generate an inversion and subtract the correction factor from this value
     cv::Mat whiteImage(f.image.rows, f.image.cols, CV_8UC3, cv::Scalar(255, 255, 255));
-
-
-    //cv::Mat whiteImage(f.image.rows,f.image.cols,CV_8UC3,255);
-
     cv::subtract(whiteImage, correction_factor, correction_factor);
-    
-    std::string pathname1 = getenv("HOME");
-    pathname1 += + "/OpenFlexureGallery/"; 
-    std::string filename1 = pathname1 + "bob" + ".jpg";
-    cv::imwrite(pathname1 + "john.jpg", whiteImage);
-    cv::imwrite(filename1, correction_factor);
-    current_correction_factor = correction_factor;
 
+    current_correction_factor = correction_factor;
 }
 
 
@@ -99,17 +81,9 @@ void flatFieldCorrect::flatField(frame f) {
 
     if (calculateAverageEnabled) {
         updateAverage(f);
-
-        //debug
-        // std::string pathname2 = getenv("HOME");
-        // pathname2 += + "/OpenFlexureGallery/"; 
-        // std::string filename2 = pathname2 + "brian" + ".jpg";
-        // cv::imwrite(filename2, f.image);
-        // std::cout<<f.image<<std::endl;
-        //end of debug
         calculateAverageEnabled = false;
     }
-    //f.image.convertTo(f.image, CV_32FC3, 1/255.0);
+    //generate Matrices identical to input and correction at 16 bit to scale beyond 255 to normalise resultatn values
     cv::Mat f_16uc3, current_correction_factor_16uc3;
     f.image.convertTo(f_16uc3, CV_16UC3);
     current_correction_factor.convertTo(current_correction_factor_16uc3, CV_16UC3);
@@ -126,10 +100,6 @@ void flatFieldCorrect::flatField(frame f) {
     current_correction_factor_16uc3 *= scaleFactor;
     current_correction_factor_16uc3.convertTo(f.image, CV_8UC3);
 
-
-
-    //std::cout<<current_correction_factor_16uc3<<std::endl;
-    //f.image.convertTo(f.image, CV_8UC3, 255);
     f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
 }

@@ -47,39 +47,36 @@ int Gallery::initialiseDirectory(std::string path, std::string description){
 
 
 //add some error handling
-void Gallery::captureFrame(frame capFrame, bool updateFlatField){
+void Gallery::captureFrame(frame capFrame, bool updateFlatField, int flatFieldCounter){
     if (pathname == ""){
         return;
     }
     //add ability to set custom string before number
     if (updateFlatField == true){
-        for (int i = 1; i <= 20; i++) {
-            captureFname = pathname + "/.FlatFieldGallery/flatField" + std::to_string(i) + ".jpg";
+            captureFname = pathname + "/.FlatFieldGallery/flatField" + std::to_string(flatFieldCounter) + ".jpg";
             std::string flatFieldPath = captureFname;
 
             //save image
             img = capFrame.image;
             cv::imwrite(captureFname, img); 
             
-            
-            updateFlatField = false;}
-        std::cout<<"Capturing flat field reference images."<<std::endl;
-    }else{
-    //build output name string
-    captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
+    }
+    else{
+        //build output name string
+        captureFname = pathname + imgName + std::to_string(captureImgCounter) +".jpg";
 
-    //save image
-    img = capFrame.image;
-    cv::imwrite(captureFname, img); 
+        //save image
+        img = capFrame.image;
+        cv::imwrite(captureFname, img); 
 
-    captureImgCounter++;
-    
+        captureImgCounter++;
+        
 
-    writeMetadata(capFrame, captureFname);
-    
-    std::cout<<"Capturing"<<std::endl;
-    //debug
-    //std::cout << getMetadata() << std::endl;    
+        writeMetadata(capFrame, captureFname);
+        
+        std::cout<<"Capturing"<<std::endl;
+        //debug
+        //std::cout << getMetadata() << std::endl;    
 
     }   
     

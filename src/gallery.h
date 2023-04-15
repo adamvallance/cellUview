@@ -20,7 +20,7 @@ class Gallery{
 
     public:
         Gallery();
-        void captureFrame(frame, bool flatfield=false);
+        void captureFrame(frame, bool flatfield=false, int flatFieldCounter = 0);
         void updateImgName(std::string);
         void updateIndex();
         std::map<std::string, std::string> getMetadata(std::string = "");
@@ -46,6 +46,7 @@ class Gallery{
         int lastHighestIndex = -1;
         int indexLen = 1;
         std::string existingCaptureFname; 
+
 
         cv::Mat img;
 
