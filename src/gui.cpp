@@ -521,7 +521,7 @@ void Gui::showDialog(int position) {
     QObject::connect(&button, &QPushButton::released, this, [=](){ 
         std::string pathStr = this->gallery->getPathname();
         std::string fileToRestore = pathStr + imagName.toStdString();
-        restoreSettings(imagName.toStdString()); 
+        restoreSettings(fileToRestore); 
         
     });
 
