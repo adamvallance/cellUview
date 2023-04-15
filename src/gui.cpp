@@ -105,7 +105,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     // push button (to be renamed @Jake) connects to gallery capture
 
     ////do a capture
-    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::showDialog); //&Gui::captureNextFrame
+    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame); //&Gui::captureNextFrame
     QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){textEditController(myString, true);});
 
     //// How to connect a button to an instance of another class
@@ -123,6 +123,11 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, Camera *camera, s
     //gallery button connections
     QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryIndex(true);});
     QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryIndex(false);});
+
+    QObject::connect(ui->buttonPos1, &QPushButton::released, this, [&](){showDialog(galleryPos1Index);});
+    QObject::connect(ui->buttonPos2, &QPushButton::released, this, [&](){showDialog(galleryPos2Index);});
+    QObject::connect(ui->buttonPos3, &QPushButton::released, this, [&](){showDialog(galleryPos3Index);});
+    QObject::connect(ui->buttonPos4, &QPushButton::released, this, [&](){showDialog(galleryPos4Index);});
 }
 
 void Gui::receiveFrame(frame newFrame)
@@ -482,10 +487,37 @@ void Gui :: intialGallerySetting (){
 }
 
 //function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
-void Gui:: showDialog(){
+void Gui::showDialog(int position) {
+    if (position!=-1){
     QDialog dialog;
     dialog.setWindowTitle("Restore Image Properties");
 
+    // Load the image and create a pixmap
+    std::string directoryStr = this->gallery->getPathname();
+    QString directory = QString::fromStdString(directoryStr);
+    QDir imageDir(directory);
+   
+    imageFilters << "*.jpg";
+    QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+    QSize labelSize = ui->galleryPos1->size();
+
+    QImage image(directory + "/" + images[position]);
+    QPixmap pixmap = QPixmap::fromImage(image);
+    QString imagName = images.at(position);
+
+    // Create a QLabel widget and set its pixmap
+    QLabel label;
+    label.setPixmap(pixmap);
+
+    // Create a QHBoxLayout and add the label to it
+    QHBoxLayout layout;
+    layout.addWidget(&label);
+
+    // Add the QHBoxLayout to the dialog's layout
+    dialog.setLayout(&layout);
+
     dialog.exec();
+    }
+    else{}
 }
 
