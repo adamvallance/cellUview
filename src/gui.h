@@ -16,6 +16,7 @@
 #include "erosion.h"
 #include "camera.h"
 #include "contrastEnhancement.h"
+#include "flatFieldCorrect.h"
 #include "motorDriver.h"
 
 
@@ -41,6 +42,10 @@ private:
     
 
     std::string getParamLabel(){return "";};
+    bool updateFlatField = false;
+    bool flatFieldEnable = false;
+    void setUpdateFlatField();
+    int flatFieldCounter = 0; 
 
 
     cv::Mat img;

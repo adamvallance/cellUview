@@ -17,8 +17,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
 
-    //-----------block 1 erosion---------------------
-    QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+         //-----------block 1 flat field---------------------
+    QObject::connect(ui->flatFieldBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[1]->getEnabled();
         if (enabled != checkboxValue){
             blocks[1]->toggleEnable();
@@ -26,19 +26,28 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
          
     });
 
-    // //-----------block 2 dilation ---------------------
-    QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+    //-----------block 2 erosion---------------------
+    QObject::connect(ui->erosionCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[2]->getEnabled();
         if (enabled != checkboxValue){
             blocks[2]->toggleEnable();
         }
          
     });
-    // //-----------block 3 gray ---------------------
-    QObject::connect(ui->grayScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+
+    // //-----------block 3 dilation ---------------------
+    QObject::connect(ui->dilationCheckBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
         bool enabled = blocks[3]->getEnabled();
         if (enabled != checkboxValue){
             blocks[3]->toggleEnable();
+        }
+         
+    });
+    // //-----------block 4 gray ---------------------
+    QObject::connect(ui->grayScaleBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
+        bool enabled = blocks[4]->getEnabled();
+        if (enabled != checkboxValue){
+            blocks[4]->toggleEnable();
         }
          
     });
@@ -71,22 +80,22 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
         }
     });
     
-    // //-----------block -2 contrast ---------------------
+    // //-----------block 5 contrast ---------------------
     QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
         ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
-        bool enabled = blocks[4]->getEnabled();
+        bool enabled = blocks[5]->getEnabled();
         if (sliderValue1 == 0){ //disable if 0 on slider is selected
             if (enabled){
-                blocks[4]->toggleEnable();
+                blocks[5]->toggleEnable();
             }
         }
         else{
             if (!enabled){
-                blocks[4]->toggleEnable();
+                blocks[5]->toggleEnable();
             }
         }
         //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-        static_cast<contrastEnhancement*>(blocks[4])->updateThreshold(sliderValue1);
+        static_cast<contrastEnhancement*>(blocks[5])->updateThreshold(sliderValue1);
 
     });
 
@@ -134,6 +143,14 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
 
     ////do a capture
     QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
+
+    QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
+
+    //// How to connect a button to an instance of another class
+    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
+
+    // toggle edge
+    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
 
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
@@ -197,9 +214,24 @@ void Gui::receiveFrame(frame newFrame)
 {
 
     // if capturing, capture before conversion to rgb
-    if (doCapture && newFrame.doMeta){
+    if (doCapture && newFrame.doMeta && updateFlatField == false){
         gallery->captureFrame(newFrame);
         doCapture = false; // reset flag
+    }
+    else if (doCapture && newFrame.doMeta && updateFlatField == true){
+        if (flatFieldCounter <20){
+            gallery->captureFrame(newFrame, updateFlatField, flatFieldCounter);
+            //std::cout<<"capture"+ flatFieldCounter<<std::endl;
+            flatFieldCounter ++;
+            doCapture=true;
+            cam->captureMetadata();
+
+        }else{
+            updateFlatField = false;
+            doCapture = false;
+        }
+
+
     }
 
     img = newFrame.image;
@@ -212,7 +244,21 @@ void Gui::receiveFrame(frame newFrame)
                            QImage::Format_RGB888);
     ui->scopeVideoFeed->setPixmap(QPixmap::fromImage(imgOut));
     ui->scopeVideoFeed->resize(ui->scopeVideoFeed->pixmap()->size());
+
 }
+
+void Gui::setUpdateFlatField(){
+    //std::cout<<"setUpdateField"<<std::endl;
+
+    updateFlatField=true;
+    flatFieldCounter = 0;
+    static_cast<flatFieldCorrect*>(blocks[0])->setUpdateFlag();
+    cam->captureMetadata();
+    doCapture = true;
+    //To allow checkbox to be enabled
+    ui->flatFieldBox->setEnabled(true);
+}
+
 
 void Gui::SetVisible(bool visible)
 {
@@ -225,6 +271,7 @@ void Gui::captureNextFrame()
     cam->captureMetadata();
     doCapture = true;
 }
+
 
 void Gui::restoreSettings(std::string fname)
 {
@@ -320,8 +367,9 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         else if(label == "dilation"){
             ui->dilationCheckBox->setChecked(valueBool);
         }
-
-
+        else if(label == "flatField"){
+            ui->flatFieldBox->setChecked(valueBool);
+        }
     }
     
 }

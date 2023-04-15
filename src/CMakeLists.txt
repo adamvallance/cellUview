@@ -25,7 +25,7 @@ find_library(wiringPi_LIB wiringPi)
 
 
 #compile and link cellUview executable
-add_executable(cellUview main.cpp camera.cpp gui.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp frame.cpp grayScale.cpp contrastEnhancement.cpp motorDriver.cpp)
+add_executable(cellUview main.cpp camera.cpp gui.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp frame.cpp grayScale.cpp contrastEnhancement.cpp flatFieldCorrect.cpp motorDriver.cpp)
 #set_property(TARGET cellUview PROPERTY CXX_STANDARD 17)
 target_link_libraries(cellUview ${OpenCV_LIBS} Qt5::Widgets Threads::Threads exifLibrary wiringPi)
 
@@ -36,7 +36,7 @@ add_library(camera camera.cpp camera.h frame.cpp)
 target_link_libraries(camera ${OpenCV_LIBS} Threads::Threads)
 
 
-add_library(imageProc edgeDetection.cpp erosion.cpp dilation.cpp frame.cpp imageProcessor.h grayScale.cpp contrastEnhancement.cpp)
+add_library(imageProc edgeDetection.cpp erosion.cpp dilation.cpp frame.cpp imageProcessor.h grayScale.cpp contrastEnhancement.cpp flatFieldCorrect.cpp)
 target_link_libraries(imageProc ${OpenCV_LIBS} Threads::Threads)
 
 add_library(gallery gallery.cpp)

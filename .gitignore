@@ -18,6 +18,7 @@ src/cellUview_automoc.dir/
 *.air
 *.ipa
 *.apk
+*.jpg
 
 
 *.pdf

@@ -319,6 +319,22 @@ background-color: rgb(83, 83, 83);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QPushButton" name="FlatFieldButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>610</y>
+        <width>411</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>Flat</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="widget_6" native="true">
      <property name="geometry">
@@ -565,6 +581,25 @@ background-color: rgb(179, 179, 179);</string>
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
+     <widget class="QCheckBox" name="flatFieldBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>60</y>
+        <width>111</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Flat</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -574,7 +609,7 @@ background-color: rgb(179, 179, 179);</string>
      <x>0</x>
      <y>0</y>
      <width>1162</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">
