@@ -1313,7 +1313,8 @@ div.fragment span.preprocessor {
 
 div.fragment span.lineno {
     display: inline-block;
-    width: 27px;
+    /* width: 27px; */
+    width: 50px;
     border-right: none;
     background: var(--fragment-linenumber-background);
     color: var(--fragment-linenumber-color);
