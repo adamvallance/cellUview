@@ -108,3 +108,19 @@ To update the GUI, copy ONLY the gui.ui file generated in QTCreator into  main d
 bash build.sh -g
 ```
 Edits to connections and signals should be made inside src/gui.cpp
+
+## Documentation
+
+Add docstrings above classes and methods like follows:
+```
+/** 
+* Here is a doxygen comment.
+**/
+class Example Class{
+```
+
+There are also keywords like ```@returns``` to explain what a function returns for example. Gets formatted nicely by doxygen. Refer to the doxygen guide for more stuff like this.
+
+To update the docs, need doxygen installed (easiest way by downloading and extracting the binary then doing ```make install```). Then, run ```doxygen``` in main repo directory. Maybe we can automate this process on pull request?
+
+To view the online docs, nagivate to ```/docs/html``` and open ```index.html```. Next step to add this to a github pages link.
