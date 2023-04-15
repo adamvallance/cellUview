@@ -1,0 +1,50 @@
+\hypertarget{camera_8h_source}{}\doxysection{camera.\+h}
+\label{camera_8h_source}\index{/github/workspace/src/camera.h@{/github/workspace/src/camera.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CELLUVIEW\_CAMERA\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CELLUVIEW\_CAMERA\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <opencv2/core.hpp>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <opencv2/videoio.hpp>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}imageProcessor.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}frame.h"{}}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }\mbox{\hyperlink{class_camera}{Camera}}: \textcolor{keyword}{public} \mbox{\hyperlink{classimage_processor}{imageProcessor}}\{}
+\DoxyCodeLine{16 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17     \mbox{\hyperlink{class_camera}{Camera}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{18     \textcolor{keywordtype}{void} start(\textcolor{keywordtype}{int} deviceID = 0, \textcolor{keywordtype}{int} apiID=0);}
+\DoxyCodeLine{19     \textcolor{keywordtype}{void} stop();}
+\DoxyCodeLine{20     \textcolor{comment}{//void receiveFrame(frame newFrame);}}
+\DoxyCodeLine{21     \textcolor{keywordtype}{bool} getIsOn();}
+\DoxyCodeLine{22     \textcolor{comment}{//void registerCallback(imageProcessor*);}}
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} captureMetadata();}
+\DoxyCodeLine{24     \textcolor{keywordtype}{void} setExposure(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{25     std::string getParamLabel()\{\textcolor{keywordflow}{return} paramLabel;\};}
+\DoxyCodeLine{26     \textcolor{keywordtype}{void} updateSettings(std::map<std::string, std::string>);}
+\DoxyCodeLine{27     \textcolor{keywordtype}{void} receiveFrame(\mbox{\hyperlink{classframe}{frame}} newFrame)\{\textcolor{keywordflow}{return};\};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     }
+\DoxyCodeLine{30 \textcolor{keyword}{private}:}
+\DoxyCodeLine{31     \mbox{\hyperlink{classframe}{frame}} f;}
+\DoxyCodeLine{32     \textcolor{keywordtype}{void} postFrame();}
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} threadLoop();}
+\DoxyCodeLine{34     cv::VideoCapture videoCapture;}
+\DoxyCodeLine{35     std::thread cameraThread;}
+\DoxyCodeLine{36     std::string exposureState = \textcolor{stringliteral}{"{}OFF"{}};}
+\DoxyCodeLine{37     \textcolor{keywordtype}{bool} isOn = \textcolor{keyword}{false};}
+\DoxyCodeLine{38     std::string paramLabel = \textcolor{stringliteral}{"{}exposure"{}};}
+\DoxyCodeLine{39     \textcolor{comment}{//imageProcessor* frameCb = nullptr;}}
+\DoxyCodeLine{40     \textcolor{keywordtype}{bool} doMeta = \textcolor{keyword}{false};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CELLUVIEW\_CAMERA\_H}}
+
+\end{DoxyCode}

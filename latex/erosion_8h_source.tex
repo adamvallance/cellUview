@@ -1,0 +1,33 @@
+\hypertarget{erosion_8h_source}{}\doxysection{erosion.\+h}
+\label{erosion_8h_source}\index{/github/workspace/src/erosion.h@{/github/workspace/src/erosion.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef CELLUVIEW\_EROSION\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define CELLUVIEW\_EROSION\_H}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <opencv2/core.hpp>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <opencv2/videoio.hpp>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}imageProcessor.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{class }\mbox{\hyperlink{classerosion}{erosion}}: \textcolor{keyword}{public} \mbox{\hyperlink{classimage_processor}{imageProcessor}}\{}
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16     \mbox{\hyperlink{classerosion}{erosion}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{17     \textcolor{keywordtype}{void} receiveFrame(\mbox{\hyperlink{classframe}{frame}} newFrame);}
+\DoxyCodeLine{18     std::string getParamLabel()\{\textcolor{keywordflow}{return} paramLabel;\};}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keywordtype}{void} updateSettings(std::map<std::string, std::string>);}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{private}:}
+\DoxyCodeLine{23     \textcolor{comment}{//add any other methods here}}
+\DoxyCodeLine{24     \textcolor{keywordtype}{void} erode(\mbox{\hyperlink{classframe}{frame}}); \textcolor{comment}{//edge detection}}
+\DoxyCodeLine{25     std::string paramLabel = \textcolor{stringliteral}{"{}erosion"{}};}
+\DoxyCodeLine{26 \};}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CELLUVIEW\_EROSION\_H}}
+
+\end{DoxyCode}

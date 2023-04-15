@@ -1,0 +1,30 @@
+\hypertarget{gray_scale_8h_source}{}\doxysection{gray\+Scale.\+h}
+\label{gray_scale_8h_source}\index{/github/workspace/src/grayScale.h@{/github/workspace/src/grayScale.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CELLUVIEW\_GREY\_SCALE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CELLUVIEW\_GREY\_SCALE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <opencv2/core.hpp>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <opencv2/videoio.hpp>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}imageProcessor.h"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{classgray_scale}{grayScale}}: \textcolor{keyword}{public} \mbox{\hyperlink{classimage_processor}{imageProcessor}}\{}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14     \mbox{\hyperlink{classgray_scale}{grayScale}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{15     \textcolor{keywordtype}{void} receiveFrame(\mbox{\hyperlink{classframe}{frame}});}
+\DoxyCodeLine{16     std::string getParamLabel()\{\textcolor{keywordflow}{return} paramLabel;\};}
+\DoxyCodeLine{17     \textcolor{keywordtype}{void} updateSettings(std::map<std::string, std::string>);}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{private}:}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keywordtype}{void} grayEnhance(\mbox{\hyperlink{classframe}{frame}}); \textcolor{comment}{// grayscale conversion}}
+\DoxyCodeLine{22     std::string paramLabel = \textcolor{stringliteral}{"{}grayScale"{}};}
+\DoxyCodeLine{23 \};}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// CELLUVIEW\_GREY\_SCALE\_H}}
+
+\end{DoxyCode}

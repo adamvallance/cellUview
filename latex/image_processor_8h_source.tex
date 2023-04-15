@@ -1,0 +1,49 @@
+\hypertarget{image_processor_8h_source}{}\doxysection{image\+Processor.\+h}
+\label{image_processor_8h_source}\index{/github/workspace/src/imageProcessor.h@{/github/workspace/src/imageProcessor.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CELLUVIEW\_IMAGEPROCESSOR\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CELLUVIEW\_IMAGEPROCESSOR\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <opencv2/core.hpp>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <opencv2/videoio.hpp>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}frame.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{comment}{//abstract class }}
+\DoxyCodeLine{12 \textcolor{keyword}{class }\mbox{\hyperlink{classimage_processor}{imageProcessor}}\{}
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14     \mbox{\hyperlink{classimage_processor}{imageProcessor}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} receiveFrame(\mbox{\hyperlink{classframe}{frame}} newFrame) = 0; }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} updateSettings(std::map<std::string, std::string>) = 0;}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} std::string getParamLabel() = 0;}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} registerCallback(\mbox{\hyperlink{classimage_processor}{imageProcessor}}* cb)\{}
+\DoxyCodeLine{23         frameCb = cb;}
+\DoxyCodeLine{24     \}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keywordtype}{bool} toggleEnable()\{}
+\DoxyCodeLine{27         enabled = !enabled;}
+\DoxyCodeLine{28         \textcolor{keywordflow}{return} enabled;}
+\DoxyCodeLine{29     \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keywordtype}{bool} getEnabled()\{}
+\DoxyCodeLine{32         \textcolor{keywordflow}{return} enabled;}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{37     \mbox{\hyperlink{classimage_processor}{imageProcessor}}* frameCb = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{38     \textcolor{keywordtype}{bool} enabled = \textcolor{keyword}{false};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
