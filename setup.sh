@@ -72,17 +72,40 @@ cd $cwd
 
 }
 
+installCppFlow(){
+    cwd=$(pwd)  
+    #get tensorflow 2 C API
+    file="libtensorflow-gpu-linux-x86_64-2.11.0.tar.gz"
+    wget https://storage.googleapis.com/tensorflow/libtensorflow/$file || exit 1
+    sudo tar -C /usr/local -xzf $file
+    sudo ldconfig
+    rm $file
 
-#main, calls functions already defined
-getPrerequisites
-installExif
-if [ $# -ne 0 ]; then
-    if [ $1 == '-n' ]; then
-        echo "Skipping opencv installation"
-        exit
-    fi
-fi
-installOpenCV2 
+    #get cppflow
+    git clone https://github.com/serizba/cppflow
+    cd cppflow
+    mkdir build
+    cd build
+    cmake ..
+    make -j4
+    make install
+    cd ..
+    rm -rf build
+    cd $cwd
+
+}
+
+# #main, calls functions already defined
+installCppFlow
+# getPrerequisites
+# installExif
+# if [ $# -ne 0 ]; then
+#     if [ $1 == '-n' ]; then
+#         echo "Skipping opencv installation"
+#         exit
+#     fi
+# fi
+# installOpenCV2 
 
 
 
