@@ -11,6 +11,9 @@
 #include "imageProcessor.h"
 
 
+/**
+* Image processing class to boost contrast.
+**/
 class contrastEnhancement:   public imageProcessor{
    
 

@@ -9,6 +9,9 @@
 
 
 //Receives in new frames through a callback.
+/**
+* Recieves new frames for processing via callback.
+**/
 void contrastEnhancement::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
@@ -55,11 +58,20 @@ void contrastEnhancement::contrastEnhance(frame f) {
 
 }
 
+/**
+* Updates contrast enhancements value for private contrast enhancement method.
+* Applies non-linearity to slider value.
+**/
 void contrastEnhancement::updateThreshold(int value){
     sliderThreshold = value;
     threshold = exp(0.022 * value) / 2.2; //Applying non-linearity to slider
     //std::cout<<"Theshold value"<< threshold<<std::endl;
 }
+
+/**
+* Implemented from ImageProcessor. Updates contrast settings based on metadata.
+* @param metadata metadata standard map of strings containing metadata
+**/
 void contrastEnhancement::updateSettings(std::map<std::string, std::string> metadata){
     std::string rec = metadata[paramLabel];
     int metaThreshold;
