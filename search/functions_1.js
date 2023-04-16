@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mov_0',['mov',['../class_motor_driver.html#a2059a872979666f264851193068e10ae',1,'MotorDriver']]]
+  ['receiveframe_0',['receiveFrame',['../class_gui.html#a2f058a424b6584d1907b1f45422da4f6',1,'Gui']]]
 ];
