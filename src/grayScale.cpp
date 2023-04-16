@@ -4,6 +4,7 @@
 void grayScale::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
+        procFrame.copyFrom(&newFrame);
         frameCb->receiveFrame(newFrame);
         return;
     }
@@ -38,7 +39,7 @@ void grayScale::grayEnhance() {
 
         std::unique_lock lock(mut);
         cond_var.wait_for(lock, 1s); //block for a second but wake up if new data
-        std::cout<<"waited 1s for gs"<<std::endl;
+        //std::cout<<"waited 1s for gs"<<std::endl;
         if (update){
             //std::cout<<"Called it"<<std::endl;
         

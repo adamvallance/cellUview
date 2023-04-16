@@ -12,6 +12,8 @@
 void contrastEnhancement::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
+        procFrame.copyFrom(&newFrame);
+        std::cout<<"contrast off"<<std::endl;
         frameCb->receiveFrame(newFrame);
         return;
     }
@@ -43,7 +45,7 @@ void contrastEnhancement::contrastEnhance() {
 
         std::unique_lock lock(mut);
         cond_var.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data
-        std::cout<<"waited 1s for contrast"<<std::endl;
+        //std::cout<<"waited 1s for contrast"<<std::endl;
 
         if (update){
 
