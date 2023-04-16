@@ -13,6 +13,7 @@
 
 void flatFieldCorrect::receiveFrame(frame newFrame) {
     if (!enabled){ 
+
         newFrame.setParameter(paramLabel, "OFF");
         frameCb->receiveFrame(newFrame);
         return;
@@ -21,7 +22,6 @@ void flatFieldCorrect::receiveFrame(frame newFrame) {
 
     // passing frame into the flat field function
     flatField(newFrame); 
-
 
 }
 
@@ -42,6 +42,8 @@ void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadat
     
 }
 void flatFieldCorrect::updateAverage(frame f) {
+    averageCalculated = false;
+    calculateAverageEnabled = false;
     // Load reference images
     std::string pathname = getenv("HOME");
     pathname += + "/cellUviewGallery/.FlatFieldGallery/";
@@ -71,6 +73,8 @@ void flatFieldCorrect::updateAverage(frame f) {
     cv::subtract(whiteImage, correction_factor, correction_factor);
 
     current_correction_factor = correction_factor;
+    averageCalculated = true;
+
 }
 
 
@@ -80,9 +84,20 @@ void flatFieldCorrect::flatField(frame f) {
     cv::Mat corrected_image;
 
     if (calculateAverageEnabled) {
+        std::cout<<"IN if"<<std::endl;
+
         updateAverage(f);
         calculateAverageEnabled = false;
     }
+
+    //don't apply if average calculation is not complete
+    if (!averageCalculated){
+        calculateAverageEnabled = true;//set flag to calculate
+        std::cout<<"not calculated yet"<<std::endl;
+        frameCb->receiveFrame(f);
+        return;
+    }
+
     //generate Matrices identical to input and correction at 16 bit to scale beyond 255 to normalise resultatn values
     cv::Mat f_16uc3, current_correction_factor_16uc3;
     f.image.convertTo(f_16uc3, CV_16UC3);

@@ -225,7 +225,7 @@ void Gui::receiveFrame(frame newFrame)
 }
 
 /**
-* Takes capture and initialises flatfield correction
+* Triggers capturing of 20 frames for flatfield/chromatic aberration correction.
 **/
 void Gui::setUpdateFlatField(){
     //std::cout<<"setUpdateField"<<std::endl;
