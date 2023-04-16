@@ -20,6 +20,7 @@
 #include <QDir>
 #include <QDialog>
 #include <QVBoxLayout>
+#include <unordered_map>
 
 /**
 * A class which handles GUI connections and functionality.

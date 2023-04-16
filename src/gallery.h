@@ -15,6 +15,8 @@
 #include <string>
 #include "frame.h"
 #include <cstdio>
+#include <unordered_map>
+#include <list>
 
 class Gallery{
 
@@ -29,7 +31,7 @@ class Gallery{
         // std::string getFlatFieldPath(){return flatFieldPath;};
         std::string getCaptureFname(){return captureFname;};//testing only
 
-        std::map<std::string, cv::Mat> getCaptures(bool);
+        std::list<std::pair<std::string, cv::Mat>>  getCaptures(bool);
 
     private:
         int initialiseDirectory(std::string, std::string);

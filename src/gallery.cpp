@@ -203,7 +203,7 @@ void Gallery::updateIndex(){
 
 }
 
-std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
+std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionIsNext){
     //adjust increment of top left index to display
     if (directionIsNext == true){
         galleryDisplayIndex += 4;
@@ -211,7 +211,6 @@ std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
         galleryDisplayIndex -= 4;
     }
     //check not out of bounds, if so move to extremes
-
     std::cout<<galleryDisplayIndex<<std::endl;
 
     if (galleryDisplayIndex < 0){
@@ -222,7 +221,7 @@ std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
     std::cout<<galleryDisplayIndex<<std::endl;
 
 
-    std::map<std::string, cv::Mat> stringCapPairs;
+    std::list<std::pair<std::string, cv::Mat>>  stringCapPairs;
     std::string capturePathName;
     cv::Mat captureMat;
     std::string displayString;
@@ -233,7 +232,6 @@ std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
         if (panelIndex<0){ //error fixing
             panelIndex =0;
         }
-        std::cout<<panelIndex<<std::endl;
         try{
 
             capturePathName = pathname + imgName + std::to_string(panelIndex) + ".jpg";
@@ -244,8 +242,8 @@ std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
             cv::Mat emptyMat;
             captureMat = emptyMat;
         }
-        stringCapPairs[displayString] = captureMat;
-        std::cout<<displayString<<std::endl;;
+        stringCapPairs.push_back({displayString, captureMat});
+        //std::cout<<displayString<<std::endl;;
     
     }
     return stringCapPairs;

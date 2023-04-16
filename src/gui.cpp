@@ -174,6 +174,9 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     QObject::connect(ui->buttonPos2, &QPushButton::released, this, [&](){showDialog(galleryPos2Index);});
     QObject::connect(ui->buttonPos3, &QPushButton::released, this, [&](){showDialog(galleryPos3Index);});
     QObject::connect(ui->buttonPos4, &QPushButton::released, this, [&](){showDialog(galleryPos4Index);});
+
+
+    updateGalleryView(true);
 }
 
 /**
@@ -370,17 +373,25 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 
 
 void Gui::updateGalleryView(bool directionIsNext){
-    std::map<std::string, cv::Mat> loaded = this->gallery->getCaptures(directionIsNext);
+    std::list<std::pair<std::string, cv::Mat>> loaded = this->gallery->getCaptures(directionIsNext);
     std::vector<std::string> keys;
-    for (std::map<std::string, cv::Mat>::iterator it = loaded.begin(); it != loaded.end(); ++it) {
+    std::vector<cv::Mat> mats;
+    std::list<std::pair<std::string, cv::Mat>>::const_iterator it;
+    for (it = loaded.begin(); it != loaded.end(); ++it){
         keys.push_back(it->first);
-    } 
+        mats.push_back(it->second);
+    }
+    // for (std::list<std::string, cv::Mat>::iterator it = loaded.begin(); it != loaded.end(); ++it) {
+    //     keys.push_back(it->first);
+    //     std::cout<<it->first<<std::endl;
+    // } 
+
 
     cv::Mat img;
     QSize labelSize = ui->galleryPos1->size();
 
     //reload first of four gallery view
-    img = loaded[keys[0]];
+    img = mats[0];
     std::cout<<img.size()<<std::endl;
     cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
     QImage gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
@@ -392,7 +403,7 @@ void Gui::updateGalleryView(bool directionIsNext){
 
 
     //second of four
-    img = loaded[keys[1]];
+    img = mats[1];
     std::cout<<img.size()<<std::endl;
     cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
     QImage gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
@@ -403,7 +414,7 @@ void Gui::updateGalleryView(bool directionIsNext){
     ui->namePos2->setText(str2);
 
     //third of four
-    img = loaded[keys[2]];
+    img = mats[2];
     std::cout<<img.size()<<std::endl;
     cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
     QImage gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
@@ -414,7 +425,7 @@ void Gui::updateGalleryView(bool directionIsNext){
     ui->namePos3->setText(str3);
 
     //fourth of four
-    img = loaded[keys[3]];
+    img = mats[3];
     std::cout<<img.size()<<std::endl;
     cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
     QImage gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
