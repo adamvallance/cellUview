@@ -24,6 +24,9 @@ public:
     void receiveFrame(frame newFrame);
     void updateThreshold(int value);
     void updateSettings(std::map<std::string, std::string>);
+    /**
+    * @returns paramLabel, std::string containing metadata parameter
+    **/
     std::string getParamLabel(){return paramLabel;};
 private:
     //add any other methods here
