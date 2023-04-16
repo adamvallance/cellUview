@@ -92,25 +92,22 @@ $(function() {
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;frame.h&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classdilation.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="classdilation.html">dilation</a>: <span class="keyword">public</span> <a class="code hl_class" href="classimage_processor.html">imageProcessor</a>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_class" href="classdilation.html">dilation</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classdilation.html#ad2edf7b45ead513737cce8ba2190ea38">receiveFrame</a>(<a class="code hl_class" href="classframe.html">frame</a> newFrame);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classdilation.html#aac678c6a5fd8a4bcd6e5fd82a4ba9769">   25</a></span>    std::string <a class="code hl_function" href="classdilation.html#aac678c6a5fd8a4bcd6e5fd82a4ba9769">getParamLabel</a>(){<span class="keywordflow">return</span> paramLabel;};</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classdilation.html#a0c243de870bb878a20c43673e082b953">updateSettings</a>(std::map&lt;std::string, std::string&gt;);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">//add any other methods here</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> dilate(<a class="code hl_class" href="classframe.html">frame</a>); <span class="comment">//image dilation</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    std::string paramLabel = <span class="stringliteral">&quot;dilation&quot;</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#endif </span><span class="comment">// CELLUVIEW_DILATION_H</span></div>
-<div class="ttc" id="aclassdilation_html"><div class="ttname"><a href="classdilation.html">dilation</a></div><div class="ttdef"><b>Definition:</b> dilation.h:18</div></div>
-<div class="ttc" id="aclassdilation_html_a0c243de870bb878a20c43673e082b953"><div class="ttname"><a href="classdilation.html#a0c243de870bb878a20c43673e082b953">dilation::updateSettings</a></div><div class="ttdeci">void updateSettings(std::map&lt; std::string, std::string &gt;)</div><div class="ttdef"><b>Definition:</b> dilation.cpp:47</div></div>
-<div class="ttc" id="aclassdilation_html_aac678c6a5fd8a4bcd6e5fd82a4ba9769"><div class="ttname"><a href="classdilation.html#aac678c6a5fd8a4bcd6e5fd82a4ba9769">dilation::getParamLabel</a></div><div class="ttdeci">std::string getParamLabel()</div><div class="ttdef"><b>Definition:</b> dilation.h:25</div></div>
-<div class="ttc" id="aclassdilation_html_ad2edf7b45ead513737cce8ba2190ea38"><div class="ttname"><a href="classdilation.html#ad2edf7b45ead513737cce8ba2190ea38">dilation::receiveFrame</a></div><div class="ttdeci">void receiveFrame(frame newFrame)</div><div class="ttdef"><b>Definition:</b> dilation.cpp:13</div></div>
-<div class="ttc" id="aclassframe_html"><div class="ttname"><a href="classframe.html">frame</a></div><div class="ttdef"><b>Definition:</b> frame.h:20</div></div>
-<div class="ttc" id="aclassimage_processor_html"><div class="ttname"><a href="classimage_processor.html">imageProcessor</a></div><div class="ttdef"><b>Definition:</b> imageProcessor.h:15</div></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classdilation.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="classdilation.html">dilation</a>: <span class="keyword">public</span> <a class="code hl_class" href="classimage_processor.html">imageProcessor</a>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_class" href="classdilation.html">dilation</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">void</span> receiveFrame(<a class="code hl_class" href="classframe.html">frame</a> newFrame);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::string getParamLabel(){<span class="keywordflow">return</span> paramLabel;};</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">void</span> updateSettings(std::map&lt;std::string, std::string&gt;);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">//add any other methods here</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">void</span> dilate(<a class="code hl_class" href="classframe.html">frame</a>); <span class="comment">//image dilation</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    std::string paramLabel = <span class="stringliteral">&quot;dilation&quot;</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif </span><span class="comment">// CELLUVIEW_DILATION_H</span></div>
+<div class="ttc" id="aclassdilation_html"><div class="ttname"><a href="classdilation.html">dilation</a></div><div class="ttdef"><b>Definition:</b> dilation.h:15</div></div>
+<div class="ttc" id="aclassframe_html"><div class="ttname"><a href="classframe.html">frame</a></div><div class="ttdef"><b>Definition:</b> frame.h:16</div></div>
+<div class="ttc" id="aclassimage_processor_html"><div class="ttname"><a href="classimage_processor.html">imageProcessor</a></div><div class="ttdef"><b>Definition:</b> imageProcessor.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
