@@ -236,8 +236,8 @@ std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
         std::cout<<panelIndex<<std::endl;
         try{
 
-            capturePathName = pathname + "/" + imgName + std::to_string(panelIndex) + ".jpg";
-            captureMat = cv::imread(flatFieldPath);
+            capturePathName = pathname + imgName + std::to_string(panelIndex) + ".jpg";
+            captureMat = cv::imread(capturePathName);
             displayString = std::to_string(panelIndex) + "asdfjkl"; //+METADATA
         }catch(...){
             displayString = "";

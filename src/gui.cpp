@@ -167,8 +167,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
     //gallery button connections
-    QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryIndex(true);});
-    QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryIndex(false);});
+    QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryView(true);});
+    QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryView(false);});
 
     QObject::connect(ui->buttonPos1, &QPushButton::released, this, [&](){showDialog(galleryPos1Index);});
     QObject::connect(ui->buttonPos2, &QPushButton::released, this, [&](){showDialog(galleryPos2Index);});
@@ -206,7 +206,6 @@ void Gui::receiveFrame(frame newFrame)
 
     img = newFrame.image;
 
-    // maybe try replacing img with newFrame.img to avoid unnecessary copying.
     // convert from default opencv bgr to QT rgb
     cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
 
@@ -367,6 +366,41 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         }
     }
     
+}
+
+
+void Gui::updateGalleryView(bool directionIsNext){
+    std::map<std::string, cv::Mat> loaded = this->gallery->getCaptures(directionIsNext);
+    std::vector<std::string> keys;
+    for (std::map<std::string, cv::Mat>::iterator it = loaded.begin(); it != loaded.end(); ++it) {
+        keys.push_back(it->first);
+    } 
+
+    cv::Mat img;
+
+    img = loaded[keys[0]];
+    std::cout<<img.size()<<std::endl;
+    // cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+    // QImage gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+    //                        QImage::Format_RGB888);
+    // ui->galleryPos1->setPixmap(QPixmap::fromImage(gallery1));
+    // ui->galleryPos1->resize(ui->galleryPos1->pixmap()->size());
+
+    // QString str1 = QString::fromStdString(keys[0]);
+    // ui->namePos1->setText(str1);
+
+
+    //  img = newFrame.image;
+    // // maybe try replacing img with newFrame.img to avoid unnecessary copying.
+    // // convert from default opencv bgr to QT rgb
+    // cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+
+    // QImage imgOut = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+    //                        QImage::Format_RGB888);
+    // ui->scopeVideoFeed->setPixmap(QPixmap::fromImage(imgOut));
+    // ui->scopeVideoFeed->resize(ui->scopeVideoFeed->pixmap()->size());
+
+
 }
 
 
