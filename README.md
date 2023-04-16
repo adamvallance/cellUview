@@ -1,4 +1,31 @@
+<!-- # cellUview -->
 
+<!-- New header block -->
+
+<br />
+<div align="center">
+   <h1 align="center">cellUview</h1>
+ <img src="https://github.com/adamvallance/cellUview/images/cellUview_logo_big.png" alt="logo" width="400" div al ign=center />
+ </br>
+ A real-time image processing suite for digital microscopy.
+ </br>
+
+ <br />
+
+[![CMake](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml/badge.svg)](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml)
+![Docs](https://github.com/adamvallance/cellUview/actions/workflows/docs.yml/badge.svg)
+
+</br>
+
+</div>
+<h3 align="left"></h3>
+
+
+
+
+
+
+# OLD DEV STUFF
 # cellUview-microscopy-enhancement
 
 [![CMake](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml/badge.svg)](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml)
