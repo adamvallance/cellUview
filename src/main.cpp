@@ -44,6 +44,9 @@ int main(int argc, char* argv[]){
 
     MotorDriver motor;
 
+    //open motor communication
+    motor.start();
+
     Gui gui(&window, &ui, &gallery, &motor, blocks);
 
 
@@ -63,9 +66,6 @@ int main(int argc, char* argv[]){
 
     //start camera
     camera.start();
-
-    //open motor communication
-    motor.start();
     
     //start gui
     gui.SetVisible(true);
