@@ -225,6 +225,8 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
     cv::Mat captureMat;
     std::string displayString;
     int panelIndex;
+    std::map<std::string, std::string> metadataGalleryLabel;
+    std::string note;
     galleryDisplayFname.clear();
     for (int i = 0; i<4; i++){
         panelIndex = galleryDisplayIndex + i;
@@ -236,8 +238,14 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
 
             capturePathName = pathname + imgName + std::to_string(panelIndex) + ".jpg";
             captureMat = cv::imread(capturePathName);
-            displayString = std::to_string(panelIndex) + "asdfjkl"; //+METADATA
+            metadataGalleryLabel= getMetadata(capturePathName);
+            note = metadataGalleryLabel["note"];
+            displayString = std::to_string(panelIndex) + note; //+METADATA
             galleryDisplayFname.push_back(capturePathName);
+
+            std::cout<<note<<std::endl;;
+
+
         }catch(...){
             displayString = "";
             cv::Mat emptyMat;
