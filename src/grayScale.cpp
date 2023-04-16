@@ -13,7 +13,7 @@ void grayScale::receiveFrame(frame newFrame) {
     //grayEnhance(newFrame); 
 
     procFrame.copyFrom(&newFrame);
-    std::lock_guard lock(mut);
+    std::lock_guard<std::mutex> lock(mut);
     update = true;
     cond_var.notify_all();
 
@@ -37,7 +37,7 @@ void grayScale::grayEnhance() {
         
     while (running){    
 
-        std::unique_lock lock(mut);
+        std::unique_lock<std::mutex> lock(mut);
         cond_var.wait_for(lock, 1s); //block for a second but wake up if new data
         //std::cout<<"waited 1s for gs"<<std::endl;
         if (update){

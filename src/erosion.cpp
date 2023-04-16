@@ -16,7 +16,7 @@ void erosion::receiveFrame(frame newFrame) {
     // Pass frame into the erosion function
     //erode(newFrame); 
     procFrame.copyFrom(&newFrame);      // copy new frame into the frame for processing
-    std::lock_guard lock(mut);
+    std::lock_guard<std::mutex> lock(mut);
     update = true;                      // set flag
     cond_var.notify_all();              // wake thread
 }
@@ -56,7 +56,7 @@ void erosion::erode() {
 
     while(running){
 
-        std::unique_lock lock(mut);
+        std::unique_lock<std::mutex> lock(mut);
         cond_var.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data flagged
         //std::cout<<"waited"<<std::endl;
 
