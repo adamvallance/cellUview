@@ -218,7 +218,6 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
     }else if (galleryDisplayIndex > captureImgCounter - 4){
         galleryDisplayIndex = captureImgCounter - 4;
     }
-    std::cout<<galleryDisplayIndex<<std::endl;
 
 
     std::list<std::pair<std::string, cv::Mat>>  stringCapPairs;
@@ -229,9 +228,10 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
     
     for (int i = 0; i<4; i++){
         panelIndex = galleryDisplayIndex + i;
-        if (panelIndex<0){ //error fixing
-            panelIndex =0;
-        }
+        std::cout<<panelIndex<<std::endl;
+        // if (panelIndex<0){ //error fixing
+        //     panelIndex =0;
+        // }
         try{
 
             capturePathName = pathname + imgName + std::to_string(panelIndex) + ".jpg";

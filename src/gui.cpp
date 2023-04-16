@@ -392,48 +392,70 @@ void Gui::updateGalleryView(bool directionIsNext){
 
     //reload first of four gallery view
     img = mats[0];
-    std::cout<<img.size()<<std::endl;
-    cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-    QImage gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-                           QImage::Format_RGB888);
-    ui->galleryPos1->setPixmap(QPixmap::fromImage(gallery1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    if (img.empty() == false){
+        img = mats[0];
+        std::cout<<img.size()<<std::endl;
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+        QImage gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        ui->galleryPos1->setPixmap(QPixmap::fromImage(gallery1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    QString str1 = QString::fromStdString(keys[0]);
-    ui->namePos1->setText(str1);
+        QString str1 = QString::fromStdString(keys[0]);
+        ui->namePos1->setText(str1);
+    } else{
+        ui->galleryPos1->clear();
+        ui->namePos1->clear();
+    }
 
 
     //second of four
     img = mats[1];
-    std::cout<<img.size()<<std::endl;
-    cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-    QImage gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-                           QImage::Format_RGB888);
-    ui->galleryPos2->setPixmap(QPixmap::fromImage(gallery2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    if (img.empty() == false){
+        std::cout<<img.size()<<std::endl;
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+        QImage gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        ui->galleryPos2->setPixmap(QPixmap::fromImage(gallery2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     QString str2 = QString::fromStdString(keys[1]);
     ui->namePos2->setText(str2);
-
+    }else{
+        ui->galleryPos2->clear();
+        ui->namePos2->clear();
+    }
     //third of four
     img = mats[2];
-    std::cout<<img.size()<<std::endl;
-    cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-    QImage gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-                           QImage::Format_RGB888);
-    ui->galleryPos3->setPixmap(QPixmap::fromImage(gallery3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    if (img.empty() == false){
 
-    QString str3 = QString::fromStdString(keys[2]);
-    ui->namePos3->setText(str3);
+        std::cout<<img.size()<<std::endl;
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+        QImage gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        ui->galleryPos3->setPixmap(QPixmap::fromImage(gallery3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+        QString str3 = QString::fromStdString(keys[2]);
+        ui->namePos3->setText(str3);
+    }else{
+        ui->galleryPos3->clear();
+        ui->namePos3->clear();
+    }
 
     //fourth of four
     img = mats[3];
-    std::cout<<img.size()<<std::endl;
-    cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-    QImage gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-                           QImage::Format_RGB888);
-    ui->galleryPos4->setPixmap(QPixmap::fromImage(gallery4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    if (img.empty() == false){
 
-    QString str4 = QString::fromStdString(keys[3]);
-    ui->namePos4->setText(str4);
+        std::cout<<img.size()<<std::endl;
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+        QImage gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        ui->galleryPos4->setPixmap(QPixmap::fromImage(gallery4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+        QString str4 = QString::fromStdString(keys[3]);
+        ui->namePos4->setText(str4);
+    } else{
+        ui->galleryPos4->clear();
+        ui->namePos4->clear();
+    }
 
 
 }
