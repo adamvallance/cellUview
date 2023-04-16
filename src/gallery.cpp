@@ -53,6 +53,8 @@ void Gallery::captureFrame(frame capFrame, bool updateFlatField, int flatFieldCo
     }
     //add ability to set custom string before number
     if (updateFlatField == true){
+
+
             captureFname = pathname + "/.FlatFieldGallery/flatField" + std::to_string(flatFieldCounter) + ".jpg";
             std::string flatFieldPath = captureFname;
 

@@ -20,7 +20,7 @@ void flatFieldCorrect::receiveFrame(frame newFrame) {
     }
     // do stuff here
 
-    // passing frame into the flat field function
+    // passing frame into the flat field functions
     flatField(newFrame); 
 
 }
@@ -43,7 +43,6 @@ void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadat
 }
 void flatFieldCorrect::updateAverage(frame f) {
     averageCalculated = false;
-    calculateAverageEnabled = false;
     // Load reference images
     std::string pathname = getenv("HOME");
     pathname += + "/cellUviewGallery/.FlatFieldGallery/";
@@ -78,22 +77,25 @@ void flatFieldCorrect::updateAverage(frame f) {
 }
 
 
-
+void flatFieldCorrect::setUpdateFlag(){
+    printf("settingFlagTrue");
+    calculateAverageEnabled = true;
+    averageCalculated=false;
+}
 
 void flatFieldCorrect::flatField(frame f) {
     cv::Mat corrected_image;
+    
 
-    if (calculateAverageEnabled) {
-        std::cout<<"IN if"<<std::endl;
-
-        updateAverage(f);
+    if (calculateAverageEnabled == true) {
+        printf("IN IF");
         calculateAverageEnabled = false;
-    }
+        updateAverage(f);
 
+    }
     //don't apply if average calculation is not complete
-    if (!averageCalculated){
+    if (averageCalculated == false){
         calculateAverageEnabled = true;//set flag to calculate
-        std::cout<<"not calculated yet"<<std::endl;
         frameCb->receiveFrame(f);
         return;
     }
@@ -119,6 +121,3 @@ void flatFieldCorrect::flatField(frame f) {
     frameCb->receiveFrame(f);
 }
 
-void flatFieldCorrect::setUpdateFlag(){
-    calculateAverageEnabled = true;
-}

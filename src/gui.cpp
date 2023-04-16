@@ -232,7 +232,8 @@ void Gui::setUpdateFlatField(){
 
     updateFlatField=true;
     flatFieldCounter = 0;
-    static_cast<flatFieldCorrect*>(blocks[0])->setUpdateFlag();
+    
+    static_cast<flatFieldCorrect*>(blocks[1])->setUpdateFlag();
     cam->captureMetadata();
     doCapture = true;
     //To allow checkbox to be enabled
