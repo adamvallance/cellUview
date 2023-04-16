@@ -109,7 +109,9 @@ void MotorDriver::run(){
             update = false;
         
         }
-    
+
+        lock.unlock();
+        cond_var.notify_all();
 
     }
 
