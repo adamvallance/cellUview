@@ -25,6 +25,7 @@ public:
     std::string getParamLabel(){return paramLabel;};
     void updateSettings(std::map<std::string, std::string>);
     void receiveFrame(frame newFrame){return;};
+    void setNote(std::string);
 
     
 private:
@@ -36,8 +37,10 @@ private:
     std::string exposureState = "OFF";
     bool isOn = false;
     std::string paramLabel = "exposure";
+    std::string paramLabel2 = "note";
     //imageProcessor* frameCb = nullptr;
     bool doMeta = false;
+    std::string note = "";
 
 };
 

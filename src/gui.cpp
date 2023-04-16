@@ -157,6 +157,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
         QString enteredText = ui->updateNameBox->toPlainText();
         std::string enteredTextStr = enteredText.toStdString();
+        this->cam->setNote(enteredTextStr);
         //textEditController(enteredTextStr, false);
     });
     // testing restore settings
@@ -504,12 +505,6 @@ void Gui::showDialog(int position) {
     QLabel label;
     label.setPixmap(QPixmap::fromImage(dialogImg));//.scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    // Create a QLabel widget and set its pixmap
-/*
-            gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-                            QImage::Format_RGB888);
-        ui->galleryPos3->setPixmap(QPixmap::fromImage(gallery3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-*/
 
     // Create a QPushButton and set its text
     QPushButton button("Restore Image Properties");
