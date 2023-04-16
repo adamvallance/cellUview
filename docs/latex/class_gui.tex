@@ -1,0 +1,86 @@
+\hypertarget{class_gui}{}\section{Gui Class Reference}
+\label{class_gui}\index{Gui@{Gui}}
+
+
+{\ttfamily \#include $<$gui.\+h$>$}
+
+Inheritance diagram for Gui\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gui}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gui_a2f058a424b6584d1907b1f45422da4f6}{receive\+Frame} (\hyperlink{classframe}{frame} new\+Frame)
+\item 
+\hyperlink{class_gui_a0787d4633eeebebc31ec40ad2b441c25}{Gui} (Q\+Main\+Window $\ast$, Ui\+\_\+\+G\+UI $\ast$, \hyperlink{class_gallery}{Gallery} $\ast$, std\+::vector$<$ \hyperlink{classimage_processor}{image\+Processor} $\ast$ $>$ \&)
+\item 
+void \hyperlink{class_gui_ac76a8210e18720a6bd248c0f1425a738}{Set\+Visible} (bool visible)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A class which handles G\+UI connections and functionality. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Gui@{Gui}!Gui@{Gui}}
+\index{Gui@{Gui}!Gui@{Gui}}
+\subsubsection[{\texorpdfstring{Gui(\+Q\+Main\+Window $\ast$, Ui\+\_\+\+G\+U\+I $\ast$, Gallery $\ast$, std\+::vector$<$ image\+Processor $\ast$ $>$ \&)}{Gui(QMainWindow *, Ui_GUI *, Gallery *, std::vector< imageProcessor * > &)}}]{\setlength{\rightskip}{0pt plus 5cm}Gui\+::\+Gui (
+\begin{DoxyParamCaption}
+\item[{Q\+Main\+Window $\ast$}]{win, }
+\item[{Ui\+\_\+\+G\+UI $\ast$}]{ui\+\_\+win, }
+\item[{{\bf Gallery} $\ast$}]{gallery\+In, }
+\item[{std\+::vector$<$ {\bf image\+Processor} $\ast$ $>$ \&}]{blocks\+In}
+\end{DoxyParamCaption}
+)}\hypertarget{class_gui_a0787d4633eeebebc31ec40ad2b441c25}{}\label{class_gui_a0787d4633eeebebc31ec40ad2b441c25}
+Constructor to initialise the G\+UI and set connections 
+\begin{DoxyParams}{Parameters}
+{\em win} & points to Q\+Main\+Window \\
+\hline
+{\em ui\+\_\+win} & points to Ui\+\_\+\+G\+UI \\
+\hline
+{\em gallery\+In} & points to \hyperlink{class_gallery}{Gallery} instance \\
+\hline
+{\em blocks\+In} & is a std\+::vector of the image processing blocks \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Gui@{Gui}!receive\+Frame@{receive\+Frame}}
+\index{receive\+Frame@{receive\+Frame}!Gui@{Gui}}
+\subsubsection[{\texorpdfstring{receive\+Frame(frame new\+Frame)}{receiveFrame(frame newFrame)}}]{\setlength{\rightskip}{0pt plus 5cm}void Gui\+::receive\+Frame (
+\begin{DoxyParamCaption}
+\item[{{\bf frame}}]{new\+Frame}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_gui_a2f058a424b6584d1907b1f45422da4f6}{}\label{class_gui_a2f058a424b6584d1907b1f45422da4f6}
+Function to recieve callbacks frames from image processor blocks 
+\begin{DoxyParams}{Parameters}
+{\em new\+Frame} & frame structure from processing block via callback interface \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classimage_processor}{image\+Processor}.
+
+\index{Gui@{Gui}!Set\+Visible@{Set\+Visible}}
+\index{Set\+Visible@{Set\+Visible}!Gui@{Gui}}
+\subsubsection[{\texorpdfstring{Set\+Visible(bool visible)}{SetVisible(bool visible)}}]{\setlength{\rightskip}{0pt plus 5cm}void Gui\+::\+Set\+Visible (
+\begin{DoxyParamCaption}
+\item[{bool}]{visible}
+\end{DoxyParamCaption}
+)}\hypertarget{class_gui_ac76a8210e18720a6bd248c0f1425a738}{}\label{class_gui_ac76a8210e18720a6bd248c0f1425a738}
+Sets UI visibility 
+\begin{DoxyParams}{Parameters}
+{\em visible} & true to make visible \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui.\+h\item 
+src/gui.\+cpp\end{DoxyCompactItemize}

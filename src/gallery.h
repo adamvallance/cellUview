@@ -20,21 +20,25 @@ class Gallery{
 
     public:
         Gallery();
-        void captureFrame(frame);
+        void captureFrame(frame, bool flatfield=false, int flatFieldCounter = 0);
         void updateImgName(std::string);
         void updateIndex();
         std::map<std::string, std::string> getMetadata(std::string = "");
 
         std::string getPathname(){return pathname;}; //testing only
+        // std::string getFlatFieldPath(){return flatFieldPath;};
         std::string getCaptureFname(){return captureFname;};//testing only
 
-    private:
-        void writeMetadata(frame, std::string);
 
+
+    private:
+        int initialiseDirectory(std::string, std::string);
+        void writeMetadata(frame, std::string);
 
         DIR *dir;
         struct dirent *ent;
         std::string pathname = "";
+        std::string flatFieldPath = "";
         std::string imgName = "capture";
         int captureImgCounter = 0;
         std::string captureFname = "";
@@ -42,6 +46,7 @@ class Gallery{
         int lastHighestIndex = -1;
         int indexLen = 1;
         std::string existingCaptureFname; 
+
 
         cv::Mat img;
 
