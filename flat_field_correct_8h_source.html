@@ -91,30 +91,32 @@ $(function() {
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;imageProcessor.h&quot;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;gallery.h&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classflat_field_correct.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="classflat_field_correct.html">flatFieldCorrect</a>: <span class="keyword">public</span> <a class="code hl_class" href="classimage_processor.html">imageProcessor</a>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_class" href="classflat_field_correct.html">flatFieldCorrect</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordtype">void</span> receiveFrame(<a class="code hl_class" href="classframe.html">frame</a> newFrame);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    std::string getParamLabel(){<span class="keywordflow">return</span> paramLabel;};</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">void</span> setUpdateFlag();</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">void</span> updateSettings(std::map&lt;std::string, std::string&gt;);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">//add any other methods here</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">void</span> updateAverage(<a class="code hl_class" href="classframe.html">frame</a>);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">void</span> flatField(<a class="code hl_class" href="classframe.html">frame</a>); <span class="comment">//Flat Field Correction</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::string paramLabel = <span class="stringliteral">&quot;flatField&quot;</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    cv::Mat current_correction_factor;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">bool</span> calculateAverageEnabled = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">bool</span> averageCalculated = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#endif </span><span class="comment">// OPENFLEXURE_FLAT_FIELD_CORRECT_H</span></div>
-<div class="ttc" id="aclassflat_field_correct_html"><div class="ttname"><a href="classflat_field_correct.html">flatFieldCorrect</a></div><div class="ttdef"><b>Definition:</b> flatFieldCorrect.h:15</div></div>
-<div class="ttc" id="aclassframe_html"><div class="ttname"><a href="classframe.html">frame</a></div><div class="ttdef"><b>Definition:</b> frame.h:16</div></div>
-<div class="ttc" id="aclassimage_processor_html"><div class="ttname"><a href="classimage_processor.html">imageProcessor</a></div><div class="ttdef"><b>Definition:</b> imageProcessor.h:12</div></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classflat_field_correct.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="classflat_field_correct.html">flatFieldCorrect</a>: <span class="keyword">public</span> <a class="code hl_class" href="classimage_processor.html">imageProcessor</a>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_class" href="classflat_field_correct.html">flatFieldCorrect</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classflat_field_correct.html#abb93298ce9ede8bf7dec9ab69acf5555">receiveFrame</a>(<a class="code hl_class" href="classframe.html">frame</a> newFrame);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classflat_field_correct.html#a263a8f8f9c0172aa0eed261499510b08">   25</a></span>    std::string <a class="code hl_function" href="classflat_field_correct.html#a263a8f8f9c0172aa0eed261499510b08">getParamLabel</a>(){<span class="keywordflow">return</span> paramLabel;};</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classflat_field_correct.html#a09b0dae1b7251e184b6660655d3b9931">setUpdateFlag</a>();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classflat_field_correct.html#ab6fba6e38ffb4a8f5a9290715afe9b6d">updateSettings</a>(std::map&lt;std::string, std::string&gt;);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">//add any other methods here</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> updateAverage(<a class="code hl_class" href="classframe.html">frame</a>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> flatField(<a class="code hl_class" href="classframe.html">frame</a>); <span class="comment">//Flat Field Correction</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    std::string paramLabel = <span class="stringliteral">&quot;flatField&quot;</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    cv::Mat current_correction_factor;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">bool</span> calculateAverageEnabled;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif </span><span class="comment">// OPENFLEXURE_FLAT_FIELD_CORRECT_H</span></div>
+<div class="ttc" id="aclassflat_field_correct_html"><div class="ttname"><a href="classflat_field_correct.html">flatFieldCorrect</a></div><div class="ttdef"><b>Definition:</b> flatFieldCorrect.h:17</div></div>
+<div class="ttc" id="aclassflat_field_correct_html_a09b0dae1b7251e184b6660655d3b9931"><div class="ttname"><a href="classflat_field_correct.html#a09b0dae1b7251e184b6660655d3b9931">flatFieldCorrect::setUpdateFlag</a></div><div class="ttdeci">void setUpdateFlag()</div><div class="ttdef"><b>Definition:</b> flatFieldCorrect.cpp:117</div></div>
+<div class="ttc" id="aclassflat_field_correct_html_a263a8f8f9c0172aa0eed261499510b08"><div class="ttname"><a href="classflat_field_correct.html#a263a8f8f9c0172aa0eed261499510b08">flatFieldCorrect::getParamLabel</a></div><div class="ttdeci">std::string getParamLabel()</div><div class="ttdef"><b>Definition:</b> flatFieldCorrect.h:25</div></div>
+<div class="ttc" id="aclassflat_field_correct_html_ab6fba6e38ffb4a8f5a9290715afe9b6d"><div class="ttname"><a href="classflat_field_correct.html#ab6fba6e38ffb4a8f5a9290715afe9b6d">flatFieldCorrect::updateSettings</a></div><div class="ttdeci">void updateSettings(std::map&lt; std::string, std::string &gt;)</div><div class="ttdef"><b>Definition:</b> flatFieldCorrect.cpp:34</div></div>
+<div class="ttc" id="aclassflat_field_correct_html_abb93298ce9ede8bf7dec9ab69acf5555"><div class="ttname"><a href="classflat_field_correct.html#abb93298ce9ede8bf7dec9ab69acf5555">flatFieldCorrect::receiveFrame</a></div><div class="ttdeci">void receiveFrame(frame newFrame)</div><div class="ttdef"><b>Definition:</b> flatFieldCorrect.cpp:16</div></div>
+<div class="ttc" id="aclassframe_html"><div class="ttname"><a href="classframe.html">frame</a></div><div class="ttdef"><b>Definition:</b> frame.h:20</div></div>
+<div class="ttc" id="aclassimage_processor_html"><div class="ttname"><a href="classimage_processor.html">imageProcessor</a></div><div class="ttdef"><b>Definition:</b> imageProcessor.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

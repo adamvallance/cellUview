@@ -97,87 +97,52 @@ $(function() {
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;camera.h&quot;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;contrastEnhancement.h&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;flatFieldCorrect.h&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;QDir&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;QDialog&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;QVBoxLayout&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_gui.html">   28</a></span><span class="keyword">class </span><a class="code hl_class" href="class_gui.html">Gui</a> : <span class="keyword">public</span> QWidget, <span class="keyword">public</span> <a class="code hl_class" href="classimage_processor.html">imageProcessor</a>{ </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    Q_OBJECT</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_gui.html#a2f058a424b6584d1907b1f45422da4f6">receiveFrame</a>(<a class="code hl_class" href="classframe.html">frame</a> newFrame);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_class" href="class_gui.html">Gui</a>(QMainWindow*, Ui_GUI*, <a class="code hl_class" href="class_gallery.html">Gallery</a>*, std::vector &lt;imageProcessor *&gt;&amp;);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_gui.html#ac76a8210e18720a6bd248c0f1425a738">SetVisible</a>(<span class="keywordtype">bool</span> visible);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    QMainWindow *widget;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    Ui_GUI *ui;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">bool</span> doCapture =<span class="keyword">false</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> captureNextFrame();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> restoreSettings(std::string = <span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> updateSettings(std::map&lt;std::string, std::string&gt;);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    std::string getParamLabel(){<span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;};</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">bool</span> updateFlatField = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">bool</span> flatFieldEnable = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> setUpdateFlatField();</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">int</span> flatFieldCounter = 0; </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">void</span> updateGalleryIndex(<span class="keywordtype">bool</span>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> displayImages();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">void</span> intialGallerySetting();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> onCaptureButtonPress();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> textEditController(std::string enteredTextStr, <span class="keywordtype">bool</span> pressed);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">void</span> showDialog(<span class="keywordtype">int</span> position);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> updateGalleryView(<span class="keywordtype">bool</span> directionIsNext);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">//std::string textEditController(std::string enteredTextStr){return myString;};</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    std::vector&lt;QString&gt; galleryStrs;  </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    std::vector&lt;cv::Mat&gt; mats;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::vector&lt;QImage&gt; galleryQImages;  </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    QString str1;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    QString str2;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    QString str3;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    QString str4;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    QImage gallery1;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    QImage gallery2;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    QImage gallery3;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    QImage gallery4;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    QDialog dialog;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">int</span> galleryPos1Index = 0;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">int</span> galleryPos2Index = 1;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">int</span> galleryPos3Index = 2;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">int</span> galleryPos4Index = 3;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    std::string myString; </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    QStringList images;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">int</span> batchIndex = 1; </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    QDir imageDir;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    QStringList imageFilters;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    cv::Mat img;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_class" href="class_gallery.html">Gallery</a>* gallery;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_class" href="class_camera.html">Camera</a>* cam;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    std::vector&lt;imageProcessor*&gt; blocks;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    std::map&lt;std::string, std::string&gt; metadata;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_class" href="classedge_detection.html">edgeDetection</a> *edgeDetector;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_class" href="classgray_scale.html">grayScale</a> *grayDetector;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>};</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#endif </span><span class="comment">// CELLUVIEW_GUI_H</span></div>
-<div class="ttc" id="aclass_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdef"><b>Definition:</b> camera.h:15</div></div>
-<div class="ttc" id="aclass_gallery_html"><div class="ttname"><a href="class_gallery.html">Gallery</a></div><div class="ttdef"><b>Definition:</b> gallery.h:21</div></div>
-<div class="ttc" id="aclass_gui_html"><div class="ttname"><a href="class_gui.html">Gui</a></div><div class="ttdef"><b>Definition:</b> gui.h:28</div></div>
-<div class="ttc" id="aclass_gui_html_a2f058a424b6584d1907b1f45422da4f6"><div class="ttname"><a href="class_gui.html#a2f058a424b6584d1907b1f45422da4f6">Gui::receiveFrame</a></div><div class="ttdeci">void receiveFrame(frame newFrame)</div><div class="ttdef"><b>Definition:</b> gui.cpp:181</div></div>
-<div class="ttc" id="aclass_gui_html_ac76a8210e18720a6bd248c0f1425a738"><div class="ttname"><a href="class_gui.html#ac76a8210e18720a6bd248c0f1425a738">Gui::SetVisible</a></div><div class="ttdeci">void SetVisible(bool visible)</div><div class="ttdef"><b>Definition:</b> gui.cpp:247</div></div>
-<div class="ttc" id="aclassedge_detection_html"><div class="ttname"><a href="classedge_detection.html">edgeDetection</a></div><div class="ttdef"><b>Definition:</b> edgeDetection.h:14</div></div>
-<div class="ttc" id="aclassframe_html"><div class="ttname"><a href="classframe.html">frame</a></div><div class="ttdef"><b>Definition:</b> frame.h:16</div></div>
-<div class="ttc" id="aclassgray_scale_html"><div class="ttname"><a href="classgray_scale.html">grayScale</a></div><div class="ttdef"><b>Definition:</b> grayScale.h:11</div></div>
-<div class="ttc" id="aclassimage_processor_html"><div class="ttname"><a href="classimage_processor.html">imageProcessor</a></div><div class="ttdef"><b>Definition:</b> imageProcessor.h:12</div></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_gui.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="class_gui.html">Gui</a> : <span class="keyword">public</span> QWidget, <span class="keyword">public</span> <a class="code hl_class" href="classimage_processor.html">imageProcessor</a>{ </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    Q_OBJECT</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_gui.html#a2f058a424b6584d1907b1f45422da4f6">receiveFrame</a>(<a class="code hl_class" href="classframe.html">frame</a> newFrame);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="class_gui.html">Gui</a>(QMainWindow*, Ui_GUI*, <a class="code hl_class" href="class_gallery.html">Gallery</a>*, std::vector &lt;imageProcessor *&gt;&amp;);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_gui.html#ac76a8210e18720a6bd248c0f1425a738">SetVisible</a>(<span class="keywordtype">bool</span> visible);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    QMainWindow *widget;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    Ui_GUI *ui;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">bool</span> doCapture =<span class="keyword">false</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> captureNextFrame();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> restoreSettings(std::string = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">void</span> updateSettings(std::map&lt;std::string, std::string&gt;);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    std::string getParamLabel(){<span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;};</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">bool</span> updateFlatField = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">bool</span> flatFieldEnable = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">void</span> setUpdateFlatField();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">int</span> flatFieldCounter = 0; </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    cv::Mat img;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="class_gallery.html">Gallery</a>* gallery;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="class_camera.html">Camera</a>* cam;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    std::vector&lt;imageProcessor*&gt; blocks;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    std::map&lt;std::string, std::string&gt; metadata;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="classedge_detection.html">edgeDetection</a> *edgeDetector;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="classgray_scale.html">grayScale</a> *grayDetector;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#endif </span><span class="comment">// CELLUVIEW_GUI_H</span></div>
+<div class="ttc" id="aclass_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdef"><b>Definition:</b> camera.h:17</div></div>
+<div class="ttc" id="aclass_gallery_html"><div class="ttname"><a href="class_gallery.html">Gallery</a></div><div class="ttdef"><b>Definition:</b> gallery.h:19</div></div>
+<div class="ttc" id="aclass_gui_html"><div class="ttname"><a href="class_gui.html">Gui</a></div><div class="ttdef"><b>Definition:</b> gui.h:25</div></div>
+<div class="ttc" id="aclass_gui_html_a2f058a424b6584d1907b1f45422da4f6"><div class="ttname"><a href="class_gui.html#a2f058a424b6584d1907b1f45422da4f6">Gui::receiveFrame</a></div><div class="ttdeci">void receiveFrame(frame newFrame)</div><div class="ttdef"><b>Definition:</b> gui.cpp:169</div></div>
+<div class="ttc" id="aclass_gui_html_ac76a8210e18720a6bd248c0f1425a738"><div class="ttname"><a href="class_gui.html#ac76a8210e18720a6bd248c0f1425a738">Gui::SetVisible</a></div><div class="ttdeci">void SetVisible(bool visible)</div><div class="ttdef"><b>Definition:</b> gui.cpp:226</div></div>
+<div class="ttc" id="aclassedge_detection_html"><div class="ttname"><a href="classedge_detection.html">edgeDetection</a></div><div class="ttdef"><b>Definition:</b> edgeDetection.h:17</div></div>
+<div class="ttc" id="aclassframe_html"><div class="ttname"><a href="classframe.html">frame</a></div><div class="ttdef"><b>Definition:</b> frame.h:20</div></div>
+<div class="ttc" id="aclassgray_scale_html"><div class="ttname"><a href="classgray_scale.html">grayScale</a></div><div class="ttdef"><b>Definition:</b> grayScale.h:14</div></div>
+<div class="ttc" id="aclassimage_processor_html"><div class="ttname"><a href="classimage_processor.html">imageProcessor</a></div><div class="ttdef"><b>Definition:</b> imageProcessor.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

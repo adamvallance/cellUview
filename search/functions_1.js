@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['receiveframe_0',['receiveFrame',['../class_gui.html#a2f058a424b6584d1907b1f45422da4f6',1,'Gui']]]
+  ['encodemetadata_0',['encodeMetadata',['../classframe.html#abfce006d754b16c702a001f2efd27b1e',1,'frame']]]
 ];
