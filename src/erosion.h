@@ -19,9 +19,21 @@ public:
 
     void updateSettings(std::map<std::string, std::string>);
 
+    void start();
+    void stop();
+
 private:
     //add any other methods here
-    void erode(frame); //edge detection
+    void erode(); //erosion
     std::string paramLabel = "erosion";
+
+    std::thread erodeThread;
+
+    frame procFrame;
+    bool update = false;
+    bool running = false;
+
+    std::mutex mut;
+    std::condition_variable cond_var;
 };
 #endif // CELLUVIEW_EROSION_H

@@ -14,9 +14,27 @@ void erosion::receiveFrame(frame newFrame) {
     }
 
     // Pass frame into the erosion function
-    erode(newFrame); 
+    //erode(newFrame); 
+    procFrame.copyFrom(&newFrame);      // copy new frame into the frame for processing
+    std::lock_guard lock(mut);
+    update = true;                      // set flag
+    cond_var.notify_all();              // wake thread
 }
 
+void erosion::start(){
+    running = true;
+    erodeThread = std::thread(&erosion::erode, this);
+}
+
+void erosion::stop(){
+    running = false;
+    erodeThread.join();
+}
+
+/**
+* Implemented from ImageProcessor. Updates settings based on metadata.
+* @param metadata standard map of strings containing metadata
+**/
 void erosion::updateSettings(std::map<std::string, std::string> metadata){
     
     std::string rec = metadata[paramLabel];
@@ -33,21 +51,38 @@ void erosion::updateSettings(std::map<std::string, std::string> metadata){
     
 }
 
-void erosion::erode(frame f) {
-    // Convert input frame to cv::Mat
-    cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
+void erosion::erode() {
 
-    // Create output cv::Mat
-    cv::Mat output_mat(input_mat.size(), CV_8UC3);
 
-    // Perform erosion on the input image
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3)); // Set erosion kernel
-    cv::erode(input_mat, output_mat, kernel); // Perform erosion operation
+    while(running){
 
-    // Overwrite frame image
-    f.image = output_mat;
+        std::unique_lock lock(mut);
+        cond_var.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data flagged
+        //std::cout<<"waited"<<std::endl;
 
-    f.setParameter(paramLabel, "ON");
-    // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->receiveFrame(f);
+        if (update){
+            frame f; 
+            f.copyFrom(&procFrame);
+
+            // Convert input frame to cv::Mat
+            cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
+
+            // Create output cv::Mat
+            cv::Mat output_mat(input_mat.size(), CV_8UC3);
+
+            // Perform erosion on the input image
+            cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3)); // Set erosion kernel
+            cv::erode(input_mat, output_mat, kernel); // Perform erosion operation
+
+            // Overwrite frame image
+            f.image = output_mat;
+
+            f.setParameter(paramLabel, "ON");
+            // Output the frame through the callback onto the next instance in the dataflow
+            frameCb->receiveFrame(f);
+            update = false;
+        }
+        lock.unlock();          // manually unlock mutex
+        cond_var.notify_all();  // notify done
+    }
 }
