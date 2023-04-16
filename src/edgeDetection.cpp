@@ -8,6 +8,10 @@
 
 
 //Receives in new frames through a callback.
+/**
+* Recieves new frames for processing via callback.
+* If enabled, copies recieved frame for processing via separate method.
+**/
 void edgeDetection::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
@@ -17,44 +21,81 @@ void edgeDetection::receiveFrame(frame newFrame) {
     // do stuff here
 
     // passing frame into the edge detection function
-    enhanceEdge(newFrame); 
+    //enhanceEdge(newFrame); 
+    procFrame.copyFrom(&newFrame);      // copy new frame into the frame for processing
+    std::lock_guard lock(mut);
+    update = true;                      // set flag
+    cond_var.notify_all();              // wake thread
+}
+
+void edgeDetection::start(){
+    running = true;
+    edgeThread = std::thread(&edgeDetection::enhanceEdge, this);    //start worker thread
+}
+
+void edgeDetection::stop(){
+    running = false;
+    edgeThread.join();
 }
 
 
-void edgeDetection::enhanceEdge(frame f) {
-    // Convert input frame to cv::Mat
-    cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
+void edgeDetection::enhanceEdge() {
 
-    // Create output cv::Mat
-    cv::Mat output_mat(input_mat.size(), CV_8UC3);
+    while(running){
 
-    // Perform edge detection with set threshold
-    cv::Mat gray_img;
-    cv::cvtColor(input_mat, gray_img, cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(gray_img, gray_img, cv::Size(3, 3), 0);
-    cv::Canny(gray_img, gray_img, threshold, threshold);
+        std::unique_lock lock(mut);
+        cond_var.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data flagged
 
-    // Superimpose edges on to the original frame
-    cv::Mat overlay_mat;
-    cv::cvtColor(gray_img, overlay_mat, cv::COLOR_GRAY2BGR);
-    cv::addWeighted(input_mat, 0.9, overlay_mat, 0.3, 0, output_mat);
+        if (update){
+            frame f; 
+            f.copyFrom(&procFrame);
 
-    // Add output matrix to frame
-    f.image = output_mat;
+            // Convert input frame to cv::Mat
+            cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
 
-    f.setParameter(paramLabel, std::to_string(sliderThreshold));
-    //TODO: when sliding threshold added this should match threshold variable
+            // Create output cv::Mat
+            cv::Mat output_mat(input_mat.size(), CV_8UC3);
 
-    // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->receiveFrame(f);
+            // Perform edge detection with set threshold
+            cv::Mat gray_img;
+            cv::cvtColor(input_mat, gray_img, cv::COLOR_BGR2GRAY);
+            cv::GaussianBlur(gray_img, gray_img, cv::Size(3, 3), 0);
+            cv::Canny(gray_img, gray_img, threshold, threshold);
 
+            // Superimpose edges on to the original frame
+            cv::Mat overlay_mat;
+            cv::cvtColor(gray_img, overlay_mat, cv::COLOR_GRAY2BGR);
+            cv::addWeighted(input_mat, 0.9, overlay_mat, 0.3, 0, output_mat);
+
+            // Add output matrix to frame
+            f.image = output_mat;
+
+            f.setParameter(paramLabel, std::to_string(sliderThreshold));
+            //TODO: when sliding threshold added this should match threshold variable
+
+            // Output the frame through the callback onto the next instance in the dataflow
+            frameCb->receiveFrame(f);
+            update = false;
+        }
+        lock.unlock();          // manually unlock mutex
+        cond_var.notify_all();  // notify done
+    }
 }
 
+/**
+* Updates edge detection threshold value for enhancement method.
+* Correctly scales GUI slider value.
+**/
 void edgeDetection::updateThreshold(int value){
     sliderThreshold = value;
     //std::cout<<std::to_string(value)<<std::endl;
     threshold=255-2.55*value;
 }
+
+/**
+* Implemented from ImageProcessor. Updates settings based on metadata.
+* @param metadata standard map of strings containing metadata
+**/
 void edgeDetection::updateSettings(std::map<std::string, std::string> metadata){
     std::string rec = metadata[paramLabel];
     int metaThreshold;

@@ -10,7 +10,9 @@
 #include <thread>
 #include "imageProcessor.h"
 
-
+/**
+* Class to implement edge enhancement on image stream.
+**/
 class edgeDetection:   public imageProcessor{
    
 
@@ -22,9 +24,23 @@ public:
     void updateThreshold(int value);
     void updateSettings(std::map<std::string, std::string>);
     std::string getParamLabel(){return paramLabel;};
+    
+    void start();
+    void stop();
 private:
     //add any other methods here
-    void enhanceEdge(frame); //edge detection
+    void enhanceEdge(); //edge detection
     std::string paramLabel = "edgeThreshold";
+
+    std::thread edgeThread;
+
+    frame procFrame;
+    bool update = false;
+    bool running = false;
+
+    std::mutex mut;
+    std::condition_variable cond_var;
+
+
 };
 #endif // CELLUVIEW_EDGE_DETECTION_H

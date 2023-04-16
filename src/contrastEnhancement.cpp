@@ -51,7 +51,7 @@ void contrastEnhancement::contrastEnhance() {
 
             frame f; 
             f.copyFrom(&procFrame);
-            std::cout<<"contrast frame copied"<<std::endl;
+            //std::cout<<"contrast frame copied"<<std::endl;
 
             // Convert input frame to cv::Mat
             cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
