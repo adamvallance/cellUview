@@ -518,7 +518,7 @@ void Gui::showDialog(int position) {
         //std::string fileToRestore = pathStr + caption.toStdString();
         std::string fileToRestore = this->gallery->getGalleryDisplayFname(position);
         restoreSettings(fileToRestore); 
-        
+        dialog.accept();
     });
 
     // Create a QHBoxLayout and add the label to it
