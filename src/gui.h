@@ -57,6 +57,7 @@ private:
 
     //std::string textEditController(std::string enteredTextStr){return myString;};
     std::vector<QString> galleryStrs;  
+    std::vector<cv::Mat> mats;
     std::vector<QImage> galleryQImages;  
     QString str1;
     QString str2;
@@ -66,6 +67,7 @@ private:
     QImage gallery2;
     QImage gallery3;
     QImage gallery4;
+    QDialog dialog;
     
     int galleryPos1Index = 0;
     int galleryPos2Index = 1;
