@@ -59,7 +59,7 @@ void contrastEnhancement::contrastEnhance(frame f) {
 }
 
 /**
-* Updates contrast enhancements value for private contrast enhancement method.
+* Updates contrast enhancements value for contrast enhancement method.
 * Applies non-linearity to slider value.
 **/
 void contrastEnhancement::updateThreshold(int value){
