@@ -17,7 +17,7 @@ Gallery::Gallery(){
     initialiseDirectory(pathname, "cellUview Gallery");
     initialiseDirectory(flatFieldPath, "Flat field capture gallery");
     updateIndex();
-    getCaptures(false);
+    //getCaptures(false);
     
 }
 
@@ -225,7 +225,7 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
     cv::Mat captureMat;
     std::string displayString;
     int panelIndex;
-    
+    galleryDisplayFname.clear();
     for (int i = 0; i<4; i++){
         panelIndex = galleryDisplayIndex + i;
         std::cout<<panelIndex<<std::endl;
@@ -237,6 +237,7 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
             capturePathName = pathname + imgName + std::to_string(panelIndex) + ".jpg";
             captureMat = cv::imread(capturePathName);
             displayString = std::to_string(panelIndex) + "asdfjkl"; //+METADATA
+            galleryDisplayFname.push_back(capturePathName);
         }catch(...){
             displayString = "";
             cv::Mat emptyMat;
@@ -247,6 +248,10 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
     
     }
     return stringCapPairs;
+}
+
+std::string Gallery::getGalleryDisplayFname(int pos){
+    return galleryDisplayFname[pos];
 }
 
 bool Gallery::galleryAtEnd(){

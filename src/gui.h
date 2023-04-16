@@ -55,7 +55,9 @@ private:
     void updateGalleryView(bool directionIsNext);
 
 
-    //std::string textEditController(std::string enteredTextStr){return myString;};    
+    //std::string textEditController(std::string enteredTextStr){return myString;};
+    std::vector<QString> galleryStrs;  
+    std::vector<QImage> galleryQImages;  
     QString str1;
     QString str2;
     QString str3;

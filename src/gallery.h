@@ -34,6 +34,7 @@ class Gallery{
         std::list<std::pair<std::string, cv::Mat>>  getCaptures(bool);
 
         bool galleryAtEnd();
+        std::string getGalleryDisplayFname(int);
 
     private:
         int initialiseDirectory(std::string, std::string);
@@ -62,6 +63,8 @@ class Gallery{
         ExifTool *et = new ExifTool();
 
         std::map<std::string, std::string> restoredParams;
+
+        std::vector<std::string> galleryDisplayFname;
 
 
 };

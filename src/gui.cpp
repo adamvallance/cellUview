@@ -22,19 +22,28 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     enabled = true;
     
 
-
-
-
-
     ui->dilationCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
     ui->erosionCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
     ui->flatFieldBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
     ui->flatFieldBox->setEnabled(false);
-
-
     ui->grayScaleBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
 
-    // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
+
+     //-----------camera (block 0)---------------------
+    QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
+        this->cam->setExposure(sliderValue2);
+        ui->exposureValueInput->setText(QString::number(sliderValue2*5));
+
+
+    });
+    QObject::connect(ui->exposureValueInput, &QLineEdit::textChanged, ui->exposureSlider, [&](const QString &text) {
+        bool ok;
+        
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->exposureSlider->setValue(value/5);
+        }
+    });
 
          //-----------block 1 flat field---------------------
     QObject::connect(ui->flatFieldBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
@@ -71,6 +80,32 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
          
     });
 
+    // //-----------block 5 contrast ---------------------
+    QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
+        ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
+        bool enabled = blocks[5]->getEnabled();
+        if (sliderValue1 == 0){ //disable if 0 on slider is selected
+            if (enabled){
+                blocks[5]->toggleEnable();
+            }
+        }
+        else{
+            if (!enabled){
+                blocks[5]->toggleEnable();
+            }
+        }
+        //access derived method of contrastEnhancer from vector of base class (image processor) pointers
+        static_cast<contrastEnhancement*>(blocks[5])->updateThreshold(sliderValue1);
+
+    });
+
+    QObject::connect(ui->contrastEnhancementValueInput, &QLineEdit::textChanged, ui->contrastEnhancementSlider, [&](const QString &text) {
+        bool ok;
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->contrastEnhancementSlider->setValue(value);
+        }
+    });
 
     //-------------block -1 edge enhancement-----------------------
     QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->edgeEnhancementValueInput, [&](int sliderValue) {
@@ -99,47 +134,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
     });
     
-    // //-----------block 5 contrast ---------------------
-    QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
-        ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
-        bool enabled = blocks[5]->getEnabled();
-        if (sliderValue1 == 0){ //disable if 0 on slider is selected
-            if (enabled){
-                blocks[5]->toggleEnable();
-            }
-        }
-        else{
-            if (!enabled){
-                blocks[5]->toggleEnable();
-            }
-        }
-        //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-        static_cast<contrastEnhancement*>(blocks[5])->updateThreshold(sliderValue1);
-
-    });
-
-    QObject::connect(ui->contrastEnhancementValueInput, &QLineEdit::textChanged, ui->contrastEnhancementSlider, [&](const QString &text) {
-        bool ok;
-        int value = text.toInt(&ok);
-        if (ok) {
-            ui->contrastEnhancementSlider->setValue(value);
-        }
-    });
-
-    QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
-        this->cam->setExposure(sliderValue2);
-        ui->exposureValueInput->setText(QString::number(sliderValue2*5));
 
 
-    });
-    QObject::connect(ui->exposureValueInput, &QLineEdit::textChanged, ui->exposureSlider, [&](const QString &text) {
-        bool ok;
-        
-        int value = text.toInt(&ok);
-        if (ok) {
-            ui->exposureSlider->setValue(value/5);
-        }
-    });
     
     
 
@@ -458,7 +454,8 @@ void Gui::updateGalleryView(bool directionIsNext){
         ui->galleryPos4->clear();
         ui->namePos4->clear();
     }
-
+    galleryStrs = {str1, str2, str3, str4};
+    galleryQImages={gallery1, gallery2, gallery3, gallery4};
 
 }
 
@@ -742,20 +739,23 @@ void Gui::updateGalleryView(bool directionIsNext){
 void Gui::showDialog(int position) {
     if (position!=-1){
     QDialog dialog;
-    dialog.setWindowTitle("Restore Image Properties");
+    dialog.setWindowTitle("Restore Settings");
 
-    // Load the image and create a pixmap
-    std::string directoryStr = this->gallery->getPathname();
-    QString directory = QString::fromStdString(directoryStr);
-    QDir imageDir(directory);
+    // // Load the image and create a pixmap
+    // std::string directoryStr = this->gallery->getPathname();
+    // QString directory = QString::fromStdString(directoryStr);
+    // QDir imageDir(directory);
    
-    imageFilters << "*.jpg";
-    QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
-    QSize labelSize = ui->galleryPos1->size();
+    // imageFilters << "*.jpg";
+    // QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+    // QSize labelSize = ui->galleryPos1->size();
 
-    QImage image(directory + "/" + images[position]);
+    // QImage image(directory + "/" + images[position]);
+    // QString imagName = images.at(position);
+    QString caption = galleryStrs[position];
+    QImage image = galleryQImages[position];
     QPixmap pixmap = QPixmap::fromImage(image);
-    QString imagName = images.at(position);
+
 
     // Create a QLabel widget and set its pixmap
     QLabel label;
@@ -765,7 +765,8 @@ void Gui::showDialog(int position) {
     QPushButton button("Restore Image Properties");
     QObject::connect(&button, &QPushButton::released, this, [=](){ 
         std::string pathStr = this->gallery->getPathname();
-        std::string fileToRestore = pathStr + imagName.toStdString();
+        //std::string fileToRestore = pathStr + caption.toStdString();
+        std::string fileToRestore = this->gallery->getGalleryDisplayFname(position);
         restoreSettings(fileToRestore); 
         
     });
