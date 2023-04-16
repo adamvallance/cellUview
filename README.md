@@ -124,7 +124,7 @@ These tests are also run as a part of the GitHub continuous integration action '
 
 # License 
 
-TBD
+This code is distributed under the GNU GPL-3.0 license. See [`LICENSE`](https://github.com/adamvallance/cellUview/blob/main/LICENSE) for more details.
 
 
 # Contributors
