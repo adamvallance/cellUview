@@ -138,7 +138,7 @@ This is a project being carried out by a group of University of Glasgow engineer
 
 # Credits
 
-Credits to Phil Harvey's <a href="https://exiftool.org/">C++ ExifTool library</a> for reading and writing metadata.
+Credits to Bernd Porr's <a href="https://github.com/berndporr/opencv-camera-callback">OpenCV Camera Callback Class</a>, and Phil Harvey's <a href="https://exiftool.org/">C++ ExifTool library</a> for reading and writing metadata.
 
 
 
