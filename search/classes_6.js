@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kmeanscluster_0',['kMeansCluster',['../classk_means_cluster.html',1,'']]]
+  ['motordriver_0',['MotorDriver',['../class_motor_driver.html',1,'']]]
 ];
