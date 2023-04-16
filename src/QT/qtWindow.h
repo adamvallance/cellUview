@@ -57,7 +57,9 @@ public:
     QLabel *label_6;
     QSlider *exposureSlider;
     QCheckBox *flatFieldBox;
-    QCheckBox *kMeansBox;
+    QLineEdit *kMeansValueInput;
+    QSlider *kMeansSlider;
+    QLabel *label_7;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
     QStatusBar *statusbar;
@@ -127,7 +129,7 @@ public:
         widget_6->setStyleSheet(QStringLiteral("background-color: rgb(33, 33, 33);"));
         edgeEnhancementSlider = new QSlider(widget_6);
         edgeEnhancementSlider->setObjectName(QStringLiteral("edgeEnhancementSlider"));
-        edgeEnhancementSlider->setGeometry(QRect(10, 190, 341, 31));
+        edgeEnhancementSlider->setGeometry(QRect(10, 210, 341, 31));
         edgeEnhancementSlider->setStyleSheet(QLatin1String("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
@@ -136,7 +138,7 @@ public:
         edgeEnhancementSlider->setOrientation(Qt::Horizontal);
         edgeEnhancementValueInput = new QLineEdit(widget_6);
         edgeEnhancementValueInput->setObjectName(QStringLiteral("edgeEnhancementValueInput"));
-        edgeEnhancementValueInput->setGeometry(QRect(370, 190, 71, 31));
+        edgeEnhancementValueInput->setGeometry(QRect(370, 210, 71, 31));
         edgeEnhancementValueInput->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(179, 179, 179);"));
         label_3 = new QLabel(widget_6);
@@ -155,11 +157,11 @@ public:
         dilationCheckBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         erosionCheckBox = new QCheckBox(widget_6);
         erosionCheckBox->setObjectName(QStringLiteral("erosionCheckBox"));
-        erosionCheckBox->setGeometry(QRect(30, 120, 92, 23));
+        erosionCheckBox->setGeometry(QRect(450, 90, 92, 23));
         erosionCheckBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         contrastEnhancementSlider = new QSlider(widget_6);
         contrastEnhancementSlider->setObjectName(QStringLiteral("contrastEnhancementSlider"));
-        contrastEnhancementSlider->setGeometry(QRect(10, 230, 341, 31));
+        contrastEnhancementSlider->setGeometry(QRect(10, 250, 341, 31));
         contrastEnhancementSlider->setStyleSheet(QLatin1String("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
@@ -168,29 +170,29 @@ public:
         contrastEnhancementSlider->setOrientation(Qt::Horizontal);
         contrastEnhancementValueInput = new QLineEdit(widget_6);
         contrastEnhancementValueInput->setObjectName(QStringLiteral("contrastEnhancementValueInput"));
-        contrastEnhancementValueInput->setGeometry(QRect(370, 230, 71, 31));
+        contrastEnhancementValueInput->setGeometry(QRect(370, 250, 71, 31));
         contrastEnhancementValueInput->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(179, 179, 179);"));
         label_4 = new QLabel(widget_6);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(460, 190, 111, 21));
+        label_4->setGeometry(QRect(460, 210, 111, 21));
         label_4->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         label_5 = new QLabel(widget_6);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(460, 230, 161, 21));
+        label_5->setGeometry(QRect(460, 250, 161, 21));
         label_5->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         exposureValueInput = new QLineEdit(widget_6);
         exposureValueInput->setObjectName(QStringLiteral("exposureValueInput"));
-        exposureValueInput->setGeometry(QRect(370, 150, 71, 31));
+        exposureValueInput->setGeometry(QRect(370, 170, 71, 31));
         exposureValueInput->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(179, 179, 179);"));
         label_6 = new QLabel(widget_6);
         label_6->setObjectName(QStringLiteral("label_6"));
-        label_6->setGeometry(QRect(460, 150, 111, 21));
+        label_6->setGeometry(QRect(460, 170, 111, 21));
         label_6->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         exposureSlider = new QSlider(widget_6);
         exposureSlider->setObjectName(QStringLiteral("exposureSlider"));
-        exposureSlider->setGeometry(QRect(10, 150, 341, 31));
+        exposureSlider->setGeometry(QRect(10, 170, 341, 31));
         exposureSlider->setStyleSheet(QLatin1String("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
@@ -202,10 +204,25 @@ public:
         flatFieldBox->setEnabled(false);
         flatFieldBox->setGeometry(QRect(440, 60, 151, 23));
         flatFieldBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
-        kMeansBox = new QCheckBox(widget_6);
-        kMeansBox->setObjectName(QStringLiteral("kMeansBox"));
-        kMeansBox->setGeometry(QRect(450, 90, 111, 23));
-        kMeansBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        kMeansValueInput = new QLineEdit(widget_6);
+        kMeansValueInput->setObjectName(QStringLiteral("kMeansValueInput"));
+        kMeansValueInput->setGeometry(QRect(370, 130, 71, 31));
+        kMeansValueInput->setStyleSheet(QLatin1String("\n"
+"background-color: rgb(179, 179, 179);"));
+        kMeansSlider = new QSlider(widget_6);
+        kMeansSlider->setObjectName(QStringLiteral("kMeansSlider"));
+        kMeansSlider->setGeometry(QRect(10, 130, 341, 31));
+        kMeansSlider->setStyleSheet(QLatin1String("QSlider::handle:horizontal {\n"
+"    background-color: rgb(29, 185, 84);\n"
+"}\n"
+""));
+        kMeansSlider->setMaximum(10);
+        kMeansSlider->setValue(0);
+        kMeansSlider->setOrientation(Qt::Horizontal);
+        label_7 = new QLabel(widget_6);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setGeometry(QRect(460, 130, 111, 21));
+        label_7->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -245,7 +262,8 @@ public:
         exposureValueInput->setText(QString());
         label_6->setText(QApplication::translate("GUI", "Exposure (EV)", Q_NULLPTR));
         flatFieldBox->setText(QApplication::translate("GUI", "Flat Field Correction", Q_NULLPTR));
-        kMeansBox->setText(QApplication::translate("GUI", "Kmeans", Q_NULLPTR));
+        kMeansValueInput->setText(QString());
+        label_7->setText(QApplication::translate("GUI", "kMeans", Q_NULLPTR));
         menuOpenflexure->setTitle(QApplication::translate("GUI", "cellUview", Q_NULLPTR));
     } // retranslateUi
 

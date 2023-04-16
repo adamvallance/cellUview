@@ -18,20 +18,32 @@ void kMeansCluster::receiveFrame(frame newFrame) {
 }
 
 void kMeansCluster::updateSettings(std::map<std::string, std::string> metadata){
-    
     std::string rec = metadata[paramLabel];
-
-    bool desired = (rec == "ON");
-    // std::cout<<rec<<std::endl;
-
-    // std::cout<<desired<<std::endl;
-
-    if (enabled != desired){
-        toggleEnable();
+    int metaThreshold;
+    if (rec == "OFF"){
+        if (enabled == true){
+            toggleEnable();
+        }
+    }else{
+        if (enabled==false){
+            toggleEnable();
+        }
+        try{
+            metaThreshold = std::stoi(metadata[paramLabel]);
+        }catch(...){
+            std::cout<<"Error invalid metadata"<<std::endl;
+            return;
+        }
     }
-
     
+    updateClusterCount(metaThreshold);   
 }
+
+
+void kMeansCluster::updateClusterCount(int value){
+    num_clusters = value;
+    clusterSlider = value;
+    }
 
 void kMeansCluster::updateKMeans(frame f) {
 
@@ -40,8 +52,6 @@ void kMeansCluster::updateKMeans(frame f) {
     // Reshape image to a 2D array of pixels
     cv::Mat reshaped = f.image.reshape(1, f.image.rows * f.image.cols);
 
-    // Define the number of clusters
-    int num_clusters = 3;
 
     // Check if the number of clusters is positive
     if (num_clusters <= 0) {
@@ -79,11 +89,6 @@ void kMeansCluster::updateKMeans(frame f) {
     };
 
 
-    // Sort the rows based on the first element of each row
-    // std::sort(rows.begin(), rows.end(),
-    //           [](const cv::Vec3f& a, const cv::Vec3f& b) {
-    //               return a[0] < b[0];
-    //           });
     std::sort(transformations.begin(), transformations.end(),
               [rows](int a, int b) {
                   return rows[a][0] < rows[b][0];
@@ -96,8 +101,8 @@ void kMeansCluster::updateKMeans(frame f) {
         output.at<cv::Vec3f>(i) = row;
     }
     centers = output;
-    std::cout<<centers<<std::endl;
-    std::cout<<transformations[0]<<transformations[1]<<transformations[2]<< "   ";//<<std::endl<<std::endl;
+    //std::cout<<centers<<std::endl;
+    //std::cout<<transformations[0]<<transformations[1]<<transformations[2]<< "   ";//<<std::endl<<std::endl;
     
     std::vector<int>::iterator it;
     std::vector<int>newTransform;
@@ -108,7 +113,7 @@ void kMeansCluster::updateKMeans(frame f) {
     transformations = newTransform;
 
     // //reassign label values based on reordered centroids 
-    std::cout<<labels.at<int>(0,0);
+    //std::cout<<labels.at<int>(0,0);
     for (int i = 0; i < labels.rows; i++){
         labels.at<int>(i, 0) = transformations[labels.at<int>(i, 0)];
         //labels.at<int>(i,0) = transformations.
@@ -118,7 +123,7 @@ void kMeansCluster::updateKMeans(frame f) {
 
     centers = output;
     //std::cerr << labels.size << std::endl;
-    std::cout<<labels.at<int>(0,0)<<std::endl;
+    //std::cout<<labels.at<int>(0,0)<<std::endl;
     
 
     // Replace each pixel with the centroid of its cluster

@@ -16,7 +16,9 @@ public:
     kMeansCluster() = default;
     void receiveFrame(frame newFrame);
     std::string getParamLabel(){return paramLabel;};
-
+    int num_clusters = 0; //number of clusters used in kmeans operation
+    int clusterSlider = 2;
+    void updateClusterCount(int value);
     void updateSettings(std::map<std::string, std::string>);
 
 private:
@@ -25,7 +27,7 @@ private:
     void kMeans(frame);
     std::string paramLabel = "kMean";
     // Define a vector of colors
-    std::vector<cv::Vec3b> colors = {cv::Vec3b(255, 0, 0), cv::Vec3b(0, 255, 0), cv::Vec3b(0, 0, 255)};
+    std::vector<cv::Vec3b> colors = {cv::Vec3b(0xB4, 0x77, 0x1F), cv::Vec3b(0x0F, 0x7F, 0xFF), cv::Vec3b(0x2C, 0xA0, 0x2C),cv::Vec3b(0x28, 0x27, 0xD6), cv::Vec3b(0xBD, 0x67, 0x94), cv::Vec3b(0x4B, 0x56, 0x8C),cv::Vec3b(0xC2, 0x77, 0xE3), cv::Vec3b(0x7F, 0x7F, 0x7F), cv::Vec3b(0x22, 0xBD, 0xBC), cv::Vec3b(0xCF, 0xBE, 0x17)};
     cv::Mat current_k_means;
     cv::Mat current_centers;
 };
