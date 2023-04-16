@@ -31,9 +31,7 @@ void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadat
     std::string rec = metadata[paramLabel];
 
     bool desired = (rec == "ON");
-    // std::cout<<rec<<std::endl;
 
-    // std::cout<<desired<<std::endl;
 
     if (enabled != desired){
         toggleEnable();
@@ -78,7 +76,6 @@ void flatFieldCorrect::updateAverage(frame f) {
 
 
 void flatFieldCorrect::setUpdateFlag(){
-    printf("settingFlagTrue");
     calculateAverageEnabled = true;
     averageCalculated=false;
 }
@@ -88,14 +85,12 @@ void flatFieldCorrect::flatField(frame f) {
     
 
     if (calculateAverageEnabled == true) {
-        printf("IN IF");
         calculateAverageEnabled = false;
+        averageCalculated=false;
         updateAverage(f);
-
     }
     //don't apply if average calculation is not complete
     if (averageCalculated == false){
-        calculateAverageEnabled = true;//set flag to calculate
         frameCb->receiveFrame(f);
         return;
     }

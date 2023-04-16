@@ -232,8 +232,14 @@ void Gui::setUpdateFlatField(){
 
     updateFlatField=true;
     flatFieldCounter = 0;
+    std::cout<<"New flatfield correction captured."<<std::endl;
+
     
     static_cast<flatFieldCorrect*>(blocks[1])->setUpdateFlag();
+    if (blocks[1]->getEnabled()==true){
+        blocks[1]->toggleEnable();
+        ui->flatFieldBox->setChecked(false);
+    }
     cam->captureMetadata();
     doCapture = true;
     //To allow checkbox to be enabled
