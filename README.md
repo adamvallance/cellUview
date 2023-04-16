@@ -6,6 +6,7 @@
  <br />
  A real-time image processing suite for digital microscopy.
 
+ </br>
  <br />
 
 [![CMake](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml/badge.svg)](https://github.com/adamvallance/openflexure-microscopy-enhancement/actions/workflows/cmake.yml)
@@ -37,6 +38,68 @@ Keep up to date on project development by starring this GitHub and following us 
 # Getting Started
 
 ## Hardware
+
+cellUview is designed for the Raspberry Pi based OpenFlexure microscope, an open-source 3D printed microscope platform (pictured below). More information, including full manufacturing and assembly instructions as well as the required STL files can be found on the <a href="https://openflexure.org/">OpenFlexure website</a>. 
+
+cellUview, just like OpenFlexure, supports motor control built on the open-source SangaBoard motor controller. However, any custom Arduino-based motor controller board that can use the SangaBoard firmware is supported. Instructions on how to build your own custom SangaBoard- and OpenFlexure-compatible motor board can be found <a href="https://build.openflexure.org/openflexure-microscope/test-gitbuilding/motor_controllers.html">here</a>. If using a custom board, please ensure this is flashed with the SangaBoard firmware,  <a href="https://gitlab.com/bath_open_instrumentation_group/sangaboard/tree/master/arduino_code">available here</a>.
+
+<div align="center">
+<img src="https://openflexure.org/assets/ofm-photos/v7_side_view_crop.jpg" alt="openflexure microscope" width="200"/>
+</div>
+
+## Installing the Software
+
+**Please note:** this project is designed for Raspberry Pi systems, and as such is not guaranteed to build on all Linux distros. In particular the WiringPi library, which is installed by default on Raspbian systems, does not have releases on all platforms.
+
+The installation process for cellUview is simple. 
+
+**In a terminal, first clone this GitHub and enter the project directory by typing:**
+```
+git clone https://github.com/adamvallance/cellUview.git
+cd cellUview
+```
+**Then run the setup script with:**
+```
+sudo bash setup.sh
+```
+This will install all the libraries required to run cellUview. This process can take some time, up to around 10-15 minutes to build all the dependencies. Alternatively, to speed up the process if OpenCV 4.7.0 is already installed on the system, this part of the setup can be skipped with:
+```
+sudo bash setup.sh -n
+```
+
+**Next, build cellUview by running:**
+```
+bash build.sh
+```
+And that's it, cellUview is now ready for use.
+
+```build.sh``` also has some additional options:
+```
+Syntax: build.sh [-h|r|i|c]
+   options:
+   -h     Print this Help.
+   -r     Build and run.
+   -i     Build and install executeable onto path /usr/bin. Requires sudo.
+   -t     Build and run tests.
+   -c     Clear CMake Cache and build.
+```
+For instance, if you want to build and run the program straight away, type:
+```
+bash build.sh -r 
+```
+Or, to build, remove the cmake cache, and install the program onto the system:
+```
+bash build.sh -c -i
+```
+
+**To launch cellUview, run the executable in the ```/bin/``` directory by typing:**
+```
+bin/cellUview
+```
+Or, if the ```-i``` option was used when building, cellUview can be run from anywhere by simply typing 
+```
+cellUview
+```
 
 
 
