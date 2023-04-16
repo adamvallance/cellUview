@@ -22,10 +22,24 @@ public:
     void updateThreshold(int value);
     void updateSettings(std::map<std::string, std::string>);
     std::string getParamLabel(){return paramLabel;};
+
+    void start();
+    void stop();
+
 private:
     //add any other methods here
-    void contrastEnhance(frame); //contrast enhancement
+    // void contrastEnhance(frame); //contrast enhancement
+    void contrastEnhance(); //contrast enhancement
     std::string paramLabel = "contrastThreshold";
+
+    std::thread contrastThread;
+
+    frame procFrame;
+    bool update = false;
+    bool running = false;
+
+    std::mutex mut;
+    std::condition_variable cond_var;
 
 };
 #endif // CELLUVIEW_CONTRAST_ENHANCEMENT_H

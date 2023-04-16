@@ -8,10 +8,7 @@
 #include <thread>
 #include "imageProcessor.h"
 
-#include <condition_variable>
-#include <mutex>
-#include <chrono>
-using namespace std::chrono_literals;
+
 
 class grayScale: public imageProcessor{
 

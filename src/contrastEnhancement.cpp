@@ -18,41 +18,69 @@ void contrastEnhancement::receiveFrame(frame newFrame) {
     // do stuff here
 
     // passing frame into the contrast enhancement function
-    contrastEnhance(newFrame); 
+    // contrastEnhance(newFrame); 
+    procFrame.copyFrom(&newFrame);      // copy new frame into the frame for processing
+    std::lock_guard lock(mut);
+    update = true;                      // set flag
+    cond_var.notify_all();              // wake thread
 }
 
 
-void contrastEnhancement::contrastEnhance(frame f) {
-    // Convert input frame to cv::Mat
-    cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
+void contrastEnhancement::start(){
+    running = true;
+    contrastThread = std::thread(&contrastEnhancement::contrastEnhance, this);
+}
 
-    // Create output cv::Mat
-    cv::Mat output_mat(input_mat.size(), CV_8UC3);
-
-    // Apply contrast enhancement to the input image
-    cv::Mat lab_img;
-    cv::cvtColor(input_mat, lab_img, cv::COLOR_BGR2Lab); //LAB colour space is used in colourimetry
-
-    std::vector<cv::Mat> lab_planes(3);
-    cv::split(lab_img, lab_planes);
-
-    // Apply CLAHE (Contrast Limited Adaptive Histogram Equalization) to the L channel
-    cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
-    clahe->setClipLimit(threshold);
-    clahe->apply(lab_planes[0], lab_planes[0]);
-
-    cv::merge(lab_planes, lab_img);
-    cv::cvtColor(lab_img, output_mat, cv::COLOR_Lab2BGR);
-
-    // Add output matrix to frame
-    f.image = output_mat;
-
-    f.setParameter(paramLabel, std::to_string(sliderThreshold));
-
-    // Output the frame through the callback onto the next instance in the dataflow
-    frameCb->receiveFrame(f);
+void contrastEnhancement::stop(){
+    running = false;
+    contrastThread.join();
+}
 
 
+void contrastEnhancement::contrastEnhance() {
+
+    while (running){    
+
+        std::unique_lock lock(mut);
+        cond_var.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data
+        std::cout<<"waited 1s for contrast"<<std::endl;
+
+        if (update){
+
+            frame f; 
+            f.copyFrom(&procFrame);
+
+            // Convert input frame to cv::Mat
+            cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
+
+            // Create output cv::Mat
+            cv::Mat output_mat(input_mat.size(), CV_8UC3);
+
+            // Apply contrast enhancement to the input image
+            cv::Mat lab_img;
+            cv::cvtColor(input_mat, lab_img, cv::COLOR_BGR2Lab); //LAB colour space is used in colourimetry
+
+            std::vector<cv::Mat> lab_planes(3);
+            cv::split(lab_img, lab_planes);
+
+            // Apply CLAHE (Contrast Limited Adaptive Histogram Equalization) to the L channel
+            cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+            clahe->setClipLimit(threshold);
+            clahe->apply(lab_planes[0], lab_planes[0]);
+
+            cv::merge(lab_planes, lab_img);
+            cv::cvtColor(lab_img, output_mat, cv::COLOR_Lab2BGR);
+
+            // Add output matrix to frame
+            f.image = output_mat;
+
+            f.setParameter(paramLabel, std::to_string(sliderThreshold));
+
+            // Output the frame through the callback onto the next instance in the dataflow
+            frameCb->receiveFrame(f);
+        
+        }
+    }
 }
 
 void contrastEnhancement::updateThreshold(int value){

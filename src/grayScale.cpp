@@ -40,9 +40,9 @@ void grayScale::grayEnhance() {
         cond_var.wait_for(lock, 1s); //block for a second but wake up if new data
         std::cout<<"waited 1s for gs"<<std::endl;
         if (update){
-        //std::cout<<"Called it"<<std::endl;
+            //std::cout<<"Called it"<<std::endl;
         
-        // Copy frame for processing
+            // Copy frame for processing
             frame f; 
             f.copyFrom(&procFrame);
 

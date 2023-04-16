@@ -8,6 +8,11 @@
 #include <stdlib.h>
 #include <thread>
 
+#include <condition_variable>
+#include <mutex>
+#include <chrono>
+using namespace std::chrono_literals;
+
 //abstract class 
 class imageProcessor{
 public:
