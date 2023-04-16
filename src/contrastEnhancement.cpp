@@ -70,7 +70,7 @@ void contrastEnhancement::updateThreshold(int value){
 
 /**
 * Implemented from ImageProcessor. Updates contrast settings based on metadata.
-* @param metadata metadata standard map of strings containing metadata
+* @param metadata standard map of strings containing metadata
 **/
 void contrastEnhancement::updateSettings(std::map<std::string, std::string> metadata){
     std::string rec = metadata[paramLabel];
