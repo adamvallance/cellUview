@@ -249,6 +249,11 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
     return stringCapPairs;
 }
 
+bool Gallery::galleryAtEnd(){
+    std::cout<<galleryDisplayIndex<<std::endl;
+    std::cout<<captureImgCounter<<std::endl;
+    return (galleryDisplayIndex + 5 == captureImgCounter);
+}
 
 //get rid of back slashes in names
 

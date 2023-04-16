@@ -20,7 +20,6 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     blocks = blocksIn; 
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
-    this->displayImages();
     
 
 
@@ -190,6 +189,9 @@ void Gui::receiveFrame(frame newFrame)
     if (doCapture && newFrame.doMeta && updateFlatField == false){
         gallery->captureFrame(newFrame);
         doCapture = false; // reset flag
+        if (this->gallery->galleryAtEnd()== true){
+            updateGalleryView(true); //if at end frame, move right
+        }
     }
     else if (doCapture && newFrame.doMeta && updateFlatField == true){
         if (flatFieldCounter <20){
@@ -396,11 +398,11 @@ void Gui::updateGalleryView(bool directionIsNext){
         img = mats[0];
         std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-        QImage gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+        gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
         ui->galleryPos1->setPixmap(QPixmap::fromImage(gallery1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-        QString str1 = QString::fromStdString(keys[0]);
+        str1 = QString::fromStdString(keys[0]);
         ui->namePos1->setText(str1);
     } else{
         ui->galleryPos1->clear();
@@ -413,11 +415,11 @@ void Gui::updateGalleryView(bool directionIsNext){
     if (img.empty() == false){
         std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-        QImage gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+        gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
         ui->galleryPos2->setPixmap(QPixmap::fromImage(gallery2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    QString str2 = QString::fromStdString(keys[1]);
+    str2 = QString::fromStdString(keys[1]);
     ui->namePos2->setText(str2);
     }else{
         ui->galleryPos2->clear();
@@ -429,11 +431,11 @@ void Gui::updateGalleryView(bool directionIsNext){
 
         std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-        QImage gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+        gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
         ui->galleryPos3->setPixmap(QPixmap::fromImage(gallery3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-        QString str3 = QString::fromStdString(keys[2]);
+        str3 = QString::fromStdString(keys[2]);
         ui->namePos3->setText(str3);
     }else{
         ui->galleryPos3->clear();
@@ -446,11 +448,11 @@ void Gui::updateGalleryView(bool directionIsNext){
 
         std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-        QImage gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+        gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
         ui->galleryPos4->setPixmap(QPixmap::fromImage(gallery4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-        QString str4 = QString::fromStdString(keys[3]);
+        str4 = QString::fromStdString(keys[3]);
         ui->namePos4->setText(str4);
     } else{
         ui->galleryPos4->clear();
@@ -461,266 +463,266 @@ void Gui::updateGalleryView(bool directionIsNext){
 }
 
 
-//---------------------ALL FUNCTIONS BELOW ARE IN NEED OF SIGNIFCANT REFACTORING, SOME SHOULD BE MOVED TO GALLERY-------------------
-// last thing to do is 0 images, 1 image on open etc. 
-// potenial bug, crashes when you in a different batch after a bunch of images have been deleted. 
-// probably need an auto position  
+// //---------------------ALL FUNCTIONS BELOW ARE IN NEED OF SIGNIFCANT REFACTORING, SOME SHOULD BE MOVED TO GALLERY-------------------
+// // last thing to do is 0 images, 1 image on open etc. 
+// // potenial bug, crashes when you in a different batch after a bunch of images have been deleted. 
+// // probably need an auto position  
 
-void Gui::displayImages() {
+// void Gui::displayImages() {
 
    
-    std::string directoryStr = this->gallery->getPathname();
-    QString directory = QString::fromStdString(directoryStr);
-    QDir imageDir(directory);
+//     std::string directoryStr = this->gallery->getPathname();
+//     QString directory = QString::fromStdString(directoryStr);
+//     QDir imageDir(directory);
    
-    imageFilters << "*.jpg";
-    QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
-    QSize labelSize = ui->galleryPos1->size();
-    QPixmap pixmap1, pixmap2, pixmap3, pixmap4;
-    QString img1name, img2name, img3name, img4name;
-    // list of image names here? 
- //how images are brought in - filters jpg's images is a list of images 
+//     imageFilters << "*.jpg";
+//     QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+//     QSize labelSize = ui->galleryPos1->size();
+//     QPixmap pixmap1, pixmap2, pixmap3, pixmap4;
+//     QString img1name, img2name, img3name, img4name;
+//     // list of image names here? 
+//  //how images are brought in - filters jpg's images is a list of images 
     
-    if (images.isEmpty()) {
-        qWarning("No images found in directory %s", qUtf8Printable(directory));
-        return;
-    }
+//     if (images.isEmpty()) {
+//         qWarning("No images found in directory %s", qUtf8Printable(directory));
+//         return;
+//     }
 
-    //if the gallery index is negative 1, show nothing, if its anything else, display image in that index.
-    // so make a part with initialisation checks essentially 
-
-
-
-    bool clear = true;
-    if (galleryPos1Index != -1) {  
-        if (images.size()>0) {
-            QImage image1(directory + "/" + images[galleryPos1Index]);
-            pixmap1 = QPixmap::fromImage(image1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            QString image1name = images.at(galleryPos1Index);
-            img1name = image1name;
-            ui->galleryPos1->setPixmap(pixmap1);
-            ui->namePos1->setText(img1name);
-            clear = false;
-        } else {
-            clear = true;
-        }
-    }
-    if (clear == true){
-        ui->galleryPos1->clear();
-        ui->namePos1->clear();
-    }
+//     //if the gallery index is negative 1, show nothing, if its anything else, display image in that index.
+//     // so make a part with initialisation checks essentially 
 
 
-    clear = true;
-    if (galleryPos2Index != -1) {  
-        if (images.size()>1) {
-            QImage image2(directory + "/" + images[galleryPos2Index]);
-            pixmap2 = QPixmap::fromImage(image2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            QString image2name = images.at(galleryPos2Index);
-            img2name = image2name;
-            ui->galleryPos2->setPixmap(pixmap2);
-            ui->namePos2->setText(img2name);
-            clear = false;
-        } else {
-            clear = true;
-        }
-    }
-    if (clear == true){
-        ui->galleryPos3->clear();
-        ui->namePos3->clear();
-    }
 
-    clear = true;
-    if (galleryPos3Index != -1) {  
-        if (images.size()>2) {
-            QImage image3(directory + "/" + images[galleryPos3Index]);
-            pixmap3 = QPixmap::fromImage(image3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            QString image3name = images.at(galleryPos3Index);
-            img3name = image3name;
-            ui->galleryPos3->setPixmap(pixmap3);
-            ui->namePos3->setText(img3name);
-            clear = false;
-        } else {
-            clear = true;
-        }
-    }
-    if (clear == true){
-        ui->galleryPos3->clear();
-        ui->namePos3->clear();
-    }
-    
-    clear = true;
-    if (galleryPos4Index != -1) {  
-        if (images.size()>3) {
-            QImage image4(directory + "/" + images[galleryPos4Index]);
-            pixmap4 = QPixmap::fromImage(image4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            QString image4name = images.at(galleryPos4Index);
-            img4name = image4name;
-            ui->galleryPos4->setPixmap(pixmap4);
-            ui->namePos4->setText(img4name);
-            clear = false;
-        } else {
-            clear = true;
-        }
-    }
-    if (clear == true){
-        ui->galleryPos4->clear();
-        ui->namePos4->clear();
-    }
-
-    //test with new function, not finished yet
-    // QPixmap pixmap = getImagePixmap(galleryPos4Index, 4, directory, images);
-    // if (pixmap.isNull() == true){
-    //     ui->galleryPos4->clear();
-    //     ui->namePos4->clear();
-    // }else{
-    //     ui->galleryPos4->setPixmap(pixmap4);
-        
-    //     ui->namePos4->setText(img4name);
-    // }
-
-}
-//test to try make above function well formatted avoiding repetition
-// int Gui::setGalleryPixmap(int galleryPosIndex, int pos, QString directory, QStringList images, Qlab ){
 //     bool clear = true;
-//     pixmap = Qpixmap();
-//     if (galleryPosIndex != -1 && images.size()>pos){
-//         QImage image(directory + "/" + images[galleryPosIndex]);
-//         pixmap = QPixmap::fromImage(image).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-//     } 
-//     return pixmap;
+//     if (galleryPos1Index != -1) {  
+//         if (images.size()>0) {
+//             QImage image1(directory + "/" + images[galleryPos1Index]);
+//             pixmap1 = QPixmap::fromImage(image1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+//             QString image1name = images.at(galleryPos1Index);
+//             img1name = image1name;
+//             ui->galleryPos1->setPixmap(pixmap1);
+//             ui->namePos1->setText(img1name);
+//             clear = false;
+//         } else {
+//             clear = true;
+//         }
+//     }
+//     if (clear == true){
+//         ui->galleryPos1->clear();
+//         ui->namePos1->clear();
+//     }
+
+
+//     clear = true;
+//     if (galleryPos2Index != -1) {  
+//         if (images.size()>1) {
+//             QImage image2(directory + "/" + images[galleryPos2Index]);
+//             pixmap2 = QPixmap::fromImage(image2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+//             QString image2name = images.at(galleryPos2Index);
+//             img2name = image2name;
+//             ui->galleryPos2->setPixmap(pixmap2);
+//             ui->namePos2->setText(img2name);
+//             clear = false;
+//         } else {
+//             clear = true;
+//         }
+//     }
+//     if (clear == true){
+//         ui->galleryPos3->clear();
+//         ui->namePos3->clear();
+//     }
+
+//     clear = true;
+//     if (galleryPos3Index != -1) {  
+//         if (images.size()>2) {
+//             QImage image3(directory + "/" + images[galleryPos3Index]);
+//             pixmap3 = QPixmap::fromImage(image3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+//             QString image3name = images.at(galleryPos3Index);
+//             img3name = image3name;
+//             ui->galleryPos3->setPixmap(pixmap3);
+//             ui->namePos3->setText(img3name);
+//             clear = false;
+//         } else {
+//             clear = true;
+//         }
+//     }
+//     if (clear == true){
+//         ui->galleryPos3->clear();
+//         ui->namePos3->clear();
+//     }
+    
+//     clear = true;
+//     if (galleryPos4Index != -1) {  
+//         if (images.size()>3) {
+//             QImage image4(directory + "/" + images[galleryPos4Index]);
+//             pixmap4 = QPixmap::fromImage(image4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+//             QString image4name = images.at(galleryPos4Index);
+//             img4name = image4name;
+//             ui->galleryPos4->setPixmap(pixmap4);
+//             ui->namePos4->setText(img4name);
+//             clear = false;
+//         } else {
+//             clear = true;
+//         }
+//     }
+//     if (clear == true){
+//         ui->galleryPos4->clear();
+//         ui->namePos4->clear();
+//     }
+
+//     //test with new function, not finished yet
+//     // QPixmap pixmap = getImagePixmap(galleryPos4Index, 4, directory, images);
+//     // if (pixmap.isNull() == true){
+//     //     ui->galleryPos4->clear();
+//     //     ui->namePos4->clear();
+//     // }else{
+//     //     ui->galleryPos4->setPixmap(pixmap4);
+        
+//     //     ui->namePos4->setText(img4name);
+//     // }
 
 // }
-// Qstring Gui::getImageCaption(int galleryPosIndex, QstringList images){
-//     Qstring imageName = images.at(galleryPosIndex);
-//     return imageName;
+// //test to try make above function well formatted avoiding repetition
+// // int Gui::setGalleryPixmap(int galleryPosIndex, int pos, QString directory, QStringList images, Qlab ){
+// //     bool clear = true;
+// //     pixmap = Qpixmap();
+// //     if (galleryPosIndex != -1 && images.size()>pos){
+// //         QImage image(directory + "/" + images[galleryPosIndex]);
+// //         pixmap = QPixmap::fromImage(image).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+// //     } 
+// //     return pixmap;
 
-// }
+// // }
+// // Qstring Gui::getImageCaption(int galleryPosIndex, QstringList images){
+// //     Qstring imageName = images.at(galleryPosIndex);
+// //     return imageName;
 
-void Gui::updateGalleryIndex (bool moveUp){
+// // }
+
+// void Gui::updateGalleryIndex (bool moveUp){
  
 
-    std::string directoryStr = this->gallery->getPathname();
+//     std::string directoryStr = this->gallery->getPathname();
     
-    QString directory = QString::fromStdString(directoryStr);
-    QDir imageDir(directory);
-    imageFilters << "*.jpg";
-    QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+//     QString directory = QString::fromStdString(directoryStr);
+//     QDir imageDir(directory);
+//     imageFilters << "*.jpg";
+//     QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
     
-    float galleryBatchNumber = (float)images.size()/4;
+//     float galleryBatchNumber = (float)images.size()/4;
     
-    if (moveUp == true ){
-        batchIndex=batchIndex+1;
-        float r = batchIndex-galleryBatchNumber;
+//     if (moveUp == true ){
+//         batchIndex=batchIndex+1;
+//         float r = batchIndex-galleryBatchNumber;
         
         
-        if (batchIndex>= galleryBatchNumber) {
+//         if (batchIndex>= galleryBatchNumber) {
             
-            //this is skipping over the second to last once the back button is pressed, stops a crash tho
-            if (batchIndex-galleryBatchNumber>1){
-                batchIndex=batchIndex-1;}
+//             //this is skipping over the second to last once the back button is pressed, stops a crash tho
+//             if (batchIndex-galleryBatchNumber>1){
+//                 batchIndex=batchIndex-1;}
                 
-            intialGallerySetting();  
-            // don't update the gallery position indexes on the "next" button press
-            // dont update the batch index
+//             intialGallerySetting();  
+//             // don't update the gallery position indexes on the "next" button press
+//             // dont update the batch index
             
-            if (r<1) { 
-                if (r == 0.75) {
-                    // update position 1 , make rest not show anything
+//             if (r<1) { 
+//                 if (r == 0.75) {
+//                     // update position 1 , make rest not show anything
 
                     
-                    galleryPos1Index = batchIndex*4-4;
-                    galleryPos2Index = -1;
-                    galleryPos3Index = -1;
-                    galleryPos4Index = -1;
+//                     galleryPos1Index = batchIndex*4-4;
+//                     galleryPos2Index = -1;
+//                     galleryPos3Index = -1;
+//                     galleryPos4Index = -1;
                             
-                }
-                else if (r == 0.5) {
-                    galleryPos1Index = batchIndex*4-4;
-                    galleryPos2Index = batchIndex*4-3;
-                    galleryPos3Index = -1;
-                    galleryPos4Index = -1;
+//                 }
+//                 else if (r == 0.5) {
+//                     galleryPos1Index = batchIndex*4-4;
+//                     galleryPos2Index = batchIndex*4-3;
+//                     galleryPos3Index = -1;
+//                     galleryPos4Index = -1;
                     
-                }
-                else if (r == 0.25) {
+//                 }
+//                 else if (r == 0.25) {
 
-                    galleryPos1Index = batchIndex*4-4;
-                    galleryPos2Index = batchIndex*4-3;
-                    galleryPos3Index = batchIndex*4-2;
-                    galleryPos4Index = -1;
-                }
+//                     galleryPos1Index = batchIndex*4-4;
+//                     galleryPos2Index = batchIndex*4-3;
+//                     galleryPos3Index = batchIndex*4-2;
+//                     galleryPos4Index = -1;
+//                 }
                 
-            }
-        }
-        else{
-            galleryPos1Index = batchIndex*4-4;
-            galleryPos2Index = batchIndex*4-3;
-            galleryPos3Index = batchIndex*4-2;
-            galleryPos4Index = batchIndex*4-1;
-        }
-    }
+//             }
+//         }
+//         else{
+//             galleryPos1Index = batchIndex*4-4;
+//             galleryPos2Index = batchIndex*4-3;
+//             galleryPos3Index = batchIndex*4-2;
+//             galleryPos4Index = batchIndex*4-1;
+//         }
+//     }
         
-    else{
-        if (batchIndex==1){ 
-            return;
-        }
-        else{
-            batchIndex =batchIndex-1;
-            galleryPos1Index = batchIndex*4-4;
-            galleryPos2Index = batchIndex*4-3;
-            galleryPos3Index = batchIndex*4-2;
-            galleryPos4Index = batchIndex*4-1;
+//     else{
+//         if (batchIndex==1){ 
+//             return;
+//         }
+//         else{
+//             batchIndex =batchIndex-1;
+//             galleryPos1Index = batchIndex*4-4;
+//             galleryPos2Index = batchIndex*4-3;
+//             galleryPos3Index = batchIndex*4-2;
+//             galleryPos4Index = batchIndex*4-1;
 
-        }
-    }
-    displayImages();
+//         }
+//     }
+//     displayImages();
 
 
-}
+// }
 
-void Gui :: intialGallerySetting (){
-   std::string directoryStr = this->gallery->getPathname();
-    QString directory = QString::fromStdString(directoryStr);
-    QDir imageDir(directory);
+// void Gui :: intialGallerySetting (){
+//    std::string directoryStr = this->gallery->getPathname();
+//     QString directory = QString::fromStdString(directoryStr);
+//     QDir imageDir(directory);
    
-    imageFilters << "*.jpg";
-    QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+//     imageFilters << "*.jpg";
+//     QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
 
-    if (images.size() ==0){
-        galleryPos1Index =-1;
-        galleryPos2Index =-1;
-        galleryPos3Index =-1;
-        galleryPos4Index =-1;
-    }
-    else if (images.size() ==1){
-        galleryPos1Index =0;
-        galleryPos2Index =-1;
-        galleryPos3Index =-1;
-        galleryPos4Index =-1;
-    }
-    else if (images.size() ==2){
-        galleryPos1Index =0;
-        galleryPos2Index =1;
-        galleryPos3Index =-1;
-        galleryPos4Index =-1;
-    }
-     else if (images.size() ==3){
-        galleryPos1Index =0;
-        galleryPos2Index =1;
-        galleryPos3Index =2;
-        galleryPos4Index =-1;
-    }
-    else if (images.size() ==4){
-        galleryPos1Index =0;
-        galleryPos2Index =1;
-        galleryPos3Index =2;
-        galleryPos4Index =3;
-    } 
-    else{}
+//     if (images.size() ==0){
+//         galleryPos1Index =-1;
+//         galleryPos2Index =-1;
+//         galleryPos3Index =-1;
+//         galleryPos4Index =-1;
+//     }
+//     else if (images.size() ==1){
+//         galleryPos1Index =0;
+//         galleryPos2Index =-1;
+//         galleryPos3Index =-1;
+//         galleryPos4Index =-1;
+//     }
+//     else if (images.size() ==2){
+//         galleryPos1Index =0;
+//         galleryPos2Index =1;
+//         galleryPos3Index =-1;
+//         galleryPos4Index =-1;
+//     }
+//      else if (images.size() ==3){
+//         galleryPos1Index =0;
+//         galleryPos2Index =1;
+//         galleryPos3Index =2;
+//         galleryPos4Index =-1;
+//     }
+//     else if (images.size() ==4){
+//         galleryPos1Index =0;
+//         galleryPos2Index =1;
+//         galleryPos3Index =2;
+//         galleryPos4Index =3;
+//     } 
+//     else{}
 
 
 
-}
+// }
 
  void Gui::textEditController(std::string enteredTextStr, bool pressed){
 

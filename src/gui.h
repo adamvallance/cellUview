@@ -56,6 +56,14 @@ private:
 
 
     //std::string textEditController(std::string enteredTextStr){return myString;};    
+    QString str1;
+    QString str2;
+    QString str3;
+    QString str4;
+    QImage gallery1;
+    QImage gallery2;
+    QImage gallery3;
+    QImage gallery4;
     
     int galleryPos1Index = 0;
     int galleryPos2Index = 1;

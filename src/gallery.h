@@ -33,6 +33,8 @@ class Gallery{
 
         std::list<std::pair<std::string, cv::Mat>>  getCaptures(bool);
 
+        bool galleryAtEnd();
+
     private:
         int initialiseDirectory(std::string, std::string);
         void writeMetadata(frame, std::string);
