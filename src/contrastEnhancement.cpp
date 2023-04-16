@@ -13,7 +13,7 @@ void contrastEnhancement::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
         procFrame.copyFrom(&newFrame);
-        std::cout<<"contrast off"<<std::endl;
+        //std::cout<<"contrast off"<<std::endl;
         frameCb->receiveFrame(newFrame);
         return;
     }
@@ -51,6 +51,7 @@ void contrastEnhancement::contrastEnhance() {
 
             frame f; 
             f.copyFrom(&procFrame);
+            std::cout<<"contrast frame copied"<<std::endl;
 
             // Convert input frame to cv::Mat
             cv::Mat input_mat(f.image.rows, f.image.cols, CV_8UC3, f.image.data);
@@ -80,8 +81,12 @@ void contrastEnhancement::contrastEnhance() {
 
             // Output the frame through the callback onto the next instance in the dataflow
             frameCb->receiveFrame(f);
-        
+            update = false;
         }
+
+        lock.unlock();
+        cond_var.notify_all();
+        
     }
 }
 
