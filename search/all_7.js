@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setvisible_0',['SetVisible',['../class_gui.html#ac76a8210e18720a6bd248c0f1425a738',1,'Gui']]]
+  ['receiveframe_0',['receiveFrame',['../class_gui.html#a2f058a424b6584d1907b1f45422da4f6',1,'Gui']]]
 ];
