@@ -170,10 +170,10 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
 
 
-    ui->motorDisabledText->setVisible(false);       // motor disabled message default to invisible
+    ui->motorDisableText->setVisible(false);       // motor disabled message default to invisible
     // check if motors connected, if not, disable controls
     if (!motors->getConnected()){ 
-        ui->motorDisabledText->setVisible(true);    // show no motors message
+        ui->motorDisableText->setVisible(true);    // show no motors message
         ui->xUpButton->setDisabled(true);
         ui->xDownButton->setDisabled(true);
         ui->xPos->setEnabled(false);
