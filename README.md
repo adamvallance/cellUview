@@ -102,10 +102,29 @@ cellUview
 ```
 
 
+# Documentation
 
+Documentation for cellUview can be viewed <a href="https://adamvallance.github.io/cellUview/annotated.html">here</a>.
+
+These documents are generated using Doxygen, using the docstrings added throughout the code. Documentation is kept up-to-date automatically through the GitHub continuous integration action '<a href="https://github.com/adamvallance/cellUview/actions/workflows/docs.yml">Docs</a>'.
+
+
+# Unit Tests
+
+Unit tests, using the Google Test framework, have been written for cellUview. Google Test system dependencies are installed with the cellUview ```setup.sh``` script. As mentioned in the **Installing the Software** section, unit tests can be run by using the ```-t``` option in the build script, i.e. by running:
+```
+bash build.sh -t
+```
+inside the cellUview project directory.
+
+These tests are also run as a part of the GitHub continuous integration action '<a href="https://github.com/adamvallance/cellUview/actions/workflows/cmake.yml">CMake</a>'.
 
 
 # License 
+
+TBD
+
+
 
 
 # OLD DEV STUFF
