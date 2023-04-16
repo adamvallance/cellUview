@@ -240,7 +240,7 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
             captureMat = cv::imread(capturePathName);
             metadataGalleryLabel= getMetadata(capturePathName);
             note = metadataGalleryLabel["note"];
-            displayString = std::to_string(panelIndex) + note; //+METADATA
+            displayString = std::to_string(panelIndex) + ":   " + note; //+METADATA
             galleryDisplayFname.push_back(capturePathName);
 
             std::cout<<note<<std::endl;;

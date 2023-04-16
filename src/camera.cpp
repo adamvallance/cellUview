@@ -31,6 +31,7 @@ void Camera::postFrame()
     if (doMeta)
     {
         f.setParameter(paramLabel, exposureState);
+        f.setParameter(paramLabel2, note);
         doMeta = false;
     }
 
