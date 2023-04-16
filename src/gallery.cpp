@@ -39,7 +39,7 @@ int Gallery::initialiseDirectory(std::string path, std::string description){
         std::cout << description << " directory found at " + path << std::endl;
         closedir(dir);
     }
-
+    
     return 0;
 
     //updates index to find highest existing file with matching name to avoid overwriting

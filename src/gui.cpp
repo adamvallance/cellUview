@@ -17,10 +17,15 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     ui->setupUi(widget);
 
     this->gallery = galleryIn;
-    blocks = blocksIn;
+    blocks = blocksIn; 
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
     this->displayImages();
+    
+
+
+
+
 
     ui->dilationCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
     ui->erosionCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
@@ -393,71 +398,84 @@ void Gui::displayImages() {
     QString img1name, img2name, img3name, img4name;
     // list of image names here? 
  //how images are brought in - filters jpg's images is a list of images 
-
+    
     if (images.isEmpty()) {
         qWarning("No images found in directory %s", qUtf8Printable(directory));
         return;
     }
 
-//if the gallery index is negative 1, show nothing, if its anything else, display image in that index.
-// so make a part with initliseation checks essentially 
+    //if the gallery index is negative 1, show nothing, if its anything else, display image in that index.
+    // so make a part with initliseation checks essentially 
 
-if (galleryPos1Index != -1) {
-    QImage image1(directory + "/" + images[galleryPos1Index]);
-    pixmap1 = QPixmap::fromImage(image1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    QString image1name = images.at(galleryPos1Index);
-    img1name = image1name;
+    if (galleryPos1Index != -1) {
+        QImage image1(directory + "/" + images[galleryPos1Index]);
+        pixmap1 = QPixmap::fromImage(image1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QString image1name = images.at(galleryPos1Index);
+        img1name = image1name;
+        ui->galleryPos1->setPixmap(pixmap1);
+        ui->namePos1->setText(img1name); // however the name is called
+
+        
+    } else {
+
+        ui->galleryPos1->clear();
+        ui->namePos1->clear();
+    }
+
+    if (galleryPos2Index != -1) {
+        QImage image2(directory + "/" + images[galleryPos2Index]);
+        pixmap2 = QPixmap::fromImage(image2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QString image2name = images.at(galleryPos2Index);
+        img2name = image2name;
+        ui->galleryPos2->setPixmap(pixmap2);
+        ui->namePos2->setText(img2name);
+    } else {
+        ui->galleryPos2->clear();
+        ui->namePos2->clear();
+    }
+
+    if (galleryPos3Index != -1) {
+        QImage image3(directory + "/" + images[galleryPos3Index]);
+       pixmap3 = QPixmap::fromImage(image3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QString image3name = images.at(galleryPos3Index);
+        img3name = image3name;
+        ui->galleryPos3->setPixmap(pixmap3);
+        ui->namePos3->setText(img3name);
+    } else {
+        ui->galleryPos3->clear();
+        ui->namePos3->clear();
+        
+    }
     
+    if (galleryPos4Index != -1) {        
+        try{
+            QImage image4(directory + "/" + images[galleryPos4Index]);
+            pixmap4 = QPixmap::fromImage(image4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            QString image4name = images.at(galleryPos4Index);
+            img4name = image4name;
+            ui->galleryPos4->setPixmap(pixmap4);
+            ui->namePos4->setText(img4name);
+        }catch(...){
+            ui->galleryPos4->clear();
+            ui->namePos4->clear();
+            return;
+        }
+        
 
-    
-} else {
+    }
+     else {
+        ui->galleryPos4->clear();
+        ui->namePos4->clear();
+    }
 
-    ui->galleryPos1->clear();
-    ui->namePos1->clear();
 }
-
-if (galleryPos2Index != -1) {
-    QImage image2(directory + "/" + images[galleryPos2Index]);
-    pixmap2 = QPixmap::fromImage(image2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    QString image2name = images.at(galleryPos2Index);
-    img2name = image2name;
-} else {
-    ui->galleryPos2->clear();
-    ui->namePos2->clear();
-}
-
-if (galleryPos3Index != -1) {
-    QImage image3(directory + "/" + images[galleryPos3Index]);
-   pixmap3 = QPixmap::fromImage(image3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    QString image3name = images.at(galleryPos3Index);
-    img3name = image3name;
-} else {
-    ui->galleryPos3->clear();
-    ui->namePos3->clear();
-    
-}
-
-if (galleryPos4Index != -1) {
-    QImage image4(directory + "/" + images[galleryPos4Index]);
-    pixmap4 = QPixmap::fromImage(image4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    QString image4name = images.at(galleryPos4Index);
-    img4name = image4name;
-}
- else {
-    ui->galleryPos4->clear();
-    ui->namePos4->clear();
-}
-
-ui->galleryPos1->setPixmap(pixmap1);
-ui->galleryPos2->setPixmap(pixmap2);
-ui->galleryPos3->setPixmap(pixmap3);
-ui->galleryPos4->setPixmap(pixmap4);
-
-ui->namePos1->setText(img1name); // however the name is called
-ui->namePos2->setText(img2name);
-ui->namePos3->setText(img3name);
-ui->namePos4->setText(img4name);
-}
+/* test to try make above function well formatted avoiding repetition
+void Gui::addImage(int galleryPosIndex, QString directory){
+    if (galleryPosIndex != -1){
+        QImage image(directory + "/" + images[galleryPosIndex]);
+    }
+        
+}*/
 
 void Gui::updateGalleryIndex (bool moveUp){
  
