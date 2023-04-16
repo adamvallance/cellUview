@@ -51,6 +51,7 @@ private:
     void onCaptureButtonPress();
     void textEditController(std::string enteredTextStr, bool pressed);
     void showDialog(int position);
+
     //std::string textEditController(std::string enteredTextStr){return myString;};    
     
     int galleryPos1Index = 0;
