@@ -447,35 +447,34 @@ void Gui::displayImages() {
         
     }
     
-    if (galleryPos4Index != -1) {        
-        try{
+    bool clear = true;
+    if (galleryPos4Index != -1) {  
+        std::cout<<images.size()<<std::endl;
+        if (images.size()>3) {
             QImage image4(directory + "/" + images[galleryPos4Index]);
             pixmap4 = QPixmap::fromImage(image4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             QString image4name = images.at(galleryPos4Index);
             img4name = image4name;
             ui->galleryPos4->setPixmap(pixmap4);
             ui->namePos4->setText(img4name);
-        }catch(...){
-            ui->galleryPos4->clear();
-            ui->namePos4->clear();
-            return;
+            clear = false;
+        } else {
+            clear = true;
         }
-        
-
     }
-     else {
+    if (clear == true){
         ui->galleryPos4->clear();
         ui->namePos4->clear();
     }
 
 }
-/* test to try make above function well formatted avoiding repetition
-void Gui::addImage(int galleryPosIndex, QString directory){
-    if (galleryPosIndex != -1){
-        QImage image(directory + "/" + images[galleryPosIndex]);
-    }
+// // test to try make above function well formatted avoiding repetition
+// void Gui::addImage(int galleryPosIndex, QString directory, QStringList images){
+//     if (galleryPosIndex != -1){
+//         QImage image(directory + "/" + images[galleryPosIndex]);
+//     }
         
-}*/
+// }
 
 void Gui::updateGalleryIndex (bool moveUp){
  
