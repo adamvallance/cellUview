@@ -51,6 +51,8 @@ cellUview, just like OpenFlexure, supports motor control built on the open-sourc
 
 **Please note:** this project is designed for Raspberry Pi systems, and as such is not guaranteed to build on all Linux distros. In particular the WiringPi library, which is installed by default on Raspbian systems, does not have releases on all platforms.
 
+The following procedure also requires ```git```, which can be installed by typing ```sudo apt install git``` in a terminal if it has not already been installed.
+
 The installation process for cellUview is simple. 
 
 **In a terminal, first clone this GitHub and enter the project directory by typing:**
@@ -123,6 +125,20 @@ These tests are also run as a part of the GitHub continuous integration action '
 # License 
 
 TBD
+
+
+# Contributors
+
+This is a project being carried out by a group of University of Glasgow engineering students. Please feel free to get in touch with any of us if you have questions about the project.
+* <a href="https://github.com/adamvallance">Adam Vallance</a>
+* <a href="https://github.com/Mark-Main">Mark Main</a>
+* <a href="https://github.com/mlsalloum">Malik Salloum</a>
+* <a href="https://github.com/n0ob1243">Jake Beveridge</a>
+
+
+# Credits
+
+Credits to Phil Harvey's <a href="https://exiftool.org/">C++ ExifTool library</a> for reading and writing metadata.
 
 
 
