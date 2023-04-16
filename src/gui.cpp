@@ -377,28 +377,52 @@ void Gui::updateGalleryView(bool directionIsNext){
     } 
 
     cv::Mat img;
+    QSize labelSize = ui->galleryPos1->size();
 
+    //reload first of four gallery view
     img = loaded[keys[0]];
     std::cout<<img.size()<<std::endl;
-    // cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-    // QImage gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-    //                        QImage::Format_RGB888);
-    // ui->galleryPos1->setPixmap(QPixmap::fromImage(gallery1));
-    // ui->galleryPos1->resize(ui->galleryPos1->pixmap()->size());
+    cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+    QImage gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                           QImage::Format_RGB888);
+    ui->galleryPos1->setPixmap(QPixmap::fromImage(gallery1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    // QString str1 = QString::fromStdString(keys[0]);
-    // ui->namePos1->setText(str1);
+    QString str1 = QString::fromStdString(keys[0]);
+    ui->namePos1->setText(str1);
 
 
-    //  img = newFrame.image;
-    // // maybe try replacing img with newFrame.img to avoid unnecessary copying.
-    // // convert from default opencv bgr to QT rgb
-    // cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+    //second of four
+    img = loaded[keys[1]];
+    std::cout<<img.size()<<std::endl;
+    cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+    QImage gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                           QImage::Format_RGB888);
+    ui->galleryPos2->setPixmap(QPixmap::fromImage(gallery2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    // QImage imgOut = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-    //                        QImage::Format_RGB888);
-    // ui->scopeVideoFeed->setPixmap(QPixmap::fromImage(imgOut));
-    // ui->scopeVideoFeed->resize(ui->scopeVideoFeed->pixmap()->size());
+    QString str2 = QString::fromStdString(keys[1]);
+    ui->namePos2->setText(str2);
+
+    //third of four
+    img = loaded[keys[2]];
+    std::cout<<img.size()<<std::endl;
+    cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+    QImage gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                           QImage::Format_RGB888);
+    ui->galleryPos3->setPixmap(QPixmap::fromImage(gallery3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    QString str3 = QString::fromStdString(keys[2]);
+    ui->namePos3->setText(str3);
+
+    //fourth of four
+    img = loaded[keys[3]];
+    std::cout<<img.size()<<std::endl;
+    cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+    QImage gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                           QImage::Format_RGB888);
+    ui->galleryPos4->setPixmap(QPixmap::fromImage(gallery4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    QString str4 = QString::fromStdString(keys[3]);
+    ui->namePos4->setText(str4);
 
 
 }
