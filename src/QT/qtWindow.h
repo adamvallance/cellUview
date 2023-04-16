@@ -157,7 +157,7 @@ public:
         dilationCheckBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         erosionCheckBox = new QCheckBox(widget_6);
         erosionCheckBox->setObjectName(QStringLiteral("erosionCheckBox"));
-        erosionCheckBox->setGeometry(QRect(450, 90, 92, 23));
+        erosionCheckBox->setGeometry(QRect(440, 90, 92, 23));
         erosionCheckBox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         contrastEnhancementSlider = new QSlider(widget_6);
         contrastEnhancementSlider->setObjectName(QStringLiteral("contrastEnhancementSlider"));
@@ -216,12 +216,12 @@ public:
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
 ""));
-        kMeansSlider->setMaximum(10);
+        kMeansSlider->setMaximum(5);
         kMeansSlider->setValue(0);
         kMeansSlider->setOrientation(Qt::Horizontal);
         label_7 = new QLabel(widget_6);
         label_7->setObjectName(QStringLiteral("label_7"));
-        label_7->setGeometry(QRect(460, 130, 111, 21));
+        label_7->setGeometry(QRect(460, 140, 151, 16));
         label_7->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
@@ -263,7 +263,7 @@ public:
         label_6->setText(QApplication::translate("GUI", "Exposure (EV)", Q_NULLPTR));
         flatFieldBox->setText(QApplication::translate("GUI", "Flat Field Correction", Q_NULLPTR));
         kMeansValueInput->setText(QString());
-        label_7->setText(QApplication::translate("GUI", "kMeans", Q_NULLPTR));
+        label_7->setText(QApplication::translate("GUI", "k-means cluster number", Q_NULLPTR));
         menuOpenflexure->setTitle(QApplication::translate("GUI", "cellUview", Q_NULLPTR));
     } // retranslateUi
 

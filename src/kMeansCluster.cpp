@@ -1,4 +1,4 @@
-// This file performs standard kMeansCluster at a set threshold to remove blurry pixels
+// This file performs k-means clustering to split an image into centroids for image classification.
 
 // Author Mark Main
 
@@ -74,7 +74,7 @@ void kMeansCluster::updateKMeans(frame f) {
 
 
 
-    //Reordering centroids to avoid looking like a disco, with changing colours!
+//Reordering centroids to avoid looking like a disco, with changing colours!
  // Extract the rows from the input matrix
     std::vector<cv::Vec3f> rows;
     std::vector<int>transformations;
