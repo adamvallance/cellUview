@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>cellUview: Gui Class Reference</title>
+<title>cellUview: kMeansCluster Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,30 +73,32 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_gui-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Gui Class Reference</div></div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="classk_means_cluster-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">kMeansCluster Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="gui_8h_source.html">gui.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for Gui:</div>
+Inheritance diagram for kMeansCluster:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_gui.png" usemap="#Gui_map" alt=""/>
-  <map id="Gui_map" name="Gui_map">
-<area href="classimage_processor.html" alt="imageProcessor" shape="rect" coords="113,0,216,24"/>
+  <img src="classk_means_cluster.png" usemap="#kMeansCluster_map" alt=""/>
+  <map id="kMeansCluster_map" name="kMeansCluster_map">
+<area href="classimage_processor.html" alt="imageProcessor" shape="rect" coords="0,0,103,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2f058a424b6584d1907b1f45422da4f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gui.html#a2f058a424b6584d1907b1f45422da4f6">receiveFrame</a> (<a class="el" href="classframe.html">frame</a> newFrame)</td></tr>
-<tr class="separator:a2f058a424b6584d1907b1f45422da4f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0787d4633eeebebc31ec40ad2b441c25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gui.html#a0787d4633eeebebc31ec40ad2b441c25">Gui</a> (QMainWindow *, Ui_GUI *, <a class="el" href="class_gallery.html">Gallery</a> *, std::vector&lt; <a class="el" href="classimage_processor.html">imageProcessor</a> * &gt; &amp;)</td></tr>
-<tr class="separator:a0787d4633eeebebc31ec40ad2b441c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac76a8210e18720a6bd248c0f1425a738"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gui.html#ac76a8210e18720a6bd248c0f1425a738">SetVisible</a> (bool visible)</td></tr>
-<tr class="separator:ac76a8210e18720a6bd248c0f1425a738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4a755f32f1c0edd1e1094ba34acd54e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classk_means_cluster.html#ae4a755f32f1c0edd1e1094ba34acd54e">receiveFrame</a> (<a class="el" href="classframe.html">frame</a> newFrame)</td></tr>
+<tr class="separator:ae4a755f32f1c0edd1e1094ba34acd54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e3d7a75047fb4e682ab3246ebfe204e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classk_means_cluster.html#a5e3d7a75047fb4e682ab3246ebfe204e">getParamLabel</a> ()</td></tr>
+<tr class="separator:a5e3d7a75047fb4e682ab3246ebfe204e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f3252cb49d059e49959b0f6ad6f6f78"><td class="memItemLeft" align="right" valign="top"><a id="a3f3252cb49d059e49959b0f6ad6f6f78" name="a3f3252cb49d059e49959b0f6ad6f6f78"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>updateClusterCount</b> (int value)</td></tr>
+<tr class="separator:a3f3252cb49d059e49959b0f6ad6f6f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf7b346c08195893fb184d5a39d06eec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classk_means_cluster.html#acf7b346c08195893fb184d5a39d06eec">updateSettings</a> (std::map&lt; std::string, std::string &gt;)</td></tr>
+<tr class="separator:acf7b346c08195893fb184d5a39d06eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classimage_processor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classimage_processor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classimage_processor.html">imageProcessor</a></td></tr>
 <tr class="memitem:a9bf1827b19fcf2d032efd493151c3b5b inherit pub_methods_classimage_processor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimage_processor.html#a9bf1827b19fcf2d032efd493151c3b5b">receiveFrame</a> (<a class="el" href="classframe.html">frame</a> newFrame)=0</td></tr>
 <tr class="separator:a9bf1827b19fcf2d032efd493151c3b5b inherit pub_methods_classimage_processor"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,6 +118,15 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>toggleEnable</b> ()</
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>getEnabled</b> ()</td></tr>
 <tr class="separator:a00e2d512096a68f1c3a0866cb7e82d8b inherit pub_methods_classimage_processor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a27ea0ee64c584d78b4aa65437baceffa"><td class="memItemLeft" align="right" valign="top"><a id="a27ea0ee64c584d78b4aa65437baceffa" name="a27ea0ee64c584d78b4aa65437baceffa"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>num_clusters</b> = 0</td></tr>
+<tr class="separator:a27ea0ee64c584d78b4aa65437baceffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad28a23ba5aeabc3a03b09336ef1c6f8b"><td class="memItemLeft" align="right" valign="top"><a id="ad28a23ba5aeabc3a03b09336ef1c6f8b" name="ad28a23ba5aeabc3a03b09336ef1c6f8b"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>clusterSlider</b> = 2</td></tr>
+<tr class="separator:ad28a23ba5aeabc3a03b09336ef1c6f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classimage_processor"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classimage_processor')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classimage_processor.html">imageProcessor</a></td></tr>
@@ -126,61 +137,9 @@ Additional Inherited Members</h2></td></tr>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b> = false</td></tr>
 <tr class="separator:a7d225220555118bc37633cfe8740ae0e inherit pro_attribs_classimage_processor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class which handles GUI connections and functionality. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0787d4633eeebebc31ec40ad2b441c25" name="a0787d4633eeebebc31ec40ad2b441c25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0787d4633eeebebc31ec40ad2b441c25">&#9670;&#160;</a></span>Gui()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Gui::Gui </td>
-          <td>(</td>
-          <td class="paramtype">QMainWindow *&#160;</td>
-          <td class="paramname"><em>win</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Ui_GUI *&#160;</td>
-          <td class="paramname"><em>ui_win</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_gallery.html">Gallery</a> *&#160;</td>
-          <td class="paramname"><em>galleryIn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="classimage_processor.html">imageProcessor</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>blocksIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >Constructor to initialise the GUI and set connections </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">win</td><td>points to QMainWindow </td></tr>
-    <tr><td class="paramname">ui_win</td><td>points to Ui_GUI </td></tr>
-    <tr><td class="paramname">galleryIn</td><td>points to <a class="el" href="class_gallery.html">Gallery</a> instance </td></tr>
-    <tr><td class="paramname">blocksIn</td><td>is a std::vector of the image processing blocks </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2f058a424b6584d1907b1f45422da4f6" name="a2f058a424b6584d1907b1f45422da4f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f058a424b6584d1907b1f45422da4f6">&#9670;&#160;</a></span>receiveFrame()</h2>
+<a id="a5e3d7a75047fb4e682ab3246ebfe204e" name="a5e3d7a75047fb4e682ab3246ebfe204e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e3d7a75047fb4e682ab3246ebfe204e">&#9670;&#160;</a></span>getParamLabel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,7 +148,34 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b> = false</
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Gui::receiveFrame </td>
+          <td class="memname">std::string kMeansCluster::getParamLabel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classimage_processor.html">imageProcessor</a>.</p>
+
+</div>
+</div>
+<a id="ae4a755f32f1c0edd1e1094ba34acd54e" name="ae4a755f32f1c0edd1e1094ba34acd54e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4a755f32f1c0edd1e1094ba34acd54e">&#9670;&#160;</a></span>receiveFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kMeansCluster::receiveFrame </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classframe.html">frame</a>&#160;</td>
           <td class="paramname"><em>newFrame</em></td><td>)</td>
@@ -202,44 +188,42 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b> = false</
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Function to recieve callbacks frames from image processor blocks </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">newFrame</td><td>frame structure from processing block via callback interface </td></tr>
-  </table>
-  </dd>
-</dl>
 
 <p>Implements <a class="el" href="classimage_processor.html">imageProcessor</a>.</p>
 
 </div>
 </div>
-<a id="ac76a8210e18720a6bd248c0f1425a738" name="ac76a8210e18720a6bd248c0f1425a738"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac76a8210e18720a6bd248c0f1425a738">&#9670;&#160;</a></span>SetVisible()</h2>
+<a id="acf7b346c08195893fb184d5a39d06eec" name="acf7b346c08195893fb184d5a39d06eec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf7b346c08195893fb184d5a39d06eec">&#9670;&#160;</a></span>updateSettings()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Gui::SetVisible </td>
+          <td class="memname">void kMeansCluster::updateSettings </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>visible</em></td><td>)</td>
+          <td class="paramtype">std::map&lt; std::string, std::string &gt;&#160;</td>
+          <td class="paramname"><em>metadata</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p >Sets UI visibility </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">visible</td><td>true to make visible </td></tr>
-  </table>
-  </dd>
-</dl>
+
+<p>Implements <a class="el" href="classimage_processor.html">imageProcessor</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/<a class="el" href="gui_8h_source.html">gui.h</a></li>
-<li>src/gui.cpp</li>
+<li>src/<a class="el" href="k_means_cluster_8h_source.html">kMeansCluster.h</a></li>
+<li>src/kMeansCluster.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
