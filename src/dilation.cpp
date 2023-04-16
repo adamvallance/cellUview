@@ -41,7 +41,7 @@ void dilation::dilate(frame f) {
 }
 
 /**
-* Implemented from ImageProcessor. Updates contrast settings based on metadata.
+* Implemented from ImageProcessor. Updates settings based on metadata.
 * @param metadata standard map of strings containing metadata
 **/
 void dilation::updateSettings(std::map<std::string, std::string> metadata){
