@@ -17,7 +17,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,12 +27,14 @@ jobs:
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.9.5
       with:
-        working-directory: '.'
-        doxyfile-path: 'docs/Doxyfile'
+        working-directory: "."
+        doxyfile-path: "./Doxyfile"
         enable-latex: true
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+        publish_dir: ./docs/html/
+      
     
