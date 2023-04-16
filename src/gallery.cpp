@@ -17,7 +17,7 @@ Gallery::Gallery(){
     initialiseDirectory(pathname, "cellUview Gallery");
     initialiseDirectory(flatFieldPath, "Flat field capture gallery");
     updateIndex();
-    getCaptures(true);
+    getCaptures(false);
     
 }
 
@@ -204,7 +204,6 @@ void Gallery::updateIndex(){
 }
 
 std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
-
     //adjust increment of top left index to display
     if (directionIsNext == true){
         galleryDisplayIndex += 4;
@@ -212,11 +211,16 @@ std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
         galleryDisplayIndex -= 4;
     }
     //check not out of bounds, if so move to extremes
+
+    std::cout<<galleryDisplayIndex<<std::endl;
+
     if (galleryDisplayIndex < 0){
         galleryDisplayIndex = 0;
     }else if (galleryDisplayIndex > captureImgCounter - 4){
         galleryDisplayIndex = captureImgCounter - 4;
     }
+    std::cout<<galleryDisplayIndex<<std::endl;
+
 
     std::map<std::string, cv::Mat> stringCapPairs;
     std::string capturePathName;
@@ -224,7 +228,6 @@ std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
     std::string displayString;
     int panelIndex;
     
-    //std::cout<<captureImgCounter<<std::endl;
     for (int i = 0; i<4; i++){
         panelIndex = galleryDisplayIndex + i;
         if (panelIndex<0){ //error fixing
