@@ -130,19 +130,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
         this->cam->setExposure(sliderValue2);
         ui->exposureValueInput->setText(QString::number(sliderValue2*5));
-        // bool enabled = blocks[3]->getEnabled();
-        // if (sliderValue2 == 0){ //disable if 0 on slider is selected
-        //     if (enabled){
-        //         blocks[3]->toggleEnable();
-        //     }
-        // }
-        // else{
-        //     if (!enabled){
-        //         blocks[3]->toggleEnable();
-        //     }
-        // }
-        // //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-        // static_cast<contrastEnhancement*>(blocks[3])->updateThreshold(sliderValue2);
+
 
     });
     QObject::connect(ui->exposureValueInput, &QLineEdit::textChanged, ui->exposureSlider, [&](const QString &text) {
@@ -174,7 +162,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
         QString enteredText = ui->updateNameBox->toPlainText();
         std::string enteredTextStr = enteredText.toStdString();
-        textEditController(enteredTextStr, false);
+        //textEditController(enteredTextStr, false);
     });
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });

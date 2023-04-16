@@ -17,6 +17,7 @@ Gallery::Gallery(){
     initialiseDirectory(pathname, "cellUview Gallery");
     initialiseDirectory(flatFieldPath, "Flat field capture gallery");
     updateIndex();
+    getCaptures(true);
     
 }
 
@@ -195,11 +196,56 @@ void Gallery::updateIndex(){
             } 
         }
     closedir(dir);
-    
+    galleryDisplayIndex = captureImgCounter -4;
     //debug
     //std::cout << std::to_string(captureImgCounter) + " ALREADY FOUND" << std::endl;
     }  
 
+}
+
+std::map<std::string, cv::Mat> Gallery::getCaptures(bool directionIsNext){
+
+    //adjust increment of top left index to display
+    if (directionIsNext == true){
+        galleryDisplayIndex += 4;
+    }else{
+        galleryDisplayIndex -= 4;
+    }
+    //check not out of bounds, if so move to extremes
+    if (galleryDisplayIndex < 0){
+        galleryDisplayIndex = 0;
+    }else if (galleryDisplayIndex > captureImgCounter - 4){
+        galleryDisplayIndex = captureImgCounter - 4;
+    }
+
+    std::map<std::string, cv::Mat> stringCapPairs;
+    std::string capturePathName;
+    cv::Mat captureMat;
+    std::string displayString;
+    int panelIndex;
+    
+    //std::cout<<captureImgCounter<<std::endl;
+    for (int i = 0; i<4; i++){
+        panelIndex = galleryDisplayIndex + i;
+        if (panelIndex<0){ //error fixing
+            panelIndex =0;
+        }
+        std::cout<<panelIndex<<std::endl;
+        try{
+
+            capturePathName = pathname + "/" + imgName + std::to_string(panelIndex) + ".jpg";
+            captureMat = cv::imread(flatFieldPath);
+            displayString = std::to_string(panelIndex) + "asdfjkl"; //+METADATA
+        }catch(...){
+            displayString = "";
+            cv::Mat emptyMat;
+            captureMat = emptyMat;
+        }
+        stringCapPairs[displayString] = captureMat;
+        std::cout<<displayString<<std::endl;;
+    
+    }
+    return stringCapPairs;
 }
 
 

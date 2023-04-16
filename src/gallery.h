@@ -29,7 +29,7 @@ class Gallery{
         // std::string getFlatFieldPath(){return flatFieldPath;};
         std::string getCaptureFname(){return captureFname;};//testing only
 
-
+        std::map<std::string, cv::Mat> getCaptures(bool);
 
     private:
         int initialiseDirectory(std::string, std::string);
@@ -42,9 +42,10 @@ class Gallery{
         std::string imgName = "capture";
         int captureImgCounter = 0;
         std::string captureFname = "";
-        int index;
+        int index =0 ;
         int lastHighestIndex = -1;
         int indexLen = 1;
+        int galleryDisplayIndex = 0;
         std::string existingCaptureFname; 
 
 
