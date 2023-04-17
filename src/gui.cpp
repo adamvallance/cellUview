@@ -323,6 +323,7 @@ void Gui::setUpdateFlatField(){
 
 void Gui::displayKmeans(){
     if (blocks[6]->getEnabled() == false){
+        resetCheckbox(ui->cluster0Checkbox);
         return;
     }
 
