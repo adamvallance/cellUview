@@ -78,6 +78,7 @@ public:
     QLabel *kMeansLabel;
     QSlider *kMeansSlider;
     QLineEdit *kMeansValueInput;
+    QPushButton *kMeansPercentage;
     QWidget *motorControlColumn;
     QLabel *MotorControls;
     QLabel *MotorControlUnderline;
@@ -334,6 +335,10 @@ public:
         kMeansValueInput->setGeometry(QRect(370, 130, 71, 31));
         kMeansValueInput->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(179, 179, 179);"));
+        kMeansPercentage = new QPushButton(widget_6);
+        kMeansPercentage->setObjectName(QStringLiteral("kMeansPercentage"));
+        kMeansPercentage->setGeometry(QRect(270, 90, 361, 41));
+        kMeansPercentage->setStyleSheet(QStringLiteral("background-color: rgb(179, 179, 179);"));
         motorControlColumn = new QWidget(background);
         motorControlColumn->setObjectName(QStringLiteral("motorControlColumn"));
         motorControlColumn->setGeometry(QRect(1160, 20, 311, 781));
@@ -475,6 +480,7 @@ public:
         flatFieldBox->setText(QApplication::translate("GUI", "Flat Field Correction", Q_NULLPTR));
         kMeansLabel->setText(QApplication::translate("GUI", "k-Means Cluster Count", Q_NULLPTR));
         kMeansValueInput->setText(QString());
+        kMeansPercentage->setText(QApplication::translate("GUI", "k mean percentage", Q_NULLPTR));
         MotorControls->setText(QApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:700;\">Motor Controls</span></p></body></html>", Q_NULLPTR));
         MotorControlUnderline->setText(QApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", Q_NULLPTR));
         xAxisControlHeader->setText(QApplication::translate("GUI", "<html><head/><body><p>X-axis Controls</p></body></html>", Q_NULLPTR));

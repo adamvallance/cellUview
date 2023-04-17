@@ -259,6 +259,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
 
+    QObject::connect(ui->kMeansPercentage, &QPushButton::released, this, &Gui::displayKmeans);
+
     //// How to connect a button to an instance of another class
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
 
@@ -349,6 +351,13 @@ void Gui::setUpdateFlatField(){
     //To allow checkbox to be enabled
     ui->flatFieldBox->setEnabled(true);
 }
+
+void Gui::displayKmeans(){
+
+    static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
+
+}
+
 
 
 /**

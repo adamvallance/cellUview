@@ -45,7 +45,12 @@ void kMeansCluster::updateClusterCount(int value){
     clusterSlider = value;
     }
 
-void kMeansCluster::updateKMeans(frame f) {
+void kMeansCluster::centroidPercentage(){
+    calculatePercentageEnabled = true;
+    percentageCalculated=false;
+    }
+
+void kMeansCluster::updateKMeans(frame f, bool percentage) {
 
     f.image.convertTo(f.image, CV_32FC3);
     
@@ -113,7 +118,7 @@ void kMeansCluster::updateKMeans(frame f) {
         //labels.at<int>(i,0) = transformations.
         ;
     }
-    //std::cerr << centers << std::endl;
+    //std::cerr << labels << std::endl;
 
     centers = output;
     //std::cerr << labels.size << std::endl;
@@ -146,15 +151,50 @@ void kMeansCluster::updateKMeans(frame f) {
     }
 
     current_k_means = heatmap;
+
+    if(percentage ==true){
+
+        // initialize a vector to store the pixel counts for each cluster
+        std::vector<int> pixel_counts(centers.rows, 0);
+
+        // loop over all pixels and increment the corresponding pixel count
+        for (int i = 0; i < reshaped.rows; i++) {
+            int cluster_id = labels.at<int>(i);
+            cv::Vec3b centroid_color = colors[cluster_id];
+            heatmap.at<cv::Vec3b>(i) = centroid_color;
+
+            pixel_counts[cluster_id]++;
+        }
+
+        // compute the total number of pixels
+        int total_pixels = reshaped.rows;
+
+        // loop over the clusters and print out the percentage of pixels for each cluster
+        for (int i = 0; i < pixel_counts.size(); i++) {
+            double percentage = (double)pixel_counts[i] / total_pixels * 100;
+            std::cout << "Cluster " << i+1 << " has " << pixel_counts[i] << " pixels (" << percentage << "%)." << std::endl;
+        }
+    }
+
 }
 
 
 void kMeansCluster::kMeans(frame f) {
+      
+    if (calculatePercentageEnabled == true) {
+        calculatePercentageEnabled = false;
+        percentageCalculated=false;
+        updateKMeans(f, true);
+        
+    }
+    else{
+        updateKMeans(f, false);
+    }  
     
-    
-    updateKMeans(f);
     f.image = current_k_means;
 
+
+    
     f.setParameter(paramLabel, std::to_string(clusterSlider));
     frameCb->receiveFrame(f);
 }

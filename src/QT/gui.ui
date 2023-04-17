@@ -778,6 +778,22 @@ background-color: rgb(179, 179, 179);</string>
        <string/>
       </property>
      </widget>
+     <widget class="QPushButton" name="kMeansPercentage">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>90</y>
+        <width>361</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>k mean percentage</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="motorControlColumn" native="true">
      <property name="geometry">

@@ -45,6 +45,7 @@ private:
     bool updateFlatField = false;
     bool flatFieldEnable = false;
     void setUpdateFlatField();
+    void displayKmeans();
     int flatFieldCounter = 0; 
     void updateGalleryIndex(bool);
     
