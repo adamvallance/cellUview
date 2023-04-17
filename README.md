@@ -67,37 +67,16 @@ sudo bash setup.sh -n
 
 **Next, build cellUview by running:**
 ```
-bash build.sh
+sudo bash build.sh -i
 ```
 And that's it, cellUview is now ready for use.
 
-```build.sh``` also has some additional options:
-```
-Syntax: build.sh [-h|r|i|c]
-   options:
-   -h     Print this Help.
-   -r     Build and run.
-   -i     Build and install executeable onto path /usr/bin. Requires sudo.
-   -t     Build and run tests.
-   -c     Clear CMake Cache and build.
-```
-For instance, if you want to build and run the program straight away, type:
-```
-bash build.sh -r 
-```
-Or, to build, remove the cmake cache, and install the program onto the system:
-```
-bash build.sh -c -i
-```
 
-**To launch cellUview, run the executable in the ```/bin/``` directory by typing:**
-```
-bin/cellUview
-```
-Or, if the ```-i``` option was used when building, cellUview can be run from anywhere by simply typing 
+**To launch cellUview, simply type:**
 ```
 cellUview
 ```
+This can be typed in the terminal from anywhere.
 
 
 # Using cellUview
@@ -125,10 +104,15 @@ https://user-images.githubusercontent.com/72609606/232560682-0aba59dd-6694-4a25-
 
 Check out some of the samples captured using cellUview.
 
-<p float="left">
-  <img src="" width="100" />
-  <img src="" width="100" /> 
-  <img src="" width="100" />
+<p align="center">
+  <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/capture12.jpg?raw=true" width="250" />
+  <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/capture11.jpg?raw=true" width="250" />
+  <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/capture10.jpg?raw=true" width="250" />
+  <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/capture8.jpg?raw=true" width="250" />
+  <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/capture5.jpg?raw=true" width="250" />
+  <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/capture6.jpg?raw=true" width="250" />
+  <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/capture7.jpg?raw=true" width="250" />
+  <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/capture4.jpg?raw=true" width="250" />
 </p>
 
 
@@ -151,17 +135,6 @@ Documentation for cellUview can be viewed <a href="https://adamvallance.github.i
 These documents are generated using Doxygen, using the docstrings added throughout the code. Documentation is kept up-to-date automatically through the GitHub continuous integration action '<a href="https://github.com/adamvallance/cellUview/actions/workflows/docs.yml">Docs</a>'.
 
 
-# Unit Tests
-
-Unit tests, using the Google Test framework, have been written for cellUview. Google Test system dependencies are installed with the cellUview ```setup.sh``` script. As mentioned in the **Installing the Software** section, unit tests can be run by using the ```-t``` option in the build script, i.e. by running:
-```
-bash build.sh -t
-```
-inside the cellUview project directory.
-
-These tests are also run as a part of the GitHub continuous integration action '<a href="https://github.com/adamvallance/cellUview/actions/workflows/cmake.yml">CMake</a>'.
-
-
 # License 
 
 This code is distributed under the GNU GPL-3.0 license. See [`LICENSE`](https://github.com/adamvallance/cellUview/blob/main/LICENSE) for more details.
@@ -181,4 +154,50 @@ This is a project being carried out by a group of University of Glasgow engineer
 Credits to Richard Bowman and the <a href="https://openflexure.org/">OpenFlexure microscope platform</a> that this project was built upon.
 
 Credits to Bernd Porr's <a href="https://github.com/berndporr/opencv-camera-callback">OpenCV Camera Callback Class</a>, and Phil Harvey's <a href="https://exiftool.org/">C++ ExifTool library</a> for reading and writing metadata.
+
+
+# Additional Developer Instructions
+
+## Further Build Instructions
+
+The cellUview build script ```build.sh``` also has some additional options:
+```
+Syntax: build.sh [-h|r|i|c]
+   options:
+   -h     Print this Help.
+   -r     Build and run.
+   -i     Build and install executeable onto path /usr/bin. Requires sudo.
+   -t     Build and run tests.
+   -c     Clear CMake Cache and build.
+```
+For instance, if you want to build and run the program straight away, type:
+```
+bash build.sh -r 
+```
+Or, to build, remove the cmake cache, run unit tests, and install the program onto the system:
+```
+bash build.sh -c -t -i
+```
+If not installing cellUview with the ```-i``` option, then cellUview can be launched by running the executible in the ```/bin/``` directory by typing:
+
+```
+bin/cellUview
+```
+
+## Unit Tests
+
+Unit tests, using the Google Test framework, have been written for cellUview. Google Test system dependencies are installed with the cellUview ```setup.sh``` script. As mentioned in the **Further Build Instructions** section, unit tests can be run by using the ```-t``` option in the build script, i.e. by running:
+```
+bash build.sh -t
+```
+inside the cellUview project directory.
+
+These tests are also run as a part of the GitHub continuous integration action '<a href="https://github.com/adamvallance/cellUview/actions/workflows/cmake.yml">CMake</a>'.
+
+
+<br />
+<br />
+<div align="center">
+ <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/socialMedia.jpeg?raw=true" alt="header" width="500" />
+</div>
 
