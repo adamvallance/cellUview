@@ -374,9 +374,10 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
 **/
 void Gui::updateGalleryView(bool directionIsNext){
     std::list<std::pair<std::string, cv::Mat>> loaded = this->gallery->getCaptures(directionIsNext);
-    std::vector<std::string> keys;
+    //std::vector<std::string> keys;
     std::list<std::pair<std::string, cv::Mat>>::const_iterator it;
     mats.clear();
+    keys.clear();
     for (it = loaded.begin(); it != loaded.end(); ++it){
         keys.push_back(it->first);
         mats.push_back(it->second);
@@ -466,54 +467,40 @@ void Gui::updateGalleryView(bool directionIsNext){
 * Displays a popup window showing a full-sized capture with a button option to restore settings from that capture.
 * @param position position within the four spaced as 0, 1 on top row and 2, 3 on the bottom.
 **/
-//function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
 void Gui::showDialog(int position) {
     dialog.accept();
     if (position!=-1){
-    dialog.setWindowTitle("Restore Settings");
-
-    // // Load the image and create a pixmap
-    // std::string directoryStr = this->gallery->getPathname();
-    // QString directory = QString::fromStdString(directoryStr);
-    // QDir imageDir(directory);
-   
-    // imageFilters << "*.jpg";
-    // QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
-    // QSize labelSize = ui->galleryPos1->size();
-
-    // QImage image(directory + "/" + images[position]);
-    // QString imagName = images.at(position);
-    QString caption = galleryStrs[position];
-    //QImage image = galleryQImages[position];
-    ////vpassing wasn't working so trying
-    cv::Mat img = mats[position];
-    std::cout<<img.size()<<std::endl;
-    //cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-    QImage dialogImg = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-                        QImage::Format_RGB888);
-    QLabel label;
-    label.setPixmap(QPixmap::fromImage(dialogImg));//.scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        //dialog.setWindowTitle("Restore Settings");
+        std::string title = keys[position];
+        QString titleQ = QString::fromStdString(title);
+        dialog.setWindowTitle(titleQ);
+        QString caption = galleryStrs[position];
+        cv::Mat img = mats[position];
+        std::cout<<img.size()<<std::endl;
+        QImage dialogImg = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        QLabel label;
+        label.setPixmap(QPixmap::fromImage(dialogImg));
 
 
-    // Create a QPushButton and set its text
-    QPushButton button("Restore Image Properties");
-    QObject::connect(&button, &QPushButton::released, this, [=](){ 
-        std::string pathStr = this->gallery->getPathname();
-        //std::string fileToRestore = pathStr + caption.toStdString();
-        std::string fileToRestore = this->gallery->getGalleryDisplayFname(position);
-        restoreSettings(fileToRestore); 
-        dialog.accept();
-    });
+        // Create a QPushButton and set its text
+        QPushButton button("Restore Image Properties");
+        QObject::connect(&button, &QPushButton::released, this, [=](){ 
+            std::string pathStr = this->gallery->getPathname();
+            std::string fileToRestore = this->gallery->getGalleryDisplayFname(position);
+            restoreSettings(fileToRestore); 
+            dialog.accept();
+        });
 
-    // Create a QHBoxLayout and add the label to it
-    QVBoxLayout layout;
-    layout.addWidget(&label);
-    layout.addWidget(&button);
+        // Create a QHBoxLayout and add the label to it
+        QVBoxLayout layout;
+        layout.addWidget(&label);
+        layout.addWidget(&button);
 
-    // Add the QHBoxLayout to the dialog's layout
-    dialog.setLayout(&layout);
+        // Add the QHBoxLayout to the dialog's layout
+        dialog.setLayout(&layout);
 
-    dialog.exec();
+        dialog.exec();
     }
 }
 
