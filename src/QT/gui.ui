@@ -1143,6 +1143,9 @@ background-color: rgb(83, 83, 83);</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="cluster0Checkbox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -1159,6 +1162,9 @@ background-color: rgb(83, 83, 83);</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="cluster1Checkbox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -1175,6 +1181,9 @@ background-color: rgb(83, 83, 83);</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="cluster2Checkbox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -1191,6 +1200,9 @@ background-color: rgb(83, 83, 83);</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="cluster3Checkbox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -1207,6 +1219,9 @@ background-color: rgb(83, 83, 83);</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="cluster4Checkbox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>30</x>

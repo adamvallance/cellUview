@@ -55,6 +55,7 @@ private:
     void textEditController(std::string enteredTextStr, bool pressed);
     void showDialog(int position);
     void updateGalleryView(bool directionIsNext);
+    std::string setKmeansStyleSheet(cv::Vec3b);
 
 
     //std::string textEditController(std::string enteredTextStr){return myString;};

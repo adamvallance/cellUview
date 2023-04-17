@@ -208,6 +208,28 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     //-----------Kmeans image analysis------------------
     QObject::connect(ui->kMeansPercentage, &QPushButton::released, this, &Gui::displayKmeans);
+
+    ui->cluster0Checkbox->setChecked(true);
+    ui->cluster1Checkbox->setChecked(true);
+    ui->cluster2Checkbox->setChecked(true);
+    ui->cluster3Checkbox->setChecked(true);
+    ui->cluster4Checkbox->setChecked(true);
+    // ui->cluster0Checkbox->setCheckable(false);
+    // ui->cluster1Checkbox->setCheckable(false);
+    // ui->cluster2Checkbox->setCheckable(false);
+    // ui->cluster3Checkbox->setCheckable(false);
+    // ui->cluster4Checkbox->setCheckable(false);
+    ui->cluster0Checkbox->setEnabled(false);
+    ui->cluster1Checkbox->setEnabled(false);
+    ui->cluster2Checkbox->setEnabled(false);
+    ui->cluster3Checkbox->setEnabled(false);
+    ui->cluster4Checkbox->setEnabled(false);
+    // ui->cluster0Checkbox->setVisible(false);
+    // ui->cluster1Checkbox->setVisible(false);
+    // ui->cluster2Checkbox->setVisible(false);
+    // ui->cluster3Checkbox->setVisible(false);
+    // ui->cluster4Checkbox->setVisible(false);
+
     //ui->cluster0Checkbox->setStyleSheet("QCheckBox { color: black; } QCheckBox::indicator {background-color: rgb(179, 179, 179); border: none; } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
 
 
@@ -302,6 +324,7 @@ void Gui::setUpdateFlatField(){
     ui->flatFieldBox->setEnabled(true);
 }
 
+
 void Gui::displayKmeans(){
     if (blocks[6]->getEnabled() == false){
         return;
@@ -310,19 +333,51 @@ void Gui::displayKmeans(){
     static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
     std::list<std::pair<cv::Vec3b, double>> kmeansValues = static_cast<kMeansCluster*>(blocks[6])->getClusterAnalysis();
 
-    //replace this to iterate over 
+
+    //replace this to iterate over
+
+    std::list<std::pair<cv::Vec3b, double>>::const_iterator it;
+    std::vector<cv::Vec3b> centroidColors;
+    std::vector<double> percentages;
+    for (it = kmeansValues.begin(); it != kmeansValues.end(); ++it){
+        centroidColors.push_back(it->first);
+        percentages.push_back(it->second);
+    } 
+    
+    //make all initially invisible
+    ui->cluster0Checkbox->setVisible(false);
+    ui->cluster1Checkbox->setVisible(false);
+    ui->cluster2Checkbox->setVisible(false);
+    ui->cluster3Checkbox->setVisible(false);
+    ui->cluster4Checkbox->setVisible(false);
+    
+    std::string styleSheet;
+    cv::Vec3b centroidColor;
+    std::string percentageLabel;
+    QString styleSheetQ;
+    QString percentageQStr;
     if (kmeansValues.size() > 0){
-        ui->cluster0Checkbox->setStyleSheet("QCheckBox { color: bgr(255,0,0); } QCheckBox::indicator {background-color: bgr(255, 0, 0);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+        ui->cluster0Checkbox->setVisible(true);
+        centroidColor = centroidColors[0];
+        styleSheet = setKmeansStyleSheet(centroidColor);
+        styleSheetQ = QString::fromStdString(styleSheet);
+        ui->cluster0Checkbox->setStyleSheet(styleSheetQ);
+        percentageLabel = percentages[0];
+        percentageQStr = QString::fromStdString(percentageLabel);
+        ui->cluster0Checkbox->setText(percentageQStr);
         //ui->cluster0Checkbox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
 
     }
 
 }
 
-// void Gui::setKmeansStyleSheet(cv::Vec3b){
-//     std::string color = 
+std::string Gui::setKmeansStyleSheet(cv::Vec3b In){
+    std::string color = std::to_string(In[2]) + ", " + std::to_string(In[1]) + ", " + std::to_string(In[0]);
+    std::string styleSheet = "QCheckBox::indicator:checked { background-color: rgb(" + color + "); }";
+    std::cout<<styleSheet<<std::endl;
+    return styleSheet;
 
-// }
+}
 
 
 /**
