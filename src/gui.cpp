@@ -224,11 +224,11 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     ui->cluster2Checkbox->setEnabled(false);
     ui->cluster3Checkbox->setEnabled(false);
     ui->cluster4Checkbox->setEnabled(false);
-    // ui->cluster0Checkbox->setVisible(false);
-    // ui->cluster1Checkbox->setVisible(false);
-    // ui->cluster2Checkbox->setVisible(false);
-    // ui->cluster3Checkbox->setVisible(false);
-    // ui->cluster4Checkbox->setVisible(false);
+    ui->cluster0Checkbox->setVisible(false);
+    ui->cluster1Checkbox->setVisible(false);
+    ui->cluster2Checkbox->setVisible(false);
+    ui->cluster3Checkbox->setVisible(false);
+    ui->cluster4Checkbox->setVisible(false);
 
     //ui->cluster0Checkbox->setStyleSheet("QCheckBox { color: black; } QCheckBox::indicator {background-color: rgb(179, 179, 179); border: none; } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
 
@@ -339,24 +339,30 @@ void Gui::displayKmeans(){
     std::list<std::pair<cv::Vec3b, std::string>>::const_iterator it;
     std::vector<cv::Vec3b> centroidColors;
     std::vector<std::string> percentages;
+    centroidColors.clear();
+    percentages.clear();
     for (it = kmeansValues.begin(); it != kmeansValues.end(); ++it){
         centroidColors.push_back(it->first);
         percentages.push_back(it->second);
     } 
     
     //make all initially invisible
-    ui->cluster0Checkbox->setVisible(false);
-    ui->cluster1Checkbox->setVisible(false);
-    ui->cluster2Checkbox->setVisible(false);
-    ui->cluster3Checkbox->setVisible(false);
-    ui->cluster4Checkbox->setVisible(false);
+    resetCheckbox(ui->cluster0Checkbox);
+    resetCheckbox(ui->cluster1Checkbox);
+    resetCheckbox(ui->cluster2Checkbox);
+    resetCheckbox(ui->cluster3Checkbox);
+    resetCheckbox(ui->cluster4Checkbox);
+
     
     std::string styleSheet;
     cv::Vec3b centroidColor;
     std::string percentageLabel;
     QString styleSheetQ;
     QString percentageQStr;
+    //--------------NEED TO REFACTOR THIS TO BE FUNCTIONAL--------------
+    //was struggling to pass around QObjects
     if (kmeansValues.size() > 0){
+
         ui->cluster0Checkbox->setVisible(true);
         centroidColor = centroidColors[0];
         styleSheet = setKmeansStyleSheet(centroidColor);
@@ -365,9 +371,67 @@ void Gui::displayKmeans(){
         percentageLabel = percentages[0];
         percentageQStr = QString::fromStdString(percentageLabel);
         ui->cluster0Checkbox->setText(percentageQStr);
-        //ui->cluster0Checkbox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+    }if (kmeansValues.size() >1){
+
+        ui->cluster1Checkbox->setVisible(true);
+        centroidColor = centroidColors[1];
+        styleSheet = setKmeansStyleSheet(centroidColor);
+        styleSheetQ = QString::fromStdString(styleSheet);
+        ui->cluster1Checkbox->setStyleSheet(styleSheetQ);
+        percentageLabel = percentages[1];
+        percentageQStr = QString::fromStdString(percentageLabel);
+        ui->cluster1Checkbox->setText(percentageQStr);
+
+                std::cout<<percentageLabel<<std::endl;;
 
     }
+    if (kmeansValues.size() >2){
+
+        ui->cluster2Checkbox->setVisible(true);
+        centroidColor = centroidColors[2];
+        styleSheet = setKmeansStyleSheet(centroidColor);
+        styleSheetQ = QString::fromStdString(styleSheet);
+        ui->cluster2Checkbox->setStyleSheet(styleSheetQ);
+        percentageLabel = percentages[2];
+        percentageQStr = QString::fromStdString(percentageLabel);
+        ui->cluster2Checkbox->setText(percentageQStr);
+
+                std::cout<<percentageLabel<<std::endl;;
+
+    }
+    if (kmeansValues.size() >3){
+
+        ui->cluster3Checkbox->setVisible(true);
+        centroidColor = centroidColors[3];
+        styleSheet = setKmeansStyleSheet(centroidColor);
+        styleSheetQ = QString::fromStdString(styleSheet);
+        ui->cluster3Checkbox->setStyleSheet(styleSheetQ);
+        percentageLabel = percentages[3];
+        percentageQStr = QString::fromStdString(percentageLabel);
+        ui->cluster3Checkbox->setText(percentageQStr);
+
+                std::cout<<percentageLabel<<std::endl;;
+
+    }
+    if (kmeansValues.size() >4){
+        ui->cluster4Checkbox->setVisible(true);
+        centroidColor = centroidColors[4];
+        styleSheet = setKmeansStyleSheet(centroidColor);
+        styleSheetQ = QString::fromStdString(styleSheet);
+        ui->cluster4Checkbox->setStyleSheet(styleSheetQ);
+        percentageLabel = percentages[4];
+        percentageQStr = QString::fromStdString(percentageLabel);
+        ui->cluster4Checkbox->setText(percentageQStr);
+
+                std::cout<<percentageLabel<<std::endl;;
+
+    }
+
+}
+
+void Gui::resetCheckbox(QCheckBox* box){
+    box->setText("");
+    box->setVisible(false);
 
 }
 

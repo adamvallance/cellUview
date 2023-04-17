@@ -10,6 +10,7 @@
 #include <thread>
 #include "imageProcessor.h"
 #include <list>
+#include <cmath>
 
 
 class kMeansCluster: public imageProcessor{
