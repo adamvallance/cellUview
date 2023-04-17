@@ -13,10 +13,16 @@
 #include <cmath>
 
 
+/**
+* Image analysis class to sort incoming frames into centroids which are used to classify regions in the frame.
+**/
 class kMeansCluster: public imageProcessor{
 public:
     kMeansCluster() = default;
     void receiveFrame(frame newFrame);
+    /**
+    * @returns paramLabel, std::string containing metadata parameter
+    **/
     std::string getParamLabel(){return paramLabel;};
     int num_clusters = 0; //number of clusters used in kmeans operation
     int clusterSlider = 2;
