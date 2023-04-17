@@ -22,9 +22,6 @@ class frame{
         frame() = default;
         frame(cv::Mat matIn): image(matIn){}
 
-        //custom copy constructor replacement to allow test to pass,
-        // provide a pointer to existing frame
-        //and copy from there into a constructed second frame
         /**
         * Custom copy constructor.
         * Provide a pointer to an existing frame and copy from there into a constructed second frame.
@@ -61,12 +58,9 @@ class frame{
             "flatField",
             "exposure",
             "note"
-            //ADD MORE PARAMETERS HERE
+            //ADD MORE PARAMETERS HERE FOR NEW BLOCKS
         };
-
-
         std::string encodedString;
-
 };
 
 

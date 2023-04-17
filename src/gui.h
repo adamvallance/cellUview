@@ -58,6 +58,7 @@ private:
     //std::string textEditController(std::string enteredTextStr){return myString;};
     std::vector<QString> galleryStrs;  
     std::vector<cv::Mat> mats;
+    std::vector<std::string> keys;
     std::vector<QImage> galleryQImages;  
     QString str1;
     QString str2;

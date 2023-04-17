@@ -18,54 +18,51 @@
 #include <unordered_map>
 #include <list>
 
-class Gallery{
+class Gallery
+{
 
-    public:
-        Gallery();
-        void captureFrame(frame, bool flatfield=false, int flatFieldCounter = 0);
-        void updateImgName(std::string);
-        void updateIndex();
-        std::map<std::string, std::string> getMetadata(std::string = "");
+public:
+    Gallery();
+    void captureFrame(frame, bool flatfield = false, int flatFieldCounter = 0);
+    void updateImgName(std::string);
+    void updateIndex();
+    std::map<std::string, std::string> getMetadata(std::string = "");
 
-        std::string getPathname(){return pathname;}; //testing only
-        // std::string getFlatFieldPath(){return flatFieldPath;};
-        std::string getCaptureFname(){return captureFname;};//testing only
+    std::string getPathname() { return pathname; };         // testing only
+    std::string getCaptureFname() { return captureFname; }; // testing only
 
-        std::list<std::pair<std::string, cv::Mat>>  getCaptures(bool);
+    std::list<std::pair<std::string, cv::Mat>> getCaptures(bool);
 
-        bool galleryAtEnd();
-        std::string getGalleryDisplayFname(int);
+    bool galleryAtEnd();
+    std::string getGalleryDisplayFname(int);
 
-    private:
-        int initialiseDirectory(std::string, std::string);
-        void writeMetadata(frame, std::string);
+private:
+    void initialiseDirectory(std::string, std::string);
+    void writeMetadata(frame, std::string);
 
-        DIR *dir;
-        struct dirent *ent;
-        std::string pathname = "";
-        std::string flatFieldPath = "";
-        std::string imgName = "capture";
-        int captureImgCounter = 0;
-        std::string captureFname = "";
-        int index =0 ;
-        int lastHighestIndex = -1;
-        int indexLen = 1;
-        int galleryDisplayIndex = 0;
-        std::string existingCaptureFname; 
+    DIR *dir;
+    struct dirent *ent;
+    std::string pathname = "";
+    std::string flatFieldPath = "";
+    std::string imgName = "capture";
+    int captureImgCounter = 0;
+    std::string captureFname = "";
+    int index = 0;
+    int lastHighestIndex = -1;
+    int indexLen = 1;
+    int galleryDisplayIndex = 0;
+    std::string existingCaptureFname;
 
+    cv::Mat img;
 
-        cv::Mat img;
+    std::string tagName;
+    std::string receivedMetadata;
+    std::string MetadataToWrite;
 
-        std::string tagName;
-        std::string receivedMetadata;
-        std::string MetadataToWrite;
+    ExifTool *et = new ExifTool();
 
-        ExifTool *et = new ExifTool();
+    std::map<std::string, std::string> restoredParams;
 
-        std::map<std::string, std::string> restoredParams;
-
-        std::vector<std::string> galleryDisplayFname;
-
-
+    std::vector<std::string> galleryDisplayFname;
 };
-#endif //CELLUVIEW_GALLERY_H
+#endif // CELLUVIEW_GALLERY_H

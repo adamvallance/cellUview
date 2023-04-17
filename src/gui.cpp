@@ -16,11 +16,13 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     ui = ui_win;
     ui->setupUi(widget);
 
+    //----- save class instances passed in by reference ------
     this->gallery = galleryIn;
     blocks = blocksIn; 
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
     
+    //-------------Set styles of selected widgets--------------------------
 
     ui->dilationCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
     ui->erosionCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
@@ -28,6 +30,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     ui->flatFieldBox->setEnabled(false);
     ui->grayScaleBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
 
+
+    //----------------------------------------------MAKE IMAGE PROCESSOR CONTROLS CONNECTIONS_--------------------------
 
      //-----------camera (block 0)---------------------
     QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
@@ -136,47 +140,43 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     
 
 
-    
-    
 
-
-    //------------make connections-------------
+    //------------make other connections-------------
     // push button (to be renamed @Jake) connects to gallery capture
 
     ////do a capture
-    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame); //&Gui::captureNextFrame
-    QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){textEditController(myString, true);});
-
+    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame); 
+    //flat field capture
     QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
 
-    //// How to connect a button to an instance of another class
-    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
-
-    // toggle edge
-    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
+    //Label text box, ensures that the text is never empty
+    ui->updateNameBox->setText(" ");
     QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
         QString enteredText = ui->updateNameBox->toPlainText();
         std::string enteredTextStr = enteredText.toStdString();
+        if (enteredTextStr == ""){
+            //std::cout<<"switching"<<std::endl;
+            enteredTextStr = " ";
+        }
         this->cam->setNote(enteredTextStr);
-        //textEditController(enteredTextStr, false);
     });
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
     //gallery button connections
     QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryView(true);});
     QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryView(false);});
-
+    //Enlarge image from gallery previews
     QObject::connect(ui->buttonPos1, &QPushButton::released, this, [&](){showDialog(galleryPos1Index);});
     QObject::connect(ui->buttonPos2, &QPushButton::released, this, [&](){showDialog(galleryPos2Index);});
     QObject::connect(ui->buttonPos3, &QPushButton::released, this, [&](){showDialog(galleryPos3Index);});
     QObject::connect(ui->buttonPos4, &QPushButton::released, this, [&](){showDialog(galleryPos4Index);});
 
-
+    //loads in existing images in gallery if they exist
     updateGalleryView(true);
 }
 
 /**
-* Function to recieve callbacks frames from image processor blocks
+* Function to recieve callbacks frames from image processor blocks and display in GUI and optionally pass to gallery to do captures
 * @param newFrame frame structure from processing block via callback interface
 **/
 void Gui::receiveFrame(frame newFrame)
@@ -250,7 +250,7 @@ void Gui::SetVisible(bool visible)
     widget->setVisible(visible);
 }
 
-// set to capture on next frame
+// set flags to trigger a capture for the next frame which is initialised once it arrives here at GUI.
 /**
 * Sets camera object to capture next frame
 **/
@@ -262,7 +262,7 @@ void Gui::captureNextFrame()
 
 
 /**
-* Restores image processing settings from existing capture metadata
+* Restores image processing settings from existing capture metadata by passing to every image processor block through callback
 * @param fname filename for image to restore metadata from
 **/
 void Gui::restoreSettings(std::string fname)
@@ -272,11 +272,6 @@ void Gui::restoreSettings(std::string fname)
     metadata = this->gallery->getMetadata(fname);
 
 
-    ////debug
-    //std::string erosion = metadata["erosion"];
-    //std::cout<<"erosion::" + erosion<<std::endl;
-    
-
     //pass retrieved metadata through callbacks to each image proc block
     for (auto block : blocks){
         block->updateSettings(metadata);
@@ -284,15 +279,18 @@ void Gui::restoreSettings(std::string fname)
     this->updateSettings(metadata);//updates gui sliders
 }
 
-//resets gui sliders and checkboxes to match new settings
 /**
 * Restores GUI sliders and checkboxes to match the restored image processor settings.
+* @param metadata restored from saved capture in gallery directory.
 **/
 void Gui::updateSettings(std::map<std::string, std::string> metadata){
     //std::cout<<"in gui update settings"<<std::endl;
     std::string value;
     std::string label;
+
+    //iterate over image processor blocks to update settings
     for (auto block: blocks){
+        //fetch label of block
         label = block->getParamLabel();
         try{
             value = metadata[label];
@@ -301,8 +299,6 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
             return;
         };
 
-
-        //std::cout<<value<<std::endl;
 
         if (value == ""){
             std::cerr<<"check paramLabel is defined in derived image procesor class"<<std::endl;
@@ -317,6 +313,7 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         }
 
         //janky but not sure how else to make these connections
+        //------------------------------- iterate through metadata to restore GUI state-------------------
         if(label == "edgeThreshold"){
             try{
                 ui->edgeEnhancementSlider->setValue(std::stoi(value));
@@ -328,7 +325,6 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
                 }
             }
         }
-                //janky but not sure how else to make these connections
         else if(label == "contrastThreshold"){
             try{
                 ui->contrastEnhancementSlider->setValue(std::stoi(value));
@@ -342,15 +338,17 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         }
 
         else if(label == "exposure"){
-            try{
-                ui->exposureSlider->setValue(std::stoi(value));
-            }catch(...){
-                if (value == "OFF"){
-                    ui->exposureSlider->setValue(0);
-                }else{
-                std::cerr<<"Invalid metadata for contrast enhancement"<<std::endl;
-                }
-            }
+            ////broken fix this
+            // try{
+            //     ui->exposureSlider->setValue(std::stoi(value));
+            // }catch(...){
+            //     if (value == "OFF"){
+            //         ui->exposureSlider->setValue(0);
+            //     }else{
+            //     std::cerr<<"Invalid metadata for contrast enhancement"<<std::endl;
+            //     }
+            // } 
+            ;
         }
 
         else if(label == "erosion"){
@@ -370,30 +368,31 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     
 }
 
-
+/**
+* Updates gallery previews with a new four images with labels
+* @param directionIsNext if true, moves the gallery view forward to more recent captures, otherwise back to an earlier 4 captures
+**/
 void Gui::updateGalleryView(bool directionIsNext){
     std::list<std::pair<std::string, cv::Mat>> loaded = this->gallery->getCaptures(directionIsNext);
-    std::vector<std::string> keys;
+    //std::vector<std::string> keys;
     std::list<std::pair<std::string, cv::Mat>>::const_iterator it;
     mats.clear();
+    keys.clear();
     for (it = loaded.begin(); it != loaded.end(); ++it){
         keys.push_back(it->first);
         mats.push_back(it->second);
     }
-    // for (std::list<std::string, cv::Mat>::iterator it = loaded.begin(); it != loaded.end(); ++it) {
-    //     keys.push_back(it->first);
-    //     std::cout<<it->first<<std::endl;
-    // } 
 
 
     cv::Mat img;
     QSize labelSize = ui->galleryPos1->size();
 
+    //-----------Load in cv mats and labels from gallery and populate the preview window-----------
+
     //reload first of four gallery view
     img = mats[0];
     if (img.empty() == false){
         img = mats[0];
-        std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
         gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
@@ -410,7 +409,6 @@ void Gui::updateGalleryView(bool directionIsNext){
     //second of four
     img = mats[1];
     if (img.empty() == false){
-        std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
         gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
@@ -425,8 +423,6 @@ void Gui::updateGalleryView(bool directionIsNext){
     //third of four
     img = mats[2];
     if (img.empty() == false){
-
-        std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
         gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
@@ -442,8 +438,6 @@ void Gui::updateGalleryView(bool directionIsNext){
     //fourth of four
     img = mats[3];
     if (img.empty() == false){
-
-        std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
         gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
@@ -455,76 +449,53 @@ void Gui::updateGalleryView(bool directionIsNext){
         ui->galleryPos4->clear();
         ui->namePos4->clear();
     }
+
+    //required for restoring settings from selected capture
     galleryStrs.clear();
     galleryStrs = {str1, str2, str3, str4};
     galleryQImages.clear();
-    galleryQImages={gallery1, gallery2, gallery3, gallery4};
+    galleryQImages={gallery1, gallery2, gallery3, gallery4}; 
 
 }
 
 
- void Gui::textEditController(std::string enteredTextStr, bool pressed){
-
-    myString = enteredTextStr;
-    if (!myString.empty()){
-    std::cout<<"Entered String: "<<enteredTextStr<<std::endl;
-    if( pressed == true){
-        this->gallery->updateImgName(myString);
-        bool pressed =false;
-    }
-    else{}
-    }
-    else{}
-}
-
-//function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
+/**
+* Displays a popup window showing a full-sized capture with a button option to restore settings from that capture.
+* @param position position within the four spaced as 0, 1 on top row and 2, 3 on the bottom.
+**/
 void Gui::showDialog(int position) {
     dialog.accept();
     if (position!=-1){
-    dialog.setWindowTitle("Restore Settings");
-
-    // // Load the image and create a pixmap
-    // std::string directoryStr = this->gallery->getPathname();
-    // QString directory = QString::fromStdString(directoryStr);
-    // QDir imageDir(directory);
-   
-    // imageFilters << "*.jpg";
-    // QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
-    // QSize labelSize = ui->galleryPos1->size();
-
-    // QImage image(directory + "/" + images[position]);
-    // QString imagName = images.at(position);
-    QString caption = galleryStrs[position];
-    //QImage image = galleryQImages[position];
-    ////vpassing wasn't working so trying
-    cv::Mat img = mats[position];
-    std::cout<<img.size()<<std::endl;
-    //cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
-    QImage dialogImg = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-                        QImage::Format_RGB888);
-    QLabel label;
-    label.setPixmap(QPixmap::fromImage(dialogImg));//.scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        //dialog.setWindowTitle("Restore Settings");
+        std::string title = keys[position];
+        QString titleQ = QString::fromStdString(title);
+        dialog.setWindowTitle(titleQ);
+        QString caption = galleryStrs[position];
+        cv::Mat img = mats[position];
+        QImage dialogImg = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        QLabel label;
+        label.setPixmap(QPixmap::fromImage(dialogImg));
 
 
-    // Create a QPushButton and set its text
-    QPushButton button("Restore Image Properties");
-    QObject::connect(&button, &QPushButton::released, this, [=](){ 
-        std::string pathStr = this->gallery->getPathname();
-        //std::string fileToRestore = pathStr + caption.toStdString();
-        std::string fileToRestore = this->gallery->getGalleryDisplayFname(position);
-        restoreSettings(fileToRestore); 
-        dialog.accept();
-    });
+        // Create a QPushButton and set its text
+        QPushButton button("Restore Image Properties");
+        QObject::connect(&button, &QPushButton::released, this, [=](){ 
+            std::string pathStr = this->gallery->getPathname();
+            std::string fileToRestore = this->gallery->getGalleryDisplayFname(position);
+            restoreSettings(fileToRestore); 
+            dialog.accept();
+        });
 
-    // Create a QHBoxLayout and add the label to it
-    QVBoxLayout layout;
-    layout.addWidget(&label);
-    layout.addWidget(&button);
+        // Create a QHBoxLayout and add the label to it
+        QVBoxLayout layout;
+        layout.addWidget(&label);
+        layout.addWidget(&button);
 
-    // Add the QHBoxLayout to the dialog's layout
-    dialog.setLayout(&layout);
+        // Add the QHBoxLayout to the dialog's layout
+        dialog.setLayout(&layout);
 
-    dialog.exec();
+        dialog.exec();
     }
 }
 

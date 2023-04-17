@@ -19,15 +19,22 @@ public:
     Camera() = default;
     void start(int deviceID = 0, int apiID=0);
     void stop();
-    //void receiveFrame(frame newFrame);
     bool getIsOn();
-    //void registerCallback(imageProcessor*);
     void captureMetadata();
     void setExposure(int);
-    std::string getParamLabel(){return paramLabel;};
     void updateSettings(std::map<std::string, std::string>);
-    void receiveFrame(frame newFrame){return;};
     void setNote(std::string);
+    
+    /**
+    * Not required for camera.
+    **/
+    std::string getParamLabel(){return paramLabel;};
+
+    /**
+    * Not required for camera.
+    **/
+    void receiveFrame(frame newFrame){return;};
+
 
     
 private:
@@ -40,9 +47,8 @@ private:
     bool isOn = false;
     std::string paramLabel = "exposure";
     std::string paramLabel2 = "note";
-    //imageProcessor* frameCb = nullptr;
     bool doMeta = false;
-    std::string note = "";
+    std::string note = " ";
 
 };
 
