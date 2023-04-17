@@ -23,10 +23,6 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
 
-    // initialise motor positions at zero
-    ui->xPos->setText(QString::number(0));
-    ui->yPos->setText(QString::number(0));
-    ui->zPos->setText(QString::number(0));
 
 
     // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
@@ -170,9 +166,12 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
 
 
+    // Motor Initialisation
+
     ui->motorDisableText->setVisible(false);       // motor disabled message default to invisible
-    // check if motors connected, if not, disable controls
-    if (!motors->getConnected()){ 
+    
+    // check if motors connected
+    if (!motors->getConnected()){           // if not connected, disable controls
         ui->motorDisableText->setVisible(true);    // show no motors message
         ui->xUpButton->setDisabled(true);
         ui->xDownButton->setDisabled(true);
@@ -183,6 +182,12 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
         ui->zUpButton->setDisabled(true);
         ui->zDownButton->setDisabled(true);
         ui->zPos->setEnabled(false);
+    }
+    else{
+        // initialise motor positions
+        ui->xPos->setText(QString::number(motors->getPosition()[0]));
+        ui->yPos->setText(QString::number(motors->getPosition()[1]));
+        ui->zPos->setText(QString::number(motors->getPosition()[2]));
     }
 
     // motor ui element connections
