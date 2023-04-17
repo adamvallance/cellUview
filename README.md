@@ -35,7 +35,7 @@ It is recommended to use a Raspberry Pi 4B for OpenFlexure. In order to use cell
 cellUview, just like OpenFlexure, supports motor control built on the open-source SangaBoard motor controller. However, any custom Arduino-based motor controller board that can use the SangaBoard firmware is supported. Instructions on how to build your own custom SangaBoard- and OpenFlexure-compatible motor board can be found <a href="https://build.openflexure.org/openflexure-microscope/test-gitbuilding/motor_controllers.html">here</a>. If using a custom board, please ensure this is flashed with the SangaBoard firmware,  <a href="https://gitlab.com/bath_open_instrumentation_group/sangaboard/tree/master/arduino_code">available here</a>.
 
 <div align="center">
-<img src="https://openflexure.org/assets/ofm-photos/v7_side_view_crop.jpg" alt="openflexure microscope" width="200"/>
+<img src="https://github.com/adamvallance/cellUview/blob/main/images/ezgif-2-f8974a17cf.gif" alt="openflexure microscope, source: https://www.youtube.com/watch?v=IqjsVWdwYfg" width="600"/>
 </div>
 
 ## Installing the Software
