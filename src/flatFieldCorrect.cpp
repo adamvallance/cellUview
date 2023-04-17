@@ -51,7 +51,7 @@ void flatFieldCorrect::updateAverage(frame f) {
     std::string pathname = getenv("HOME");
     pathname += + "/cellUviewGallery/.FlatFieldGallery/";
     std::vector<cv::Mat> reference_images;
-    for (int i = 0; i <= 19; i++) {
+    for (int i = 0; i <= 19; i++) {     // iterating through 20 captures taken for flat field correction 
         std::string flatFieldPath = pathname + "flatField" + std::to_string(i) + ".jpg";
         cv::Mat reference_image = cv::imread(flatFieldPath);
         reference_images.push_back(reference_image);
@@ -59,10 +59,13 @@ void flatFieldCorrect::updateAverage(frame f) {
 
     // Calculate the average of the reference images
     cv::Mat average_reference_image;
-    //initialise average reference to be 1/20 weighted average of first two captures
-    cv::addWeighted(reference_images[0], 1.0/20, reference_images[1], 1.0/20, 0, average_reference_image);
+    // initialise average reference to be 1/20 weighted average of first two captures
+    // weighted average calculation: output_array = alpha*array1 + beta*array2 + gamma
+    // where alpha and beta are weighting coefficients of each array, gamma = 0
+    double weight_coeff = 1.0/20;   // coefficient for weighted average calculations
+    cv::addWeighted(reference_images[0], weight_coeff, reference_images[1], weight_coeff, 0, average_reference_image);
     for (int i = 2; i < 19; i++) { //add further captures at 1/20 weighting to form weighted average.
-        cv::addWeighted(average_reference_image, 1.0, reference_images[i], 1.0/20, 0, average_reference_image);
+        cv::addWeighted(average_reference_image, 1.0, reference_images[i], weight_coeff, 0, average_reference_image);
     }   
 
 
