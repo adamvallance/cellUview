@@ -17,6 +17,7 @@
 #include "dilation.h"
 #include "grayScale.h"
 #include "contrastEnhancement.h"
+#include "kMeansCluster.h"
 #include "motorDriver.h"
 
 
@@ -34,13 +35,14 @@ int main(int argc, char* argv[]){
     Gallery gallery;
     
     edgeDetection edge;
+    kMeansCluster kmean;
     contrastEnhancement cont;
     flatFieldCorrect flat;
     //edge.toggleEnable(); //changes default enable to disabled
     erosion erode;
     dilation dilate;
     grayScale gray;
-    std::vector <imageProcessor *> blocks={&camera, &flat, &erode, &dilate, &gray, &cont, &edge};
+    std::vector <imageProcessor *> blocks={&camera, &flat, &erode, &dilate, &gray, &cont, &kmean, &edge};
 
     MotorDriver motor;
 

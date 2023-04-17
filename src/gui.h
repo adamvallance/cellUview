@@ -21,6 +21,7 @@
 #include <QDialog>
 #include <QVBoxLayout>
 #include <list>
+#include "kMeansCluster.h"
 #include "motorDriver.h"
 
 
@@ -51,6 +52,7 @@ private:
     bool updateFlatField = false;
     bool flatFieldEnable = false;
     void setUpdateFlatField();
+    void displayKmeans();
     int flatFieldCounter = 0; 
     void updateGalleryIndex(bool);
     
@@ -60,6 +62,12 @@ private:
     void textEditController(std::string enteredTextStr, bool pressed);
     void showDialog(int position);
     void updateGalleryView(bool directionIsNext);
+    void resetCheckbox(QCheckBox* box);
+    void setClusterCheckbox(QCheckBox*, cv::Vec3b, std::string);
+
+
+    std::string setKmeansStyleSheet(cv::Vec3b);
+
 
 
     //std::string textEditController(std::string enteredTextStr){return myString;};

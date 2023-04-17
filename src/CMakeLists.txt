@@ -25,7 +25,7 @@ find_library(wiringPi_LIB wiringPi)
 
 
 #compile and link cellUview executable
-add_executable(cellUview main.cpp camera.cpp gui.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp frame.cpp grayScale.cpp contrastEnhancement.cpp flatFieldCorrect.cpp motorDriver.cpp)
+add_executable(cellUview main.cpp camera.cpp gui.cpp edgeDetection.cpp gallery.cpp erosion.cpp dilation.cpp frame.cpp grayScale.cpp contrastEnhancement.cpp flatFieldCorrect.cpp kMeansCluster.cpp motorDriver.cpp)
 #set_property(TARGET cellUview PROPERTY CXX_STANDARD 17)
 target_link_libraries(cellUview ${OpenCV_LIBS} Qt5::Widgets Threads::Threads exifLibrary wiringPi)
 

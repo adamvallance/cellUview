@@ -13,7 +13,8 @@
 
 
 /**
-* Image processing class to apply dilation.
+* Image processing class to apply standard dilation to grow boundaries in the image.
+* Usually used to compensate for erosion.
 **/
 class dilation: public imageProcessor{
 public:

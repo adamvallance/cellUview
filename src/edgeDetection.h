@@ -13,6 +13,7 @@
 
 /**
 * Image processing class to apply edge detection/enhancement.
+* Detected edges are overlayed on the video stream in the form of white lines to enhance their visibility.
 **/
 class edgeDetection:   public imageProcessor{
    
