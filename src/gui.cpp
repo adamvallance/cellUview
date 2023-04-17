@@ -206,8 +206,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
         this->cam->setNote(enteredTextStr);
     });
-    // testing restore settings
-    QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
+
     //gallery button connections
     QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryView(true);});
     QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryView(false);});
