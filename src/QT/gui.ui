@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1162</width>
-    <height>936</height>
+    <width>1493</width>
+    <height>943</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>cellUview</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -23,7 +23,7 @@ background-color:#FF121212}</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1321</width>
+      <width>1651</width>
       <height>80</height>
      </rect>
     </property>
@@ -32,30 +32,33 @@ background-color:#FF121212}</string>
 	background-color: rgb(179, 179, 179);
 </string>
     </property>
-    <widget class="QLabel" name="cellUviewPlus">
+    <widget class="QLabel" name="cellUview">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>19</y>
-       <width>1321</width>
+       <width>1651</width>
        <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 700 11pt &quot;Ubuntu&quot;;</string>
+     </property>
      <property name="text">
-      <string>cellUview</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:700;&quot;&gt;cellUview&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget_2" native="true">
+   <widget class="QWidget" name="background" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>80</y>
-      <width>1351</width>
-      <height>841</height>
+      <width>1651</width>
+      <height>831</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -67,12 +70,12 @@ background-color: rgb(18, 18, 18);</string>
       <rect>
        <x>500</x>
        <y>20</y>
-       <width>621</width>
+       <width>641</width>
        <height>461</height>
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QWidget" name="ImageCaptureColumn" native="true">
@@ -109,18 +112,274 @@ background-color: rgb(18, 18, 18);</string>
         <x>30</x>
         <y>60</y>
         <width>410</width>
-        <height>401</height>
+        <height>471</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">background-color: rgb(33, 33, 33);</string>
       </property>
+      <widget class="QLabel" name="galleryPos1">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>191</width>
+         <height>191</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="galleryPos2">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>20</y>
+         <width>191</width>
+         <height>191</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="nextButton">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>440</y>
+         <width>51</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Next</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="backButton">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>440</y>
+         <width>51</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Back</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="galleryPos4">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>240</y>
+         <width>191</width>
+         <height>181</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="galleryPos3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>240</y>
+         <width>191</width>
+         <height>181</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="GalleryUnderline">
+       <property name="geometry">
+        <rect>
+         <x>-1</x>
+         <y>5</y>
+         <width>410</width>
+         <height>5</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="namePos3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>400</y>
+         <width>191</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="namePos4">
+       <property name="geometry">
+        <rect>
+         <x>216</x>
+         <y>400</y>
+         <width>201</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="namePos2">
+       <property name="geometry">
+        <rect>
+         <x>216</x>
+         <y>190</y>
+         <width>191</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="namePos1">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>190</y>
+         <width>191</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonPos1">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>50</y>
+         <width>191</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonPos2">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>50</y>
+         <width>191</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonPos3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>270</y>
+         <width>191</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonPos4">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>270</y>
+         <width>191</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="GalleryHeader">
       <property name="geometry">
        <rect>
         <x>30</x>
         <y>20</y>
+        <width>410</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Gallery&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="ImageSettings">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>540</y>
         <width>410</width>
         <height>25</height>
        </rect>
@@ -130,7 +389,7 @@ background-color: rgb(18, 18, 18);</string>
 background-color: rgb(83, 83, 83);</string>
       </property>
       <property name="text">
-       <string>Gallery</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Capture Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -140,9 +399,9 @@ background-color: rgb(83, 83, 83);</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>664</y>
+        <y>660</y>
         <width>411</width>
-        <height>41</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -152,13 +411,13 @@ background-color: rgb(83, 83, 83);</string>
        <string>Restore Settings</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="Divider1">
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>470</y>
+        <y>703</y>
         <width>410</width>
-        <height>25</height>
+        <height>5</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -166,10 +425,23 @@ background-color: rgb(83, 83, 83);</string>
 background-color: rgb(83, 83, 83);</string>
       </property>
       <property name="text">
-       <string>Image Settings</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="updateNameBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>570</y>
+        <width>411</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
       </property>
      </widget>
      <widget class="QPushButton" name="FlatFieldButton">
@@ -185,7 +457,7 @@ background-color: rgb(83, 83, 83);</string>
        <string notr="true">background-color: rgb(179, 179, 179);</string>
       </property>
       <property name="text">
-       <string>Flat</string>
+       <string>Flat Field Capture (Capture with empty slide)</string>
       </property>
      </widget>
     </widget>
@@ -216,9 +488,6 @@ background-color: rgb(83, 83, 83);</string>
 }
 </string>
       </property>
-      <property name="maximum">
-       <number>100</number>
-      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -240,12 +509,12 @@ background-color: rgb(179, 179, 179);</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="ControlPanelHeader">
       <property name="geometry">
        <rect>
         <x>-4</x>
         <y>-4</y>
-        <width>711</width>
+        <width>651</width>
         <height>40</height>
        </rect>
       </property>
@@ -254,7 +523,7 @@ background-color: rgb(179, 179, 179);</string>
 color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Control Panel</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Control Panel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -265,15 +534,22 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>30</x>
         <y>60</y>
-        <width>111</width>
+        <width>92</width>
         <height>23</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);
+
+QCheckBox::indicator {
+    background-color: red;
+    border: 2px solid black;
+}
+
+</string>
       </property>
       <property name="text">
-       <string>Gray Scale</string>
+       <string>Grey Scale</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="dilationCheckBox">
@@ -295,8 +571,8 @@ color: rgb(255, 255, 255);</string>
      <widget class="QCheckBox" name="erosionCheckBox">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>120</y>
+        <x>130</x>
+        <y>60</y>
         <width>92</width>
         <height>23</height>
        </rect>
@@ -306,28 +582,6 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Erosion</string>
-      </property>
-     </widget>
-     <widget class="QSlider" name="contrastEnhancementSlider">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>230</y>
-        <width>341</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QSlider::handle:horizontal {
-    background-color: rgb(29, 185, 84);
-}
-</string>
-      </property>
-      <property name="maximum">
-       <number>100</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
      <widget class="QLineEdit" name="contrastEnhancementValueInput">
@@ -347,7 +601,45 @@ background-color: rgb(179, 179, 179);</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="label_4">
+     <widget class="QSlider" name="contrastEnhancementSlider">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>230</y>
+        <width>341</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider::handle:horizontal {
+    background-color: rgb(29, 185, 84);
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>99</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="ContrastEhnancement">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>230</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Contrast Enhancement</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="edgeDetectionLabel">
       <property name="geometry">
        <rect>
         <x>460</x>
@@ -363,20 +655,23 @@ background-color: rgb(179, 179, 179);</string>
        <string>Edge Detection</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_5">
+     <widget class="QSlider" name="exposureSlider">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>230</y>
-        <width>161</width>
-        <height>21</height>
+        <x>10</x>
+        <y>150</y>
+        <width>341</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);</string>
+       <string notr="true">QSlider::handle:horizontal {
+    background-color: rgb(29, 185, 84);
+}
+</string>
       </property>
-      <property name="text">
-       <string>Contrast Enhancement</string>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
      <widget class="QLineEdit" name="exposureValueInput">
@@ -396,7 +691,7 @@ background-color: rgb(179, 179, 179);</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="label_6">
+     <widget class="QLabel" name="edgeDetectionLabel_2">
       <property name="geometry">
        <rect>
         <x>460</x>
@@ -409,48 +704,308 @@ background-color: rgb(179, 179, 179);</string>
        <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Exposure (EV)</string>
+       <string>Exposure(EV)</string>
       </property>
      </widget>
-     <widget class="QSlider" name="exposureSlider">
+     <widget class="QCheckBox" name="flatFieldBox">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>150</y>
-        <width>341</width>
+        <x>451</x>
+        <y>60</y>
+        <width>171</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Flat Field Correction</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="motorControlColumn" native="true">
+     <property name="geometry">
+      <rect>
+       <x>1160</x>
+       <y>20</y>
+       <width>311</width>
+       <height>781</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(33, 33, 33);</string>
+     </property>
+     <widget class="QLabel" name="MotorControls">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>20</y>
+        <width>280</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Motor Controls&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="MotorControlUnderline">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>65</y>
+        <width>280</width>
+        <height>5</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="xAxisControlHeader">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>80</y>
+        <width>280</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;X-axis Controls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="yAxisControlHeader">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>170</y>
+        <width>280</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Y-axis Controls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="zAxisControlHeader">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>260</y>
+        <width>280</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Z-axis Controls&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="MotorControlUnderline_2">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>350</y>
+        <width>280</width>
+        <height>5</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(83, 83, 83);</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="xDownButton">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>120</y>
+        <width>41</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QSlider::handle:horizontal {
-    background-color: rgb(29, 185, 84);
-}
-</string>
+       <string notr="true">background-color: rgb(179, 179, 179);
+
+disabled {
+    background-color: gray;
+}</string>
       </property>
-      <property name="maximum">
-       <number>100</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+      <property name="text">
+       <string>-</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="flatFieldBox">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
+     <widget class="QPushButton" name="xUpButton">
       <property name="geometry">
        <rect>
-        <x>480</x>
-        <y>60</y>
-        <width>111</width>
-        <height>23</height>
+        <x>210</x>
+        <y>120</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>+</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="xPos">
+      <property name="geometry">
+       <rect>
+        <x>115</x>
+        <y>120</y>
+        <width>81</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="yDownButton">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>210</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="yUpButton">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>210</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>+</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="yPos">
+      <property name="geometry">
+       <rect>
+        <x>115</x>
+        <y>210</y>
+        <width>81</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="zPos">
+      <property name="geometry">
+       <rect>
+        <x>115</x>
+        <y>300</y>
+        <width>81</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="zUpButton">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>300</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>+</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="zDownButton">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>300</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="motorDisableText">
+      <property name="geometry">
+       <rect>
+        <x>6</x>
+        <y>76</y>
+        <width>301</width>
+        <height>261</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Flat</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Motors are not connected&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Manual operation only&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -461,8 +1016,8 @@ background-color: rgb(179, 179, 179);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1162</width>
-     <height>25</height>
+     <width>1493</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">

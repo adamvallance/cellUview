@@ -15,6 +15,8 @@
 #include <string>
 #include "frame.h"
 #include <cstdio>
+#include <unordered_map>
+#include <list>
 
 class Gallery{
 
@@ -29,7 +31,10 @@ class Gallery{
         // std::string getFlatFieldPath(){return flatFieldPath;};
         std::string getCaptureFname(){return captureFname;};//testing only
 
+        std::list<std::pair<std::string, cv::Mat>>  getCaptures(bool);
 
+        bool galleryAtEnd();
+        std::string getGalleryDisplayFname(int);
 
     private:
         int initialiseDirectory(std::string, std::string);
@@ -42,9 +47,10 @@ class Gallery{
         std::string imgName = "capture";
         int captureImgCounter = 0;
         std::string captureFname = "";
-        int index;
+        int index =0 ;
         int lastHighestIndex = -1;
         int indexLen = 1;
+        int galleryDisplayIndex = 0;
         std::string existingCaptureFname; 
 
 
@@ -57,6 +63,8 @@ class Gallery{
         ExifTool *et = new ExifTool();
 
         std::map<std::string, std::string> restoredParams;
+
+        std::vector<std::string> galleryDisplayFname;
 
 
 };

@@ -59,7 +59,8 @@ class frame{
             "grayScale",
             "contrastThreshold",
             "flatField",
-            "exposure"
+            "exposure",
+            "note"
             //ADD MORE PARAMETERS HERE
         };
 

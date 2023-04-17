@@ -31,6 +31,7 @@ void Camera::postFrame()
     if (doMeta)
     {
         f.setParameter(paramLabel, exposureState);
+        f.setParameter(paramLabel2, note);
         doMeta = false;
     }
 
@@ -99,4 +100,9 @@ void Camera::updateSettings(std::map<std::string, std::string> metadata){
     }
     
     setExposure(metaThreshold);   
+}
+
+void Camera::setNote(std::string noteIn){
+    note = noteIn;
+    std::cout<<note<<std::endl;
 }
