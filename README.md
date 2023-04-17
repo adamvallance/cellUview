@@ -97,27 +97,25 @@ cellUview
 
 # Using cellUview
 
+cellUview has an easy-to-use UI to make real-time microscopy image sample processing simple, even for novice users. The interface, shown in the guide videos below, is split into different sections. In the centre is the microscope video stream showing which updates in real-time to show all of your applied image processing settings - which can be controlled in the panel directly below the stream. In the upper right hand corner is the motor control panel, and on the left hand side are the capture controls and image gallery. 
 
-Using motors:
+<!-- k-means analysis right bottom? -->
+
+In the motor control panel you can view and control the position of the OpenFlexure motors for x, y, and z axes, either by typing in the desired position or using the buttons to step the motors. Controls for the x- and y-axis will move the microscope slide laterally, whereas z-axis control can be used to focus the image correctly. If the motors are not connected, for instance if cellUview is being used on an earlier version of OpenFlexure with manual control only, then this panel is disabled.
 
 https://user-images.githubusercontent.com/72609606/232557070-711c9b05-bb8e-4470-a1ea-78805089fca2.mp4
 
-Changing image settings:
+With the sample now in focus, it's time to apply the image processing algorithms to help with analysis. Processing settings are changed with the labelled sliders and toggle buttons.
 
 https://user-images.githubusercontent.com/72609606/232560502-6fe65015-7f32-4afa-8bab-2b32e7a25eb7.mp4
 
-Taking a capture:
+When the image settings are to your liking, a capture can be taken with a brief description. This will then be shown in the gallery on the left hand side.
 
 https://user-images.githubusercontent.com/72609606/232560614-edb1f39d-e222-45b4-99c6-45c785a1bc81.mp4
 
-Restoring settings:
+Any of the images in the gallery can be selected to show them at full size in a separate window. The captured images also store their processing settings which can be reapplied to the current stream with just a click for convenient repeatability.
 
 https://user-images.githubusercontent.com/72609606/232560682-0aba59dd-6694-4a25-9400-9e8d12413d23.mp4
-
-
-
-
-
 
 
 # Follow us on social media
