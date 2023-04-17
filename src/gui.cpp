@@ -128,6 +128,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         //access derived method of contrastEnhancer from vector of base class (image processor) pointers
         static_cast<kMeansCluster*>(blocks[6])->updateClusterCount(sliderValue3);
         static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
+        
     });
 
     QObject::connect(ui->kMeansValueInput, &QLineEdit::textChanged, ui->kMeansSlider, [&](const QString &text) {
@@ -290,8 +291,15 @@ void Gui::setUpdateFlatField(){
 * Sets checkboxes to show percentages taken up by different clusters
 **/
 void Gui::displayKmeans(){
+        //make all initially invisible
+    resetCheckbox(ui->cluster0Checkbox);
+    resetCheckbox(ui->cluster1Checkbox);
+    resetCheckbox(ui->cluster2Checkbox);
+    resetCheckbox(ui->cluster3Checkbox);
+    resetCheckbox(ui->cluster4Checkbox);
+
     if (blocks[6]->getEnabled() == false){
-        resetCheckbox(ui->cluster0Checkbox);
+        std::cout<<"K-means clustering not turned on. Adjust the slider to set number of clusters."<<std::endl;
         return;
     }
 
@@ -311,12 +319,7 @@ void Gui::displayKmeans(){
         percentages.push_back(it->second);
     } 
     
-    //make all initially invisible
-    resetCheckbox(ui->cluster0Checkbox);
-    resetCheckbox(ui->cluster1Checkbox);
-    resetCheckbox(ui->cluster2Checkbox);
-    resetCheckbox(ui->cluster3Checkbox);
-    resetCheckbox(ui->cluster4Checkbox);
+
 
     
     std::string styleSheet;

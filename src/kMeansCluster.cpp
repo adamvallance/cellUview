@@ -192,9 +192,7 @@ void kMeansCluster::updateClusterCount(int value){
 void kMeansCluster::centroidPercentage(){
     calculatePercentageEnabled = true;
     percentageCalculated=false;
-    if (enabled == false){
-        std::cout<<"K-means clustering not turned on. Adjust the slider to set number of clusters."<<std::endl;
-    }
+
 }
 
 std::list<std::pair<cv::Vec3b, std::string>> kMeansCluster::getClusterAnalysis(){
