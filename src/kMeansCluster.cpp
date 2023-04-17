@@ -164,9 +164,10 @@ void kMeansCluster::updateKMeans(frame f, bool calculateClusterPercentages) {
         // loop over the clusters and print out the percentage of pixels for each cluster
         for (int i = 0; i < pixel_counts.size(); i++) {
             double percentage = (double)pixel_counts[i] / total_pixels * 100;
+            std::string percentageStr = std::to_string(percentage);
             std::cout << "Cluster " << i+1 << " has " << pixel_counts[i] << " pixels (" << percentage << "%)." << std::endl;
             cv::Vec3b keyColor = colors[i];
-            percentageDisplay.push_back({keyColor, percentage});
+            percentageDisplay.push_back({keyColor, percentageStr});
         }
     }
 
@@ -187,7 +188,7 @@ void kMeansCluster::centroidPercentage(){
     }
 }
 
-std::list<std::pair<cv::Vec3b, double>> kMeansCluster::getClusterAnalysis(){
+std::list<std::pair<cv::Vec3b, std::string>> kMeansCluster::getClusterAnalysis(){
     return percentageDisplay;
 }
 

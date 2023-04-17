@@ -331,14 +331,14 @@ void Gui::displayKmeans(){
     }
 
     static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
-    std::list<std::pair<cv::Vec3b, double>> kmeansValues = static_cast<kMeansCluster*>(blocks[6])->getClusterAnalysis();
+    std::list<std::pair<cv::Vec3b, std::string>> kmeansValues = static_cast<kMeansCluster*>(blocks[6])->getClusterAnalysis();
 
 
     //replace this to iterate over
 
-    std::list<std::pair<cv::Vec3b, double>>::const_iterator it;
+    std::list<std::pair<cv::Vec3b, std::string>>::const_iterator it;
     std::vector<cv::Vec3b> centroidColors;
-    std::vector<double> percentages;
+    std::vector<std::string> percentages;
     for (it = kmeansValues.begin(); it != kmeansValues.end(); ++it){
         centroidColors.push_back(it->first);
         percentages.push_back(it->second);

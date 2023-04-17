@@ -22,7 +22,7 @@ public:
     void updateClusterCount(int value);
     void updateSettings(std::map<std::string, std::string>);
     void centroidPercentage();
-    std::list<std::pair<cv::Vec3b, double>> getClusterAnalysis();
+    std::list<std::pair<cv::Vec3b, std::string>> getClusterAnalysis();
 
 private:
     //add any other methods here
@@ -36,6 +36,6 @@ private:
     bool calculatePercentageEnabled = false;
     bool percentageCalculated = false;
     //std::list<std::pair<std::string, cv::Mat>>
-    std::list<std::pair<cv::Vec3b, double>> percentageDisplay;
+    std::list<std::pair<cv::Vec3b, std::string>> percentageDisplay;
 };
 #endif // CELLUVIEW_K_MEANS_CLUSTER_H
