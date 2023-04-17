@@ -8,9 +8,10 @@
 * @param win points to QMainWindow 
 * @param ui_win points to Ui_GUI 
 * @param galleryIn points to Gallery instance
+* @param motorsIn points to MotorDriver instance
 * @param blocksIn is a std::vector of the image processing blocks
 **/
-Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *motorsIn, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
     ui = ui_win;
@@ -18,6 +19,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     //----- save class instances passed in by reference ------
     this->gallery = galleryIn;
+    this->motors = motorsIn;
     blocks = blocksIn; 
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
@@ -218,6 +220,83 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     //loads in existing images in gallery if they exist
     updateGalleryView(true);
+
+
+    // Motor Initialisation
+
+    ui->motorDisableText->setVisible(false);       // motor disabled message default to invisible
+    
+    // check if motors connected
+    if (!motors->getConnected()){           // if not connected, disable controls
+        ui->motorDisableText->setVisible(true);    // show no motors message
+        ui->xUpButton->setDisabled(true);
+        ui->xDownButton->setDisabled(true);
+        ui->xPos->setEnabled(false);
+        ui->yUpButton->setDisabled(true);
+        ui->yDownButton->setDisabled(true);
+        ui->yPos->setEnabled(false);
+        ui->zUpButton->setDisabled(true);
+        ui->zDownButton->setDisabled(true);
+        ui->zPos->setEnabled(false);
+    }
+    else{
+        // initialise motor positions
+        ui->xPos->setText(QString::number(motors->getPosition()[0]));
+        ui->yPos->setText(QString::number(motors->getPosition()[1]));
+        ui->zPos->setText(QString::number(motors->getPosition()[2]));
+    }
+
+    // motor ui element connections
+    QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 10); });
+    QObject::connect(ui->xDownButton, &QPushButton::released, this, [&](){ motorMove('x', -10); });
+    QObject::connect(ui->xPos, &QLineEdit::returnPressed, this, [&]() {     // only move motors after enter pressed
+        bool ok;
+        QString text = ui->xPos->text();                // get text from ui element
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPosition()[0];
+                int toMove = finalPosition - currentPosition;   // move difference between current and desired positions 
+                motorMove('x', toMove);
+            }
+        }
+    });
+
+    QObject::connect(ui->yUpButton, &QPushButton::released, this, [&](){ motorMove('y', 10); });
+    QObject::connect(ui->yDownButton, &QPushButton::released, this, [&](){ motorMove('y', -10); });
+    QObject::connect(ui->yPos, &QLineEdit::returnPressed, this, [&]() {
+        bool ok;
+        QString text = ui->yPos->text();
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPosition()[1];
+                int toMove = finalPosition - currentPosition;
+                motorMove('y', toMove);
+            }
+        }
+    });
+
+    QObject::connect(ui->zUpButton, &QPushButton::released, this, [&](){ motorMove('z', 10); });
+    QObject::connect(ui->zDownButton, &QPushButton::released, this, [&](){ motorMove('z', -10); });
+    QObject::connect(ui->zPos, &QLineEdit::returnPressed, this, [&]() {
+        bool ok;
+        QString text = ui->zPos->text();
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPosition()[2];
+                int toMove = finalPosition - currentPosition;
+                motorMove('z', toMove);
+            }
+        }
+    });
+
+
+
 }
 
 /**
@@ -645,4 +724,40 @@ void Gui::showDialog(int position) {
         dialog.exec();
     }
 }
+
+
+
+/**
+* Calls MotorDriver move function if motors have been connected and initialised at startup.
+* Updates UI with new position.
+* @param ax axis of travel (x, y, or z)
+* @param increment step to move motors by
+**/
+void Gui::motorMove(char ax, int increment){
+    
+    bool motorsConnected = motors->getConnected();
+    bool motorsRunning = motors->getRunning();
+    if (!motorsRunning && motorsConnected){            // only move if motors connected and not currently active
+        
+        motors->mov(ax, increment);
+
+        if (ax=='x'){
+            int positionForUpdate = motors->getPosition()[0];
+            ui->xPos->setText(QString::number(positionForUpdate+increment));    // update position to starting pos + increment
+        }
+
+        else if (ax=='y'){
+            int positionForUpdate = motors->getPosition()[1];
+            ui->yPos->setText(QString::number(positionForUpdate+increment));   
+        }
+
+        else if (ax=='z'){
+            int positionForUpdate = motors->getPosition()[2];
+            ui->zPos->setText(QString::number(positionForUpdate+increment));  
+        }
+
+    }
+
+}
+
 

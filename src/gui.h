@@ -22,6 +22,8 @@
 #include <QVBoxLayout>
 #include <list>
 #include "kMeansCluster.h"
+#include "motorDriver.h"
+
 
 /**
 * A class which handles GUI connections and functionality.
@@ -31,8 +33,9 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
-    Gui(QMainWindow*, Ui_GUI*, Gallery*, std::vector <imageProcessor *>&);
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, MotorDriver*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
+    void returnPosition(int x, int y, int z);
 
 private:
     QMainWindow *widget;
@@ -41,6 +44,10 @@ private:
     void captureNextFrame();
     void restoreSettings(std::string = "");
     void updateSettings(std::map<std::string, std::string>);
+    
+    void motorMove(char ax, int increment);
+    
+
     std::string getParamLabel(){return "";};
     bool updateFlatField = false;
     bool flatFieldEnable = false;
@@ -96,8 +103,7 @@ private:
     std::map<std::string, std::string> metadata;
 
 
-
-    edgeDetection *edgeDetector;
-    grayScale *grayDetector;
+    MotorDriver *motors;
+    //std::thread motorThread;
 };
 #endif // CELLUVIEW_GUI_H

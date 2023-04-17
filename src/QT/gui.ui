@@ -464,8 +464,8 @@ background-color: rgb(83, 83, 83);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>210</y>
-        <width>341</width>
+        <y>200</y>
+        <width>331</width>
         <height>31</height>
        </rect>
       </property>
@@ -482,8 +482,8 @@ background-color: rgb(83, 83, 83);</string>
      <widget class="QLineEdit" name="edgeEnhancementValueInput">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>210</y>
+        <x>360</x>
+        <y>200</y>
         <width>71</width>
         <height>31</height>
        </rect>
@@ -574,8 +574,8 @@ QCheckBox::indicator {
      <widget class="QLineEdit" name="contrastEnhancementValueInput">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>250</y>
+        <x>360</x>
+        <y>240</y>
         <width>71</width>
         <height>31</height>
        </rect>
@@ -592,8 +592,8 @@ background-color: rgb(179, 179, 179);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>250</y>
-        <width>341</width>
+        <y>240</y>
+        <width>331</width>
         <height>31</height>
        </rect>
       </property>
@@ -613,9 +613,9 @@ background-color: rgb(179, 179, 179);</string>
      <widget class="QLabel" name="ContrastEhnancement">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>250</y>
-        <width>171</width>
+        <x>440</x>
+        <y>245</y>
+        <width>191</width>
         <height>21</height>
        </rect>
       </property>
@@ -629,8 +629,8 @@ background-color: rgb(179, 179, 179);</string>
      <widget class="QLabel" name="edgeDetectionLabel">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>210</y>
+        <x>440</x>
+        <y>205</y>
         <width>151</width>
         <height>21</height>
        </rect>
@@ -646,8 +646,8 @@ background-color: rgb(179, 179, 179);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>170</y>
-        <width>341</width>
+        <y>160</y>
+        <width>331</width>
         <height>31</height>
        </rect>
       </property>
@@ -664,8 +664,8 @@ background-color: rgb(179, 179, 179);</string>
      <widget class="QLineEdit" name="exposureValueInput">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>170</y>
+        <x>360</x>
+        <y>160</y>
         <width>71</width>
         <height>31</height>
        </rect>
@@ -681,8 +681,8 @@ background-color: rgb(179, 179, 179);</string>
      <widget class="QLabel" name="edgeDetectionLabel_2">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>170</y>
+        <x>440</x>
+        <y>165</y>
         <width>111</width>
         <height>21</height>
        </rect>
@@ -710,8 +710,8 @@ background-color: rgb(179, 179, 179);</string>
      <widget class="QLabel" name="kMeansLabel">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>130</y>
+        <x>440</x>
+        <y>125</y>
         <width>161</width>
         <height>21</height>
        </rect>
@@ -727,8 +727,8 @@ background-color: rgb(179, 179, 179);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
-        <width>341</width>
+        <y>120</y>
+        <width>331</width>
         <height>31</height>
        </rect>
       </property>
@@ -751,8 +751,8 @@ background-color: rgb(179, 179, 179);</string>
      <widget class="QLineEdit" name="kMeansValueInput">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>130</y>
+        <x>360</x>
+        <y>120</y>
         <width>71</width>
         <height>31</height>
        </rect>
@@ -1258,7 +1258,7 @@ background-color: rgb(83, 83, 83);</string>
      <x>0</x>
      <y>0</y>
      <width>1493</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">
