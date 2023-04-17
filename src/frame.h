@@ -22,9 +22,6 @@ class frame{
         frame() = default;
         frame(cv::Mat matIn): image(matIn){}
 
-        //custom copy constructor replacement to allow test to pass,
-        // provide a pointer to existing frame
-        //and copy from there into a constructed second frame
         /**
         * Custom copy constructor.
         * Provide a pointer to an existing frame and copy from there into a constructed second frame.
@@ -64,10 +61,7 @@ class frame{
             "kMean"
             //ADD MORE PARAMETERS HERE
         };
-
-
         std::string encodedString;
-
 };
 
 
