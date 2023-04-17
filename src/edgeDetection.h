@@ -38,8 +38,8 @@ private:
     bool update = false;
     bool running = false;
 
-    std::mutex mut;
-    std::condition_variable cond_var;
+    std::mutex mut_edge;
+    std::condition_variable cond_var_edge;
 
 
 };

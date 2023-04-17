@@ -33,7 +33,7 @@ private:
     bool update = false;
     bool running = false;
 
-    std::mutex mut;
-    std::condition_variable cond_var;
+    std::mutex mut_ero;
+    std::condition_variable cond_var_ero;
 };
 #endif // CELLUVIEW_EROSION_H

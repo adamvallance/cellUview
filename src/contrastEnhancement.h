@@ -38,8 +38,8 @@ private:
     bool update = false;
     bool running = false;
 
-    std::mutex mut;
-    std::condition_variable cond_var;
+    std::mutex mut_contrast;
+    std::condition_variable cond_var_contrast;
 
 };
 #endif // CELLUVIEW_CONTRAST_ENHANCEMENT_H

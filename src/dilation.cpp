@@ -21,9 +21,9 @@ void dilation::receiveFrame(frame newFrame) {
     // Pass frame into the dilation function
     //dilate(newFrame); 
     procFrame.copyFrom(&newFrame);      // copy new frame into the frame for processing
-    std::lock_guard<std::mutex> lock(mut);
+    std::lock_guard<std::mutex> lock(mut_dil);
     update = true;                      // set flag
-    cond_var.notify_all();              // wake thread
+    cond_var_dil.notify_all();              // wake thread
 }
 
 void dilation::start(){
@@ -40,8 +40,8 @@ void dilation::dilate() {
 
     while(running){
 
-        std::unique_lock<std::mutex> lock(mut);
-        cond_var.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data flagged
+        std::unique_lock<std::mutex> lock(mut_dil);
+        cond_var_dil.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data flagged
 
         if (update){
             frame f; 
@@ -66,7 +66,7 @@ void dilation::dilate() {
             update = false;
         }
         lock.unlock();          // manually unlock mutex
-        cond_var.notify_all();  // notify done
+        cond_var_dil.notify_all();  // notify done
     }
 }
 

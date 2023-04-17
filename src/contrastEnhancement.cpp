@@ -22,9 +22,9 @@ void contrastEnhancement::receiveFrame(frame newFrame) {
     // passing frame into the contrast enhancement function
     // contrastEnhance(newFrame); 
     procFrame.copyFrom(&newFrame);      // copy new frame into the frame for processing
-    std::lock_guard<std::mutex> lock(mut);
+    std::lock_guard<std::mutex> lock(mut_contrast);
     update = true;                      // set flag
-    cond_var.notify_all();              // wake thread
+    cond_var_contrast.notify_all();              // wake thread
 }
 
 
@@ -43,8 +43,8 @@ void contrastEnhancement::contrastEnhance() {
 
     while (running){    
 
-        std::unique_lock<std::mutex> lock(mut);
-        cond_var.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data
+        std::unique_lock<std::mutex> lock(mut_contrast);
+        cond_var_contrast.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data
         //std::cout<<"waited 1s for contrast"<<std::endl;
 
         if (update){
@@ -85,7 +85,7 @@ void contrastEnhancement::contrastEnhance() {
         }
 
         lock.unlock();
-        cond_var.notify_all();
+        cond_var_contrast.notify_all();
         
     }
 }

@@ -35,8 +35,8 @@ private:
     bool update = false;
     bool running = false;
 
-    std::mutex mut;
-    std::condition_variable cond_var;
+    std::mutex mut_dil;
+    std::condition_variable cond_var_dil;
 
 };
 #endif // CELLUVIEW_DILATION_H

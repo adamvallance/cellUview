@@ -23,9 +23,9 @@ void edgeDetection::receiveFrame(frame newFrame) {
     // passing frame into the edge detection function
     //enhanceEdge(newFrame); 
     procFrame.copyFrom(&newFrame);      // copy new frame into the frame for processing
-    std::lock_guard<std::mutex> lock(mut);
+    std::lock_guard<std::mutex> lock(mut_edge);
     update = true;                      // set flag
-    cond_var.notify_all();              // wake thread
+    cond_var_edge.notify_all();              // wake thread
 }
 
 void edgeDetection::start(){
@@ -43,8 +43,8 @@ void edgeDetection::enhanceEdge() {
 
     while(running){
 
-        std::unique_lock<std::mutex> lock(mut);
-        cond_var.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data flagged
+        std::unique_lock<std::mutex> lock(mut_edge);
+        cond_var_edge.wait_for(lock, 1s); //thread sleep/block for a second but wake up if new data flagged
 
         if (update){
             frame f; 
@@ -78,7 +78,7 @@ void edgeDetection::enhanceEdge() {
             update = false;
         }
         lock.unlock();          // manually unlock mutex
-        cond_var.notify_all();  // notify done
+        cond_var_edge.notify_all();  // notify done
     }
 }
 
