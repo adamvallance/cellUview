@@ -21,7 +21,11 @@
 
 # Summary
 
-cellUview provides a real-time image processing suite designed for the open-source, Raspberry Pi based OpenFlexure microscope platform - with capabilities such as contrast and exposure adjustment, erosion and dilation, flat field correction, edge detection/enhancement, and classification using k-means clustering. It also allows for easy image capturing with an in-build gallery viewer, and a quick, simple way to restore processing settings from a previous capture.
+cellUview provides a real-time image processing suite designed for the open-source, Raspberry Pi based OpenFlexure microscope platform - with capabilities such as contrast and exposure adjustment, erosion and dilation, flat field correction, edge detection/enhancement, and classification using k-means clustering. It also allows for easy image capturing with an in-built gallery viewer, with a quick, simple way to restore processing settings from a previous capture.
+
+<div align="center">
+<img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/cellUview_system_diag.png?raw=true" alt="cellUview hardware system diagram" width="800"/>
+</div>
 
 
 # Getting Started
@@ -35,8 +39,9 @@ It is recommended to use a Raspberry Pi 4B for OpenFlexure. In order to use cell
 cellUview, just like OpenFlexure, supports motor control built on the open-source SangaBoard motor controller. However, any custom Arduino-based motor controller board that can use the SangaBoard firmware is supported. Instructions on how to build your own custom SangaBoard- and OpenFlexure-compatible motor board can be found <a href="https://build.openflexure.org/openflexure-microscope/test-gitbuilding/motor_controllers.html">here</a>. If using a custom board, please ensure this is flashed with the SangaBoard firmware,  <a href="https://gitlab.com/bath_open_instrumentation_group/sangaboard/tree/master/arduino_code">available here</a>.
 
 <div align="center">
-<img src="https://github.com/adamvallance/cellUview/blob/main/images/ezgif-2-f8974a17cf.gif" alt="openflexure microscope, source: https://www.youtube.com/watch?v=IqjsVWdwYfg" width="600"/>
+<img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/ezgif-2-f8974a17cf.gif?raw=true" alt="openflexure microscope, source: https://www.youtube.com/watch?v=IqjsVWdwYfg" width="600"/>
 </div>
+
 
 ## Installing the Software
 
@@ -97,15 +102,13 @@ cellUview
 
 # Using cellUview
 
-cellUview has an easy-to-use UI to make real-time microscopy image sample processing simple, even for novice users. The interface, shown in the guide videos below, is split into different sections. In the centre is the microscope video stream showing which updates in real-time to show all of your applied image processing settings - which can be controlled in the panel directly below the stream. In the upper right hand corner is the motor control panel, and on the left hand side are the capture controls and image gallery. 
-
-<!-- k-means analysis right bottom? -->
+cellUview has an easy-to-use UI to make real-time microscopy image sample processing simple, even for novice users. The interface, shown in the guide videos below, is split into different sections. In the centre is the microscope video stream showing which updates in real-time to show all of your applied image processing settings - which can be controlled in the panel directly below the stream. In the upper right hand corner is the motor control panel, and below that the image analysis panel. On the left hand side are the capture controls and image gallery. 
 
 In the motor control panel you can view and control the position of the OpenFlexure motors for x, y, and z axes, either by typing in the desired position or using the buttons to step the motors. Controls for the x- and y-axis will move the microscope slide laterally, whereas z-axis control can be used to focus the image correctly. If the motors are not connected, for instance if cellUview is being used on an earlier version of OpenFlexure with manual control only, then this panel is disabled.
 
 https://user-images.githubusercontent.com/72609606/232557070-711c9b05-bb8e-4470-a1ea-78805089fca2.mp4
 
-With the sample now in focus, it's time to apply the image processing algorithms to help with analysis. Processing settings are changed with the labelled sliders and toggle buttons.
+With the sample now in focus, it's time to apply the image processing algorithms to help with analysis. Processing settings are changed with the labelled sliders and toggle buttons. In the image analysis panel, the coverage of each centroid in the frame can be calculated when k-means clustering image classification is being used. Please note that the below video guides were captured before the classification feature was implementated.
 
 https://user-images.githubusercontent.com/72609606/232560502-6fe65015-7f32-4afa-8bab-2b32e7a25eb7.mp4
 
@@ -116,6 +119,13 @@ https://user-images.githubusercontent.com/72609606/232560614-edb1f39d-e222-45b4-
 Any of the images in the gallery can be selected to show them at full size in a separate window. The captured images also store their processing settings which can be reapplied to the current stream with just a click for convenient repeatability.
 
 https://user-images.githubusercontent.com/72609606/232560682-0aba59dd-6694-4a25-9400-9e8d12413d23.mp4
+
+
+# Captures from cellUview 
+
+Check out some of the samples captured using cellUview.
+
+
 
 
 # Follow us on social media
