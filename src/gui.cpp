@@ -16,11 +16,13 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     ui = ui_win;
     ui->setupUi(widget);
 
+    //----- save class instances passed in by reference ------
     this->gallery = galleryIn;
     blocks = blocksIn; 
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
     
+    //-------------Set styles of selected widgets--------------------------
 
     ui->dilationCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
     ui->erosionCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
@@ -28,6 +30,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     ui->flatFieldBox->setEnabled(false);
     ui->grayScaleBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
 
+
+    //----------------------------------------------MAKE IMAGE PROCESSOR CONTROLS CONNECTIONS_--------------------------
 
      //-----------camera (block 0)---------------------
     QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
@@ -136,24 +140,16 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     
 
 
-    
-    
 
-
-    //------------make connections-------------
+    //------------make other connections-------------
     // push button (to be renamed @Jake) connects to gallery capture
 
     ////do a capture
-    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame); //&Gui::captureNextFrame
-    //QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){textEditController(myString, true);});
-
+    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame); 
+    //flat field capture
     QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
 
-    //// How to connect a button to an instance of another class
-    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
-
-    // toggle edge
-    // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
+    //Label text box, ensures that the text is never empty
     ui->updateNameBox->setText(" ");
     QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
         QString enteredText = ui->updateNameBox->toPlainText();
@@ -169,18 +165,18 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     //gallery button connections
     QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryView(true);});
     QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryView(false);});
-
+    //Enlarge image from gallery previews
     QObject::connect(ui->buttonPos1, &QPushButton::released, this, [&](){showDialog(galleryPos1Index);});
     QObject::connect(ui->buttonPos2, &QPushButton::released, this, [&](){showDialog(galleryPos2Index);});
     QObject::connect(ui->buttonPos3, &QPushButton::released, this, [&](){showDialog(galleryPos3Index);});
     QObject::connect(ui->buttonPos4, &QPushButton::released, this, [&](){showDialog(galleryPos4Index);});
 
-
+    //loads in existing images in gallery if they exist
     updateGalleryView(true);
 }
 
 /**
-* Function to recieve callbacks frames from image processor blocks
+* Function to recieve callbacks frames from image processor blocks and display in GUI and optionally pass to gallery to do captures
 * @param newFrame frame structure from processing block via callback interface
 **/
 void Gui::receiveFrame(frame newFrame)
@@ -254,7 +250,7 @@ void Gui::SetVisible(bool visible)
     widget->setVisible(visible);
 }
 
-// set to capture on next frame
+// set flags to trigger a capture for the next frame which is initialised once it arrives here at GUI.
 /**
 * Sets camera object to capture next frame
 **/
@@ -291,7 +287,10 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     //std::cout<<"in gui update settings"<<std::endl;
     std::string value;
     std::string label;
+
+    //iterate over image processor blocks to update settings
     for (auto block: blocks){
+        //fetch label of block
         label = block->getParamLabel();
         try{
             value = metadata[label];
@@ -299,7 +298,6 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
             std::cerr<<"label not in metadata";
             return;
         };
-
 
 
         if (value == ""){
@@ -387,11 +385,12 @@ void Gui::updateGalleryView(bool directionIsNext){
     cv::Mat img;
     QSize labelSize = ui->galleryPos1->size();
 
+    //-----------Load in cv mats and labels from gallery and populate the preview window-----------
+
     //reload first of four gallery view
     img = mats[0];
     if (img.empty() == false){
         img = mats[0];
-        std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
         gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
@@ -408,7 +407,6 @@ void Gui::updateGalleryView(bool directionIsNext){
     //second of four
     img = mats[1];
     if (img.empty() == false){
-        std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
         gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
@@ -423,8 +421,6 @@ void Gui::updateGalleryView(bool directionIsNext){
     //third of four
     img = mats[2];
     if (img.empty() == false){
-
-        std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
         gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
@@ -440,8 +436,6 @@ void Gui::updateGalleryView(bool directionIsNext){
     //fourth of four
     img = mats[3];
     if (img.empty() == false){
-
-        std::cout<<img.size()<<std::endl;
         cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
         gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
@@ -476,7 +470,6 @@ void Gui::showDialog(int position) {
         dialog.setWindowTitle(titleQ);
         QString caption = galleryStrs[position];
         cv::Mat img = mats[position];
-        std::cout<<img.size()<<std::endl;
         QImage dialogImg = QImage((uchar *)img.data, img.cols, img.rows, img.step,
                             QImage::Format_RGB888);
         QLabel label;

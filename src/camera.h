@@ -22,10 +22,19 @@ public:
     bool getIsOn();
     void captureMetadata();
     void setExposure(int);
-    std::string getParamLabel(){return paramLabel;};
     void updateSettings(std::map<std::string, std::string>);
-    void receiveFrame(frame newFrame){return;};
     void setNote(std::string);
+    
+    /**
+    * Not required for camera.
+    **/
+    std::string getParamLabel(){return paramLabel;};
+
+    /**
+    * Not required for camera.
+    **/
+    void receiveFrame(frame newFrame){return;};
+
 
     
 private:

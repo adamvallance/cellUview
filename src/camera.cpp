@@ -110,5 +110,4 @@ void Camera::updateSettings(std::map<std::string, std::string> metadata){
 **/
 void Camera::setNote(std::string noteIn){
     note = noteIn;
-    std::cout<<note<<std::endl;
 }
