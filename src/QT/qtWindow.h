@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gui.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.6
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -54,7 +54,6 @@ public:
     QPushButton *buttonPos4;
     QLabel *GalleryHeader;
     QLabel *ImageSettings;
-    QPushButton *restoreSettingsButton;
     QLabel *Divider1;
     QTextEdit *updateNameBox;
     QPushButton *FlatFieldButton;
@@ -73,6 +72,9 @@ public:
     QLineEdit *exposureValueInput;
     QLabel *edgeDetectionLabel_2;
     QCheckBox *flatFieldBox;
+    QLabel *kMeansLabel;
+    QSlider *kMeansSlider;
+    QLineEdit *kMeansValueInput;
     QWidget *motorControlColumn;
     QLabel *MotorControls;
     QLabel *MotorControlUnderline;
@@ -90,6 +92,15 @@ public:
     QPushButton *zUpButton;
     QPushButton *zDownButton;
     QLabel *motorDisableText;
+    QPushButton *kMeansPercentage;
+    QLabel *MotorControls_2;
+    QLabel *MotorControlUnderline_3;
+    QLabel *MotorControlUnderline_4;
+    QCheckBox *cluster0Checkbox;
+    QCheckBox *cluster1Checkbox;
+    QCheckBox *cluster2Checkbox;
+    QCheckBox *cluster3Checkbox;
+    QCheckBox *cluster4Checkbox;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
     QStatusBar *statusbar;
@@ -112,6 +123,7 @@ public:
         cellUview = new QLabel(widget);
         cellUview->setObjectName(QString::fromUtf8("cellUview"));
         cellUview->setGeometry(QRect(0, 19, 1651, 41));
+        cellUview->setAutoFillBackground(false);
         cellUview->setStyleSheet(QString::fromUtf8("font: 700 11pt \"Ubuntu\";"));
         cellUview->setAlignment(Qt::AlignCenter);
         background = new QWidget(centralwidget);
@@ -128,7 +140,7 @@ public:
         ImageCaptureColumn->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
         captureButton = new QPushButton(ImageCaptureColumn);
         captureButton->setObjectName(QString::fromUtf8("captureButton"));
-        captureButton->setGeometry(QRect(30, 720, 410, 40));
+        captureButton->setGeometry(QRect(30, 640, 410, 40));
         captureButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         ImageHolder = new QWidget(ImageCaptureColumn);
         ImageHolder->setObjectName(QString::fromUtf8("ImageHolder"));
@@ -142,11 +154,11 @@ public:
         galleryPos2->setGeometry(QRect(220, 20, 191, 191));
         nextButton = new QPushButton(ImageHolder);
         nextButton->setObjectName(QString::fromUtf8("nextButton"));
-        nextButton->setGeometry(QRect(210, 440, 51, 25));
+        nextButton->setGeometry(QRect(210, 440, 61, 31));
         nextButton->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         backButton = new QPushButton(ImageHolder);
         backButton->setObjectName(QString::fromUtf8("backButton"));
-        backButton->setGeometry(QRect(150, 440, 51, 25));
+        backButton->setGeometry(QRect(140, 440, 61, 31));
         backButton->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         galleryPos4 = new QLabel(ImageHolder);
         galleryPos4->setObjectName(QString::fromUtf8("galleryPos4"));
@@ -204,14 +216,10 @@ public:
         GalleryHeader->setAlignment(Qt::AlignCenter);
         ImageSettings = new QLabel(ImageCaptureColumn);
         ImageSettings->setObjectName(QString::fromUtf8("ImageSettings"));
-        ImageSettings->setGeometry(QRect(30, 540, 410, 25));
+        ImageSettings->setGeometry(QRect(30, 560, 410, 25));
         ImageSettings->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
 "background-color: rgb(83, 83, 83);"));
         ImageSettings->setAlignment(Qt::AlignCenter);
-        restoreSettingsButton = new QPushButton(ImageCaptureColumn);
-        restoreSettingsButton->setObjectName(QString::fromUtf8("restoreSettingsButton"));
-        restoreSettingsButton->setGeometry(QRect(30, 660, 411, 31));
-        restoreSettingsButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         Divider1 = new QLabel(ImageCaptureColumn);
         Divider1->setObjectName(QString::fromUtf8("Divider1"));
         Divider1->setGeometry(QRect(30, 703, 410, 5));
@@ -220,11 +228,11 @@ public:
         Divider1->setAlignment(Qt::AlignCenter);
         updateNameBox = new QTextEdit(ImageCaptureColumn);
         updateNameBox->setObjectName(QString::fromUtf8("updateNameBox"));
-        updateNameBox->setGeometry(QRect(30, 570, 411, 31));
+        updateNameBox->setGeometry(QRect(30, 590, 411, 31));
         updateNameBox->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         FlatFieldButton = new QPushButton(ImageCaptureColumn);
         FlatFieldButton->setObjectName(QString::fromUtf8("FlatFieldButton"));
-        FlatFieldButton->setGeometry(QRect(30, 610, 411, 41));
+        FlatFieldButton->setGeometry(QRect(30, 720, 411, 41));
         FlatFieldButton->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
         widget_6 = new QWidget(background);
         widget_6->setObjectName(QString::fromUtf8("widget_6"));
@@ -232,7 +240,7 @@ public:
         widget_6->setStyleSheet(QString::fromUtf8("background-color: rgb(33, 33, 33);"));
         edgeEnhancementSlider = new QSlider(widget_6);
         edgeEnhancementSlider->setObjectName(QString::fromUtf8("edgeEnhancementSlider"));
-        edgeEnhancementSlider->setGeometry(QRect(10, 190, 341, 31));
+        edgeEnhancementSlider->setGeometry(QRect(10, 200, 331, 31));
         edgeEnhancementSlider->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
@@ -240,7 +248,7 @@ public:
         edgeEnhancementSlider->setOrientation(Qt::Horizontal);
         edgeEnhancementValueInput = new QLineEdit(widget_6);
         edgeEnhancementValueInput->setObjectName(QString::fromUtf8("edgeEnhancementValueInput"));
-        edgeEnhancementValueInput->setGeometry(QRect(370, 190, 71, 31));
+        edgeEnhancementValueInput->setGeometry(QRect(360, 200, 71, 31));
         edgeEnhancementValueInput->setStyleSheet(QString::fromUtf8("\n"
 "background-color: rgb(179, 179, 179);"));
         ControlPanelHeader = new QLabel(widget_6);
@@ -251,7 +259,7 @@ public:
         ControlPanelHeader->setAlignment(Qt::AlignCenter);
         grayScaleBox = new QCheckBox(widget_6);
         grayScaleBox->setObjectName(QString::fromUtf8("grayScaleBox"));
-        grayScaleBox->setGeometry(QRect(30, 60, 92, 23));
+        grayScaleBox->setGeometry(QRect(30, 60, 101, 23));
         grayScaleBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
 "\n"
 "QCheckBox::indicator {\n"
@@ -262,20 +270,20 @@ public:
 ""));
         dilationCheckBox = new QCheckBox(widget_6);
         dilationCheckBox->setObjectName(QString::fromUtf8("dilationCheckBox"));
-        dilationCheckBox->setGeometry(QRect(30, 90, 92, 23));
+        dilationCheckBox->setGeometry(QRect(240, 60, 92, 23));
         dilationCheckBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         erosionCheckBox = new QCheckBox(widget_6);
         erosionCheckBox->setObjectName(QString::fromUtf8("erosionCheckBox"));
-        erosionCheckBox->setGeometry(QRect(130, 60, 92, 23));
+        erosionCheckBox->setGeometry(QRect(140, 60, 92, 23));
         erosionCheckBox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         contrastEnhancementValueInput = new QLineEdit(widget_6);
         contrastEnhancementValueInput->setObjectName(QString::fromUtf8("contrastEnhancementValueInput"));
-        contrastEnhancementValueInput->setGeometry(QRect(370, 230, 71, 31));
+        contrastEnhancementValueInput->setGeometry(QRect(360, 240, 71, 31));
         contrastEnhancementValueInput->setStyleSheet(QString::fromUtf8("\n"
 "background-color: rgb(179, 179, 179);"));
         contrastEnhancementSlider = new QSlider(widget_6);
         contrastEnhancementSlider->setObjectName(QString::fromUtf8("contrastEnhancementSlider"));
-        contrastEnhancementSlider->setGeometry(QRect(10, 230, 341, 31));
+        contrastEnhancementSlider->setGeometry(QRect(10, 240, 331, 31));
         contrastEnhancementSlider->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
@@ -284,15 +292,15 @@ public:
         contrastEnhancementSlider->setOrientation(Qt::Horizontal);
         ContrastEhnancement = new QLabel(widget_6);
         ContrastEhnancement->setObjectName(QString::fromUtf8("ContrastEhnancement"));
-        ContrastEhnancement->setGeometry(QRect(460, 230, 161, 21));
+        ContrastEhnancement->setGeometry(QRect(440, 245, 191, 21));
         ContrastEhnancement->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         edgeDetectionLabel = new QLabel(widget_6);
         edgeDetectionLabel->setObjectName(QString::fromUtf8("edgeDetectionLabel"));
-        edgeDetectionLabel->setGeometry(QRect(460, 190, 111, 21));
+        edgeDetectionLabel->setGeometry(QRect(440, 205, 151, 21));
         edgeDetectionLabel->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         exposureSlider = new QSlider(widget_6);
         exposureSlider->setObjectName(QString::fromUtf8("exposureSlider"));
-        exposureSlider->setGeometry(QRect(10, 150, 341, 31));
+        exposureSlider->setGeometry(QRect(10, 160, 331, 31));
         exposureSlider->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "}\n"
@@ -300,16 +308,35 @@ public:
         exposureSlider->setOrientation(Qt::Horizontal);
         exposureValueInput = new QLineEdit(widget_6);
         exposureValueInput->setObjectName(QString::fromUtf8("exposureValueInput"));
-        exposureValueInput->setGeometry(QRect(370, 150, 71, 31));
+        exposureValueInput->setGeometry(QRect(360, 160, 71, 31));
         exposureValueInput->setStyleSheet(QString::fromUtf8("\n"
 "background-color: rgb(179, 179, 179);"));
         edgeDetectionLabel_2 = new QLabel(widget_6);
         edgeDetectionLabel_2->setObjectName(QString::fromUtf8("edgeDetectionLabel_2"));
-        edgeDetectionLabel_2->setGeometry(QRect(460, 150, 111, 21));
+        edgeDetectionLabel_2->setGeometry(QRect(440, 165, 111, 21));
         edgeDetectionLabel_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         flatFieldBox = new QCheckBox(widget_6);
         flatFieldBox->setObjectName(QString::fromUtf8("flatFieldBox"));
         flatFieldBox->setGeometry(QRect(451, 60, 171, 23));
+        kMeansLabel = new QLabel(widget_6);
+        kMeansLabel->setObjectName(QString::fromUtf8("kMeansLabel"));
+        kMeansLabel->setGeometry(QRect(440, 125, 161, 21));
+        kMeansLabel->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        kMeansSlider = new QSlider(widget_6);
+        kMeansSlider->setObjectName(QString::fromUtf8("kMeansSlider"));
+        kMeansSlider->setGeometry(QRect(10, 120, 331, 31));
+        kMeansSlider->setStyleSheet(QString::fromUtf8("QSlider::handle:horizontal {\n"
+"    background-color: rgb(29, 185, 84);\n"
+"}\n"
+""));
+        kMeansSlider->setMaximum(5);
+        kMeansSlider->setPageStep(5);
+        kMeansSlider->setOrientation(Qt::Horizontal);
+        kMeansValueInput = new QLineEdit(widget_6);
+        kMeansValueInput->setObjectName(QString::fromUtf8("kMeansValueInput"));
+        kMeansValueInput->setGeometry(QRect(360, 120, 71, 31));
+        kMeansValueInput->setStyleSheet(QString::fromUtf8("\n"
+"background-color: rgb(179, 179, 179);"));
         motorControlColumn = new QWidget(background);
         motorControlColumn->setObjectName(QString::fromUtf8("motorControlColumn"));
         motorControlColumn->setGeometry(QRect(1160, 20, 311, 781));
@@ -394,6 +421,60 @@ public:
         motorDisableText->setObjectName(QString::fromUtf8("motorDisableText"));
         motorDisableText->setGeometry(QRect(6, 76, 301, 261));
         motorDisableText->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        kMeansPercentage = new QPushButton(motorControlColumn);
+        kMeansPercentage->setObjectName(QString::fromUtf8("kMeansPercentage"));
+        kMeansPercentage->setGeometry(QRect(20, 430, 271, 41));
+        kMeansPercentage->setStyleSheet(QString::fromUtf8("background-color: rgb(179, 179, 179);"));
+        MotorControls_2 = new QLabel(motorControlColumn);
+        MotorControls_2->setObjectName(QString::fromUtf8("MotorControls_2"));
+        MotorControls_2->setGeometry(QRect(15, 360, 280, 41));
+        MotorControls_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
+"background-color: rgb(83, 83, 83);"));
+        MotorControls_2->setAlignment(Qt::AlignCenter);
+        MotorControlUnderline_3 = new QLabel(motorControlColumn);
+        MotorControlUnderline_3->setObjectName(QString::fromUtf8("MotorControlUnderline_3"));
+        MotorControlUnderline_3->setGeometry(QRect(15, 406, 280, 5));
+        MotorControlUnderline_3->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
+"background-color: rgb(83, 83, 83);"));
+        MotorControlUnderline_3->setAlignment(Qt::AlignCenter);
+        MotorControlUnderline_4 = new QLabel(motorControlColumn);
+        MotorControlUnderline_4->setObjectName(QString::fromUtf8("MotorControlUnderline_4"));
+        MotorControlUnderline_4->setGeometry(QRect(15, 770, 280, 5));
+        MotorControlUnderline_4->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);\n"
+"background-color: rgb(83, 83, 83);"));
+        MotorControlUnderline_4->setAlignment(Qt::AlignCenter);
+        cluster0Checkbox = new QCheckBox(motorControlColumn);
+        cluster0Checkbox->setObjectName(QString::fromUtf8("cluster0Checkbox"));
+        cluster0Checkbox->setEnabled(false);
+        cluster0Checkbox->setGeometry(QRect(30, 500, 181, 23));
+        QFont font;
+        font.setPointSize(15);
+        cluster0Checkbox->setFont(font);
+        cluster0Checkbox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        cluster1Checkbox = new QCheckBox(motorControlColumn);
+        cluster1Checkbox->setObjectName(QString::fromUtf8("cluster1Checkbox"));
+        cluster1Checkbox->setEnabled(false);
+        cluster1Checkbox->setGeometry(QRect(30, 530, 191, 23));
+        cluster1Checkbox->setFont(font);
+        cluster1Checkbox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        cluster2Checkbox = new QCheckBox(motorControlColumn);
+        cluster2Checkbox->setObjectName(QString::fromUtf8("cluster2Checkbox"));
+        cluster2Checkbox->setEnabled(false);
+        cluster2Checkbox->setGeometry(QRect(30, 560, 181, 23));
+        cluster2Checkbox->setFont(font);
+        cluster2Checkbox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        cluster3Checkbox = new QCheckBox(motorControlColumn);
+        cluster3Checkbox->setObjectName(QString::fromUtf8("cluster3Checkbox"));
+        cluster3Checkbox->setEnabled(false);
+        cluster3Checkbox->setGeometry(QRect(30, 590, 181, 23));
+        cluster3Checkbox->setFont(font);
+        cluster3Checkbox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        cluster4Checkbox = new QCheckBox(motorControlColumn);
+        cluster4Checkbox->setObjectName(QString::fromUtf8("cluster4Checkbox"));
+        cluster4Checkbox->setEnabled(false);
+        cluster4Checkbox->setGeometry(QRect(30, 620, 181, 23));
+        cluster4Checkbox->setFont(font);
+        cluster4Checkbox->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -415,7 +496,7 @@ public:
     void retranslateUi(QMainWindow *GUI)
     {
         GUI->setWindowTitle(QCoreApplication::translate("GUI", "cellUview", nullptr));
-        cellUview->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:20pt; font-weight:700;\">cellUview</span></p></body></html>", nullptr));
+        cellUview->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:20pt; color:#000000;\">cellUview</span></p></body></html>", nullptr));
         scopeVideoFeed->setText(QString());
         captureButton->setText(QCoreApplication::translate("GUI", "Capture Image", nullptr));
         galleryPos1->setText(QString());
@@ -435,20 +516,21 @@ public:
         buttonPos4->setText(QString());
         GalleryHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:700;\">Gallery</span></p></body></html>", nullptr));
         ImageSettings->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-weight:700;\">Capture Name</span></p></body></html>", nullptr));
-        restoreSettingsButton->setText(QCoreApplication::translate("GUI", "Restore Settings", nullptr));
         Divider1->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", nullptr));
-        FlatFieldButton->setText(QCoreApplication::translate("GUI", "Flat Field Capture (Capture with empty slide)", nullptr));
+        FlatFieldButton->setText(QCoreApplication::translate("GUI", "Color Correction (capture with empty slide)", nullptr));
         edgeEnhancementValueInput->setText(QString());
-        ControlPanelHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:700;\">Control Panel</span></p></body></html>", nullptr));
-        grayScaleBox->setText(QCoreApplication::translate("GUI", "Grey Scale", nullptr));
+        ControlPanelHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:696;\">Image Processing Controls	</span></p></body></html>", nullptr));
+        grayScaleBox->setText(QCoreApplication::translate("GUI", "Gray Scale", nullptr));
         dilationCheckBox->setText(QCoreApplication::translate("GUI", "Dilation", nullptr));
         erosionCheckBox->setText(QCoreApplication::translate("GUI", "Erosion", nullptr));
         contrastEnhancementValueInput->setText(QString());
-        ContrastEhnancement->setText(QCoreApplication::translate("GUI", "Contrast Enhancement", nullptr));
-        edgeDetectionLabel->setText(QCoreApplication::translate("GUI", "Edge Detection", nullptr));
+        ContrastEhnancement->setText(QCoreApplication::translate("GUI", "Contrast Enhancement (%)", nullptr));
+        edgeDetectionLabel->setText(QCoreApplication::translate("GUI", "Edge Detection (%)", nullptr));
         exposureValueInput->setText(QString());
-        edgeDetectionLabel_2->setText(QCoreApplication::translate("GUI", "Exposure(EV)", nullptr));
-        flatFieldBox->setText(QCoreApplication::translate("GUI", "Flat Field Correction", nullptr));
+        edgeDetectionLabel_2->setText(QCoreApplication::translate("GUI", "Exposure (EV)", nullptr));
+        flatFieldBox->setText(QCoreApplication::translate("GUI", "Color Correction", nullptr));
+        kMeansLabel->setText(QCoreApplication::translate("GUI", "k-Means Cluster Count", nullptr));
+        kMeansValueInput->setText(QString());
         MotorControls->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:700;\">Motor Controls</span></p></body></html>", nullptr));
         MotorControlUnderline->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", nullptr));
         xAxisControlHeader->setText(QCoreApplication::translate("GUI", "<html><head/><body><p>X-axis Controls</p></body></html>", nullptr));
@@ -462,6 +544,15 @@ public:
         zUpButton->setText(QCoreApplication::translate("GUI", "+", nullptr));
         zDownButton->setText(QCoreApplication::translate("GUI", "-", nullptr));
         motorDisableText->setText(QCoreApplication::translate("GUI", "<html><head/><body><p align=\"center\">Motors are not connected</p><p align=\"center\">Manual operation only</p></body></html>", nullptr));
+        kMeansPercentage->setText(QCoreApplication::translate("GUI", "Display k-Means Percentages", nullptr));
+        MotorControls_2->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:696;\">Image Analysis</span></p></body></html>", nullptr));
+        MotorControlUnderline_3->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", nullptr));
+        MotorControlUnderline_4->setText(QCoreApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", nullptr));
+        cluster0Checkbox->setText(QCoreApplication::translate("GUI", "cluster percentage", nullptr));
+        cluster1Checkbox->setText(QCoreApplication::translate("GUI", "cluster percentage", nullptr));
+        cluster2Checkbox->setText(QCoreApplication::translate("GUI", "cluster percentage", nullptr));
+        cluster3Checkbox->setText(QCoreApplication::translate("GUI", "cluster percentage", nullptr));
+        cluster4Checkbox->setText(QCoreApplication::translate("GUI", "cluster percentage", nullptr));
         menuOpenflexure->setTitle(QCoreApplication::translate("GUI", "cellUview", nullptr));
     } // retranslateUi
 

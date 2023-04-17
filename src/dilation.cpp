@@ -29,7 +29,7 @@ void dilation::dilate(frame f) {
     cv::Mat output_mat(input_mat.size(), CV_8UC3);
 
     // Perform dilation on the input image
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3)); // Set dilation kernel
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3)); // Set dilation kernel, 3 by 3 rectangular
     cv::dilate(input_mat, output_mat, kernel); // Perform dilation operation
 
     // Convert output cv::Mat to frame

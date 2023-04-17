@@ -57,8 +57,9 @@ class frame{
             "contrastThreshold",
             "flatField",
             "exposure",
-            "note"
-            //ADD MORE PARAMETERS HERE FOR NEW BLOCKS
+            "note",
+            "kMean"
+            //ADD MORE PARAMETERS HERE
         };
         std::string encodedString;
 };

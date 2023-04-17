@@ -8,9 +8,10 @@
 * @param win points to QMainWindow 
 * @param ui_win points to Ui_GUI 
 * @param galleryIn points to Gallery instance
+* @param motorsIn points to MotorDriver instance
 * @param blocksIn is a std::vector of the image processing blocks
 **/
-Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *motorsIn, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
     ui = ui_win;
@@ -18,6 +19,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     //----- save class instances passed in by reference ------
     this->gallery = galleryIn;
+    this->motors = motorsIn;
     blocks = blocksIn; 
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
@@ -111,6 +113,36 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
     });
 
+ // //-----------block 6 kMeans ---------------------
+    QObject::connect(ui->kMeansSlider, &QSlider::valueChanged, ui->kMeansValueInput, [&](int sliderValue3) {
+        ui->kMeansValueInput->setText(QString::number(sliderValue3));
+        bool enabled = blocks[6]->getEnabled();
+        if (sliderValue3 == 0){ //disable if 0 on slider is selected
+            if (enabled){
+                blocks[6]->toggleEnable();
+            }
+        }
+        else{
+            if (!enabled){
+                blocks[6]->toggleEnable();
+            }
+        }
+        //access derived method of contrastEnhancer from vector of base class (image processor) pointers
+        static_cast<kMeansCluster*>(blocks[6])->updateClusterCount(sliderValue3);
+        static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
+        
+    });
+
+    QObject::connect(ui->kMeansValueInput, &QLineEdit::textChanged, ui->kMeansSlider, [&](const QString &text) {
+        bool ok;
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->kMeansSlider->setValue(value);
+        }
+    });
+
+
+
     //-------------block -1 edge enhancement-----------------------
     QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->edgeEnhancementValueInput, [&](int sliderValue) {
         ui->edgeEnhancementValueInput->setText(QString::number(sliderValue));
@@ -139,18 +171,34 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     });
     
 
-
-
-    //------------make other connections-------------
-    // push button (to be renamed @Jake) connects to gallery capture
-
     ////do a capture
     QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame); 
     //flat field capture
     QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
 
+
+    //-----------Kmeans image analysis------------------
+    QObject::connect(ui->kMeansPercentage, &QPushButton::released, this, &Gui::displayKmeans);
+
+    ui->cluster0Checkbox->setChecked(true);
+    ui->cluster1Checkbox->setChecked(true);
+    ui->cluster2Checkbox->setChecked(true);
+    ui->cluster3Checkbox->setChecked(true);
+    ui->cluster4Checkbox->setChecked(true);
+    ui->cluster0Checkbox->setEnabled(false);
+    ui->cluster1Checkbox->setEnabled(false);
+    ui->cluster2Checkbox->setEnabled(false);
+    ui->cluster3Checkbox->setEnabled(false);
+    ui->cluster4Checkbox->setEnabled(false);
+    ui->cluster0Checkbox->setVisible(false);
+    ui->cluster1Checkbox->setVisible(false);
+    ui->cluster2Checkbox->setVisible(false);
+    ui->cluster3Checkbox->setVisible(false);
+    ui->cluster4Checkbox->setVisible(false);
+
     //Label text box, ensures that the text is never empty
     ui->updateNameBox->setText(" ");
+
     QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
         QString enteredText = ui->updateNameBox->toPlainText();
         std::string enteredTextStr = enteredText.toStdString();
@@ -160,8 +208,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
         this->cam->setNote(enteredTextStr);
     });
-    // testing restore settings
-    QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
+
     //gallery button connections
     QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryView(true);});
     QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryView(false);});
@@ -173,6 +220,83 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     //loads in existing images in gallery if they exist
     updateGalleryView(true);
+
+
+    // Motor Initialisation
+
+    ui->motorDisableText->setVisible(false);       // motor disabled message default to invisible
+    
+    // check if motors connected
+    if (!motors->getConnected()){           // if not connected, disable controls
+        ui->motorDisableText->setVisible(true);    // show no motors message
+        ui->xUpButton->setDisabled(true);
+        ui->xDownButton->setDisabled(true);
+        ui->xPos->setEnabled(false);
+        ui->yUpButton->setDisabled(true);
+        ui->yDownButton->setDisabled(true);
+        ui->yPos->setEnabled(false);
+        ui->zUpButton->setDisabled(true);
+        ui->zDownButton->setDisabled(true);
+        ui->zPos->setEnabled(false);
+    }
+    else{
+        // initialise motor positions
+        ui->xPos->setText(QString::number(motors->getPosition()[0]));
+        ui->yPos->setText(QString::number(motors->getPosition()[1]));
+        ui->zPos->setText(QString::number(motors->getPosition()[2]));
+    }
+
+    // motor ui element connections
+    QObject::connect(ui->xUpButton, &QPushButton::released, this, [&](){ motorMove('x', 10); });
+    QObject::connect(ui->xDownButton, &QPushButton::released, this, [&](){ motorMove('x', -10); });
+    QObject::connect(ui->xPos, &QLineEdit::returnPressed, this, [&]() {     // only move motors after enter pressed
+        bool ok;
+        QString text = ui->xPos->text();                // get text from ui element
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPosition()[0];
+                int toMove = finalPosition - currentPosition;   // move difference between current and desired positions 
+                motorMove('x', toMove);
+            }
+        }
+    });
+
+    QObject::connect(ui->yUpButton, &QPushButton::released, this, [&](){ motorMove('y', 10); });
+    QObject::connect(ui->yDownButton, &QPushButton::released, this, [&](){ motorMove('y', -10); });
+    QObject::connect(ui->yPos, &QLineEdit::returnPressed, this, [&]() {
+        bool ok;
+        QString text = ui->yPos->text();
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPosition()[1];
+                int toMove = finalPosition - currentPosition;
+                motorMove('y', toMove);
+            }
+        }
+    });
+
+    QObject::connect(ui->zUpButton, &QPushButton::released, this, [&](){ motorMove('z', 10); });
+    QObject::connect(ui->zDownButton, &QPushButton::released, this, [&](){ motorMove('z', -10); });
+    QObject::connect(ui->zPos, &QLineEdit::returnPressed, this, [&]() {
+        bool ok;
+        QString text = ui->zPos->text();
+        int finalPosition = text.toInt(&ok);
+        if (ok) {
+            bool motorsRunning = motors->getRunning();  // check if motors active
+            if (!motorsRunning){  
+                int currentPosition = motors->getPosition()[2];
+                int toMove = finalPosition - currentPosition;
+                motorMove('z', toMove);
+            }
+        }
+    });
+
+
+
 }
 
 /**
@@ -238,6 +362,96 @@ void Gui::setUpdateFlatField(){
     doCapture = true;
     //To allow checkbox to be enabled
     ui->flatFieldBox->setEnabled(true);
+}
+
+
+/**
+* Sets checkboxes to show percentages taken up by different clusters
+**/
+void Gui::displayKmeans(){
+        //make all initially invisible
+    resetCheckbox(ui->cluster0Checkbox);
+    resetCheckbox(ui->cluster1Checkbox);
+    resetCheckbox(ui->cluster2Checkbox);
+    resetCheckbox(ui->cluster3Checkbox);
+    resetCheckbox(ui->cluster4Checkbox);
+
+    if (blocks[6]->getEnabled() == false){
+        std::cout<<"K-means clustering not turned on. Adjust the slider to set number of clusters."<<std::endl;
+        return;
+    }
+
+    //static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
+    std::list<std::pair<cv::Vec3b, std::string>> kmeansValues = static_cast<kMeansCluster*>(blocks[6])->getClusterAnalysis();
+
+
+    //replace this to iterate over
+
+    std::list<std::pair<cv::Vec3b, std::string>>::const_iterator it;
+    std::vector<cv::Vec3b> centroidColors;
+    std::vector<std::string> percentages;
+    centroidColors.clear();
+    percentages.clear();
+    for (it = kmeansValues.begin(); it != kmeansValues.end(); ++it){
+        centroidColors.push_back(it->first);
+        percentages.push_back(it->second);
+    } 
+    
+
+
+    
+    std::string styleSheet;
+    cv::Vec3b centroidColor;
+    std::string percentageLabel;
+    QString styleSheetQ;
+    QString percentageQStr;
+
+    if (kmeansValues.size() >0){
+        setClusterCheckbox(ui->cluster0Checkbox, centroidColors[0], percentages[0]);
+    }
+    if (kmeansValues.size() >1){
+        setClusterCheckbox(ui->cluster1Checkbox, centroidColors[1], percentages[1]);
+    }
+    if (kmeansValues.size() >2){
+        setClusterCheckbox(ui->cluster2Checkbox, centroidColors[2], percentages[2]);
+    }
+    if (kmeansValues.size() >3){
+        setClusterCheckbox(ui->cluster3Checkbox, centroidColors[3], percentages[3]);
+    }
+    if (kmeansValues.size() >4){
+        setClusterCheckbox(ui->cluster4Checkbox, centroidColors[4], percentages[4]);
+    }
+
+}
+
+void Gui::setClusterCheckbox(QCheckBox* box, cv::Vec3b centroidColor, std::string percentageLabel){
+    box->setVisible(true);
+    QString styleSheetQ;
+    QString percentageQStr;
+    std::string stylesheet;
+    stylesheet = setKmeansStyleSheet(centroidColor);
+    styleSheetQ = QString::fromStdString(stylesheet);
+    box->setStyleSheet(styleSheetQ);
+    percentageQStr = QString::fromStdString(percentageLabel);
+    box->setText(percentageQStr);
+}
+/**
+* Resets a Kmeans cluster checkbox to be invisible 
+**/
+void Gui::resetCheckbox(QCheckBox* box){
+    box->setText("");
+    box->setVisible(false);
+
+}
+
+/**
+* Generates a Kmeans stylesheet 
+**/
+std::string Gui::setKmeansStyleSheet(cv::Vec3b In){
+    std::string color = std::to_string(In[2]) + ", " + std::to_string(In[1]) + ", " + std::to_string(In[0]);
+    std::string styleSheet = "QCheckBox::indicator:checked { background-color: rgb(" + color + "); }";
+    return styleSheet;
+
 }
 
 
@@ -349,6 +563,18 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
             //     }
             // } 
             ;
+        }
+               //janky but not sure how else to make these connections
+        else if(label == "kMean"){
+            try{
+                ui->kMeansSlider->setValue(std::stoi(value));
+            }catch(...){
+                if (value == "OFF"){
+                    ui->kMeansSlider->setValue(0);
+                }else{
+                std::cerr<<"Invalid metadata for kMeans clustering"<<std::endl;
+                }
+            }
         }
 
         else if(label == "erosion"){
@@ -498,4 +724,40 @@ void Gui::showDialog(int position) {
         dialog.exec();
     }
 }
+
+
+
+/**
+* Calls MotorDriver move function if motors have been connected and initialised at startup.
+* Updates UI with new position.
+* @param ax axis of travel (x, y, or z)
+* @param increment step to move motors by
+**/
+void Gui::motorMove(char ax, int increment){
+    
+    bool motorsConnected = motors->getConnected();
+    bool motorsRunning = motors->getRunning();
+    if (!motorsRunning && motorsConnected){            // only move if motors connected and not currently active
+        
+        motors->mov(ax, increment);
+
+        if (ax=='x'){
+            int positionForUpdate = motors->getPosition()[0];
+            ui->xPos->setText(QString::number(positionForUpdate+increment));    // update position to starting pos + increment
+        }
+
+        else if (ax=='y'){
+            int positionForUpdate = motors->getPosition()[1];
+            ui->yPos->setText(QString::number(positionForUpdate+increment));   
+        }
+
+        else if (ax=='z'){
+            int positionForUpdate = motors->getPosition()[2];
+            ui->zPos->setText(QString::number(positionForUpdate+increment));  
+        }
+
+    }
+
+}
+
 

@@ -21,6 +21,9 @@
 #include <QDialog>
 #include <QVBoxLayout>
 #include <list>
+#include "kMeansCluster.h"
+#include "motorDriver.h"
+
 
 /**
 * A class which handles GUI connections and functionality.
@@ -30,8 +33,9 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
-    Gui(QMainWindow*, Ui_GUI*, Gallery*, std::vector <imageProcessor *>&);
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, MotorDriver*, std::vector <imageProcessor *>&);
     void SetVisible(bool visible);
+    void returnPosition(int x, int y, int z);
 
 private:
     QMainWindow *widget;
@@ -40,10 +44,15 @@ private:
     void captureNextFrame();
     void restoreSettings(std::string = "");
     void updateSettings(std::map<std::string, std::string>);
+    
+    void motorMove(char ax, int increment);
+    
+
     std::string getParamLabel(){return "";};
     bool updateFlatField = false;
     bool flatFieldEnable = false;
     void setUpdateFlatField();
+    void displayKmeans();
     int flatFieldCounter = 0; 
     void updateGalleryIndex(bool);
     
@@ -53,6 +62,12 @@ private:
     void textEditController(std::string enteredTextStr, bool pressed);
     void showDialog(int position);
     void updateGalleryView(bool directionIsNext);
+    void resetCheckbox(QCheckBox* box);
+    void setClusterCheckbox(QCheckBox*, cv::Vec3b, std::string);
+
+
+    std::string setKmeansStyleSheet(cv::Vec3b);
+
 
 
     //std::string textEditController(std::string enteredTextStr){return myString;};
@@ -88,8 +103,7 @@ private:
     std::map<std::string, std::string> metadata;
 
 
-
-    edgeDetection *edgeDetector;
-    grayScale *grayDetector;
+    MotorDriver *motors;
+    //std::thread motorThread;
 };
 #endif // CELLUVIEW_GUI_H
