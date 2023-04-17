@@ -534,7 +534,7 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>30</x>
         <y>60</y>
-        <width>92</width>
+        <width>101</width>
         <height>23</height>
        </rect>
       </property>
@@ -549,14 +549,14 @@ QCheckBox::indicator {
 </string>
       </property>
       <property name="text">
-       <string>Grey Scale</string>
+       <string>Gray Scale</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="dilationCheckBox">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>90</y>
+        <x>240</x>
+        <y>60</y>
         <width>92</width>
         <height>23</height>
        </rect>
@@ -571,7 +571,7 @@ QCheckBox::indicator {
      <widget class="QCheckBox" name="erosionCheckBox">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>140</x>
         <y>60</y>
         <width>92</width>
         <height>23</height>
@@ -588,7 +588,7 @@ QCheckBox::indicator {
       <property name="geometry">
        <rect>
         <x>370</x>
-        <y>230</y>
+        <y>250</y>
         <width>71</width>
         <height>31</height>
        </rect>
@@ -627,7 +627,7 @@ background-color: rgb(179, 179, 179);</string>
       <property name="geometry">
        <rect>
         <x>460</x>
-        <y>230</y>
+        <y>250</y>
         <width>161</width>
         <height>21</height>
        </rect>
@@ -659,7 +659,7 @@ background-color: rgb(179, 179, 179);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>150</y>
+        <y>170</y>
         <width>341</width>
         <height>31</height>
        </rect>
@@ -718,6 +718,64 @@ background-color: rgb(179, 179, 179);</string>
       </property>
       <property name="text">
        <string>Flat Field Correction</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="kMeansLabel">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>130</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>k-Means Cluster Count</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="kMeansSlider">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>341</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider::handle:horizontal {
+    background-color: rgb(29, 185, 84);
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>5</number>
+      </property>
+      <property name="pageStep">
+       <number>5</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="kMeansValueInput">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>130</y>
+        <width>71</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+background-color: rgb(179, 179, 179);</string>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>
@@ -1017,7 +1075,7 @@ disabled {
      <x>0</x>
      <y>0</y>
      <width>1493</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpenflexure">
