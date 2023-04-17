@@ -53,12 +53,6 @@ void kMeansCluster::updateKMeans(frame f) {
     cv::Mat reshaped = f.image.reshape(1, f.image.rows * f.image.cols);
 
 
-    // Check if the number of clusters is positive
-    if (num_clusters <= 0) {
-        std::cerr << "Error: number of clusters must be positive" << std::endl;
-        return;
-    }
-
     // Define termination criteria for the k-means algorithm
     cv::TermCriteria criteria(cv::TermCriteria::EPS + cv::TermCriteria::COUNT, 10, 1.0);
 
@@ -161,7 +155,7 @@ void kMeansCluster::kMeans(frame f) {
     updateKMeans(f);
     f.image = current_k_means;
 
-    f.setParameter(paramLabel, "ON");
+    f.setParameter(paramLabel, std::to_string(clusterSlider));
     frameCb->receiveFrame(f);
 }
 
