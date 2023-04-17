@@ -42,7 +42,7 @@ private:
     std::string paramLabel2 = "note";
     //imageProcessor* frameCb = nullptr;
     bool doMeta = false;
-    std::string note = "";
+    std::string note = " ";
 
 };
 

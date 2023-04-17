@@ -145,7 +145,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     ////do a capture
     QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame); //&Gui::captureNextFrame
-    QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){textEditController(myString, true);});
+    //QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){textEditController(myString, true);});
 
     QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
 
@@ -154,9 +154,15 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     // toggle edge
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
+    ui->updateNameBox->setText(" ");
     QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
         QString enteredText = ui->updateNameBox->toPlainText();
         std::string enteredTextStr = enteredText.toStdString();
+        if (enteredTextStr == ""){
+            std::cout<<"switching"<<std::endl;
+            enteredTextStr = " ";
+            //ui->updateNameBox->setText(emptyQStr);
+        }
         this->cam->setNote(enteredTextStr);
         //textEditController(enteredTextStr, false);
     });
@@ -463,19 +469,22 @@ void Gui::updateGalleryView(bool directionIsNext){
 }
 
 
- void Gui::textEditController(std::string enteredTextStr, bool pressed){
+//  void Gui::textEditController(std::string enteredTextStr, bool pressed){
 
-    myString = enteredTextStr;
-    if (!myString.empty()){
-    std::cout<<"Entered String: "<<enteredTextStr<<std::endl;
-    if( pressed == true){
-        this->gallery->updateImgName(myString);
-        bool pressed =false;
-    }
-    else{}
-    }
-    else{}
-}
+//     myString = enteredTextStr;
+//     if (!myString.empty()){
+//         std::cout<<"Entered String: "<<enteredTextStr<<std::endl;
+//         if( pressed == true){
+//             this->gallery->updateImgName(myString);
+//             bool pressed =false;F
+//         }
+//     }
+//     else{
+//         QString empty = " ";
+//         ui->updateNameBox->setText(empty);
+//         this
+//     }
+// }
 
 //function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
 void Gui::showDialog(int position) {
