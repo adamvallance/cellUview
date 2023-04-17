@@ -32,7 +32,7 @@ cellUview provides a real-time image processing suite designed for the open-sour
 
 ## Hardware
 
-cellUview is designed for the Raspberry Pi based OpenFlexure microscope, an open-source 3D printed microscope platform (pictured below). More information, including full manufacturing and assembly instructions as well as the required STL files can be found on the <a href="https://openflexure.org/">OpenFlexure website</a>. 
+cellUview is designed for the Raspberry Pi based OpenFlexure microscope, an open-source 3D printed microscope platform (pictured below). More information, including full manufacturing and assembly instructions as well as the required STL files can be found on the <a href="https://openflexure.org/">OpenFlexure website</a>. A model of the microscope can also be seen below, from the OpenFlexure YouTube channel.
 
 It is recommended to use a Raspberry Pi 4B for OpenFlexure. In order to use cellUview, we advise using a clean install of Raspbian v10 (Buster), rather than the supplied Raspbian OpenFlexure OS. 
 
@@ -125,6 +125,11 @@ https://user-images.githubusercontent.com/72609606/232560682-0aba59dd-6694-4a25-
 
 Check out some of the samples captured using cellUview.
 
+<p float="left">
+  <img src="" width="100" />
+  <img src="" width="100" /> 
+  <img src="" width="100" />
+</p>
 
 
 
