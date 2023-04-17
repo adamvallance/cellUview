@@ -102,7 +102,7 @@ void Camera::updateSettings(std::map<std::string, std::string> metadata){
         }
     }
     
-    setExposure(metaThreshold);   
+    //setExposure(metaThreshold);   //broken needs fixed 
 }
 
 /**

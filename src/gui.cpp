@@ -338,15 +338,17 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         }
 
         else if(label == "exposure"){
-            try{
-                ui->exposureSlider->setValue(std::stoi(value));
-            }catch(...){
-                if (value == "OFF"){
-                    ui->exposureSlider->setValue(0);
-                }else{
-                std::cerr<<"Invalid metadata for contrast enhancement"<<std::endl;
-                }
-            }
+            ////broken fix this
+            // try{
+            //     ui->exposureSlider->setValue(std::stoi(value));
+            // }catch(...){
+            //     if (value == "OFF"){
+            //         ui->exposureSlider->setValue(0);
+            //     }else{
+            //     std::cerr<<"Invalid metadata for contrast enhancement"<<std::endl;
+            //     }
+            // } 
+            ;
         }
 
         else if(label == "erosion"){
