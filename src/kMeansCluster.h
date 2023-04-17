@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <thread>
 #include "imageProcessor.h"
+#include <list>
 
 
 class kMeansCluster: public imageProcessor{
@@ -21,6 +22,7 @@ public:
     void updateClusterCount(int value);
     void updateSettings(std::map<std::string, std::string>);
     void centroidPercentage();
+    std::list<std::pair<cv::Vec3b, double>> getClusterAnalysis();
 
 private:
     //add any other methods here
@@ -33,5 +35,7 @@ private:
     cv::Mat current_centers;
     bool calculatePercentageEnabled = false;
     bool percentageCalculated = false;
+    //std::list<std::pair<std::string, cv::Mat>>
+    std::list<std::pair<cv::Vec3b, double>> percentageDisplay;
 };
 #endif // CELLUVIEW_K_MEANS_CLUSTER_H

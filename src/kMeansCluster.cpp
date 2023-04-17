@@ -17,40 +17,31 @@ void kMeansCluster::receiveFrame(frame newFrame) {
     kMeans(newFrame); 
 }
 
-void kMeansCluster::updateSettings(std::map<std::string, std::string> metadata){
-    std::string rec = metadata[paramLabel];
-    int metaThreshold;
-    if (rec == "OFF"){
-        if (enabled == true){
-            toggleEnable();
-        }
-    }else{
-        if (enabled==false){
-            toggleEnable();
-        }
-        try{
-            metaThreshold = std::stoi(metadata[paramLabel]);
-        }catch(...){
-            std::cout<<"Error invalid metadata"<<std::endl;
-            return;
-        }
+
+void kMeansCluster::kMeans(frame f) {
+      
+    if (calculatePercentageEnabled == true) {
+        calculatePercentageEnabled = false;
+        percentageCalculated=false;
+        updateKMeans(f, true);
+        
     }
+    else{
+        updateKMeans(f, false);
+    }  
     
-    updateClusterCount(metaThreshold);   
+    f.image = current_k_means;
+
+
+    
+    f.setParameter(paramLabel, std::to_string(clusterSlider));
+    frameCb->receiveFrame(f);
 }
 
 
-void kMeansCluster::updateClusterCount(int value){
-    num_clusters = value;
-    clusterSlider = value;
-    }
 
-void kMeansCluster::centroidPercentage(){
-    calculatePercentageEnabled = true;
-    percentageCalculated=false;
-    }
 
-void kMeansCluster::updateKMeans(frame f, bool percentage) {
+void kMeansCluster::updateKMeans(frame f, bool calculateClusterPercentages) {
 
     f.image.convertTo(f.image, CV_32FC3);
     
@@ -152,7 +143,8 @@ void kMeansCluster::updateKMeans(frame f, bool percentage) {
 
     current_k_means = heatmap;
 
-    if(percentage ==true){
+    if(calculateClusterPercentages ==true){
+
 
         // initialize a vector to store the pixel counts for each cluster
         std::vector<int> pixel_counts(centers.rows, 0);
@@ -173,29 +165,53 @@ void kMeansCluster::updateKMeans(frame f, bool percentage) {
         for (int i = 0; i < pixel_counts.size(); i++) {
             double percentage = (double)pixel_counts[i] / total_pixels * 100;
             std::cout << "Cluster " << i+1 << " has " << pixel_counts[i] << " pixels (" << percentage << "%)." << std::endl;
+            cv::Vec3b keyColor = colors[i];
+            percentageDisplay.push_back({keyColor, percentage});
         }
     }
 
 }
 
 
-void kMeansCluster::kMeans(frame f) {
-      
-    if (calculatePercentageEnabled == true) {
-        calculatePercentageEnabled = false;
-        percentageCalculated=false;
-        updateKMeans(f, true);
-        
-    }
-    else{
-        updateKMeans(f, false);
-    }  
-    
-    f.image = current_k_means;
 
-
-    
-    f.setParameter(paramLabel, std::to_string(clusterSlider));
-    frameCb->receiveFrame(f);
+void kMeansCluster::updateClusterCount(int value){
+    num_clusters = value;
+    clusterSlider = value;
 }
+
+void kMeansCluster::centroidPercentage(){
+    calculatePercentageEnabled = true;
+    percentageCalculated=false;
+    if (enabled == false){
+        std::cout<<"K-means clustering not turned on. Adjust the slider to set number of clusters."<<std::endl;
+    }
+}
+
+std::list<std::pair<cv::Vec3b, double>> kMeansCluster::getClusterAnalysis(){
+    return percentageDisplay;
+}
+
+void kMeansCluster::updateSettings(std::map<std::string, std::string> metadata){
+    std::string rec = metadata[paramLabel];
+    int metaThreshold;
+    if (rec == "OFF"){
+        if (enabled == true){
+            toggleEnable();
+        }
+    }else{
+        if (enabled==false){
+            toggleEnable();
+        }
+        try{
+            metaThreshold = std::stoi(metadata[paramLabel]);
+        }catch(...){
+            std::cout<<"Error invalid metadata"<<std::endl;
+            return;
+        }
+    }
+    
+    updateClusterCount(metaThreshold);   
+}
+
+
 

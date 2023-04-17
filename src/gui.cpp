@@ -162,59 +162,59 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
     });
     
-    // //-----------block 5 contrast ---------------------
-    QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
-        ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
-        bool enabled = blocks[5]->getEnabled();
-        if (sliderValue1 == 0){ //disable if 0 on slider is selected
-            if (enabled){
-                blocks[5]->toggleEnable();
-            }
-        }
-        else{
-            if (!enabled){
-                blocks[5]->toggleEnable();
-            }
-        }
-        //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-        static_cast<contrastEnhancement*>(blocks[5])->updateThreshold(sliderValue1);
+    // // //-----------block 5 contrast ---------------------
+    // QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
+    //     ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
+    //     bool enabled = blocks[5]->getEnabled();
+    //     if (sliderValue1 == 0){ //disable if 0 on slider is selected
+    //         if (enabled){
+    //             blocks[5]->toggleEnable();
+    //         }
+    //     }
+    //     else{
+    //         if (!enabled){
+    //             blocks[5]->toggleEnable();
+    //         }
+    //     }
+    //     //access derived method of contrastEnhancer from vector of base class (image processor) pointers
+    //     static_cast<contrastEnhancement*>(blocks[5])->updateThreshold(sliderValue1);
 
-    });
+    // });
 
-    QObject::connect(ui->contrastEnhancementValueInput, &QLineEdit::textChanged, ui->contrastEnhancementSlider, [&](const QString &text) {
-        bool ok;
-        int value = text.toInt(&ok);
-        if (ok) {
-            ui->contrastEnhancementSlider->setValue(value);
-        }
-    });
+    // QObject::connect(ui->contrastEnhancementValueInput, &QLineEdit::textChanged, ui->contrastEnhancementSlider, [&](const QString &text) {
+    //     bool ok;
+    //     int value = text.toInt(&ok);
+    //     if (ok) {
+    //         ui->contrastEnhancementSlider->setValue(value);
+    //     }
+    // });
 
-    // //-----------block 6 kMeans ---------------------
-    QObject::connect(ui->kMeansSlider, &QSlider::valueChanged, ui->kMeansValueInput, [&](int sliderValue3) {
-        ui->kMeansValueInput->setText(QString::number(sliderValue3));
-        bool enabled = blocks[6]->getEnabled();
-        if (sliderValue3 == 0){ //disable if 0 on slider is selected
-            if (enabled){
-                blocks[6]->toggleEnable();
-            }
-        }
-        else{
-            if (!enabled){
-                blocks[6]->toggleEnable();
-            }
-        }
-        //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-        static_cast<kMeansCluster*>(blocks[6])->updateClusterCount(sliderValue3);
+    // // //-----------block 6 kMeans ---------------------
+    // QObject::connect(ui->kMeansSlider, &QSlider::valueChanged, ui->kMeansValueInput, [&](int sliderValue3) {
+    //     ui->kMeansValueInput->setText(QString::number(sliderValue3));
+    //     bool enabled = blocks[6]->getEnabled();
+    //     if (sliderValue3 == 0){ //disable if 0 on slider is selected
+    //         if (enabled){
+    //             blocks[6]->toggleEnable();
+    //         }
+    //     }
+    //     else{
+    //         if (!enabled){
+    //             blocks[6]->toggleEnable();
+    //         }
+    //     }
+    //     //access derived method of contrastEnhancer from vector of base class (image processor) pointers
+    //     static_cast<kMeansCluster*>(blocks[6])->updateClusterCount(sliderValue3);
 
-    });
+    // });
 
-    QObject::connect(ui->kMeansValueInput, &QLineEdit::textChanged, ui->kMeansSlider, [&](const QString &text) {
-        bool ok;
-        int value = text.toInt(&ok);
-        if (ok) {
-            ui->kMeansSlider->setValue(value);
-        }
-    });
+    // QObject::connect(ui->kMeansValueInput, &QLineEdit::textChanged, ui->kMeansSlider, [&](const QString &text) {
+    //     bool ok;
+    //     int value = text.toInt(&ok);
+    //     if (ok) {
+    //         ui->kMeansSlider->setValue(value);
+    //     }
+    // });
 
 
 
