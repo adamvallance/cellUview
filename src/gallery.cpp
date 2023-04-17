@@ -151,21 +151,6 @@ std::map<std::string, std::string> Gallery::getMetadata(std::string fname){
     return restoredParams;
 }
 
-
-void Gallery::updateImgName(std::string newName){
-    if (newName.find("/") != std::string::npos) {
-        std::cout << "Error. Contains illegal / char" << std::endl;
-        //UPDATE TEXTBOX HERE TODO
-        //add check to see if names are the same, if they are then break. 
-    }else{//update name
-        imgName=newName;
-        updateIndex();
-    }
-    // if (newName.empty()){
-    //     imgName="Capture";
-    //     updateIndex();
-    // }
-}
  
 void Gallery::updateIndex(){
 //(re)open already existing/newly created directory 
@@ -211,7 +196,7 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
         galleryDisplayIndex -= 4;
     }
     //check not out of bounds, if so move to extremes
-    std::cout<<galleryDisplayIndex<<std::endl;
+    //std::cout<<galleryDisplayIndex<<std::endl;
 
     if (galleryDisplayIndex < 0){
         galleryDisplayIndex = 0;
@@ -230,20 +215,17 @@ std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionI
     galleryDisplayFname.clear();
     for (int i = 0; i<4; i++){
         panelIndex = galleryDisplayIndex + i;
-        std::cout<<panelIndex<<std::endl;
-        // if (panelIndex<0){ //error fixing
-        //     panelIndex =0;
-        // }
+        //std::cout<<panelIndex<<std::endl;
         try{
 
             capturePathName = pathname + imgName + std::to_string(panelIndex) + ".jpg";
             captureMat = cv::imread(capturePathName);
             metadataGalleryLabel= getMetadata(capturePathName);
             note = metadataGalleryLabel["note"];
-            displayString = std::to_string(panelIndex) + ":   " + note; //+METADATA
+            displayString = std::to_string(panelIndex) + ":   " + note; 
             galleryDisplayFname.push_back(capturePathName);
 
-            std::cout<<note<<std::endl;;
+            //std::cout<<note<<std::endl;;
 
 
         }catch(...){
@@ -263,10 +245,9 @@ std::string Gallery::getGalleryDisplayFname(int pos){
 }
 
 bool Gallery::galleryAtEnd(){
-    std::cout<<galleryDisplayIndex<<std::endl;
-    std::cout<<captureImgCounter<<std::endl;
+    //std::cout<<galleryDisplayIndex<<std::endl;
+    //std::cout<<captureImgCounter<<std::endl;
     return (galleryDisplayIndex + 5 == captureImgCounter);
 }
 
-//get rid of back slashes in names
 

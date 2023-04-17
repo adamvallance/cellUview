@@ -159,12 +159,10 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         QString enteredText = ui->updateNameBox->toPlainText();
         std::string enteredTextStr = enteredText.toStdString();
         if (enteredTextStr == ""){
-            std::cout<<"switching"<<std::endl;
+            //std::cout<<"switching"<<std::endl;
             enteredTextStr = " ";
-            //ui->updateNameBox->setText(emptyQStr);
         }
         this->cam->setNote(enteredTextStr);
-        //textEditController(enteredTextStr, false);
     });
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
@@ -268,7 +266,7 @@ void Gui::captureNextFrame()
 
 
 /**
-* Restores image processing settings from existing capture metadata
+* Restores image processing settings from existing capture metadata by passing to every image processor block through callback
 * @param fname filename for image to restore metadata from
 **/
 void Gui::restoreSettings(std::string fname)
@@ -278,11 +276,6 @@ void Gui::restoreSettings(std::string fname)
     metadata = this->gallery->getMetadata(fname);
 
 
-    ////debug
-    //std::string erosion = metadata["erosion"];
-    //std::cout<<"erosion::" + erosion<<std::endl;
-    
-
     //pass retrieved metadata through callbacks to each image proc block
     for (auto block : blocks){
         block->updateSettings(metadata);
@@ -290,9 +283,9 @@ void Gui::restoreSettings(std::string fname)
     this->updateSettings(metadata);//updates gui sliders
 }
 
-//resets gui sliders and checkboxes to match new settings
 /**
 * Restores GUI sliders and checkboxes to match the restored image processor settings.
+* @param metadata restored from saved capture in gallery directory.
 **/
 void Gui::updateSettings(std::map<std::string, std::string> metadata){
     //std::cout<<"in gui update settings"<<std::endl;
@@ -308,7 +301,6 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         };
 
 
-        //std::cout<<value<<std::endl;
 
         if (value == ""){
             std::cerr<<"check paramLabel is defined in derived image procesor class"<<std::endl;
@@ -323,6 +315,7 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
         }
 
         //janky but not sure how else to make these connections
+        //------------------------------- iterate through metadata to restore GUI state-------------------
         if(label == "edgeThreshold"){
             try{
                 ui->edgeEnhancementSlider->setValue(std::stoi(value));
@@ -334,7 +327,6 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
                 }
             }
         }
-                //janky but not sure how else to make these connections
         else if(label == "contrastThreshold"){
             try{
                 ui->contrastEnhancementSlider->setValue(std::stoi(value));
@@ -376,7 +368,10 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     
 }
 
-
+/**
+* Updates gallery previews with a new four images with labels
+* @param directionIsNext if true, moves the gallery view forward to more recent captures, otherwise back to an earlier 4 captures
+**/
 void Gui::updateGalleryView(bool directionIsNext){
     std::list<std::pair<std::string, cv::Mat>> loaded = this->gallery->getCaptures(directionIsNext);
     std::vector<std::string> keys;
@@ -386,10 +381,6 @@ void Gui::updateGalleryView(bool directionIsNext){
         keys.push_back(it->first);
         mats.push_back(it->second);
     }
-    // for (std::list<std::string, cv::Mat>::iterator it = loaded.begin(); it != loaded.end(); ++it) {
-    //     keys.push_back(it->first);
-    //     std::cout<<it->first<<std::endl;
-    // } 
 
 
     cv::Mat img;
@@ -461,31 +452,20 @@ void Gui::updateGalleryView(bool directionIsNext){
         ui->galleryPos4->clear();
         ui->namePos4->clear();
     }
+
+    //required for restoring settings from selected capture
     galleryStrs.clear();
     galleryStrs = {str1, str2, str3, str4};
     galleryQImages.clear();
-    galleryQImages={gallery1, gallery2, gallery3, gallery4};
+    galleryQImages={gallery1, gallery2, gallery3, gallery4}; 
 
 }
 
 
-//  void Gui::textEditController(std::string enteredTextStr, bool pressed){
-
-//     myString = enteredTextStr;
-//     if (!myString.empty()){
-//         std::cout<<"Entered String: "<<enteredTextStr<<std::endl;
-//         if( pressed == true){
-//             this->gallery->updateImgName(myString);
-//             bool pressed =false;F
-//         }
-//     }
-//     else{
-//         QString empty = " ";
-//         ui->updateNameBox->setText(empty);
-//         this
-//     }
-// }
-
+/**
+* Displays a popup window showing a full-sized capture with a button option to restore settings from that capture.
+* @param position position within the four spaced as 0, 1 on top row and 2, 3 on the bottom.
+**/
 //function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
 void Gui::showDialog(int position) {
     dialog.accept();
