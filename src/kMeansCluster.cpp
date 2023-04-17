@@ -5,7 +5,9 @@
 #include "kMeansCluster.h"
 #include <opencv2/imgproc.hpp>
 
-// Receives new frames through a callback.
+/**
+* Recieves new frames for processing via callback.
+**/
 void kMeansCluster::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
@@ -183,22 +185,37 @@ void kMeansCluster::updateKMeans(frame f, bool calculateClusterPercentages) {
 }
 
 
-
+/**
+* Updates k-means cluster count value for processing method.
+* @param value GUI slider value which is passed to give mapping to clusterSlider.
+**/
 void kMeansCluster::updateClusterCount(int value){
     num_clusters = value;
     clusterSlider = value;
 }
 
+
+/**
+* Enables percentage calculation for cluster size.
+**/
 void kMeansCluster::centroidPercentage(){
     calculatePercentageEnabled = true;
     percentageCalculated=false;
 
 }
 
+/**
+* Getter for k-means cluster percentages to be displayed on the GUI.
+**/
 std::list<std::pair<cv::Vec3b, std::string>> kMeansCluster::getClusterAnalysis(){
     return percentageDisplay;
 }
 
+
+/**
+* Implemented from ImageProcessor. Updates settings based on metadata.
+* @param metadata standard map of strings containing metadata
+**/
 void kMeansCluster::updateSettings(std::map<std::string, std::string> metadata){
     std::string rec = metadata[paramLabel];
     int metaThreshold;
