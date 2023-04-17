@@ -21,7 +21,7 @@
 
 # Summary
 
-cellUview provides a real-time image processing suite designed for the open-source, Raspberry Pi based OpenFlexure microscope platform - with capabilities such as contrast and exposure adjustment, erosion and dilation, flat field correction, edge detection/enhancement, and classification using k-means clustering. It also allows for easy image capturing with an in-built gallery viewer, with a quick, simple way to restore processing settings from a previous capture.
+cellUview provides a real-time image processing suite designed for the open-source, Raspberry Pi based OpenFlexure microscope platform - with capabilities such as contrast and exposure adjustment, erosion and dilation, chromatic aberration correction, edge detection/enhancement, and classification using k-means clustering. It also allows for easy image capturing with an in-built gallery viewer, which features a quick, simple way to restore processing settings from a previous capture.
 
 <div align="center">
 <img src="https://github.com/adamvallance/cellUview/blob/docPolish/images/cellUview_system_diag.png?raw=true" alt="cellUview hardware system diagram" width="800"/>
@@ -81,7 +81,7 @@ This can be typed in the terminal from anywhere.
 
 # Using cellUview
 
-cellUview has an easy-to-use UI to make real-time microscopy image sample processing simple, even for novice users. The interface, shown in the guide videos below, is split into different sections. In the centre is the microscope video stream showing which updates in real-time to show all of your applied image processing settings - which can be controlled in the panel directly below the stream. In the upper right hand corner is the motor control panel, and below that the image analysis panel. On the left hand side are the capture controls and image gallery. 
+cellUview has an easy-to-use UI to make real-time microscopy image sample processing simple, even for novice users. The interface, shown in the guide videos below, is split into different sections. In the centre is the microscope video stream which updates in real-time to show all of your applied image processing settings - which are controlled in the panel directly below the stream. In the upper right hand corner is the motor control panel, and below that the image analysis panel. On the left hand side are the capture controls and image gallery. 
 
 In the motor control panel you can view and control the position of the OpenFlexure motors for x, y, and z axes, either by typing in the desired position or using the buttons to step the motors. Controls for the x- and y-axis will move the microscope slide laterally, whereas z-axis control can be used to focus the image correctly. If the motors are not connected, for instance if cellUview is being used on an earlier version of OpenFlexure with manual control only, then this panel is disabled.
 
@@ -153,7 +153,7 @@ This is a project being carried out by a group of University of Glasgow engineer
 
 Credits to Richard Bowman and the <a href="https://openflexure.org/">OpenFlexure microscope platform</a> that this project was built upon.
 
-Credits to Bernd Porr's <a href="https://github.com/berndporr/opencv-camera-callback">OpenCV Camera Callback Class</a>, and Phil Harvey's <a href="https://exiftool.org/">C++ ExifTool library</a> for reading and writing metadata.
+Also, credits to Bernd Porr's <a href="https://github.com/berndporr/opencv-camera-callback">OpenCV Camera Callback Class</a>, and Phil Harvey's <a href="https://exiftool.org/">C++ ExifTool library</a> for reading and writing metadata.
 
 
 # Additional Developer Instructions
