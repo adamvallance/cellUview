@@ -102,6 +102,21 @@ Using motors:
 
 https://user-images.githubusercontent.com/72609606/232557070-711c9b05-bb8e-4470-a1ea-78805089fca2.mp4
 
+Changing image settings:
+
+https://user-images.githubusercontent.com/72609606/232560502-6fe65015-7f32-4afa-8bab-2b32e7a25eb7.mp4
+
+Taking a capture:
+
+https://user-images.githubusercontent.com/72609606/232560614-edb1f39d-e222-45b4-99c6-45c785a1bc81.mp4
+
+Restoring settings:
+
+https://user-images.githubusercontent.com/72609606/232560682-0aba59dd-6694-4a25-9400-9e8d12413d23.mp4
+
+
+
+
 
 
 
