@@ -135,6 +135,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     });
 
 
+
     //-------------block -1 edge enhancement-----------------------
     QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->edgeEnhancementValueInput, [&](int sliderValue) {
         ui->edgeEnhancementValueInput->setText(QString::number(sliderValue));
@@ -162,62 +163,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
     });
     
-    // // //-----------block 5 contrast ---------------------
-    // QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
-    //     ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
-    //     bool enabled = blocks[5]->getEnabled();
-    //     if (sliderValue1 == 0){ //disable if 0 on slider is selected
-    //         if (enabled){
-    //             blocks[5]->toggleEnable();
-    //         }
-    //     }
-    //     else{
-    //         if (!enabled){
-    //             blocks[5]->toggleEnable();
-    //         }
-    //     }
-    //     //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-    //     static_cast<contrastEnhancement*>(blocks[5])->updateThreshold(sliderValue1);
-
-    // });
-
-    // QObject::connect(ui->contrastEnhancementValueInput, &QLineEdit::textChanged, ui->contrastEnhancementSlider, [&](const QString &text) {
-    //     bool ok;
-    //     int value = text.toInt(&ok);
-    //     if (ok) {
-    //         ui->contrastEnhancementSlider->setValue(value);
-    //     }
-    // });
-
-    // // //-----------block 6 kMeans ---------------------
-    // QObject::connect(ui->kMeansSlider, &QSlider::valueChanged, ui->kMeansValueInput, [&](int sliderValue3) {
-    //     ui->kMeansValueInput->setText(QString::number(sliderValue3));
-    //     bool enabled = blocks[6]->getEnabled();
-    //     if (sliderValue3 == 0){ //disable if 0 on slider is selected
-    //         if (enabled){
-    //             blocks[6]->toggleEnable();
-    //         }
-    //     }
-    //     else{
-    //         if (!enabled){
-    //             blocks[6]->toggleEnable();
-    //         }
-    //     }
-    //     //access derived method of contrastEnhancer from vector of base class (image processor) pointers
-    //     static_cast<kMeansCluster*>(blocks[6])->updateClusterCount(sliderValue3);
-
-    // });
-
-    // QObject::connect(ui->kMeansValueInput, &QLineEdit::textChanged, ui->kMeansSlider, [&](const QString &text) {
-    //     bool ok;
-    //     int value = text.toInt(&ok);
-    //     if (ok) {
-    //         ui->kMeansSlider->setValue(value);
-    //     }
-    // });
-
-
-
+ 
 
     QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
         this->cam->setExposure(sliderValue2);
@@ -259,7 +205,11 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
 
+
+    //-----------Kmeans image analysis------------------
     QObject::connect(ui->kMeansPercentage, &QPushButton::released, this, &Gui::displayKmeans);
+    //ui->cluster0Checkbox->setStyleSheet("QCheckBox { color: black; } QCheckBox::indicator {background-color: rgb(179, 179, 179); border: none; } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+
 
     //// How to connect a button to an instance of another class
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){gallery->getMetadata();});
@@ -353,11 +303,26 @@ void Gui::setUpdateFlatField(){
 }
 
 void Gui::displayKmeans(){
+    if (blocks[6]->getEnabled() == false){
+        return;
+    }
 
     static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
+    std::list<std::pair<cv::Vec3b, double>> kmeansValues = static_cast<kMeansCluster*>(blocks[6])->getClusterAnalysis();
+
+    //replace this to iterate over 
+    if (kmeansValues.size() > 0){
+        ui->cluster0Checkbox->setStyleSheet("QCheckBox { color: bgr(255,0,0); } QCheckBox::indicator {background-color: bgr(255, 0, 0);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+        //ui->cluster0Checkbox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+
+    }
 
 }
 
+// void Gui::setKmeansStyleSheet(cv::Vec3b){
+//     std::string color = 
+
+// }
 
 
 /**

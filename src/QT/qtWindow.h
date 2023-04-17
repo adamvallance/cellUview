@@ -78,7 +78,6 @@ public:
     QLabel *kMeansLabel;
     QSlider *kMeansSlider;
     QLineEdit *kMeansValueInput;
-    QPushButton *kMeansPercentage;
     QWidget *motorControlColumn;
     QLabel *MotorControls;
     QLabel *MotorControlUnderline;
@@ -96,6 +95,15 @@ public:
     QPushButton *zUpButton;
     QPushButton *zDownButton;
     QLabel *motorDisableText;
+    QPushButton *kMeansPercentage;
+    QLabel *MotorControls_2;
+    QLabel *MotorControlUnderline_3;
+    QLabel *MotorControlUnderline_4;
+    QCheckBox *cluster0Checkbox;
+    QCheckBox *cluster1Checkbox;
+    QCheckBox *cluster2Checkbox;
+    QCheckBox *cluster3Checkbox;
+    QCheckBox *cluster4Checkbox;
     QMenuBar *menubar;
     QMenu *menuOpenflexure;
     QStatusBar *statusbar;
@@ -148,11 +156,11 @@ public:
         galleryPos2->setGeometry(QRect(220, 20, 191, 191));
         nextButton = new QPushButton(ImageHolder);
         nextButton->setObjectName(QStringLiteral("nextButton"));
-        nextButton->setGeometry(QRect(210, 440, 51, 25));
+        nextButton->setGeometry(QRect(210, 440, 61, 31));
         nextButton->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         backButton = new QPushButton(ImageHolder);
         backButton->setObjectName(QStringLiteral("backButton"));
-        backButton->setGeometry(QRect(150, 440, 51, 25));
+        backButton->setGeometry(QRect(140, 440, 61, 31));
         backButton->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         galleryPos4 = new QLabel(ImageHolder);
         galleryPos4->setObjectName(QStringLiteral("galleryPos4"));
@@ -335,10 +343,6 @@ public:
         kMeansValueInput->setGeometry(QRect(370, 130, 71, 31));
         kMeansValueInput->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(179, 179, 179);"));
-        kMeansPercentage = new QPushButton(widget_6);
-        kMeansPercentage->setObjectName(QStringLiteral("kMeansPercentage"));
-        kMeansPercentage->setGeometry(QRect(270, 90, 361, 41));
-        kMeansPercentage->setStyleSheet(QStringLiteral("background-color: rgb(179, 179, 179);"));
         motorControlColumn = new QWidget(background);
         motorControlColumn->setObjectName(QStringLiteral("motorControlColumn"));
         motorControlColumn->setGeometry(QRect(1160, 20, 311, 781));
@@ -423,6 +427,48 @@ public:
         motorDisableText->setObjectName(QStringLiteral("motorDisableText"));
         motorDisableText->setGeometry(QRect(6, 76, 301, 261));
         motorDisableText->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        kMeansPercentage = new QPushButton(motorControlColumn);
+        kMeansPercentage->setObjectName(QStringLiteral("kMeansPercentage"));
+        kMeansPercentage->setGeometry(QRect(20, 430, 271, 41));
+        kMeansPercentage->setStyleSheet(QStringLiteral("background-color: rgb(179, 179, 179);"));
+        MotorControls_2 = new QLabel(motorControlColumn);
+        MotorControls_2->setObjectName(QStringLiteral("MotorControls_2"));
+        MotorControls_2->setGeometry(QRect(15, 360, 280, 41));
+        MotorControls_2->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
+"background-color: rgb(83, 83, 83);"));
+        MotorControls_2->setAlignment(Qt::AlignCenter);
+        MotorControlUnderline_3 = new QLabel(motorControlColumn);
+        MotorControlUnderline_3->setObjectName(QStringLiteral("MotorControlUnderline_3"));
+        MotorControlUnderline_3->setGeometry(QRect(15, 405, 280, 5));
+        MotorControlUnderline_3->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
+"background-color: rgb(83, 83, 83);"));
+        MotorControlUnderline_3->setAlignment(Qt::AlignCenter);
+        MotorControlUnderline_4 = new QLabel(motorControlColumn);
+        MotorControlUnderline_4->setObjectName(QStringLiteral("MotorControlUnderline_4"));
+        MotorControlUnderline_4->setGeometry(QRect(15, 770, 280, 5));
+        MotorControlUnderline_4->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
+"background-color: rgb(83, 83, 83);"));
+        MotorControlUnderline_4->setAlignment(Qt::AlignCenter);
+        cluster0Checkbox = new QCheckBox(motorControlColumn);
+        cluster0Checkbox->setObjectName(QStringLiteral("cluster0Checkbox"));
+        cluster0Checkbox->setGeometry(QRect(30, 500, 171, 23));
+        cluster0Checkbox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        cluster1Checkbox = new QCheckBox(motorControlColumn);
+        cluster1Checkbox->setObjectName(QStringLiteral("cluster1Checkbox"));
+        cluster1Checkbox->setGeometry(QRect(30, 530, 171, 23));
+        cluster1Checkbox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        cluster2Checkbox = new QCheckBox(motorControlColumn);
+        cluster2Checkbox->setObjectName(QStringLiteral("cluster2Checkbox"));
+        cluster2Checkbox->setGeometry(QRect(30, 560, 171, 23));
+        cluster2Checkbox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        cluster3Checkbox = new QCheckBox(motorControlColumn);
+        cluster3Checkbox->setObjectName(QStringLiteral("cluster3Checkbox"));
+        cluster3Checkbox->setGeometry(QRect(30, 590, 171, 23));
+        cluster3Checkbox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        cluster4Checkbox = new QCheckBox(motorControlColumn);
+        cluster4Checkbox->setObjectName(QStringLiteral("cluster4Checkbox"));
+        cluster4Checkbox->setGeometry(QRect(30, 620, 171, 23));
+        cluster4Checkbox->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
         GUI->setCentralWidget(centralwidget);
         menubar = new QMenuBar(GUI);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -480,7 +526,6 @@ public:
         flatFieldBox->setText(QApplication::translate("GUI", "Flat Field Correction", Q_NULLPTR));
         kMeansLabel->setText(QApplication::translate("GUI", "k-Means Cluster Count", Q_NULLPTR));
         kMeansValueInput->setText(QString());
-        kMeansPercentage->setText(QApplication::translate("GUI", "k mean percentage", Q_NULLPTR));
         MotorControls->setText(QApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:700;\">Motor Controls</span></p></body></html>", Q_NULLPTR));
         MotorControlUnderline->setText(QApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", Q_NULLPTR));
         xAxisControlHeader->setText(QApplication::translate("GUI", "<html><head/><body><p>X-axis Controls</p></body></html>", Q_NULLPTR));
@@ -494,6 +539,15 @@ public:
         zUpButton->setText(QApplication::translate("GUI", "+", Q_NULLPTR));
         zDownButton->setText(QApplication::translate("GUI", "-", Q_NULLPTR));
         motorDisableText->setText(QApplication::translate("GUI", "<html><head/><body><p align=\"center\">Motors are not connected</p><p align=\"center\">Manual operation only</p></body></html>", Q_NULLPTR));
+        kMeansPercentage->setText(QApplication::translate("GUI", "Calculate Centroid Percentages", Q_NULLPTR));
+        MotorControls_2->setText(QApplication::translate("GUI", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:696;\">Image Analysis</span></p></body></html>", Q_NULLPTR));
+        MotorControlUnderline_3->setText(QApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", Q_NULLPTR));
+        MotorControlUnderline_4->setText(QApplication::translate("GUI", "<html><head/><body><p><br/></p></body></html>", Q_NULLPTR));
+        cluster0Checkbox->setText(QApplication::translate("GUI", "cluster percentage", Q_NULLPTR));
+        cluster1Checkbox->setText(QApplication::translate("GUI", "cluster percentage", Q_NULLPTR));
+        cluster2Checkbox->setText(QApplication::translate("GUI", "cluster percentage", Q_NULLPTR));
+        cluster3Checkbox->setText(QApplication::translate("GUI", "cluster percentage", Q_NULLPTR));
+        cluster4Checkbox->setText(QApplication::translate("GUI", "cluster percentage", Q_NULLPTR));
         menuOpenflexure->setTitle(QApplication::translate("GUI", "cellUview", Q_NULLPTR));
     } // retranslateUi
 
