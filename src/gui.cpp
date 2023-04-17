@@ -124,6 +124,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         //access derived method of contrastEnhancer from vector of base class (image processor) pointers
         static_cast<kMeansCluster*>(blocks[6])->updateClusterCount(sliderValue3);
 
+        displayKmeans();
     });
 
     QObject::connect(ui->kMeansValueInput, &QLineEdit::textChanged, ui->kMeansSlider, [&](const QString &text) {
@@ -214,11 +215,6 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     ui->cluster2Checkbox->setChecked(true);
     ui->cluster3Checkbox->setChecked(true);
     ui->cluster4Checkbox->setChecked(true);
-    // ui->cluster0Checkbox->setCheckable(false);
-    // ui->cluster1Checkbox->setCheckable(false);
-    // ui->cluster2Checkbox->setCheckable(false);
-    // ui->cluster3Checkbox->setCheckable(false);
-    // ui->cluster4Checkbox->setCheckable(false);
     ui->cluster0Checkbox->setEnabled(false);
     ui->cluster1Checkbox->setEnabled(false);
     ui->cluster2Checkbox->setEnabled(false);
@@ -438,7 +434,6 @@ void Gui::resetCheckbox(QCheckBox* box){
 std::string Gui::setKmeansStyleSheet(cv::Vec3b In){
     std::string color = std::to_string(In[2]) + ", " + std::to_string(In[1]) + ", " + std::to_string(In[0]);
     std::string styleSheet = "QCheckBox::indicator:checked { background-color: rgb(" + color + "); }";
-    std::cout<<styleSheet<<std::endl;
     return styleSheet;
 
 }
