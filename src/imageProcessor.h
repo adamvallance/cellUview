@@ -9,6 +9,9 @@
 #include <thread>
 
 //abstract class 
+/**
+* Abstract class for image processing blocks.
+**/
 class imageProcessor{
 public:
     imageProcessor() = default;

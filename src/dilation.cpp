@@ -7,6 +7,9 @@
 #include <opencv2/imgproc.hpp>
 
 // Receives new frames through a callback.
+/**
+* Recieves new frames for processing via callback.
+**/
 void dilation::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
@@ -37,6 +40,10 @@ void dilation::dilate(frame f) {
     frameCb->receiveFrame(f);
 }
 
+/**
+* Implemented from ImageProcessor. Updates settings based on metadata.
+* @param metadata standard map of strings containing metadata
+**/
 void dilation::updateSettings(std::map<std::string, std::string> metadata){
     
     std::string rec = metadata[paramLabel];

@@ -11,12 +11,17 @@
 #include "imageProcessor.h"
 #include "gallery.h"
 
-
+/**
+* Image processing class to perform flat field and chromatic abberation correction on the input image, to compensate for uneven illumination on the image plane.
+**/
 class flatFieldCorrect: public imageProcessor{
 public:
     flatFieldCorrect() = default;
 
     void receiveFrame(frame newFrame);
+    /**
+    * @returns paramLabel, std::string containing metadata parameter
+    **/
     std::string getParamLabel(){return paramLabel;};
     void setUpdateFlag();
     

@@ -40,6 +40,9 @@ void Camera::postFrame()
     frameCb->receiveFrame(f);
 }
 
+/**
+* Starts recording in separate camera thread.
+**/
 void Camera::start(int deviceID, int apiID){
     isOn = true;
     videoCapture.open(deviceID, apiID);
@@ -47,11 +50,18 @@ void Camera::start(int deviceID, int apiID){
     cameraThread = std::thread(&Camera::threadLoop, this);
 }
 
+/**
+* Stops camera thread. Call before program exit.
+**/
 void Camera::stop(){
     isOn = false;
     cameraThread.join();
 }
 
+/**
+* Modifies camera exposure value
+* @param exposureValue exposure in EV 
+**/
 void Camera::setExposure(int exposureValue){
     exposureState = std::to_string(exposureValue);
     videoCapture.set(cv::CAP_PROP_AUTO_EXPOSURE, 1); // set to manual exposure
@@ -60,11 +70,16 @@ void Camera::setExposure(int exposureValue){
 }
 
 
-
+/**
+* @returns isOn, true if camera recording started
+**/
 bool Camera::getIsOn(){
     return isOn; // method to check status of camera
 }
 
+/**
+* Sets doMeta to true, to enable metadata in frame structure.
+**/
 void Camera::captureMetadata(){
     doMeta = true;
 }

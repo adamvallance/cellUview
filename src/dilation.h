@@ -12,10 +12,16 @@
 #include "frame.h"
 
 
+/**
+* Image processing class to apply dilation.
+**/
 class dilation: public imageProcessor{
 public:
     dilation() = default;
     void receiveFrame(frame newFrame);
+    /**
+    * @returns paramLabel, std::string containing metadata parameter
+    **/
     std::string getParamLabel(){return paramLabel;};
     void updateSettings(std::map<std::string, std::string>);
 
