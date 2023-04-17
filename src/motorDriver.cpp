@@ -81,8 +81,11 @@ void MotorDriver::run(){
 
     while (enabled){
 
+        // thread goes to sleep because of blocking system flag when no new movement to make
+        // blocks but thread wakes up when flag changed because of new data
+        // timeout of 1 second on wait for exit condition
         std::unique_lock<std::mutex> lock(mut);
-        cond_var.wait_for(lock, 1s); //block for a second but wake up if new data
+        cond_var.wait_for(lock, 1s); 
         // std::cout<<"cond var just passed"<<std::endl;    //debug
         if (update){            // if there is a new movement to make
     
@@ -110,7 +113,7 @@ void MotorDriver::run(){
         
         }
 
-        lock.unlock();
+        lock.unlock();          // manually unlocks mutex
         cond_var.notify_all();
 
     }
@@ -227,7 +230,7 @@ void MotorDriver::mov(char axis, int inc){
     //motorThread = std::thread(&MotorDriver::movThread, this);
     std::lock_guard<std::mutex> lock(mut);
     update = true;
-    cond_var.notify_all();
+    cond_var.notify_all();  // wakes motor thread to move motors
 }
 
     
