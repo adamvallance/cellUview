@@ -40,7 +40,10 @@ void edgeDetection::enhanceEdge(frame f) {
     // Superimpose edges on to the original frame
     cv::Mat overlay_mat;
     cv::cvtColor(gray_img, overlay_mat, cv::COLOR_GRAY2BGR);
-    cv::addWeighted(input_mat, 0.9, overlay_mat, 0.3, 0, output_mat);
+    double alpha = 0.9;     // variables for weighted sum of arrays calculation
+    double beta = 0.3;      // array sum calculation:
+    double gamma = 0.0;     // output_mat = array1*alpha + array2*beta + gamma
+    cv::addWeighted(input_mat, alpha, overlay_mat, beta, gamma, output_mat);
 
     // Add output matrix to frame
     f.image = output_mat;
@@ -60,7 +63,9 @@ void edgeDetection::enhanceEdge(frame f) {
 void edgeDetection::updateThreshold(int value){
     sliderThreshold = value;
     //std::cout<<std::to_string(value)<<std::endl;
-    threshold=255-2.55*value;
+    double max_value = 255;                     // maximum threshold value
+    double scale_factor = 2.55;                 // allows scaling of slider value from percentage to proportion of maximum value
+    threshold=max_value-scale_factor*value;     // creates inversely proportional relationship between GUI slider and edge threshold, linear from max to min
 }
 
 /**
