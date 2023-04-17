@@ -10,11 +10,16 @@
 #include <thread>
 #include "imageProcessor.h"
 
-
+/**
+* Image processing class to carry out standard erosion at a set threshold to remove blurry pixels.
+**/
 class erosion: public imageProcessor{
 public:
     erosion() = default;
     void receiveFrame(frame newFrame);
+    /**
+    * @returns paramLabel, std::string containing metadata parameter
+    **/
     std::string getParamLabel(){return paramLabel;};
 
     void updateSettings(std::map<std::string, std::string>);

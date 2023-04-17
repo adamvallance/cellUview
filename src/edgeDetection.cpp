@@ -8,6 +8,9 @@
 
 
 //Receives in new frames through a callback.
+/**
+* Recieves new frames for processing via callback.
+**/
 void edgeDetection::receiveFrame(frame newFrame) {
     if (!enabled){
         newFrame.setParameter(paramLabel, "OFF");
@@ -50,11 +53,20 @@ void edgeDetection::enhanceEdge(frame f) {
 
 }
 
+/**
+* Updates edge detection threshold value for processing method.
+* @param value GUI slider value which is scaled to give correct mapping to threshold.
+**/
 void edgeDetection::updateThreshold(int value){
     sliderThreshold = value;
     //std::cout<<std::to_string(value)<<std::endl;
     threshold=255-2.55*value;
 }
+
+/**
+* Implemented from ImageProcessor. Updates settings based on metadata.
+* @param metadata standard map of strings containing metadata
+**/
 void edgeDetection::updateSettings(std::map<std::string, std::string> metadata){
     std::string rec = metadata[paramLabel];
     int metaThreshold;

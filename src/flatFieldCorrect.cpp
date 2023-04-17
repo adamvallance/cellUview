@@ -10,7 +10,9 @@
 
 
 
-
+/**
+* Recieves new frames for processing via callback.
+**/
 void flatFieldCorrect::receiveFrame(frame newFrame) {
     if (!enabled){ 
         newFrame.setParameter(paramLabel, "OFF");
@@ -25,7 +27,10 @@ void flatFieldCorrect::receiveFrame(frame newFrame) {
 
 }
 
-
+/**
+* Implemented from ImageProcessor. Updates settings based on metadata.
+* @param metadata standard map of strings containing metadata
+**/
 void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadata){
     
     std::string rec = metadata[paramLabel];
@@ -41,6 +46,7 @@ void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadat
 
     
 }
+
 void flatFieldCorrect::updateAverage(frame f) {
     // Load reference images
     std::string pathname = getenv("HOME");
@@ -104,6 +110,10 @@ void flatFieldCorrect::flatField(frame f) {
     frameCb->receiveFrame(f);
 }
 
+/**
+* Sets flag to recalibrate the flat field average based on 20 captures.
+* Called through user interface.
+**/
 void flatFieldCorrect::setUpdateFlag(){
     calculateAverageEnabled = true;
 }

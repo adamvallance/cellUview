@@ -11,7 +11,9 @@
 
 #include "frame.h"
 
-
+/**
+* Class to capture frames at framerate of camera using OpenCV and send to image processing blocks through callbacks.
+**/
 class Camera: public imageProcessor{
 public:
     Camera() = default;
