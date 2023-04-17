@@ -15,15 +15,15 @@
 **/
 void flatFieldCorrect::receiveFrame(frame newFrame) {
     if (!enabled){ 
+
         newFrame.setParameter(paramLabel, "OFF");
         frameCb->receiveFrame(newFrame);
         return;
     }
     // do stuff here
 
-    // passing frame into the flat field function
+    // passing frame into the flat field functions
     flatField(newFrame); 
-
 
 }
 
@@ -36,9 +36,7 @@ void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadat
     std::string rec = metadata[paramLabel];
 
     bool desired = (rec == "ON");
-    // std::cout<<rec<<std::endl;
 
-    // std::cout<<desired<<std::endl;
 
     if (enabled != desired){
         toggleEnable();
@@ -48,6 +46,7 @@ void flatFieldCorrect::updateSettings(std::map<std::string, std::string> metadat
 }
 
 void flatFieldCorrect::updateAverage(frame f) {
+    averageCalculated = false;
     // Load reference images
     std::string pathname = getenv("HOME");
     pathname += + "/cellUviewGallery/.FlatFieldGallery/";
@@ -77,18 +76,34 @@ void flatFieldCorrect::updateAverage(frame f) {
     cv::subtract(whiteImage, correction_factor, correction_factor);
 
     current_correction_factor = correction_factor;
+    averageCalculated = true;
+
 }
 
-
-
+/**
+* Sets flag to recalibrate the flat field average based on 20 captures.
+* Called through user interface.
+**/
+void flatFieldCorrect::setUpdateFlag(){
+    calculateAverageEnabled = true;
+    averageCalculated=false;
+}
 
 void flatFieldCorrect::flatField(frame f) {
     cv::Mat corrected_image;
+    
 
-    if (calculateAverageEnabled) {
-        updateAverage(f);
+    if (calculateAverageEnabled == true) {
         calculateAverageEnabled = false;
+        averageCalculated=false;
+        updateAverage(f);
     }
+    //don't apply if average calculation is not complete
+    if (averageCalculated == false){
+        frameCb->receiveFrame(f);
+        return;
+    }
+
     //generate Matrices identical to input and correction at 16 bit to scale beyond 255 to normalise resultatn values
     cv::Mat f_16uc3, current_correction_factor_16uc3;
     f.image.convertTo(f_16uc3, CV_16UC3);
@@ -108,12 +123,4 @@ void flatFieldCorrect::flatField(frame f) {
 
     f.setParameter(paramLabel, "ON");
     frameCb->receiveFrame(f);
-}
-
-/**
-* Sets flag to recalibrate the flat field average based on 20 captures.
-* Called through user interface.
-**/
-void flatFieldCorrect::setUpdateFlag(){
-    calculateAverageEnabled = true;
 }

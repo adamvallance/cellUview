@@ -31,6 +31,7 @@ void Camera::postFrame()
     if (doMeta)
     {
         f.setParameter(paramLabel, exposureState);
+        f.setParameter(paramLabel2, note);
         doMeta = false;
     }
 
@@ -77,12 +78,15 @@ bool Camera::getIsOn(){
 }
 
 /**
-* Sets doMeta to true, to enable metadata in frame structure.
+* Sets doMeta to true, to enable metadata in frame structure for the following frame.
 **/
 void Camera::captureMetadata(){
     doMeta = true;
 }
 
+/**
+* @param metadata updates exposure value saved in restored metadata map
+**/
 void Camera::updateSettings(std::map<std::string, std::string> metadata){
     exposureState = metadata[paramLabel];
 
@@ -98,5 +102,12 @@ void Camera::updateSettings(std::map<std::string, std::string> metadata){
         }
     }
     
-    setExposure(metaThreshold);   
+    //setExposure(metaThreshold);   //broken needs fixed 
+}
+
+/**
+* Sets the note value which is saved in metadata and shown under images in the gallery preview.
+**/
+void Camera::setNote(std::string noteIn){
+    note = noteIn;
 }
