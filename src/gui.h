@@ -56,6 +56,8 @@ private:
     void showDialog(int position);
     void updateGalleryView(bool directionIsNext);
     void resetCheckbox(QCheckBox* box);
+    void setClusterCheckbox(QCheckBox*, cv::Vec3b, std::string);
+
 
     std::string setKmeansStyleSheet(cv::Vec3b);
 
