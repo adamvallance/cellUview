@@ -83,6 +83,8 @@ This can be typed in the terminal from anywhere.
 
 cellUview has an easy-to-use UI to make real-time microscopy image sample processing simple, even for novice users. The interface, shown in the guide videos below, is split into different sections. In the centre is the microscope video stream which updates in real-time to show all of your applied image processing settings - which are controlled in the panel directly below the stream. In the upper right hand corner is the motor control panel, and below that the image analysis panel. On the left hand side are the capture controls and image gallery. 
 
+The following guide contains step by step instructions on how cellUview can be used. If you would prefer a video walkthrough format, please click <a href="https://youtu.be/RQqS8VEiBVI">here</a>.
+
 In the motor control panel you can view and control the position of the OpenFlexure motors for x, y, and z axes, either by typing in the desired position or using the buttons to step the motors. Controls for the x- and y-axis will move the microscope slide laterally, whereas z-axis control can be used to focus the image correctly. If the motors are not connected, for instance if cellUview is being used on an earlier version of OpenFlexure with manual control only, then this panel is disabled.
 
 https://user-images.githubusercontent.com/72609606/232557070-711c9b05-bb8e-4470-a1ea-78805089fca2.mp4
