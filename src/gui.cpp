@@ -3,6 +3,13 @@
 #include "contrastEnhancement.h"
 #include "grayScale.h"
 
+/**
+* Constructor to initialise the GUI and set connections
+* @param win points to QMainWindow 
+* @param ui_win points to Ui_GUI 
+* @param galleryIn points to Gallery instance
+* @param blocksIn is a std::vector of the image processing blocks
+**/
 Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn)
 {
     widget = win;
@@ -10,11 +17,33 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     ui->setupUi(widget);
 
     this->gallery = galleryIn;
-    blocks = blocksIn;
+    blocks = blocksIn; 
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
+    
 
-    // ui->logoImage->setPixmap(QPixmap(QString::fromUtf8("images/logo.png"))); add back in for future logo?
+    ui->dilationCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+    ui->erosionCheckBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+    ui->flatFieldBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+    ui->flatFieldBox->setEnabled(false);
+    ui->grayScaleBox->setStyleSheet("QCheckBox { color: white; } QCheckBox::indicator {background-color: rgb(179, 179, 179);  } QCheckBox::indicator:checked { background-color: rgb(29, 185, 84); }");
+
+
+     //-----------camera (block 0)---------------------
+    QObject::connect(ui->exposureSlider, &QSlider::valueChanged, ui->exposureValueInput, [&](int sliderValue2) {
+        this->cam->setExposure(sliderValue2);
+        ui->exposureValueInput->setText(QString::number(sliderValue2*5));
+
+
+    });
+    QObject::connect(ui->exposureValueInput, &QLineEdit::textChanged, ui->exposureSlider, [&](const QString &text) {
+        bool ok;
+        
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->exposureSlider->setValue(value/5);
+        }
+    });
 
          //-----------block 1 flat field---------------------
     QObject::connect(ui->flatFieldBox, &QCheckBox::stateChanged, this, [&](bool checkboxValue){
@@ -50,6 +79,61 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
          
     });
+
+    // //-----------block 5 contrast ---------------------
+    QObject::connect(ui->contrastEnhancementSlider, &QSlider::valueChanged, ui->contrastEnhancementValueInput, [&](int sliderValue1) {
+        ui->contrastEnhancementValueInput->setText(QString::number(sliderValue1));
+        bool enabled = blocks[5]->getEnabled();
+        if (sliderValue1 == 0){ //disable if 0 on slider is selected
+            if (enabled){
+                blocks[5]->toggleEnable();
+            }
+        }
+        else{
+            if (!enabled){
+                blocks[5]->toggleEnable();
+            }
+        }
+        //access derived method of contrastEnhancer from vector of base class (image processor) pointers
+        static_cast<contrastEnhancement*>(blocks[5])->updateThreshold(sliderValue1);
+
+    });
+
+    QObject::connect(ui->contrastEnhancementValueInput, &QLineEdit::textChanged, ui->contrastEnhancementSlider, [&](const QString &text) {
+        bool ok;
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->contrastEnhancementSlider->setValue(value);
+        }
+    });
+
+ // //-----------block 6 kMeans ---------------------
+    QObject::connect(ui->kMeansSlider, &QSlider::valueChanged, ui->kMeansValueInput, [&](int sliderValue3) {
+        ui->kMeansValueInput->setText(QString::number(sliderValue3));
+        bool enabled = blocks[6]->getEnabled();
+        if (sliderValue3 == 0){ //disable if 0 on slider is selected
+            if (enabled){
+                blocks[6]->toggleEnable();
+            }
+        }
+        else{
+            if (!enabled){
+                blocks[6]->toggleEnable();
+            }
+        }
+        //access derived method of contrastEnhancer from vector of base class (image processor) pointers
+        static_cast<kMeansCluster*>(blocks[6])->updateClusterCount(sliderValue3);
+
+    });
+
+    QObject::connect(ui->kMeansValueInput, &QLineEdit::textChanged, ui->kMeansSlider, [&](const QString &text) {
+        bool ok;
+        int value = text.toInt(&ok);
+        if (ok) {
+            ui->kMeansSlider->setValue(value);
+        }
+    });
+
 
     //-------------block -1 edge enhancement-----------------------
     QObject::connect(ui->edgeEnhancementSlider, &QSlider::valueChanged, ui->edgeEnhancementValueInput, [&](int sliderValue) {
@@ -170,7 +254,8 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
     // push button (to be renamed @Jake) connects to gallery capture
 
     ////do a capture
-    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame);
+    QObject::connect(ui->captureButton, &QPushButton::released, this, &Gui::captureNextFrame); //&Gui::captureNextFrame
+    QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){textEditController(myString, true);});
 
     QObject::connect(ui->FlatFieldButton, &QPushButton::released, this, &Gui::setUpdateFlatField);
 
@@ -179,11 +264,31 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
 
     // toggle edge
     // QObject::connect(ui->captureButton, &QPushButton::released, this, [&](){blocks[2]->toggleEnable();});
-
+    QObject::connect(ui->updateNameBox, &QTextEdit::textChanged, this, [&](){
+        QString enteredText = ui->updateNameBox->toPlainText();
+        std::string enteredTextStr = enteredText.toStdString();
+        this->cam->setNote(enteredTextStr);
+        //textEditController(enteredTextStr, false);
+    });
     // testing restore settings
     QObject::connect(ui->restoreSettingsButton, &QPushButton::released, this, [&](){ restoreSettings(""); });
+    //gallery button connections
+    QObject::connect(ui->nextButton, &QPushButton::released, this, [&](){ updateGalleryView(true);});
+    QObject::connect(ui->backButton, &QPushButton::released, this, [&](){ updateGalleryView(false);});
+
+    QObject::connect(ui->buttonPos1, &QPushButton::released, this, [&](){showDialog(galleryPos1Index);});
+    QObject::connect(ui->buttonPos2, &QPushButton::released, this, [&](){showDialog(galleryPos2Index);});
+    QObject::connect(ui->buttonPos3, &QPushButton::released, this, [&](){showDialog(galleryPos3Index);});
+    QObject::connect(ui->buttonPos4, &QPushButton::released, this, [&](){showDialog(galleryPos4Index);});
+
+
+    updateGalleryView(true);
 }
 
+/**
+* Function to recieve callbacks frames from image processor blocks
+* @param newFrame frame structure from processing block via callback interface
+**/
 void Gui::receiveFrame(frame newFrame)
 {
 
@@ -191,6 +296,9 @@ void Gui::receiveFrame(frame newFrame)
     if (doCapture && newFrame.doMeta && updateFlatField == false){
         gallery->captureFrame(newFrame);
         doCapture = false; // reset flag
+        if (this->gallery->galleryAtEnd()== true){
+            updateGalleryView(true); //if at end frame, move right
+        }
     }
     else if (doCapture && newFrame.doMeta && updateFlatField == true){
         if (flatFieldCounter <20){
@@ -210,7 +318,6 @@ void Gui::receiveFrame(frame newFrame)
 
     img = newFrame.image;
 
-    // maybe try replacing img with newFrame.img to avoid unnecessary copying.
     // convert from default opencv bgr to QT rgb
     cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
 
@@ -221,12 +328,22 @@ void Gui::receiveFrame(frame newFrame)
 
 }
 
+/**
+* Triggers capturing of 20 frames for flatfield/chromatic aberration correction.
+**/
 void Gui::setUpdateFlatField(){
     //std::cout<<"setUpdateField"<<std::endl;
 
     updateFlatField=true;
     flatFieldCounter = 0;
-    static_cast<flatFieldCorrect*>(blocks[0])->setUpdateFlag();
+    std::cout<<"New flatfield correction captured."<<std::endl;
+
+    
+    static_cast<flatFieldCorrect*>(blocks[1])->setUpdateFlag();
+    if (blocks[1]->getEnabled()==true){
+        blocks[1]->toggleEnable();
+        ui->flatFieldBox->setChecked(false);
+    }
     cam->captureMetadata();
     doCapture = true;
     //To allow checkbox to be enabled
@@ -234,12 +351,19 @@ void Gui::setUpdateFlatField(){
 }
 
 
+/**
+* Sets UI visibility 
+* @param visible true to make visible
+**/
 void Gui::SetVisible(bool visible)
 {
     widget->setVisible(visible);
 }
 
 // set to capture on next frame
+/**
+* Sets camera object to capture next frame
+**/
 void Gui::captureNextFrame()
 {
     cam->captureMetadata();
@@ -247,9 +371,14 @@ void Gui::captureNextFrame()
 }
 
 
+/**
+* Restores image processing settings from existing capture metadata
+* @param fname filename for image to restore metadata from
+**/
 void Gui::restoreSettings(std::string fname)
 {
     std::cout<<"restoring settings" <<std::endl;
+    // std::cout<<fname <<std::endl;
     metadata = this->gallery->getMetadata(fname);
 
 
@@ -266,6 +395,9 @@ void Gui::restoreSettings(std::string fname)
 }
 
 //resets gui sliders and checkboxes to match new settings
+/**
+* Restores GUI sliders and checkboxes to match the restored image processor settings.
+**/
 void Gui::updateSettings(std::map<std::string, std::string> metadata){
     //std::cout<<"in gui update settings"<<std::endl;
     std::string value;
@@ -359,3 +491,162 @@ void Gui::updateSettings(std::map<std::string, std::string> metadata){
     }
     
 }
+
+
+void Gui::updateGalleryView(bool directionIsNext){
+    std::list<std::pair<std::string, cv::Mat>> loaded = this->gallery->getCaptures(directionIsNext);
+    std::vector<std::string> keys;
+    std::list<std::pair<std::string, cv::Mat>>::const_iterator it;
+    mats.clear();
+    for (it = loaded.begin(); it != loaded.end(); ++it){
+        keys.push_back(it->first);
+        mats.push_back(it->second);
+    }
+    // for (std::list<std::string, cv::Mat>::iterator it = loaded.begin(); it != loaded.end(); ++it) {
+    //     keys.push_back(it->first);
+    //     std::cout<<it->first<<std::endl;
+    // } 
+
+
+    cv::Mat img;
+    QSize labelSize = ui->galleryPos1->size();
+
+    //reload first of four gallery view
+    img = mats[0];
+    if (img.empty() == false){
+        img = mats[0];
+        std::cout<<img.size()<<std::endl;
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+        gallery1 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        ui->galleryPos1->setPixmap(QPixmap::fromImage(gallery1).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+        str1 = QString::fromStdString(keys[0]);
+        ui->namePos1->setText(str1);
+    } else{
+        ui->galleryPos1->clear();
+        ui->namePos1->clear();
+    }
+
+
+    //second of four
+    img = mats[1];
+    if (img.empty() == false){
+        std::cout<<img.size()<<std::endl;
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+        gallery2 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        ui->galleryPos2->setPixmap(QPixmap::fromImage(gallery2).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    str2 = QString::fromStdString(keys[1]);
+    ui->namePos2->setText(str2);
+    }else{
+        ui->galleryPos2->clear();
+        ui->namePos2->clear();
+    }
+    //third of four
+    img = mats[2];
+    if (img.empty() == false){
+
+        std::cout<<img.size()<<std::endl;
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+        gallery3 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        ui->galleryPos3->setPixmap(QPixmap::fromImage(gallery3).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+        str3 = QString::fromStdString(keys[2]);
+        ui->namePos3->setText(str3);
+    }else{
+        ui->galleryPos3->clear();
+        ui->namePos3->clear();
+    }
+
+    //fourth of four
+    img = mats[3];
+    if (img.empty() == false){
+
+        std::cout<<img.size()<<std::endl;
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+        gallery4 = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                            QImage::Format_RGB888);
+        ui->galleryPos4->setPixmap(QPixmap::fromImage(gallery4).scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+        str4 = QString::fromStdString(keys[3]);
+        ui->namePos4->setText(str4);
+    } else{
+        ui->galleryPos4->clear();
+        ui->namePos4->clear();
+    }
+    galleryStrs.clear();
+    galleryStrs = {str1, str2, str3, str4};
+    galleryQImages.clear();
+    galleryQImages={gallery1, gallery2, gallery3, gallery4};
+
+}
+
+
+ void Gui::textEditController(std::string enteredTextStr, bool pressed){
+
+    myString = enteredTextStr;
+    if (!myString.empty()){
+    std::cout<<"Entered String: "<<enteredTextStr<<std::endl;
+    if( pressed == true){
+        this->gallery->updateImgName(myString);
+        bool pressed =false;
+    }
+    else{}
+    }
+    else{}
+}
+
+//function that see's that the button is pressed, return true, make batch index go to the end and show now image, 
+void Gui::showDialog(int position) {
+    dialog.accept();
+    if (position!=-1){
+    dialog.setWindowTitle("Restore Settings");
+
+    // // Load the image and create a pixmap
+    // std::string directoryStr = this->gallery->getPathname();
+    // QString directory = QString::fromStdString(directoryStr);
+    // QDir imageDir(directory);
+   
+    // imageFilters << "*.jpg";
+    // QStringList images = imageDir.entryList(imageFilters, QDir::Files | QDir::Readable);
+    // QSize labelSize = ui->galleryPos1->size();
+
+    // QImage image(directory + "/" + images[position]);
+    // QString imagName = images.at(position);
+    QString caption = galleryStrs[position];
+    //QImage image = galleryQImages[position];
+    ////vpassing wasn't working so trying
+    cv::Mat img = mats[position];
+    std::cout<<img.size()<<std::endl;
+    //cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+    QImage dialogImg = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                        QImage::Format_RGB888);
+    QLabel label;
+    label.setPixmap(QPixmap::fromImage(dialogImg));//.scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+
+    // Create a QPushButton and set its text
+    QPushButton button("Restore Image Properties");
+    QObject::connect(&button, &QPushButton::released, this, [=](){ 
+        std::string pathStr = this->gallery->getPathname();
+        //std::string fileToRestore = pathStr + caption.toStdString();
+        std::string fileToRestore = this->gallery->getGalleryDisplayFname(position);
+        restoreSettings(fileToRestore); 
+        dialog.accept();
+    });
+
+    // Create a QHBoxLayout and add the label to it
+    QVBoxLayout layout;
+    layout.addWidget(&label);
+    layout.addWidget(&button);
+
+    // Add the QHBoxLayout to the dialog's layout
+    dialog.setLayout(&layout);
+
+    dialog.exec();
+    }
+}
+

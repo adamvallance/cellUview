@@ -1,6 +1,13 @@
 #include "frame.h"
 
 
+/**
+* Sets metadata parameter value. 
+* First checks that parameter is a valid image setting. If so, sets corresponding parameter to given value in frame structure metadata.
+* If metadata is disabled, will do nothing and return.
+* @param param metadata parameter to set
+* @param val value to set
+**/
 void frame::setParameter(std::string param, std::string val){
     if (doMeta == false){
         return;
@@ -19,6 +26,10 @@ void frame::setParameter(std::string param, std::string val){
 
 }
 
+/**
+* If metadata capture is enabled, encodes metadata into frame structure.
+* @returns standard string containing image processing settings encoded such that it can be later be parsed to recover image settings.
+**/
 std::string frame::encodeMetadata(){
     if (doMeta == false){
         return "";
@@ -32,6 +43,12 @@ std::string frame::encodeMetadata(){
     }
     return encodedString;
 }
+
+/**
+* Getter for metadata parameter value.
+* @param param metadata parameter for which to return value
+* @returns std string containing requests metadata value
+**/
 std::string frame::getParam(std::string param){
     if (doMeta == false){
         return "NULL";
@@ -39,6 +56,9 @@ std::string frame::getParam(std::string param){
     return params[param];
 }
 
+/**
+* @returns size of metadata parameters map
+**/
 int frame::getParamSize(){
     return params.size();
 }

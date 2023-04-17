@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include "iostream"
 
+/**
+* Prints welcome message ASCII art on application start.
+**/
+
 class cellUviewWelcome {
     public:
         

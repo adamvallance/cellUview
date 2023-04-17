@@ -13,6 +13,10 @@
 #define metaDataItemDelim "*"
 
 
+/**
+* Frame structure used for images passing through processing blocks.
+* Supports inserting metadata into frames on processing steps applied and threshold values, which can be later read.
+**/
 class frame{
     public: 
         frame() = default;
@@ -21,6 +25,10 @@ class frame{
         //custom copy constructor replacement to allow test to pass,
         // provide a pointer to existing frame
         //and copy from there into a constructed second frame
+        /**
+        * Custom copy constructor.
+        * Provide a pointer to an existing frame and copy from there into a constructed second frame.
+        **/
         void copyFrom(frame* copyFrom){
             this->image = copyFrom->image;
             this->doMeta = copyFrom ->doMeta;
@@ -52,6 +60,7 @@ class frame{
             "contrastThreshold",
             "flatField",
             "exposure",
+            "note",
             "kMean"
             //ADD MORE PARAMETERS HERE
         };

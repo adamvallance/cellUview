@@ -17,6 +17,7 @@ Gallery::Gallery(){
     initialiseDirectory(pathname, "cellUview Gallery");
     initialiseDirectory(flatFieldPath, "Flat field capture gallery");
     updateIndex();
+    //getCaptures(false);
     
 }
 
@@ -39,7 +40,7 @@ int Gallery::initialiseDirectory(std::string path, std::string description){
         std::cout << description << " directory found at " + path << std::endl;
         closedir(dir);
     }
-
+    
     return 0;
 
     //updates index to find highest existing file with matching name to avoid overwriting
@@ -53,6 +54,8 @@ void Gallery::captureFrame(frame capFrame, bool updateFlatField, int flatFieldCo
     }
     //add ability to set custom string before number
     if (updateFlatField == true){
+
+
             captureFname = pathname + "/.FlatFieldGallery/flatField" + std::to_string(flatFieldCounter) + ".jpg";
             std::string flatFieldPath = captureFname;
 
@@ -103,7 +106,7 @@ std::map<std::string, std::string> Gallery::getMetadata(std::string fname){
     }
 
     //debug
-    //std::cout<<fname<<std::endl;
+    // std::cout<<fname<<std::endl;
 
     receivedMetadata="";
     TagInfo *info = et->ImageInfo(fname.c_str());
@@ -153,10 +156,15 @@ void Gallery::updateImgName(std::string newName){
     if (newName.find("/") != std::string::npos) {
         std::cout << "Error. Contains illegal / char" << std::endl;
         //UPDATE TEXTBOX HERE TODO
+        //add check to see if names are the same, if they are then break. 
     }else{//update name
         imgName=newName;
         updateIndex();
     }
+    // if (newName.empty()){
+    //     imgName="Capture";
+    //     updateIndex();
+    // }
 }
  
 void Gallery::updateIndex(){
@@ -188,10 +196,77 @@ void Gallery::updateIndex(){
             } 
         }
     closedir(dir);
-    
+    galleryDisplayIndex = captureImgCounter -4;
     //debug
     //std::cout << std::to_string(captureImgCounter) + " ALREADY FOUND" << std::endl;
     }  
 
 }
+
+std::list<std::pair<std::string, cv::Mat>>  Gallery::getCaptures(bool directionIsNext){
+    //adjust increment of top left index to display
+    if (directionIsNext == true){
+        galleryDisplayIndex += 4;
+    }else{
+        galleryDisplayIndex -= 4;
+    }
+    //check not out of bounds, if so move to extremes
+    std::cout<<galleryDisplayIndex<<std::endl;
+
+    if (galleryDisplayIndex < 0){
+        galleryDisplayIndex = 0;
+    }else if (galleryDisplayIndex > captureImgCounter - 4){
+        galleryDisplayIndex = captureImgCounter - 4;
+    }
+
+
+    std::list<std::pair<std::string, cv::Mat>>  stringCapPairs;
+    std::string capturePathName;
+    cv::Mat captureMat;
+    std::string displayString;
+    int panelIndex;
+    std::map<std::string, std::string> metadataGalleryLabel;
+    std::string note;
+    galleryDisplayFname.clear();
+    for (int i = 0; i<4; i++){
+        panelIndex = galleryDisplayIndex + i;
+        std::cout<<panelIndex<<std::endl;
+        // if (panelIndex<0){ //error fixing
+        //     panelIndex =0;
+        // }
+        try{
+
+            capturePathName = pathname + imgName + std::to_string(panelIndex) + ".jpg";
+            captureMat = cv::imread(capturePathName);
+            metadataGalleryLabel= getMetadata(capturePathName);
+            note = metadataGalleryLabel["note"];
+            displayString = std::to_string(panelIndex) + ":   " + note; //+METADATA
+            galleryDisplayFname.push_back(capturePathName);
+
+            std::cout<<note<<std::endl;;
+
+
+        }catch(...){
+            displayString = "";
+            cv::Mat emptyMat;
+            captureMat = emptyMat;
+        }
+        stringCapPairs.push_back({displayString, captureMat});
+        //std::cout<<displayString<<std::endl;;
+    
+    }
+    return stringCapPairs;
+}
+
+std::string Gallery::getGalleryDisplayFname(int pos){
+    return galleryDisplayFname[pos];
+}
+
+bool Gallery::galleryAtEnd(){
+    std::cout<<galleryDisplayIndex<<std::endl;
+    std::cout<<captureImgCounter<<std::endl;
+    return (galleryDisplayIndex + 5 == captureImgCounter);
+}
+
+//get rid of back slashes in names
 
