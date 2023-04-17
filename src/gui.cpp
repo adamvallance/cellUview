@@ -123,8 +123,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<image
         }
         //access derived method of contrastEnhancer from vector of base class (image processor) pointers
         static_cast<kMeansCluster*>(blocks[6])->updateClusterCount(sliderValue3);
-
-        displayKmeans();
+        static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
     });
 
     QObject::connect(ui->kMeansValueInput, &QLineEdit::textChanged, ui->kMeansSlider, [&](const QString &text) {
@@ -321,12 +320,13 @@ void Gui::setUpdateFlatField(){
 }
 
 
+
 void Gui::displayKmeans(){
     if (blocks[6]->getEnabled() == false){
         return;
     }
 
-    static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
+    //static_cast<kMeansCluster*>(blocks[6])->centroidPercentage();
     std::list<std::pair<cv::Vec3b, std::string>> kmeansValues = static_cast<kMeansCluster*>(blocks[6])->getClusterAnalysis();
 
 
