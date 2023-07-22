@@ -1,3 +1,5 @@
+
+#ifndef LINUX_DEV_NO_MOTORS
 #include "motorDriver.h"
 
 
@@ -235,3 +237,4 @@ void MotorDriver::mov(char axis, int inc){
 
     
 
+#endif //#LINUX_DEV_NO_MOTORS

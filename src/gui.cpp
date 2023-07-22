@@ -11,15 +11,19 @@
 * @param motorsIn points to MotorDriver instance
 * @param blocksIn is a std::vector of the image processing blocks
 **/
-Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *motorsIn, std::vector<imageProcessor *> &blocksIn)
-{
+#ifndef LINUX_DEV_NO_MOTORS
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *motorsIn, std::vector<imageProcessor *> &blocksIn){
+    this->motors = motorsIn;
+#else
+Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, std::vector<imageProcessor *> &blocksIn){
+#endif //LINUX_DEV_NO_MOTORS
+
     widget = win;
     ui = ui_win;
     ui->setupUi(widget);
 
     //----- save class instances passed in by reference ------
     this->gallery = galleryIn;
-    this->motors = motorsIn;
     blocks = blocksIn; 
     this->cam = static_cast<Camera*>(blocks[0]);
     enabled = true;
@@ -225,7 +229,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
     // Motor Initialisation
 
     ui->motorDisableText->setVisible(false);       // motor disabled message default to invisible
-    
+#ifndef LINUX_DEV_NO_MOTORS    
     // check if motors connected
     if (!motors->getConnected()){           // if not connected, disable controls
         ui->motorDisableText->setVisible(true);    // show no motors message
@@ -295,7 +299,7 @@ Gui::Gui(QMainWindow *win, Ui_GUI *ui_win, Gallery *galleryIn, MotorDriver *moto
         }
     });
 
-
+#endif //LINUX_DEV_NO_MOTORS
 
 }
 

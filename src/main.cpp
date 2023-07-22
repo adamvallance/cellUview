@@ -18,7 +18,10 @@
 #include "grayScale.h"
 #include "contrastEnhancement.h"
 #include "kMeansCluster.h"
+
+#ifndef LINUX_DEV_NO_MOTORS // This can be defined inside imageProcessor.h to avoid using the wiring pi library which is incompatible with linux development off of the pi
 #include "motorDriver.h"
+#endif
 
 
 int main(int argc, char* argv[]){
@@ -44,13 +47,17 @@ int main(int argc, char* argv[]){
     grayScale gray;
     std::vector <imageProcessor *> blocks={&camera, &flat, &erode, &dilate, &gray, &cont, &kmean, &edge};
 
+    #ifndef LINUX_DEV_NO_MOTORS
     MotorDriver motor;
 
     //open motor communication
     motor.start();
 
     Gui gui(&window, &ui, &gallery, &motor, blocks);
-
+    #else
+    
+    Gui gui(&window, &ui, &gallery, blocks);
+    #endif //LINUX_DEV_NO_MOTORS
 
 
     //Keep image enhancement classes in the callback chain

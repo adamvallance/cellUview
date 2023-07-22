@@ -22,8 +22,10 @@
 #include <QVBoxLayout>
 #include <list>
 #include "kMeansCluster.h"
-#include "motorDriver.h"
 
+#ifndef LINUX_DEV_NO_MOTORS
+#include "motorDriver.h"
+#endif
 
 /**
 * A class which handles GUI connections and functionality.
@@ -33,7 +35,11 @@ class Gui : public QWidget, public imageProcessor{
 
 public:
     void receiveFrame(frame newFrame);
+    #ifndef LINUX_DEV_NO_MOTORS
     Gui(QMainWindow*, Ui_GUI*, Gallery*, MotorDriver*, std::vector <imageProcessor *>&);
+    #else
+    Gui(QMainWindow*, Ui_GUI*, Gallery*, std::vector <imageProcessor *>&);
+    #endif #ifndef LINUX_DEV_NO_MOTORS
     void SetVisible(bool visible);
     void returnPosition(int x, int y, int z);
 
@@ -45,7 +51,6 @@ private:
     void restoreSettings(std::string = "");
     void updateSettings(std::map<std::string, std::string>);
     
-    void motorMove(char ax, int increment);
     
 
     std::string getParamLabel(){return "";};
@@ -68,7 +73,11 @@ private:
 
     std::string setKmeansStyleSheet(cv::Vec3b);
 
-
+#ifndef LINUX_DEV_NO_MOTORS
+    void motorMove(char ax, int increment);
+    MotorDriver *motors;
+    //std::thread motorThread;
+#endif//LINUX_DEV_NO_MOTORS
 
     //std::string textEditController(std::string enteredTextStr){return myString;};
     std::vector<QString> galleryStrs;  
@@ -103,7 +112,5 @@ private:
     std::map<std::string, std::string> metadata;
 
 
-    MotorDriver *motors;
-    //std::thread motorThread;
 };
 #endif // CELLUVIEW_GUI_H

@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <thread>
 
+#define LINUX_DEV_NO_MOTORS //comment this to leave out motors
+
+
 //abstract class 
 /**
 * Abstract class for image processing blocks.

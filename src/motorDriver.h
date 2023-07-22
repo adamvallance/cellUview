@@ -1,6 +1,8 @@
 #ifndef MOTOR_DRIVER_H
 #define MOTOR_DRIVER_H
 
+#ifndef LINUX_DEV_NO_MOTORS
+
 #include <iostream>
 #include <stdlib.h>
 #include <thread>
@@ -82,5 +84,6 @@ private:
 //     }
 // };
 
-
+#endif //LINUX_DEV_NO_MOTORS
 #endif //MOTOR_DRIVER_H
+
